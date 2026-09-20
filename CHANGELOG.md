@@ -135,6 +135,16 @@ gemeinsame Inhaltsquelle ändern.
     eine hat, statt nach dem Modul. Betroffen sind dieselben zwei Module
     wie bisher.
   - Für den Nutzer ändert sich nichts.
+- **CI-Workflow für Pull Requests** (`.github/workflows/ci.yml`). Bisher gab
+  es nur den Release-Workflow, der ausschließlich auf Tags reagiert: ein
+  Fehler fiel damit erst beim Bauen der Installer auf, also lange nach dem
+  Merge. Drei Jobs laufen jetzt bei jedem PR und auf `main`:
+  - **Inhalte & Frontend**: `check-content` (Schemas und Verweise) sowie
+    `npm run build` mit Typprüfung
+  - **iOS-App bauen**: für den Simulator, ohne Signierung, wie es ohne
+    `Signing.local.xcconfig` ohnehin läuft
+  - **Tauri-Backend prüfen**: `cargo check`, damit Rust-Fehler vor dem Tag
+    auffallen statt beim Release
 - **JSON Schemas für alle Inhaltsdateien** unter `content/schema/`, je Datei
   über `$schema` verknüpft. VS Code und die meisten Editoren werten das ohne
   Zutun aus und bieten Feldvervollständigung, eine Markierung bei fehlendem
