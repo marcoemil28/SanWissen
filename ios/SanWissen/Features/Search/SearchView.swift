@@ -24,7 +24,7 @@ struct SearchView: View {
                     LabeledContent("Durchsuchbare Einträge", value: "\(store.searchIndex.count)")
                     LabeledContent("Module", value: "\(store.registry.modules.filter(\.available).count)")
                     LabeledContent("Stand der Inhalte",
-                                   value: store.meta.contentStands["medikamente"].map(formatStand) ?? "—")
+                                   value: store.medikamente.contentStand.map(formatStand) ?? "—")
                 }
             } else if results.isEmpty {
                 ContentUnavailableView.search(text: query)

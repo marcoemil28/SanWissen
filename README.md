@@ -560,10 +560,14 @@ src/
       data.ts             # ca. 40 RS-typische Abkürzungen, alphabetisch sortiert
       GlossarModule.tsx    # Durchsuchbare Liste ohne Kategorie-Sidebar
   App.tsx                 # App-Shell: nach Thema gruppierte Sidebar, globale Suche, aktives Modul
+content/                 # ALLE Fachinhalte als JSON — die einzige Pflegestelle
+  modules.json           # Modul-Registry: Titel, Kategorie, Icon/Symbol, angepinnt
+  topics-<modul>.json    # die zehn Themenmodule mit gemeinsamem Schema
+  medikamente.json, ekg-*.json, glossar.json, quiz.json, …
 src-tauri/                # Rust-Backend (Tauri), native Fenster/Bundling
 docs/                    # Quell-PDFs/Unterlagen, aus denen Inhalte extrahiert werden
 scripts/
-  export-ios-content.mjs # liest src/modules/ und schreibt die Inhalte als JSON für iOS
+  check-content.mjs      # prüft alle Verweise in content/ (läuft bei npm run build)
 ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
   SanWissen/
     App/                 # Einstiegspunkt, Wurzelansicht (TabView bzw. Split-View), Routing
@@ -572,16 +576,19 @@ ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
     Features/            # eine Ansicht je Modul, zehn teilen sich eine gemeinsame
       Atlas/             # 3D-Anatomieatlas (SceneKit): Szene, Systeme, Quiz
     Resources/
-      Content/           # generiert vom Exportskript — nicht von Hand bearbeiten
       Images/            # Abbildungen, per illustrationId aus den Modulen referenziert
       Atlas/             # Geometrie des 3D-Atlas (Rohpuffer, ca. 97 MB) + atlas*.json
   Signing.xcconfig       # Platzhalter, bindet die lokale, nicht versionierte Datei ein
 ```
 
-Die Inhalte liegen **nur** in `src/modules/`. Die Desktop-App liest sie
-direkt als TypeScript, die iOS-App über den JSON-Export. Wer Texte ändert,
-ändert sie an einer Stelle und lässt danach `node
-scripts/export-ios-content.mjs` laufen.
+Die Inhalte liegen **nur** in `content/`, als JSON. Beide Apps lesen von
+dort: die Desktop-App über `src/app/content.ts`, die iOS-App aus dem
+App-Bundle, in das eine Build-Phase die Dateien kopiert. Es gibt keinen
+Exportschritt mehr, den man vergessen könnte.
+
+Die Dateien unter `src/modules/<name>/data.ts` halten nur noch Typisierung
+und Zugriff. Wer Texte ändert, ändert sie in `content/` und braucht dafür
+weder TypeScript noch einen Build.
 
 ### Eigene Inhalte einpflegen / korrigieren
 
@@ -714,11 +721,9 @@ eigenständige native App, weil Module wie der EKG-Trainer und der
 Elektroden-Trainer von echten Gesten und nativem Scrolling deutlich
 profitieren.
 
-Doppelt gepflegte Inhalte gibt es deshalb trotzdem nicht:
-`scripts/export-ios-content.mjs` liest die TypeScript-Module unter
-`src/modules/` und schreibt sie als JSON nach
-`ios/SanWissen/Resources/Content/`. Die Texte leben also weiter genau an
-einer Stelle, Desktop und iOS greifen beide darauf zu.
+Doppelt gepflegte Inhalte gibt es deshalb trotzdem nicht: beide Apps lesen
+dieselben JSON-Dateien aus `content/`. Eine Build-Phase des Xcode-Projekts
+kopiert sie ins App-Bundle, es gibt also nichts von Hand anzustoßen.
 
 **Einrichten:** Team-ID und Bundle-ID stehen nicht im Repository. Einmalig
 anlegen:
@@ -733,15 +738,16 @@ Apple Developer Portal → *Membership*). Die Datei steht in der
 Simulator; zum Signieren für Gerät, TestFlight oder App Store werden die
 eigenen Werte gebraucht.
 
-**Inhalte aktualisieren** — nach jeder Änderung an `src/modules/`:
+**Inhalte aktualisieren:** Dateien unter `content/` bearbeiten, fertig. Die
+Build-Phase kopiert sie beim nächsten Build ins Bundle. Prüfen lässt sich
+der Bestand jederzeit:
 
 ```bash
-node scripts/export-ios-content.mjs
+npm run check-content
 ```
 
-Ohne diesen Schritt zeigt die iOS-App weiter den alten Stand. Der Export
-bricht ab, wenn ein Verweis ins Leere zeigt, etwa wenn eine
-Cheat-Sheet-Karte auf einen umbenannten Eintrag zeigt.
+Das meldet Verweise, die ins Leere zeigen, etwa wenn eine Cheat-Sheet-Karte
+auf einen umbenannten Eintrag zeigt. Es läuft auch bei `npm run build`.
 
 **Bauen:**
 

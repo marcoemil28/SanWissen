@@ -17,6 +17,8 @@ import { QuizModule } from './quiz/QuizModule';
 import { ChecklistenModule } from '../modules/checklisten/ChecklistenModule';
 import { CheatSheetModule } from '../modules/cheatsheet/CheatSheetModule';
 
+import modulesContent from '../../content/modules.json';
+
 /**
  * Thematische Kategorien für die Sidebar-Gruppierung. Ersetzt die frühere
  * Gruppierung nach Qualifikationsstufe (SanH/RS/NotSan) — die Inhalte
@@ -71,146 +73,46 @@ export interface LearningModule {
  * 2. Eine Hauptkomponente exportieren (siehe modules/ekg/EkgModule.tsx als Vorlage).
  * 3. Hier einen Eintrag mit status: 'available' und component hinzufügen.
  */
-export const MODULES: LearningModule[] = [
-  {
-    id: 'ekg',
-    title: 'EKG-Trainer',
-    icon: '📈',
-    status: 'available',
-    component: EkgModule,
-    category: 'Diagnostik & Training',
-  },
-  {
-    id: 'algorithmen',
-    title: 'Algorithmen (ABCDE, BLS/ALS)',
-    icon: '🧭',
-    status: 'available',
-    component: AlgorithmenModule,
-    category: 'Krankheitsbilder & Algorithmen',
-  },
-  {
-    id: 'medikamente',
-    title: 'Medikamente (SAA/BPR)',
-    icon: '💊',
-    status: 'available',
-    component: MedikamenteModule,
-    category: 'Medikamente',
-  },
-  {
-    id: 'anatomie',
-    title: 'Anatomie & Physiologie',
-    icon: '🫀',
-    status: 'available',
-    component: AnatomieModule,
-    category: 'Grundlagenwissen',
-  },
-  {
-    id: 'werkzeuge',
-    title: 'Werkzeuge & Scores',
-    icon: '🧮',
-    status: 'available',
-    component: WerkzeugeModule,
-    category: 'Diagnostik & Training',
-    pinned: true,
-  },
-  {
-    id: 'traumatologie',
-    title: 'Traumatologie & Verbandslehre',
-    icon: '🩹',
-    status: 'available',
-    component: TraumatologieModule,
-    category: 'Krankheitsbilder & Algorithmen',
-  },
-  {
-    id: 'medikamentenvorbereitung',
-    title: 'Medikamente vorbereiten & verabreichen',
-    icon: '💉',
-    status: 'available',
-    component: MedikamentenvorbereitungModule,
-    category: 'Medikamente',
-  },
-  {
-    id: 'sanitaetsdienst',
-    title: 'Sanitätsdienst (Veranstaltungsdienst)',
-    icon: '🎪',
-    status: 'available',
-    component: SanitaetsdienstModule,
-    category: 'Einsatz & Organisation',
-  },
-  {
-    id: 'internistischenotfaelle',
-    title: 'Internistische Notfälle',
-    icon: '🩺',
-    status: 'available',
-    component: InternistischeNotfaelleModule,
-    category: 'Krankheitsbilder & Algorithmen',
-  },
-  {
-    id: 'paediatrie',
-    title: 'Pädiatrie & Geburtshilfe',
-    icon: '🍼',
-    status: 'available',
-    component: PaediatrieModule,
-    category: 'Krankheitsbilder & Algorithmen',
-  },
-  {
-    id: 'psychiatrienotfaelle',
-    title: 'Psychiatrische Notfälle & Kommunikation',
-    icon: '🧠',
-    status: 'available',
-    component: PsychiatrieNotfaelleModule,
-    category: 'Krankheitsbilder & Algorithmen',
-  },
-  {
-    id: 'rettungstechnik',
-    title: 'Rettungstechnik & Gerätekunde',
-    icon: '🎒',
-    status: 'available',
-    component: RettungstechnikModule,
-    category: 'Diagnostik & Training',
-  },
-  {
-    id: 'rechtlichegrundlagen',
-    title: 'Rechtliche & organisatorische Grundlagen',
-    icon: '⚖️',
-    status: 'available',
-    component: RechtlicheGrundlagenModule,
-    category: 'Einsatz & Organisation',
-  },
-  {
-    id: 'glossar',
-    title: 'Glossar & Abkürzungen',
-    icon: '📖',
-    status: 'available',
-    component: GlossarModule,
-    category: 'Diagnostik & Training',
-    pinned: true,
-  },
-  {
-    id: 'quiz',
-    title: 'Prüfungsvorbereitung (Quiz)',
-    icon: '❓',
-    status: 'available',
-    component: QuizModule,
-    category: 'Diagnostik & Training',
-    pinned: true,
-  },
-  {
-    id: 'checklisten',
-    title: 'Checklisten',
-    icon: '✅',
-    status: 'available',
-    component: ChecklistenModule,
-    category: 'Einsatz & Organisation',
-    pinned: true,
-  },
-  {
-    id: 'cheatsheet',
-    title: 'Cheat-Sheet',
-    icon: '🗒️',
-    status: 'available',
-    component: CheatSheetModule,
-    category: 'Diagnostik & Training',
-    pinned: true,
-  },
-];
+/**
+ * Zuordnung Modul-ID → Hauptkomponente. Titel, Icon, Kategorie und
+ * Anpinnung stehen in `content/modules.json`; hier bleibt nur die
+ * Verdrahtung, die sich nicht als Inhalt ausdrücken lässt.
+ */
+const COMPONENTS: Record<string, ComponentType<ModuleProps>> = {
+  ekg: EkgModule,
+  algorithmen: AlgorithmenModule,
+  medikamente: MedikamenteModule,
+  anatomie: AnatomieModule,
+  werkzeuge: WerkzeugeModule,
+  traumatologie: TraumatologieModule,
+  medikamentenvorbereitung: MedikamentenvorbereitungModule,
+  sanitaetsdienst: SanitaetsdienstModule,
+  internistischenotfaelle: InternistischeNotfaelleModule,
+  paediatrie: PaediatrieModule,
+  psychiatrienotfaelle: PsychiatrieNotfaelleModule,
+  rettungstechnik: RettungstechnikModule,
+  rechtlichegrundlagen: RechtlicheGrundlagenModule,
+  glossar: GlossarModule,
+  quiz: QuizModule,
+  checklisten: ChecklistenModule,
+  cheatsheet: CheatSheetModule,
+};
+
+/**
+ * Zentrale Modul-Registry, zusammengesetzt aus `content/modules.json` und
+ * der Komponenten-Zuordnung oben.
+ *
+ * Um ein neues Lernmodul hinzuzufügen:
+ * 1. Neuen Ordner unter src/modules/<name>/ anlegen.
+ * 2. Eine Hauptkomponente exportieren (siehe modules/ekg/EkgModule.tsx als Vorlage).
+ * 3. In content/modules.json eintragen und hier in COMPONENTS verdrahten.
+ */
+export const MODULES: LearningModule[] = modulesContent.modules.map((m) => ({
+  id: m.id,
+  title: m.title,
+  icon: m.icon,
+  status: m.available ? 'available' : 'coming-soon',
+  component: COMPONENTS[m.id],
+  category: m.category as ModuleCategory,
+  pinned: m.pinned,
+}));

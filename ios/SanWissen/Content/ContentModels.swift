@@ -176,12 +176,6 @@ struct ToolInfo: Codable, Identifiable, Hashable {
 
 // MARK: - Meta
 
-struct ContentMeta: Codable {
-    let appVersion: String
-    let exportedAt: String
-    let contentStands: [String: String]
-}
-
 /// Formatiert ein ISO-Datum (JJJJ-MM-TT) als deutsches Datum (TT.MM.JJJJ).
 ///
 /// Entsprechung zu `src/app/formatDate.ts` der Desktop-App. Ohne das stand

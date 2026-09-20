@@ -21,7 +21,6 @@ final class ContentStore {
     let quiz: [QuizQuestion]
     let roadmap: [RoadmapSection]
     let tools: [ToolInfo]
-    let meta: ContentMeta
 
     private(set) lazy var searchIndex: [SearchItem] = SearchIndex.build(from: self)
 
@@ -49,7 +48,6 @@ final class ContentStore {
         quiz = load("quiz", as: QuizFile.self).questions
         roadmap = load("roadmap", as: RoadmapFile.self).sections
         tools = load("werkzeuge", as: WerkzeugeFile.self).tools
-        meta = load("meta")
 
         var modules: [String: TopicModule] = [:]
         for id in Self.topicModuleIds {

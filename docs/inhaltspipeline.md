@@ -56,15 +56,15 @@ Künftig: **JSON ist die Quelle**, beide Apps lesen sie. Der Exportschritt
 entfällt, und mit ihm die Fehlerquelle „Export vergessen, iOS zeigt noch
 den alten Stand".
 
-Das Format steht bereits. `scripts/export-ios-content.mjs` erzeugt es seit
-Monaten, es ist also erprobt und vollständig. Der Umbau dreht die Richtung
-um, statt ein neues Format zu erfinden.
+Das Format stand bereits. `scripts/export-ios-content.mjs` hatte es über
+Monate erzeugt, es war also erprobt und vollständig. Der Umbau hat nur die
+Richtung umgedreht, statt ein neues Format zu erfinden.
 
-Was aus dem Skript erhalten bleiben muss, ist die **Prüfung**: es bricht
-ab, wenn ein Verweis ins Leere zeigt, etwa wenn eine Cheat-Sheet-Karte auf
-einen umbenannten Eintrag zeigt. Diese Prüfung wandert in einen eigenen
-Schritt, der vor jedem Build und in der CI läuft. Ohne sie fällt ein
-Tippfehler in einer ID erst in der laufenden App auf.
+Erhalten geblieben ist die **Prüfung**: sie bricht ab, wenn ein Verweis ins
+Leere zeigt, etwa wenn eine Cheat-Sheet-Karte auf einen umbenannten Eintrag
+zeigt. Sie steht jetzt als `scripts/check-content.mjs` für sich und läuft
+bei `npm run build`. Ohne sie fiele ein Tippfehler in einer ID erst in der
+laufenden App auf.
 
 ## Abbildungen
 
@@ -156,10 +156,12 @@ Entscheidung zwischen zwei Klammerarten.
 
 ## Reihenfolge
 
-1. **Inhalte nach `content/` verschieben**, als JSON, inhaltlich
-   unverändert. Beide Apps lesen danach von dort, das Exportskript
-   entfällt, seine Prüfung bleibt als eigener Schritt und läuft vor jedem
-   Build und in der CI.
+1. ~~**Inhalte nach `content/` verschieben**~~ **erledigt** (1.1.0). Beide
+   Apps lesen von dort, das Exportskript ist zu
+   `scripts/check-content.mjs` geworden und läuft bei `npm run build`.
+   Nebenbei entfallen: die generierte `meta.json` (iOS liest die Version
+   jetzt aus dem Bundle) sowie `medications.json` und `wirkung.ts`, die
+   zu `content/medikamente.json` zusammengeführt sind.
 2. **`minLevel` entfernen**, an allen 806 Stellen, samt
    `QualificationLevel` in `src/app/levels.ts`.
 3. **Abbildungen vereinheitlichen:** `illustrationId` als einziger Weg,

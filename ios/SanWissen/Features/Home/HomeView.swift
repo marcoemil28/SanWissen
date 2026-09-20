@@ -36,7 +36,7 @@ struct HomeView: View {
             Text("Lern- und Nachschlagewerk für den Sanitäts- und Rettungsdienst")
                 .font(.subheadline)
                 .foregroundStyle(theme.secondaryText)
-            Text("Version \(store.meta.appVersion) · komplett offline")
+            Text("Version \(AppInfo.version) · komplett offline")
                 .font(.caption)
                 .foregroundStyle(theme.secondaryText)
         }

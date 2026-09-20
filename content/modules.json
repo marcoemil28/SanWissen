@@ -11,6 +11,7 @@
       "id": "ekg",
       "title": "EKG-Trainer",
       "symbol": "waveform.path.ecg",
+      "icon": "📈",
       "category": "Diagnostik & Training",
       "pinned": false,
       "available": true
@@ -19,6 +20,7 @@
       "id": "algorithmen",
       "title": "Algorithmen (ABCDE, BLS/ALS)",
       "symbol": "list.bullet.rectangle.portrait",
+      "icon": "🧭",
       "category": "Krankheitsbilder & Algorithmen",
       "pinned": false,
       "available": true
@@ -27,6 +29,7 @@
       "id": "medikamente",
       "title": "Medikamente (SAA/BPR)",
       "symbol": "pills.fill",
+      "icon": "💊",
       "category": "Medikamente",
       "pinned": false,
       "available": true
@@ -35,6 +38,7 @@
       "id": "anatomie",
       "title": "Anatomie & Physiologie",
       "symbol": "figure.stand",
+      "icon": "🫀",
       "category": "Grundlagenwissen",
       "pinned": false,
       "available": true
@@ -43,6 +47,7 @@
       "id": "werkzeuge",
       "title": "Werkzeuge & Scores",
       "symbol": "function",
+      "icon": "🧮",
       "category": "Diagnostik & Training",
       "pinned": true,
       "available": true
@@ -51,6 +56,7 @@
       "id": "traumatologie",
       "title": "Traumatologie & Verbandslehre",
       "symbol": "bandage.fill",
+      "icon": "🩹",
       "category": "Krankheitsbilder & Algorithmen",
       "pinned": false,
       "available": true
@@ -59,6 +65,7 @@
       "id": "medikamentenvorbereitung",
       "title": "Medikamente vorbereiten & verabreichen",
       "symbol": "syringe.fill",
+      "icon": "💉",
       "category": "Medikamente",
       "pinned": false,
       "available": true
@@ -67,6 +74,7 @@
       "id": "sanitaetsdienst",
       "title": "Sanitätsdienst (Veranstaltungsdienst)",
       "symbol": "tent.fill",
+      "icon": "🎪",
       "category": "Einsatz & Organisation",
       "pinned": false,
       "available": true
@@ -75,6 +83,7 @@
       "id": "internistischenotfaelle",
       "title": "Internistische Notfälle",
       "symbol": "stethoscope",
+      "icon": "🩺",
       "category": "Krankheitsbilder & Algorithmen",
       "pinned": false,
       "available": true
@@ -83,6 +92,7 @@
       "id": "paediatrie",
       "title": "Pädiatrie & Geburtshilfe",
       "symbol": "figure.child",
+      "icon": "🍼",
       "category": "Krankheitsbilder & Algorithmen",
       "pinned": false,
       "available": true
@@ -91,6 +101,7 @@
       "id": "psychiatrienotfaelle",
       "title": "Psychiatrische Notfälle & Kommunikation",
       "symbol": "brain.head.profile",
+      "icon": "🧠",
       "category": "Krankheitsbilder & Algorithmen",
       "pinned": false,
       "available": true
@@ -99,6 +110,7 @@
       "id": "rettungstechnik",
       "title": "Rettungstechnik & Gerätekunde",
       "symbol": "backpack.fill",
+      "icon": "🎒",
       "category": "Diagnostik & Training",
       "pinned": false,
       "available": true
@@ -107,6 +119,7 @@
       "id": "rechtlichegrundlagen",
       "title": "Rechtliche & organisatorische Grundlagen",
       "symbol": "building.columns.fill",
+      "icon": "⚖️",
       "category": "Einsatz & Organisation",
       "pinned": false,
       "available": true
@@ -115,6 +128,7 @@
       "id": "glossar",
       "title": "Glossar & Abkürzungen",
       "symbol": "character.book.closed.fill",
+      "icon": "📖",
       "category": "Diagnostik & Training",
       "pinned": true,
       "available": true
@@ -123,6 +137,7 @@
       "id": "quiz",
       "title": "Prüfungsvorbereitung (Quiz)",
       "symbol": "questionmark.circle.fill",
+      "icon": "❓",
       "category": "Diagnostik & Training",
       "pinned": true,
       "available": true
@@ -131,6 +146,7 @@
       "id": "checklisten",
       "title": "Checklisten",
       "symbol": "checklist",
+      "icon": "✅",
       "category": "Einsatz & Organisation",
       "pinned": true,
       "available": true
@@ -139,6 +155,7 @@
       "id": "cheatsheet",
       "title": "Cheat-Sheet",
       "symbol": "note.text",
+      "icon": "🗒️",
       "category": "Diagnostik & Training",
       "pinned": true,
       "available": true

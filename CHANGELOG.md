@@ -13,9 +13,8 @@ Versionierung angelehnt an [Semantic Versioning](https://semver.org/lang/de/).
 
 Der Schwerpunkt seit 1.0.0 liegt auf der neuen iOS-App unter `ios/`. Sie
 ist kein Tauri-Wrapper, sondern in SwiftUI geschrieben, teilt sich aber
-die Inhalte mit der Desktop-App: `scripts/export-ios-content.mjs` liest
-die TypeScript-Module unter `src/modules/` und schreibt sie als JSON ins
-App-Bundle. Texte leben weiterhin genau an einer Stelle.
+die Inhalte mit der Desktop-App: beide lesen dieselben JSON-Dateien aus
+`content/`. Texte leben damit genau an einer Stelle.
 
 Einträge ohne Plattform-Vermerk betreffen beide Apps, weil sie die
 gemeinsame Inhaltsquelle ändern.
@@ -32,10 +31,9 @@ gemeinsame Inhaltsquelle ändern.
     echten Gesten und nativem Scrolling deutlich profitieren.
   - Team-ID und Bundle-ID stehen bewusst nicht im Repository, sondern in
     einer lokalen `ios/Signing.local.xcconfig` (siehe `ios/README.md`).
-- **Inhaltsexport nach JSON** (`scripts/export-ios-content.mjs`): erzeugt
-  `ios/SanWissen/Resources/Content/`. Der Export bricht ab, wenn ein
-  Verweis ins Leere zeigt, etwa wenn eine Cheat-Sheet-Karte auf einen
-  umbenannten Eintrag zeigt.
+- **Gemeinsame Inhaltsquelle unter `content/`** samt
+  `scripts/check-content.mjs`, das alle Verweise prüft und bei
+  `npm run build` läuft. Siehe „Geändert" für den Weg dorthin.
 - **Interaktiver 3D-Anatomieatlas (iOS)**, erreichbar über das Modul
   „Anatomie & Physiologie". Drehen, Zoomen, Antippen zum Untersuchen,
   Freistellen einzelner Systeme und stufenloses Auseinanderziehen bis zum
@@ -84,6 +82,30 @@ gemeinsame Inhaltsquelle ändern.
 
 ### Geändert
 
+- **Inhalte liegen jetzt in `content/` und sind die Quelle, nicht mehr das
+  Ergebnis eines Exports.** Bisher waren die TypeScript-Dateien unter
+  `src/modules/` die Quelle, und `scripts/export-ios-content.mjs` erzeugte
+  daraus die JSON-Dateien für iOS. Wer den Export vergaß, hatte Desktop und
+  iOS auf unterschiedlichem Stand, ohne dass es auffiel.
+
+  Jetzt lesen beide Apps dieselben Dateien: die Desktop-App über
+  `src/app/content.ts`, die iOS-App aus dem App-Bundle, in das eine
+  Build-Phase sie kopiert. Inhalte lassen sich damit ändern, ohne
+  TypeScript anzufassen. Am Inhalt selbst hat sich nichts geändert; die
+  Dateien sind byte-identisch zu den zuvor erzeugten, bis auf zwei bewusste
+  Ergänzungen (Emoji-Icon je Modul für die Desktop-Sidebar, `contentStand`
+  der Werkzeuge, das vorher nur in der TS-Datei stand).
+  - `scripts/export-ios-content.mjs` ist zu `scripts/check-content.mjs`
+    geworden. Es erzeugt nichts mehr, prüft aber weiter alle Verweise und
+    läuft bei `npm run build`.
+  - Die Dateien unter `src/modules/<name>/data.ts` halten nur noch
+    Typisierung und Zugriff, statt mehrere hundert Zeilen Inhalt.
+  - Die generierte `meta.json` entfällt. Sie enthielt nur Abgeleitetes; die
+    iOS-App liest ihre Version jetzt aus dem Bundle, was auch das Problem
+    löst, dass ein Versionssprung bisher einen Inhaltsexport brauchte.
+  - `medications.json` und `wirkung.ts` sind zu `content/medikamente.json`
+    zusammengeführt. Sie wurden ohnehin nur an einer Stelle kombiniert.
+  - Der Plan dahinter steht in [docs/inhaltspipeline.md](docs/inhaltspipeline.md).
 - **Das Schema heißt jetzt durchgängig xABCDE statt cABCDE.** So wird es in
   der Ausbildung benannt, und das Glossar erklärte ohnehin schon das x,
   während es als cABCDE geführt war. Betroffen sind Titel, Überschriften,

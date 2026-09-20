@@ -1,9 +1,9 @@
 # SanWissen für iOS
 
 Native SwiftUI-App mit denselben Inhalten wie die Desktop-App. Die Texte
-liegen nicht doppelt vor: `scripts/export-ios-content.mjs` liest die
-TypeScript-Module unter `src/modules/` und schreibt sie als JSON nach
-`SanWissen/Resources/Content/`.
+liegen nicht doppelt vor: beide lesen die JSON-Dateien aus `content/` im
+Wurzelverzeichnis. Eine Build-Phase des Xcode-Projekts kopiert sie ins
+App-Bundle.
 
 ## Einrichten
 
@@ -24,15 +24,18 @@ zum Signieren für ein Gerät, TestFlight oder den App Store nicht.
 
 ## Inhalte aktualisieren
 
-Nach jeder Änderung an `src/modules/`:
+Dateien unter `content/` bearbeiten. Beim nächsten Build kopiert die Phase
+„Inhalte aus content/ kopieren" sie ins Bundle, es ist also nichts von Hand
+anzustoßen.
+
+Prüfen lässt sich der Bestand mit:
 
 ```bash
-node scripts/export-ios-content.mjs
+npm run check-content
 ```
 
-Der Export bricht ab, wenn ein Verweis ins Leere zeigt — etwa wenn eine
-Cheat-Sheet-Karte auf einen umbenannten Eintrag zeigt. Ohne diesen
-Schritt zeigt die App weiter den alten Stand.
+Das meldet Verweise, die ins Leere zeigen, etwa wenn eine Cheat-Sheet-Karte
+auf einen umbenannten Eintrag zeigt.
 
 ## Bauen
 

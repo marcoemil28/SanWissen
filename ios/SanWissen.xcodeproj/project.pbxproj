@@ -55,6 +55,7 @@
 				5A0000000000000000000060 /* Sources */,
 				5A0000000000000000000030 /* Frameworks */,
 				5A0000000000000000000070 /* Resources */,
+				5A0000000000000000000120 /* Inhalte aus content/ kopieren */,
 			);
 			buildRules = (
 			);
@@ -111,6 +112,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5A0000000000000000000120 /* Inhalte aus content/ kopieren */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Inhalte aus content/ kopieren";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nSRC=\"$SRCROOT/../content\"\nDEST=\"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\nif [ ! -d \"$SRC\" ]; then\n  echo \"error: content/ nicht gefunden unter $SRC\"\n  exit 1\nfi\nmkdir -p \"$DEST\"\ncp \"$SRC\"/*.json \"$DEST/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5A0000000000000000000060 /* Sources */ = {
