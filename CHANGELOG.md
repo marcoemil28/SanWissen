@@ -7,9 +7,131 @@ Versionierung angelehnt an [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
-- **README**: neuer Abschnitt „Mobile (iOS & Android)" mit dem
-  Umsetzungsweg für native Mobile-Builds über Tauri 2 (iOS in Arbeit,
-  Android-Vorgehen dokumentiert, CI aktuell nur macOS/Windows).
+## [1.1.0] – 2026-09-20
+
+### Zweite Plattform: native App für iPhone und iPad
+
+Der Schwerpunkt seit 1.0.0 liegt auf der neuen iOS-App unter `ios/`. Sie
+ist kein Tauri-Wrapper, sondern in SwiftUI geschrieben, teilt sich aber
+die Inhalte mit der Desktop-App: `scripts/export-ios-content.mjs` liest
+die TypeScript-Module unter `src/modules/` und schreibt sie als JSON ins
+App-Bundle. Texte leben weiterhin genau an einer Stelle.
+
+Einträge ohne Plattform-Vermerk betreffen beide Apps, weil sie die
+gemeinsame Inhaltsquelle ändern.
+
+### Hinzugefügt
+
+- **iOS-App (iPhone und iPad)**: native SwiftUI-App mit denselben 17
+  Modulen wie die Desktop-App, dazu globale Suche, Favoriten, Checklisten
+  und Lernfortschritt. Auf dem iPhone eine TabView, auf dem iPad eine
+  Seitenleiste mit Detailspalte, die der Sidebar der Desktop-App
+  entspricht. Persistenz über `UserDefaults` statt `localStorage`, alles
+  offline, ohne Account.
+  - Eigenständig statt Tauri, weil EKG-Trainer und Elektroden-Trainer von
+    echten Gesten und nativem Scrolling deutlich profitieren.
+  - Team-ID und Bundle-ID stehen bewusst nicht im Repository, sondern in
+    einer lokalen `ios/Signing.local.xcconfig` (siehe `ios/README.md`).
+- **Inhaltsexport nach JSON** (`scripts/export-ios-content.mjs`): erzeugt
+  `ios/SanWissen/Resources/Content/`. Der Export bricht ab, wenn ein
+  Verweis ins Leere zeigt, etwa wenn eine Cheat-Sheet-Karte auf einen
+  umbenannten Eintrag zeigt.
+- **Interaktiver 3D-Anatomieatlas (iOS)**, erreichbar über das Modul
+  „Anatomie & Physiologie". Drehen, Zoomen, Antippen zum Untersuchen,
+  Freistellen einzelner Systeme und stufenloses Auseinanderziehen bis zum
+  vollständigen anatomischen Inventar. Die Geometrie liegt als Rohpuffer
+  in Binärblöcken (Positionen float32, Normalen int16, Indizes uint32)
+  und wird von SceneKit unverändert übernommen, die Dateien werden nur
+  eingeblendet statt geladen.
+  - **Männliches Modell** aus BodyParts3D: 2.234 Teile, 2,29 Mio.
+    Dreiecke, vollständige Abdeckung.
+  - **Weibliches Modell** mit Umschalter in der Kopfzeile: 902 Teile,
+    1,89 Mio. Dreiecke. Da kein vollständiger, frei lizenzierter
+    weiblicher Ganzkörperdatensatz existiert, ist es zusammengesetzt aus
+    Organen, Gefäßen, Nerven, Fortpflanzungsorganen und Becken des Human
+    Reference Atlas (united-female v1.5) sowie den übrigen Knochen und
+    der Muskulatur aus BodyParts3D. Die Einpassung ist nachgerechnet, und
+    dass Muskulatur und übrige Knochen männlich sind, steht in der
+    Quellenangabe der App.
+  - **Struktur-Quiz**: eine Struktur wird genannt und ist im Modell
+    anzutippen. Gefragt wird nur nach Strukturen, die von der aktuellen
+    Ansicht aus wirklich zu erreichen sind; die App tastet die Ansicht
+    dafür mit einem Raster von Strahlen ab. Drehen ändert die Auswahl.
+  - Beide Datensätze stehen unter CC Attribution 4.0 International, die
+    Quellenangabe steht in der App unter dem Info-Symbol.
+  - Die App wächst dadurch auf rund 109 MB.
+- **EKG: Nahaufnahme eines PQRST-Komplexes (iOS)**: Umschalter unten
+  rechts im Streifen. Das Raster bleibt quadratisch, die Eichung mit
+  25 mm/s und 10 mm/mV gilt also weiter. Im Quiz ist der Umschalter
+  abgeschaltet, weil sein Fehlen die Antwort sonst auf Kammerflimmern,
+  Kammerflattern oder Asystole eingrenzen würde.
+- **EKG: vollständige Lehrbuch-Beschriftung (iOS)**: P, Q, R, S und T je
+  an ihrer Zacke, QRS als Klammer darüber, dazu PQ-Strecke, ST-Strecke,
+  PQ-Intervall und QT-Intervall. Die Buchstaben sitzen an der
+  tatsächlichen Kurvenhöhe, nicht auf einer festen Linie.
+- **Quellenhinweis für alle 78 Einträge**: bisher ohne Beleg waren die
+  sechs Rechner (GCS nach Teasdale und Jennett 1974, APGAR nach Apgar
+  1953, Neuner-Regel nach Wallace 1951, NACA über die DIVI-Protokolle)
+  und die neun Cheat-Sheet-Karten.
+- **Notverband (Israeli Bandage)** als neuer Abschnitt der Verbandslehre,
+  nach den DLRG-Teilnehmerunterlagen Sanitätsausbildung A, S. 59 f.
+- **34 Abbildungen** aus den DLRG-Teilnehmerunterlagen A und B verknüpft;
+  die Section-Typen von vier Modulen kannten das Feld dafür noch nicht.
+- **Weg nach TestFlight und in den App Store** in `ios/README.md`
+  festgehalten (Archivieren, Export mit Verteilungssignatur, Upload über
+  `altool` mit App-Store-Connect-API-Schlüssel), weil der Ablauf mehrere
+  Stolpersteine hat.
+
+### Geändert
+
+- **Elektrodenlage am Rettungsdienst statt an Mason-Likar ausgerichtet**:
+  Geklebt wird an Schultern und Leisten, damit die Flächen für die
+  Defibrillations-Pads frei bleiben. Die in Klinik und Intensivmedizin
+  übliche Mason-Likar-Position ist im Einleitungstext beschrieben und
+  gegenüber der Rettungsdienst-Variante eingeordnet.
+- **Inhalte gegen SAA und BPR 2025 nachgeschärft**: WASB ordnet jedem
+  Buchstaben die Bewusstseinslage zu (Somnolenz, Sopor, Koma) statt alles
+  unter B zu sammeln; SAMPLER um Schwangerschaft und die Leitfrage bei
+  den Risikofaktoren ergänzt; OPQRST trennt unter Q zwischen
+  Charakteristik und Schmerzqualität; beim Atemwegsmanagement fehlten die
+  Einstiegskriterien vollständig (SpO₂ unter 90 %, Zyanose, Atemfrequenz
+  unter 8 oder über 30, pathologische Thoraxexkursion) samt
+  Erfolgskontrolle; SINNHAFT um die Erläuterungen der Handreichung
+  erweitert.
+- **Gedankenstriche als Satzzeichen aufgelöst**: 128 Textstellen im
+  ersten Durchlauf, 19 weitere im zweiten, der auch `intro` der
+  Elektrodensets, `clinicalNote` der EKG-Rhythmen, die
+  Wirkungsbeschreibungen der Medikamente und mehrere Quellenhinweise
+  erfasst. Kurze Anhängsel wurden zum Komma, vollständige Aussagen zum
+  eigenen Satz. Titel, Überschriften und Roadmap-Label bleiben unberührt,
+  weil der Strich dort einen Namen von seinem Zusatz trennt.
+- **README**: der iOS-Abschnitt beschrieb den nie umgesetzten Tauri-Weg
+  über `npm run tauri ios init`. Er erklärt jetzt die eigenständige
+  SwiftUI-App mit Signierungsdatei, Inhaltsexport und Build; Android
+  steht als eigener Abschnitt daneben. Der Warnhinweis oben sagte, die
+  Inhalte seien gegen kein offizielles Curriculum geprüft, was nicht mehr
+  zutrifft.
+
+### Behoben
+
+- **Elektrodenansicht der Desktop-App war unbrauchbar**: seit der
+  Neuvermessung kam die `viewBox` aus den Daten (Monitoring 669 × 1200,
+  12-Kanal 746 × 1000), `BodyOutline` und `ThoraxOutline` zeichneten aber
+  weiter in ihrem alten Koordinatensystem von rund 400 × 750 bzw.
+  500 × 500. Die Figur saß dadurch in der linken oberen Ecke, während die
+  Elektrodenpunkte über die volle Fläche verteilt lagen; auf iOS war die
+  Ansicht korrekt. Beide Ansichten zeigen jetzt dieselben Abbildungen wie
+  die iOS-App, die beiden gezeichneten Umrisse entfallen.
+- **Medikamente: zerrissene Dosierungszeilen** in
+  `medications.json` wiederhergestellt (10 Stellen).
+- **Atlas: zwei Fehler beim Auseinanderziehen (iOS)**. Das gesamte
+  Inventar lag eine halbe Körperhöhe zu tief, weil die Rasterzellen um
+  den Ursprung zentriert sind, die Netze aber unter dem verschobenen
+  Körperknoten hängen. Und das Seitenverhältnis erreichte die Szene nie,
+  weil die eingebettete Ansicht beim ersten Aufbau noch keine Größe hat;
+  das Raster wurde dadurch quer statt hochkant.
+- **package-lock.json** an Name und Version aus `package.json`
+  angeglichen.
 
 ## [1.0.0] – 2026-09-17
 

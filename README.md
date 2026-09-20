@@ -32,7 +32,7 @@ Cloud. Beide teilen sich dieselbe Inhaltsquelle, siehe
 - [Features](#features)
 - [Architektur](#architektur)
 - [Eigene Inhalte einpflegen](#eigene-inhalte-einpflegen--korrigieren)
-- [Neues Lernmodul hinzufügen](#neues-lernmodul-hinzufügen-zb-saabpr)
+- [Neues Lernmodul hinzufügen](#neues-lernmodul-hinzufügen-z-b-saabpr)
 - [Builds für macOS & Windows](#builds-für-macos--windows)
 - [iOS-App (iPhone & iPad)](#ios-app-iphone--ipad)
 - [Mobile (Android)](#mobile-android)
@@ -211,6 +211,13 @@ Hot-Reload sofort übernommen.
   einfache Form von Spaced Repetition).
 - **Fortschrittsansicht**: Trefferquote pro Rhythmus, lokal gespeichert
   (im Browser-/App-Storage, verlässt nie deinen Rechner).
+- **Nahaufnahme eines PQRST-Komplexes** (nur iOS): Umschalter unten rechts
+  im Streifen. Das Raster bleibt quadratisch, die Eichung mit 25 mm/s und
+  10 mm/mV gilt also weiter. Im Zoom sind die Zacken einzeln benannt
+  (P, Q, R, S, T), dazu QRS-Komplex, PQ- und ST-Strecke sowie PQ- und
+  QT-Intervall. Im Quiz ist der Umschalter abgeschaltet, weil sein Fehlen
+  die Antwort sonst auf Kammerflimmern, Kammerflattern oder Asystole
+  eingrenzen würde.
 
 ### ✅ Elektroden-Platzierungstrainer (im EKG-Modul, Tab „Elektroden legen“)
 
@@ -284,6 +291,35 @@ Eigenständiges Modul, eigener Sidebar-Tab in der „Rettungssanitäter"-Gruppe
   wie Adrenalin/Atropin), Vitalparameter-Normwerte nach Altersgruppe als
   Nachschlagetabelle.
   Allgemeines anatomisch-physiologisches Grundlagenwissen, keine SAA/BPR-Quelle.
+
+### ✅ 3D-Anatomieatlas (nur iOS)
+
+Einstieg oben im Modul „Anatomie & Physiologie". Auf dem Desktop gibt es
+ihn nicht: das Modell ist auf Touch und native 3D-Darstellung (SceneKit)
+ausgelegt.
+
+- **Zwei Modelle**, umschaltbar in der Kopfzeile: männlich aus
+  [BodyParts3D](https://lifesciencedb.jp/bp3d/) (2.234 Teile, 2,29 Mio.
+  Dreiecke, vollständige Abdeckung) und weiblich (902 Teile, 1,89 Mio.
+  Dreiecke). Ein vollständiger, frei lizenzierter weiblicher
+  Ganzkörperdatensatz existiert nicht, deshalb ist das weibliche Modell
+  zusammengesetzt: Organe, Gefäße, Nerven, Fortpflanzungsorgane und
+  Becken aus dem [Human Reference Atlas](https://humanatlas.io/)
+  (united-female v1.5), die übrigen Knochen und die Muskulatur aus
+  BodyParts3D. Dass diese Teile männlich sind, steht in der
+  Quellenangabe der App.
+- **Bedienung:** Ziehen zum Drehen, zwei Finger zum Zoomen, Tippen zum
+  Untersuchen. Einzelne Systeme lassen sich ein- und ausblenden oder
+  freistellen, ein Regler zieht die Anatomie stufenlos bis zum
+  vollständigen Inventar auseinander.
+- **Struktur-Quiz:** eine Struktur wird genannt und ist im Modell
+  anzutippen. Gefragt wird nur nach dem, was von der aktuellen Ansicht
+  aus wirklich zu erreichen ist; Drehen ändert die Auswahl.
+- Beide Datensätze stehen unter CC Attribution 4.0 International; die
+  Quellenangabe steht in der App unter dem Info-Symbol. Die Geometrie
+  liegt als Rohpuffer in `ios/SanWissen/Resources/Atlas/` und wird nur
+  eingeblendet (memory mapped) statt geladen. Sie macht den Großteil der
+  rund 109 MB aus, die die App belegt.
 
 ### ✅ Werkzeuge & Scores
 
@@ -406,9 +442,9 @@ Ebenfalls fest oben in der Sidebar angepinnt.
 Aktuell keine Platzhalter-Module offen. Aus `docs/vorgaben_und_inhalte.txt`
 bleibt noch aus Abschnitt 3: eigene Notizen zu Einträgen.
 
-Mobile-Version: iOS in Arbeit (Swift/Xcode-Projekt via Tauri), Android
-noch offen — siehe Abschnitt [Mobile (iOS & Android)](#mobile-ios--android)
-für den Umsetzungsweg.
+Mobile-Version: die iOS-App ist umgesetzt, siehe
+[iOS-App (iPhone & iPad)](#ios-app-iphone--ipad). Android ist noch offen,
+der Umsetzungsweg steht unter [Mobile (Android)](#mobile-android).
 
 ## Architektur
 
@@ -530,11 +566,15 @@ scripts/
   export-ios-content.mjs # liest src/modules/ und schreibt die Inhalte als JSON für iOS
 ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
   SanWissen/
+    App/                 # Einstiegspunkt, Wurzelansicht (TabView bzw. Split-View), Routing
+    Core/                # Favoriten, Einstellungen, Checklisten, Lernfortschritt (UserDefaults)
     Content/             # Laden der JSON-Dateien + Datenmodelle
     Features/            # eine Ansicht je Modul, zehn teilen sich eine gemeinsame
+      Atlas/             # 3D-Anatomieatlas (SceneKit): Szene, Systeme, Quiz
     Resources/
       Content/           # generiert vom Exportskript — nicht von Hand bearbeiten
       Images/            # Abbildungen, per illustrationId aus den Modulen referenziert
+      Atlas/             # Geometrie des 3D-Atlas (Rohpuffer, ca. 97 MB) + atlas*.json
   Signing.xcconfig       # Platzhalter, bindet die lokale, nicht versionierte Datei ein
 ```
 
@@ -714,7 +754,12 @@ Neue Swift-Dateien müssen nicht ins Projekt eingetragen werden: der Ordner
 (`PBXFileSystemSynchronizedRootGroup`), Xcode nimmt alles darin
 automatisch auf.
 
-Ausführlicher steht das in [ios/README.md](ios/README.md).
+**Verteilen:** Der Weg nach TestFlight und in den App Store (Archivieren,
+Export mit Verteilungssignatur, Upload über `altool` mit einem
+App-Store-Connect-API-Schlüssel) ist erprobt und Schritt für Schritt
+festgehalten, zusammen mit den Stolpersteinen, die dabei aufgetreten sind.
+
+Ausführlicher steht das alles in [ios/README.md](ios/README.md).
 
 ## Mobile (Android)
 
@@ -793,6 +838,11 @@ einige Minuten dauern. Danach sind Rebuilds durch Caching viel schneller.
 
 Siehe [CHANGELOG.md](CHANGELOG.md) für den aktuellen Stand und
 `src/app/registry.tsx` für die geplanten Module.
+
+Ob sich die SwiftUI-App künftig auch auf dem Mac nutzen ließe, ist in
+[docs/macos-portierung.md](docs/macos-portierung.md) eingeschätzt (kurz:
+das iPad ist bereits abgedeckt, der Mac wäre machbar, die offene Frage
+ist das Verhältnis zur bestehenden Tauri-App).
 
 ## Recommended IDE Setup
 
