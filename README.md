@@ -844,6 +844,11 @@ Ob sich die SwiftUI-App künftig auch auf dem Mac nutzen ließe, ist in
 das iPad ist bereits abgedeckt, der Mac wäre machbar, die offene Frage
 ist das Verhältnis zur bestehenden Tauri-App).
 
+Der geplante Umbau der Inhalts-Pipeline steht in
+[docs/inhaltspipeline.md](docs/inhaltspipeline.md) (kurz: JSON wird die
+Quelle statt ein Export-Ergebnis, und die 47 verknüpften Abbildungen
+sollen endlich auch auf dem Desktop erscheinen).
+
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
