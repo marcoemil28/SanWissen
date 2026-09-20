@@ -17,7 +17,6 @@
       "title": "Frakturlehre",
       "category": "Frakturen & Wunden",
       "summary": "Frakturarten erkennen, sichere von unsicheren Frakturzeichen unterscheiden, richtig ruhigstellen.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen (keine bestimmte Quelle wie beim SAA/BPR-PDF). Konkrete Vorgehensweisen (z. B. Immobilisationsumfang, Tourniquet-Freigabe) können je nach Rettungsdienstbereich/aktueller Leitlinie variieren. Es gilt deine lokale Ausbildungs-/Dienstordnung.",
       "notes": [],
@@ -27,16 +26,13 @@
           "illustration": "frakturarten",
           "items": [
             {
-              "text": "Geschlossene Fraktur: Haut über der Bruchstelle intakt",
-              "minLevel": "SanH"
+              "text": "Geschlossene Fraktur: Haut über der Bruchstelle intakt"
             },
             {
-              "text": "Offene Fraktur: Wunde reicht bis zum Knochen. Deutlich erhöhtes Infektionsrisiko",
-              "minLevel": "SanH"
+              "text": "Offene Fraktur: Wunde reicht bis zum Knochen. Deutlich erhöhtes Infektionsrisiko"
             },
             {
-              "text": "Grünholzfraktur: unvollständiger Bruch, v. a. bei Kindern (Knochen noch elastischer)",
-              "minLevel": "RS"
+              "text": "Grünholzfraktur: unvollständiger Bruch, v. a. bei Kindern (Knochen noch elastischer)"
             }
           ]
         },
@@ -45,8 +41,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Schmerz, Schwellung, Bewegungseinschränkung, Hämatom (Bluterguss)",
-              "minLevel": "SanH"
+              "text": "Schmerz, Schwellung, Bewegungseinschränkung, Hämatom (Bluterguss)"
             }
           ]
         },
@@ -55,20 +50,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Sichtbare Fehlstellung",
-              "minLevel": "SanH"
+              "text": "Sichtbare Fehlstellung"
             },
             {
-              "text": "Abnorme Beweglichkeit außerhalb eines Gelenks",
-              "minLevel": "RS"
+              "text": "Abnorme Beweglichkeit außerhalb eines Gelenks"
             },
             {
-              "text": "Krepitation (Knochenreiben). Nicht aktiv prüfen, nur falls zufällig bemerkt",
-              "minLevel": "RS"
+              "text": "Krepitation (Knochenreiben). Nicht aktiv prüfen, nur falls zufällig bemerkt"
             },
             {
-              "text": "Sichtbare Knochenfragmente (bei offener Fraktur)",
-              "minLevel": "SanH"
+              "text": "Sichtbare Knochenfragmente (bei offener Fraktur)"
             }
           ]
         },
@@ -77,24 +68,19 @@
           "illustration": "blutverlust-fraktur",
           "items": [
             {
-              "text": "DMS-Kontrolle (Durchblutung, Motorik, Sensibilität) distal der Verletzung. Vor UND nach jeder Maßnahme",
-              "minLevel": "RS"
+              "text": "DMS-Kontrolle (Durchblutung, Motorik, Sensibilität) distal der Verletzung. Vor UND nach jeder Maßnahme"
             },
             {
-              "text": "Ruhigstellung in der vorgefundenen Stellung. Nicht reponieren (nicht gewaltsam richten)!",
-              "minLevel": "SanH"
+              "text": "Ruhigstellung in der vorgefundenen Stellung. Nicht reponieren (nicht gewaltsam richten)!"
             },
             {
-              "text": "Bei offener Fraktur: steril abdecken statt reponieren, Knochenfragmente nicht zurückschieben",
-              "minLevel": "SanH"
+              "text": "Bei offener Fraktur: steril abdecken statt reponieren, Knochenfragmente nicht zurückschieben"
             },
             {
-              "text": "Indirekt kühlen (nie direkt Eis auf die Haut) zur Schmerz-/Schwellungslinderung",
-              "minLevel": "SanH"
+              "text": "Indirekt kühlen (nie direkt Eis auf die Haut) zur Schmerz-/Schwellungslinderung"
             },
             {
-              "text": "Grundsatz der Schienung: jeweils ein Gelenk oberhalb UND unterhalb der Fraktur mit ruhigstellen",
-              "minLevel": "RS"
+              "text": "Grundsatz der Schienung: jeweils ein Gelenk oberhalb UND unterhalb der Fraktur mit ruhigstellen"
             }
           ]
         }
@@ -105,7 +91,6 @@
       "title": "Wundversorgung",
       "category": "Frakturen & Wunden",
       "summary": "Wundarten unterscheiden und die wichtigsten Grundprinzipien der Erstversorgung.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen (keine bestimmte Quelle wie beim SAA/BPR-PDF). Konkrete Vorgehensweisen (z. B. Immobilisationsumfang, Tourniquet-Freigabe) können je nach Rettungsdienstbereich/aktueller Leitlinie variieren. Es gilt deine lokale Ausbildungs-/Dienstordnung.",
       "notes": [],
@@ -115,28 +100,22 @@
           "illustration": null,
           "items": [
             {
-              "text": "Schnittwunde: glatte Wundränder, meist durch scharfe Gegenstände",
-              "minLevel": "SanH"
+              "text": "Schnittwunde: glatte Wundränder, meist durch scharfe Gegenstände"
             },
             {
-              "text": "Platzwunde: unregelmäßige Wundränder durch stumpfe Gewalt (z. B. Sturz auf Kante)",
-              "minLevel": "SanH"
+              "text": "Platzwunde: unregelmäßige Wundränder durch stumpfe Gewalt (z. B. Sturz auf Kante)"
             },
             {
-              "text": "Schürfwunde: oberflächliche Hautabschürfung",
-              "minLevel": "SanH"
+              "text": "Schürfwunde: oberflächliche Hautabschürfung"
             },
             {
-              "text": "Stichwunde: kleine äußere Öffnung, potenziell tiefer innerer Verlauf/Organbeteiligung",
-              "minLevel": "RS"
+              "text": "Stichwunde: kleine äußere Öffnung, potenziell tiefer innerer Verlauf/Organbeteiligung"
             },
             {
-              "text": "Quetschwunde: durch Quetschung, oft mit Gewebeschädigung in der Umgebung",
-              "minLevel": "RS"
+              "text": "Quetschwunde: durch Quetschung, oft mit Gewebeschädigung in der Umgebung"
             },
             {
-              "text": "Bisswunde: erhöhtes Infektionsrisiko durch Keime im Speichel",
-              "minLevel": "RS"
+              "text": "Bisswunde: erhöhtes Infektionsrisiko durch Keime im Speichel"
             }
           ]
         },
@@ -145,16 +124,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Wunde steril abdecken, im Rahmen der Erstversorgung nicht auswaschen oder desinfizieren",
-              "minLevel": "SanH"
+              "text": "Wunde steril abdecken, im Rahmen der Erstversorgung nicht auswaschen oder desinfizieren"
             },
             {
-              "text": "Fremdkörper in der Wunde belassen und ringförmig umpolstern, niemals herausziehen",
-              "minLevel": "SanH"
+              "text": "Fremdkörper in der Wunde belassen und ringförmig umpolstern, niemals herausziehen"
             },
             {
-              "text": "Schmuck/einengende Gegenstände nahe der Verletzung frühzeitig entfernen (vor Schwellung)",
-              "minLevel": "SanH"
+              "text": "Schmuck/einengende Gegenstände nahe der Verletzung frühzeitig entfernen (vor Schwellung)"
             }
           ]
         }
@@ -165,7 +141,6 @@
       "title": "Verbandslehre (Druckverband, Dreiecktuch, Schienung)",
       "category": "Verbandslehre",
       "summary": "Die klassischen Verbandstechniken Schritt für Schritt. Grundlage für einen künftigen interaktiven Übungsmodus.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Abbildungen und Handlungsabläufe aus den DLRG-Teilnehmerunterlagen Sanitätsausbildung A (2021) und B (2021). Ergänzt um allgemeines rettungsdienstliches Grundlagenwissen. Es gilt deine lokale Ausbildungs- und Dienstordnung.",
       "notes": [
@@ -177,24 +152,19 @@
           "illustration": "druckverband",
           "items": [
             {
-              "text": "1. Sterile Wundauflage direkt auf die Wunde legen",
-              "minLevel": "SanH"
+              "text": "1. Sterile Wundauflage direkt auf die Wunde legen"
             },
             {
-              "text": "2. Druckpolster (z. B. unbenutztes Verbandpäckchen) darauf platzieren",
-              "minLevel": "SanH"
+              "text": "2. Druckpolster (z. B. unbenutztes Verbandpäckchen) darauf platzieren"
             },
             {
-              "text": "3. Mit einer Fixierbinde straff umwickeln, sodass Druck auf der Wunde bleibt",
-              "minLevel": "SanH"
+              "text": "3. Mit einer Fixierbinde straff umwickeln, sodass Druck auf der Wunde bleibt"
             },
             {
-              "text": "4. DMS-Kontrolle distal des Verbands durchführen",
-              "minLevel": "RS"
+              "text": "4. DMS-Kontrolle distal des Verbands durchführen"
             },
             {
-              "text": "Blutet der Verband durch: NICHT abnehmen, sondern einen weiteren Druckverband darüber anlegen",
-              "minLevel": "SanH"
+              "text": "Blutet der Verband durch: NICHT abnehmen, sondern einen weiteren Druckverband darüber anlegen"
             }
           ]
         },
@@ -203,16 +173,13 @@
           "illustration": "armtragetuch",
           "items": [
             {
-              "text": "Ruhigstellung von Verletzungen an Arm oder Schulter",
-              "minLevel": "SanH"
+              "text": "Ruhigstellung von Verletzungen an Arm oder Schulter"
             },
             {
-              "text": "Hand sollte etwas höher liegen als der Ellenbogen (Schwellung vorbeugen)",
-              "minLevel": "RS"
+              "text": "Hand sollte etwas höher liegen als der Ellenbogen (Schwellung vorbeugen)"
             },
             {
-              "text": "Knoten seitlich am Hals, nicht direkt auf der Wirbelsäule, platzieren",
-              "minLevel": "SanH"
+              "text": "Knoten seitlich am Hals, nicht direkt auf der Wirbelsäule, platzieren"
             }
           ]
         },
@@ -221,16 +188,13 @@
           "illustration": "kopfverband",
           "items": [
             {
-              "text": "Fixierung von Wundauflagen am Kopf",
-              "minLevel": "SanH"
+              "text": "Fixierung von Wundauflagen am Kopf"
             },
             {
-              "text": "Tuch flach über die Wundauflage legen, Spitze am Oberkopf einschlagen",
-              "minLevel": "SanH"
+              "text": "Tuch flach über die Wundauflage legen, Spitze am Oberkopf einschlagen"
             },
             {
-              "text": "Enden am Hinterkopf kreuzen und verknoten, nicht zu fest über den Ohren",
-              "minLevel": "SanH"
+              "text": "Enden am Hinterkopf kreuzen und verknoten, nicht zu fest über den Ohren"
             }
           ]
         },
@@ -239,8 +203,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Fixierbinde-Ersatz: kann großflächige Wundauflagen provisorisch fixieren",
-              "minLevel": "SanH"
+              "text": "Fixierbinde-Ersatz: kann großflächige Wundauflagen provisorisch fixieren"
             }
           ]
         },
@@ -249,36 +212,28 @@
           "illustration": "notverband",
           "items": [
             {
-              "text": "Vorgefertigtes Verband-Set aus Wundauflage, elastischer Binde und aufgesetzter Druckstange, das den klassischen Druckverband ersetzen kann",
-              "minLevel": "SanH"
+              "text": "Vorgefertigtes Verband-Set aus Wundauflage, elastischer Binde und aufgesetzter Druckstange, das den klassischen Druckverband ersetzen kann"
             },
             {
-              "text": "1. Wundauflage auf die Wunde legen und die Binde einmal um die Extremität führen",
-              "minLevel": "SanH"
+              "text": "1. Wundauflage auf die Wunde legen und die Binde einmal um die Extremität führen"
             },
             {
-              "text": "2. Die elastische Binde in die Druckstange einfädeln",
-              "minLevel": "SanH"
+              "text": "2. Die elastische Binde in die Druckstange einfädeln"
             },
             {
-              "text": "3. Die Binde straff ziehen und in die Gegenrichtung weiterführen, sodass die Druckstange auf die Wunde drückt",
-              "minLevel": "SanH"
+              "text": "3. Die Binde straff ziehen und in die Gegenrichtung weiterführen, sodass die Druckstange auf die Wunde drückt"
             },
             {
-              "text": "4. Die Binde einmal verdrehen und über die Ränder der Wundkompresse wickeln",
-              "minLevel": "SanH"
+              "text": "4. Die Binde einmal verdrehen und über die Ränder der Wundkompresse wickeln"
             },
             {
-              "text": "5. Die Hakenenden der Schließstange in der elastischen Binde befestigen",
-              "minLevel": "SanH"
+              "text": "5. Die Hakenenden der Schließstange in der elastischen Binde befestigen"
             },
             {
-              "text": "Dieselbe Technik ist am Arm, am Kopf und am Hals anwendbar. Am Hals wird der gegenüberliegende Arm über den Kopf gehoben und der Verband durch dessen Achselhöhle geführt, damit kein Druck auf den Kehlkopf entsteht",
-              "minLevel": "RS"
+              "text": "Dieselbe Technik ist am Arm, am Kopf und am Hals anwendbar. Am Hals wird der gegenüberliegende Arm über den Kopf gehoben und der Verband durch dessen Achselhöhle geführt, damit kein Druck auf den Kehlkopf entsteht"
             },
             {
-              "text": "Anschließend DMS-Kontrolle distal des Verbands durchführen",
-              "minLevel": "RS"
+              "text": "Anschließend DMS-Kontrolle distal des Verbands durchführen"
             }
           ]
         },
@@ -287,12 +242,10 @@
           "illustration": "schienung",
           "items": [
             {
-              "text": "Vakuumschiene: formbar anlegen, dann Luft absaugen. Wird dadurch stabil/starr",
-              "minLevel": "RS"
+              "text": "Vakuumschiene: formbar anlegen, dann Luft absaugen. Wird dadurch stabil/starr"
             },
             {
-              "text": "Grundsatz: immer ein Gelenk oberhalb und unterhalb der Verletzung mit ruhigstellen",
-              "minLevel": "SanH"
+              "text": "Grundsatz: immer ein Gelenk oberhalb und unterhalb der Verletzung mit ruhigstellen"
             }
           ]
         }
@@ -303,7 +256,6 @@
       "title": "Wirbelsäulentrauma & Immobilisation",
       "category": "Schwere Verletzungen",
       "summary": "Verdachtsmomente für ein Wirbelsäulentrauma und die gängigen Immobilisationstechniken.",
-      "minLevel": "RS",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen (keine bestimmte Quelle wie beim SAA/BPR-PDF). Konkrete Vorgehensweisen (z. B. Immobilisationsumfang, Tourniquet-Freigabe) können je nach Rettungsdienstbereich/aktueller Leitlinie variieren. Es gilt deine lokale Ausbildungs-/Dienstordnung.",
       "notes": [
@@ -315,16 +267,13 @@
           "illustration": "wirbelsaeulen-fraktur",
           "items": [
             {
-              "text": "Unfallmechanismus: Sturz aus der Höhe, Hochrasanztrauma, Kopfsprung ins Wasser",
-              "minLevel": "RS"
+              "text": "Unfallmechanismus: Sturz aus der Höhe, Hochrasanztrauma, Kopfsprung ins Wasser"
             },
             {
-              "text": "Rückenschmerz im Bereich der Wirbelsäule",
-              "minLevel": "SanH"
+              "text": "Rückenschmerz im Bereich der Wirbelsäule"
             },
             {
-              "text": "Neurologische Ausfälle: Kribbeln, Lähmungserscheinungen, Sensibilitätsverlust",
-              "minLevel": "RS"
+              "text": "Neurologische Ausfälle: Kribbeln, Lähmungserscheinungen, Sensibilitätsverlust"
             }
           ]
         },
@@ -333,24 +282,19 @@
           "illustration": "hws-stuetzkragen",
           "items": [
             {
-              "text": "Manuelle Inline-Stabilisation des Kopfes: als erste Maßnahme und durchgehend bis zur Übergabe",
-              "minLevel": "RS"
+              "text": "Manuelle Inline-Stabilisation des Kopfes: als erste Maßnahme und durchgehend bis zur Übergabe"
             },
             {
-              "text": "Zervikalstütze (HWS-Immobilisationskragen) zur Unterstützung der manuellen Stabilisation",
-              "minLevel": "RS"
+              "text": "Zervikalstütze (HWS-Immobilisationskragen) zur Unterstützung der manuellen Stabilisation"
             },
             {
-              "text": "Log-Roll-Manöver: achsengerechte 90°-en-bloc-Drehung mit mindestens 3 Helfenden, u. a. zur Rückenuntersuchung",
-              "minLevel": "RS"
+              "text": "Log-Roll-Manöver: achsengerechte 90°-en-bloc-Drehung mit mindestens 3 Helfenden, u. a. zur Rückenuntersuchung"
             },
             {
-              "text": "Schaufeltrage zum schonenden Umlagern",
-              "minLevel": "RS"
+              "text": "Schaufeltrage zum schonenden Umlagern"
             },
             {
-              "text": "Vakuummatratze zur Ganzkörperimmobilisation für den Transport",
-              "minLevel": "RS"
+              "text": "Vakuummatratze zur Ganzkörperimmobilisation für den Transport"
             }
           ]
         }
@@ -361,7 +305,6 @@
       "title": "Thorax- und Abdominaltrauma",
       "category": "Schwere Verletzungen",
       "summary": "Der offene Pneumothorax, Warnzeichen für einen Spannungspneumothorax und das offene Abdominaltrauma.",
-      "minLevel": "RS",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen (keine bestimmte Quelle wie beim SAA/BPR-PDF). Konkrete Vorgehensweisen (z. B. Immobilisationsumfang, Tourniquet-Freigabe) können je nach Rettungsdienstbereich/aktueller Leitlinie variieren. Es gilt deine lokale Ausbildungs-/Dienstordnung.",
       "notes": [],
@@ -371,16 +314,13 @@
           "illustration": "pneumothorax",
           "items": [
             {
-              "text": "Durchgängige Verletzung der Thoraxwand. Bei Einatmung strömt Luft hörbar in den Pleuraspalt (\"saugende Wunde\")",
-              "minLevel": "RS"
+              "text": "Durchgängige Verletzung der Thoraxwand. Bei Einatmung strömt Luft hörbar in den Pleuraspalt (\"saugende Wunde\")"
             },
             {
-              "text": "Versorgung: dreiseitig okklusiver Verband (eine Seite offen lässt Luft beim Ausatmen entweichen, verhindert Ventilmechanismus)",
-              "minLevel": "RS"
+              "text": "Versorgung: dreiseitig okklusiver Verband (eine Seite offen lässt Luft beim Ausatmen entweichen, verhindert Ventilmechanismus)"
             },
             {
-              "text": "Nach Anlage weiter auf Zeichen eines Spannungspneumothorax beobachten",
-              "minLevel": "RS"
+              "text": "Nach Anlage weiter auf Zeichen eines Spannungspneumothorax beobachten"
             }
           ]
         },
@@ -389,24 +329,19 @@
           "illustration": null,
           "items": [
             {
-              "text": "Zunehmende, schwere Atemnot",
-              "minLevel": "RS"
+              "text": "Zunehmende, schwere Atemnot"
             },
             {
-              "text": "Einseitig fehlendes oder abgeschwächtes Atemgeräusch",
-              "minLevel": "RS"
+              "text": "Einseitig fehlendes oder abgeschwächtes Atemgeräusch"
             },
             {
-              "text": "Gestaute Halsvenen, (spät) Verlagerung der Luftröhre zur Gegenseite",
-              "minLevel": "RS"
+              "text": "Gestaute Halsvenen, (spät) Verlagerung der Luftröhre zur Gegenseite"
             },
             {
-              "text": "Kreislaufinstabilität bis zum Kreislaufstillstand",
-              "minLevel": "RS"
+              "text": "Kreislaufinstabilität bis zum Kreislaufstillstand"
             },
             {
-              "text": "Zeitkritisch. Therapie (Entlastungspunktion) ist NotSan-Kompetenz nach Delegation",
-              "minLevel": "NotSan"
+              "text": "Zeitkritisch. Therapie (Entlastungspunktion) ist NotSan-Kompetenz nach Delegation"
             }
           ]
         },
@@ -415,12 +350,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Verdacht bei stumpfem oder penetrierendem Bauchtrauma, Abwehrspannung, sichtbaren Prellmarken",
-              "minLevel": "RS"
+              "text": "Verdacht bei stumpfem oder penetrierendem Bauchtrauma, Abwehrspannung, sichtbaren Prellmarken"
             },
             {
-              "text": "Bei offener Bauchdecke mit Organvorfall: Organe NICHT zurückverlagern, nur feucht und steril abdecken",
-              "minLevel": "RS"
+              "text": "Bei offener Bauchdecke mit Organvorfall: Organe NICHT zurückverlagern, nur feucht und steril abdecken"
             }
           ]
         }
@@ -431,7 +364,6 @@
       "title": "Verbrennungen",
       "category": "Verbrennungen",
       "summary": "Gradeinteilung von Verbrennungen und die wichtigsten Erstmaßnahmen.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen (keine bestimmte Quelle wie beim SAA/BPR-PDF). Konkrete Vorgehensweisen (z. B. Immobilisationsumfang, Tourniquet-Freigabe) können je nach Rettungsdienstbereich/aktueller Leitlinie variieren. Es gilt deine lokale Ausbildungs-/Dienstordnung.",
       "notes": [
@@ -443,24 +375,19 @@
           "illustration": "verbrennungsgrade",
           "items": [
             {
-              "text": "Grad 1: Rötung, schmerzhaft, keine Blasen (z. B. Sonnenbrand). Heilt folgenlos ab",
-              "minLevel": "SanH"
+              "text": "Grad 1: Rötung, schmerzhaft, keine Blasen (z. B. Sonnenbrand). Heilt folgenlos ab"
             },
             {
-              "text": "Grad 2a: Blasenbildung, Wundgrund rosig, sehr schmerzhaft",
-              "minLevel": "RS"
+              "text": "Grad 2a: Blasenbildung, Wundgrund rosig, sehr schmerzhaft"
             },
             {
-              "text": "Grad 2b: Blasenbildung, Wundgrund blasser, weniger schmerzhaft, tiefere Schädigung",
-              "minLevel": "RS"
+              "text": "Grad 2b: Blasenbildung, Wundgrund blasser, weniger schmerzhaft, tiefere Schädigung"
             },
             {
-              "text": "Grad 3: weißlich-lederartig oder verkohlt, schmerzlos (Nervenenden zerstört)",
-              "minLevel": "RS"
+              "text": "Grad 3: weißlich-lederartig oder verkohlt, schmerzlos (Nervenenden zerstört)"
             },
             {
-              "text": "Grad 4: Verkohlung auch tieferer Strukturen (Muskeln, Knochen)",
-              "minLevel": "RS"
+              "text": "Grad 4: Verkohlung auch tieferer Strukturen (Muskeln, Knochen)"
             }
           ]
         },
@@ -469,24 +396,19 @@
           "illustration": null,
           "items": [
             {
-              "text": "Brandursache stoppen: Kleidung löschen, aus dem Gefahrenbereich bringen (Eigenschutz beachten)",
-              "minLevel": "SanH"
+              "text": "Brandursache stoppen: Kleidung löschen, aus dem Gefahrenbereich bringen (Eigenschutz beachten)"
             },
             {
-              "text": "Nur kleinflächige Verbrennungen zeitnah kühlen. Bei großflächigen Verbrennungen und bei Kindern Auskühlung (Hypothermie) vermeiden!",
-              "minLevel": "SanH"
+              "text": "Nur kleinflächige Verbrennungen zeitnah kühlen. Bei großflächigen Verbrennungen und bei Kindern Auskühlung (Hypothermie) vermeiden!"
             },
             {
-              "text": "Steril bzw. keimarm abdecken (z. B. Brandwundenverbandtuch)",
-              "minLevel": "SanH"
+              "text": "Steril bzw. keimarm abdecken (z. B. Brandwundenverbandtuch)"
             },
             {
-              "text": "Keine Hausmittel verwenden (Mehl, Öl, Zahnpasta o. Ä.)",
-              "minLevel": "SanH"
+              "text": "Keine Hausmittel verwenden (Mehl, Öl, Zahnpasta o. Ä.)"
             },
             {
-              "text": "Schmuck/Kleidung im betroffenen Bereich entfernen, solange nicht festgeklebt",
-              "minLevel": "SanH"
+              "text": "Schmuck/Kleidung im betroffenen Bereich entfernen, solange nicht festgeklebt"
             }
           ]
         }
@@ -497,7 +419,6 @@
       "title": "Polytrauma & kritische Blutungen (Tourniquet)",
       "category": "Polytrauma & Blutstillung",
       "summary": "Definition Polytrauma, das Stufenschema der Blutstillung und die korrekte Tourniquet-Anwendung.",
-      "minLevel": "RS",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen (keine bestimmte Quelle wie beim SAA/BPR-PDF). Konkrete Vorgehensweisen (z. B. Immobilisationsumfang, Tourniquet-Freigabe) können je nach Rettungsdienstbereich/aktueller Leitlinie variieren. Es gilt deine lokale Ausbildungs-/Dienstordnung.",
       "notes": [],
@@ -507,16 +428,13 @@
           "illustration": "beckengurt",
           "items": [
             {
-              "text": "Mehrere gleichzeitige Verletzungen, von denen mindestens eine oder deren Kombination lebensbedrohlich ist",
-              "minLevel": "RS"
+              "text": "Mehrere gleichzeitige Verletzungen, von denen mindestens eine oder deren Kombination lebensbedrohlich ist"
             },
             {
-              "text": "Versorgung nach xABCDE-Schema. Kritische Blutung (x) wird zuerst behandelt",
-              "minLevel": "RS"
+              "text": "Versorgung nach xABCDE-Schema. Kritische Blutung (x) wird zuerst behandelt"
             },
             {
-              "text": "Load-and-go-Prinzip: kurze Versorgungszeit vor Ort bei zeitkritischen Verletzungen anstreben",
-              "minLevel": "RS"
+              "text": "Load-and-go-Prinzip: kurze Versorgungszeit vor Ort bei zeitkritischen Verletzungen anstreben"
             }
           ]
         },
@@ -525,16 +443,13 @@
           "illustration": "wound-packing",
           "items": [
             {
-              "text": "1. Manuelle Kompression der Blutungsquelle",
-              "minLevel": "SanH"
+              "text": "1. Manuelle Kompression der Blutungsquelle"
             },
             {
-              "text": "2. Wunddruckverband",
-              "minLevel": "SanH"
+              "text": "2. Wunddruckverband"
             },
             {
-              "text": "3. Bei unstillbarer Extremitätenblutung (z. B. Amputationsverletzung): Tourniquet",
-              "minLevel": "RS"
+              "text": "3. Bei unstillbarer Extremitätenblutung (z. B. Amputationsverletzung): Tourniquet"
             }
           ]
         },
@@ -543,20 +458,16 @@
           "illustration": "tourniquet",
           "items": [
             {
-              "text": "So weit proximal wie nötig, so distal wie möglich anlegen",
-              "minLevel": "RS"
+              "text": "So weit proximal wie nötig, so distal wie möglich anlegen"
             },
             {
-              "text": "Straff genug anziehen, bis die Blutung sicher sistiert. Nur venöse Stauung verschlimmert die Blutung",
-              "minLevel": "RS"
+              "text": "Straff genug anziehen, bis die Blutung sicher sistiert. Nur venöse Stauung verschlimmert die Blutung"
             },
             {
-              "text": "Anlagezeitpunkt (Uhrzeit) gut sichtbar dokumentieren (z. B. auf dem Tourniquet selbst)",
-              "minLevel": "RS"
+              "text": "Anlagezeitpunkt (Uhrzeit) gut sichtbar dokumentieren (z. B. auf dem Tourniquet selbst)"
             },
             {
-              "text": "Kein routinemäßiges Öffnen/Lockern durch nachfolgendes Personal ohne ärztliche Rücksprache",
-              "minLevel": "RS"
+              "text": "Kein routinemäßiges Öffnen/Lockern durch nachfolgendes Personal ohne ärztliche Rücksprache"
             }
           ]
         }

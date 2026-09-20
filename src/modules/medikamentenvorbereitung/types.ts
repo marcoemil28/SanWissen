@@ -1,9 +1,5 @@
-import type { QualificationLevel } from '../../app/levels';
-
 export interface MedVorbereitungStep {
   text: string;
-  /** Wenn gesetzt, überschreibt dies das minLevel des Eintrags für diesen einzelnen Schritt. */
-  minLevel?: QualificationLevel;
 }
 
 export interface MedVorbereitungSection {
@@ -16,8 +12,6 @@ export interface MedVorbereitungSection {
 export interface MedVorbereitungEntry {
   id: string;
   title: string;
-  /** Basis-Stufe für Schritte ohne eigenes minLevel. */
-  minLevel: QualificationLevel;
   summary: string;
   sections: MedVorbereitungSection[];
   notes?: string[];

@@ -1,5 +1,4 @@
 import type { ComponentType } from 'react';
-import type { QualificationLevel } from '../../app/levels';
 
 export type TraumaCategory =
   | 'Frakturen & Wunden'
@@ -10,7 +9,6 @@ export type TraumaCategory =
 
 export interface TraumaFact {
   text: string;
-  minLevel?: QualificationLevel;
 }
 
 export interface TraumaSection {
@@ -26,7 +24,6 @@ export interface TraumaTopic {
   id: string;
   title: string;
   category: TraumaCategory;
-  minLevel: QualificationLevel;
   summary: string;
   sections: TraumaSection[];
   notes?: string[];

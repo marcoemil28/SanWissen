@@ -162,8 +162,9 @@ Entscheidung zwischen zwei Klammerarten.
    Nebenbei entfallen: die generierte `meta.json` (iOS liest die Version
    jetzt aus dem Bundle) sowie `medications.json` und `wirkung.ts`, die
    zu `content/medikamente.json` zusammengeführt sind.
-2. **`minLevel` entfernen**, an allen 806 Stellen, samt
-   `QualificationLevel` in `src/app/levels.ts`.
+2. ~~**`minLevel` entfernen**~~ **erledigt** (1.1.0). 806 Vorkommen in 13
+   Inhaltsdateien, die Felder in 13 `types.ts`, die Swift-Modelle und
+   `src/app/levels.ts` sind weg.
 3. **Abbildungen vereinheitlichen:** `illustrationId` als einziger Weg,
    die drei SVG-Komponenten entfallen, ein gemeinsamer Bildordner für
    beide Apps, Bildunterschrift in die Daten. Danach zeigt der Desktop

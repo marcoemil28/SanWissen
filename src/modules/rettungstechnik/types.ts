@@ -1,10 +1,7 @@
-import type { QualificationLevel } from '../../app/levels';
-
 export type RettungstechnikCategory = 'Transport & Trageformen' | 'Lagerungsarten' | 'Atemwege & Beatmung' | 'Gerätekunde';
 
 export interface RettungstechnikFact {
   text: string;
-  minLevel?: QualificationLevel;
 }
 
 export interface RettungstechnikSection {
@@ -18,7 +15,6 @@ export interface RettungstechnikTopic {
   id: string;
   title: string;
   category: RettungstechnikCategory;
-  minLevel: QualificationLevel;
   summary: string;
   sections: RettungstechnikSection[];
   notes?: string[];

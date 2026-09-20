@@ -17,7 +17,6 @@
       "title": "Herzinfarkt (ACS)",
       "category": "Herz & Kreislauf",
       "summary": "Erkennungszeichen und Erstmaßnahmen beim akuten Koronarsyndrom (ACS).",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [
@@ -29,20 +28,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Plötzlicher Brustschmerz. Drückend, brennend oder einschnürend",
-              "minLevel": null
+              "text": "Plötzlicher Brustschmerz. Drückend, brennend oder einschnürend"
             },
             {
-              "text": "Ausstrahlung in Arm, Kiefer, Rücken oder Oberbauch",
-              "minLevel": null
+              "text": "Ausstrahlung in Arm, Kiefer, Rücken oder Oberbauch"
             },
             {
-              "text": "Angst, Unruhe, Kaltschweißigkeit, Übelkeit",
-              "minLevel": null
+              "text": "Angst, Unruhe, Kaltschweißigkeit, Übelkeit"
             },
             {
-              "text": "Bei Frauen und Diabetiker:innen oft untypische Symptome. Z. B. nur Übelkeit oder Erschöpfung",
-              "minLevel": null
+              "text": "Bei Frauen und Diabetiker:innen oft untypische Symptome. Z. B. nur Übelkeit oder Erschöpfung"
             }
           ]
         },
@@ -51,20 +46,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Patient körperlich ruhigstellen, jede Anstrengung vermeiden",
-              "minLevel": null
+              "text": "Patient körperlich ruhigstellen, jede Anstrengung vermeiden"
             },
             {
-              "text": "Oberkörper leicht erhöht lagern, beengende Kleidung öffnen",
-              "minLevel": null
+              "text": "Oberkörper leicht erhöht lagern, beengende Kleidung öffnen"
             },
             {
-              "text": "Beruhigen, Notruf/Notarzt alarmieren",
-              "minLevel": null
+              "text": "Beruhigen, Notruf/Notarzt alarmieren"
             },
             {
-              "text": "Engmaschige Kontrolle von Bewusstsein, Atmung und Kreislauf",
-              "minLevel": null
+              "text": "Engmaschige Kontrolle von Bewusstsein, Atmung und Kreislauf"
             }
           ]
         },
@@ -73,8 +64,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Sofort mit der Reanimation beginnen, siehe Algorithmen-Modul",
-              "minLevel": null
+              "text": "Sofort mit der Reanimation beginnen, siehe Algorithmen-Modul"
             }
           ]
         }
@@ -85,7 +75,6 @@
       "title": "Lungenödem",
       "category": "Herz & Kreislauf",
       "summary": "Meist kardial bedingte Flüssigkeitsansammlung in der Lunge mit akuter Atemnot.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [],
@@ -95,8 +84,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Meist kardial (Linksherzinsuffizienz), seltener toxisch oder allergisch bedingt",
-              "minLevel": null
+              "text": "Meist kardial (Linksherzinsuffizienz), seltener toxisch oder allergisch bedingt"
             }
           ]
         },
@@ -105,16 +93,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Atemnot, brodelnde Atemgeräusche",
-              "minLevel": null
+              "text": "Atemnot, brodelnde Atemgeräusche"
             },
             {
-              "text": "Schaumiger, evtl. blutig tingierter Auswurf",
-              "minLevel": null
+              "text": "Schaumiger, evtl. blutig tingierter Auswurf"
             },
             {
-              "text": "Unruhe, Angst, Zyanose (bläuliche Verfärbung von Lippen/Fingern)",
-              "minLevel": null
+              "text": "Unruhe, Angst, Zyanose (bläuliche Verfärbung von Lippen/Fingern)"
             }
           ]
         },
@@ -123,20 +108,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Oberkörperhochlagerung. Sitzend, Beine tief lagern",
-              "minLevel": null
+              "text": "Oberkörperhochlagerung. Sitzend, Beine tief lagern"
             },
             {
-              "text": "Beruhigen, beengende Kleidung öffnen",
-              "minLevel": null
+              "text": "Beruhigen, beengende Kleidung öffnen"
             },
             {
-              "text": "Sauerstoffgabe nach Verfügbarkeit und Kompetenz",
-              "minLevel": "RS"
+              "text": "Sauerstoffgabe nach Verfügbarkeit und Kompetenz"
             },
             {
-              "text": "Notarzt alarmieren",
-              "minLevel": null
+              "text": "Notarzt alarmieren"
             }
           ]
         }
@@ -147,7 +128,6 @@
       "title": "Schlaganfall (BE-FAST-Test)",
       "category": "Neurologisch",
       "summary": "Schneller Check auf Schlaganfall-Anzeichen. Jede Minute zählt.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [
@@ -159,20 +139,16 @@
           "illustration": "fazialisparese",
           "items": [
             {
-              "text": "Face. Lächeln lassen: hängt ein Mundwinkel herab?",
-              "minLevel": null
+              "text": "Face. Lächeln lassen: hängt ein Mundwinkel herab?"
             },
             {
-              "text": "Arms. Beide Arme nach vorne heben lassen: sinkt eine Seite unkontrolliert ab?",
-              "minLevel": null
+              "text": "Arms. Beide Arme nach vorne heben lassen: sinkt eine Seite unkontrolliert ab?"
             },
             {
-              "text": "Speech. Einen Satz nachsprechen lassen: verwaschene oder unverständliche Sprache?",
-              "minLevel": null
+              "text": "Speech. Einen Satz nachsprechen lassen: verwaschene oder unverständliche Sprache?"
             },
             {
-              "text": "Time. Zeitpunkt des Symptombeginns exakt notieren, entscheidend für die Klinikwahl",
-              "minLevel": null
+              "text": "Time. Zeitpunkt des Symptombeginns exakt notieren, entscheidend für die Klinikwahl"
             }
           ]
         },
@@ -181,24 +157,19 @@
           "illustration": null,
           "items": [
             {
-              "text": "BE-FAST stellt dem klassischen FAST zwei Zeichen voran, die bei Schlaganfällen im hinteren Stromgebiet (Kleinhirn/Hirnstamm) oft die einzigen Symptome sind und mit FAST allein übersehen werden.",
-              "minLevel": null
+              "text": "BE-FAST stellt dem klassischen FAST zwei Zeichen voran, die bei Schlaganfällen im hinteren Stromgebiet (Kleinhirn/Hirnstamm) oft die einzigen Symptome sind und mit FAST allein übersehen werden."
             },
             {
-              "text": "Balance. Plötzliche Gang-/Standunsicherheit, Schwindel, Koordinationsstörung, Fallneigung zu einer Seite",
-              "minLevel": null
+              "text": "Balance. Plötzliche Gang-/Standunsicherheit, Schwindel, Koordinationsstörung, Fallneigung zu einer Seite"
             },
             {
-              "text": "Eyes. Plötzliche Sehstörung: Doppelbilder, Gesichtsfeldausfall, einseitiger Sehverlust",
-              "minLevel": null
+              "text": "Eyes. Plötzliche Sehstörung: Doppelbilder, Gesichtsfeldausfall, einseitiger Sehverlust"
             },
             {
-              "text": "Face, Arms, Speech, Time. Wie beim FAST-Test oben",
-              "minLevel": null
+              "text": "Face, Arms, Speech, Time. Wie beim FAST-Test oben"
             },
             {
-              "text": "Ein einzelnes auffälliges Zeichen genügt für den Verdacht. Es müssen nicht mehrere zutreffen.",
-              "minLevel": null
+              "text": "Ein einzelnes auffälliges Zeichen genügt für den Verdacht. Es müssen nicht mehrere zutreffen."
             }
           ]
         },
@@ -207,16 +178,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Plötzliche Schluckstörung",
-              "minLevel": null
+              "text": "Plötzliche Schluckstörung"
             },
             {
-              "text": "Sehr starker, plötzlich einsetzender Kopfschmerz",
-              "minLevel": null
+              "text": "Sehr starker, plötzlich einsetzender Kopfschmerz"
             },
             {
-              "text": "Verwirrtheit, Orientierungslosigkeit",
-              "minLevel": null
+              "text": "Verwirrtheit, Orientierungslosigkeit"
             }
           ]
         },
@@ -225,20 +193,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Symptombeginn exakt dokumentieren (Uhrzeit). Beeinflusst mögliche Therapieoptionen in der Klinik",
-              "minLevel": null
+              "text": "Symptombeginn exakt dokumentieren (Uhrzeit). Beeinflusst mögliche Therapieoptionen in der Klinik"
             },
             {
-              "text": "Patient nicht essen oder trinken lassen (Aspirationsgefahr bei Schluckstörung)",
-              "minLevel": null
+              "text": "Patient nicht essen oder trinken lassen (Aspirationsgefahr bei Schluckstörung)"
             },
             {
-              "text": "Zügiger Transport in eine geeignete Klinik (Stroke Unit)",
-              "minLevel": "RS"
+              "text": "Zügiger Transport in eine geeignete Klinik (Stroke Unit)"
             },
             {
-              "text": "Engmaschige Kontrolle von Bewusstsein und Vitalzeichen",
-              "minLevel": null
+              "text": "Engmaschige Kontrolle von Bewusstsein und Vitalzeichen"
             }
           ]
         }
@@ -249,7 +213,6 @@
       "title": "Krampfanfall / Epilepsie",
       "category": "Neurologisch",
       "summary": "Verhalten während und nach einem generalisierten Krampfanfall.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [],
@@ -259,20 +222,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Eigenschutz beachten, Umgebung sichern (Gegenstände wegräumen, gefährliche Kanten polstern)",
-              "minLevel": null
+              "text": "Eigenschutz beachten, Umgebung sichern (Gegenstände wegräumen, gefährliche Kanten polstern)"
             },
             {
-              "text": "Nichts in den Mund stecken",
-              "minLevel": null
+              "text": "Nichts in den Mund stecken"
             },
             {
-              "text": "Patient nicht festhalten oder Bewegungen unterdrücken",
-              "minLevel": null
+              "text": "Patient nicht festhalten oder Bewegungen unterdrücken"
             },
             {
-              "text": "Anfallsdauer messen",
-              "minLevel": null
+              "text": "Anfallsdauer messen"
             }
           ]
         },
@@ -281,12 +240,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Stabile Seitenlage. Nach einem Anfall folgt häufig ein Terminalschlaf mit Bewusstseinstrübung",
-              "minLevel": null
+              "text": "Stabile Seitenlage. Nach einem Anfall folgt häufig ein Terminalschlaf mit Bewusstseinstrübung"
             },
             {
-              "text": "Beim Erwachen ruhig und beruhigend ansprechen, Orientierung geben",
-              "minLevel": null
+              "text": "Beim Erwachen ruhig und beruhigend ansprechen, Orientierung geben"
             }
           ]
         },
@@ -295,20 +252,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Erster Krampfanfall im Leben des Patienten",
-              "minLevel": null
+              "text": "Erster Krampfanfall im Leben des Patienten"
             },
             {
-              "text": "Anfall dauert länger als 5 Minuten",
-              "minLevel": null
+              "text": "Anfall dauert länger als 5 Minuten"
             },
             {
-              "text": "Mehrere Anfälle hintereinander ohne zwischenzeitliches Erwachen (Status epilepticus)",
-              "minLevel": null
+              "text": "Mehrere Anfälle hintereinander ohne zwischenzeitliches Erwachen (Status epilepticus)"
             },
             {
-              "text": "Verletzung während des Anfalls oder Schwangerschaft der Patientin",
-              "minLevel": null
+              "text": "Verletzung während des Anfalls oder Schwangerschaft der Patientin"
             }
           ]
         }
@@ -319,7 +272,6 @@
       "title": "Diabetische Notfälle",
       "category": "Stoffwechsel & Allergie",
       "summary": "Unterzuckerung und Überzuckerung unterscheiden und richtig reagieren.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [],
@@ -329,12 +281,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Beginnt meist schnell (Minuten)",
-              "minLevel": null
+              "text": "Beginnt meist schnell (Minuten)"
             },
             {
-              "text": "Symptome: Zittern, Schwitzen, Heißhunger, Aggressivität/Verwirrtheit, bis hin zur Bewusstlosigkeit",
-              "minLevel": null
+              "text": "Symptome: Zittern, Schwitzen, Heißhunger, Aggressivität/Verwirrtheit, bis hin zur Bewusstlosigkeit"
             }
           ]
         },
@@ -343,16 +293,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Bei ansprechbarem Patienten: Traubenzucker oder gesüßtes Getränk verabreichen",
-              "minLevel": null
+              "text": "Bei ansprechbarem Patienten: Traubenzucker oder gesüßtes Getränk verabreichen"
             },
             {
-              "text": "Bei Bewusstlosigkeit: nichts oral verabreichen, stabile Seitenlage, Notarzt alarmieren",
-              "minLevel": null
+              "text": "Bei Bewusstlosigkeit: nichts oral verabreichen, stabile Seitenlage, Notarzt alarmieren"
             },
             {
-              "text": "Glucose-Gabe i.v. ist ärztlich delegierte NotSan-Kompetenz",
-              "minLevel": "NotSan"
+              "text": "Glucose-Gabe i.v. ist ärztlich delegierte NotSan-Kompetenz"
             }
           ]
         },
@@ -361,12 +308,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Entwickelt sich meist langsamer (Stunden bis Tage)",
-              "minLevel": null
+              "text": "Entwickelt sich meist langsamer (Stunden bis Tage)"
             },
             {
-              "text": "Symptome: starker Durst, häufiges Wasserlassen, Azetongeruch der Atemluft, Bewusstseinstrübung",
-              "minLevel": null
+              "text": "Symptome: starker Durst, häufiges Wasserlassen, Azetongeruch der Atemluft, Bewusstseinstrübung"
             }
           ]
         },
@@ -375,12 +320,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Engmaschige Vitalzeichenkontrolle",
-              "minLevel": null
+              "text": "Engmaschige Vitalzeichenkontrolle"
             },
             {
-              "text": "Notarzt alarmieren. Spezifische Therapie ist nicht durch SanH/RS möglich",
-              "minLevel": null
+              "text": "Notarzt alarmieren. Spezifische Therapie ist nicht durch SanH/RS möglich"
             }
           ]
         }
@@ -391,7 +334,6 @@
       "title": "Allergie / Anaphylaxie",
       "category": "Stoffwechsel & Allergie",
       "summary": "Stadiengerechte Erkennung einer allergischen Reaktion bis zum anaphylaktischen Schock.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [
@@ -403,20 +345,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Stadium I. Haut: Juckreiz, Quaddeln, Hautrötung (Flush)",
-              "minLevel": null
+              "text": "Stadium I. Haut: Juckreiz, Quaddeln, Hautrötung (Flush)"
             },
             {
-              "text": "Stadium II. Kreislauf: Tachykardie, Blutdruckabfall, Übelkeit",
-              "minLevel": null
+              "text": "Stadium II. Kreislauf: Tachykardie, Blutdruckabfall, Übelkeit"
             },
             {
-              "text": "Stadium III. Atemwege: Bronchospasmus, Atemnot, Stridor",
-              "minLevel": null
+              "text": "Stadium III. Atemwege: Bronchospasmus, Atemnot, Stridor"
             },
             {
-              "text": "Stadium IV. Kreislauf- oder Atemstillstand",
-              "minLevel": null
+              "text": "Stadium IV. Kreislauf- oder Atemstillstand"
             }
           ]
         },
@@ -425,8 +363,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Schnelle Symptomentwicklung nach Allergenkontakt (Insektenstich, Nahrungsmittel, Medikament)",
-              "minLevel": null
+              "text": "Schnelle Symptomentwicklung nach Allergenkontakt (Insektenstich, Nahrungsmittel, Medikament)"
             }
           ]
         },
@@ -435,20 +372,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Allergenzufuhr stoppen, wenn möglich (z. B. Insektenstachel entfernen)",
-              "minLevel": null
+              "text": "Allergenzufuhr stoppen, wenn möglich (z. B. Insektenstachel entfernen)"
             },
             {
-              "text": "Lagerung symptomorientiert wählen: Schocklage bei Kreislaufproblem, Oberkörperhoch bei Atemnot",
-              "minLevel": null
+              "text": "Lagerung symptomorientiert wählen: Schocklage bei Kreislaufproblem, Oberkörperhoch bei Atemnot"
             },
             {
-              "text": "Notarzt alarmieren",
-              "minLevel": null
+              "text": "Notarzt alarmieren"
             },
             {
-              "text": "Bei vorhandenem Adrenalin-Autoinjektor des Patienten: Unterstützung bei der Anwendung möglich, sofern der Patient selbst dazu nicht mehr in der Lage ist. Lokale Kompetenzregelung beachten",
-              "minLevel": "RS"
+              "text": "Bei vorhandenem Adrenalin-Autoinjektor des Patienten: Unterstützung bei der Anwendung möglich, sofern der Patient selbst dazu nicht mehr in der Lage ist. Lokale Kompetenzregelung beachten"
             }
           ]
         }
@@ -459,7 +392,6 @@
       "title": "Akutes Abdomen",
       "category": "Abdomen & Vergiftungen",
       "summary": "Plötzlich einsetzende, starke Bauchschmerzen mit potenziell ernster Ursache.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [],
@@ -469,16 +401,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Blinddarmentzündung, Gallen- oder Nierenkolik",
-              "minLevel": null
+              "text": "Blinddarmentzündung, Gallen- oder Nierenkolik"
             },
             {
-              "text": "Darmverschluss, geplatzte Zyste",
-              "minLevel": null
+              "text": "Darmverschluss, geplatzte Zyste"
             },
             {
-              "text": "Innere Blutung. Z. B. Bauchaortenaneurysma oder Eileiterschwangerschaft",
-              "minLevel": null
+              "text": "Innere Blutung. Z. B. Bauchaortenaneurysma oder Eileiterschwangerschaft"
             }
           ]
         },
@@ -487,16 +416,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Starke Bauchschmerzen. Diffus oder lokalisiert, Abwehrspannung der Bauchdecke",
-              "minLevel": null
+              "text": "Starke Bauchschmerzen. Diffus oder lokalisiert, Abwehrspannung der Bauchdecke"
             },
             {
-              "text": "Übelkeit, Erbrechen",
-              "minLevel": null
+              "text": "Übelkeit, Erbrechen"
             },
             {
-              "text": "Bei innerer Blutung ggf. Kreislaufinstabilität (Blässe, Tachykardie, Blutdruckabfall)",
-              "minLevel": null
+              "text": "Bei innerer Blutung ggf. Kreislaufinstabilität (Blässe, Tachykardie, Blutdruckabfall)"
             }
           ]
         },
@@ -505,20 +431,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Lagerung nach Patientenwunsch. Häufig Knierolle zur Entspannung der Bauchdecke",
-              "minLevel": null
+              "text": "Lagerung nach Patientenwunsch. Häufig Knierolle zur Entspannung der Bauchdecke"
             },
             {
-              "text": "Nichts zu essen oder zu trinken geben",
-              "minLevel": null
+              "text": "Nichts zu essen oder zu trinken geben"
             },
             {
-              "text": "Engmaschige Kreislaufkontrolle",
-              "minLevel": null
+              "text": "Engmaschige Kreislaufkontrolle"
             },
             {
-              "text": "Notarzt bei Verdacht auf akute innere Blutung oder starke Schmerzen",
-              "minLevel": null
+              "text": "Notarzt bei Verdacht auf akute innere Blutung oder starke Schmerzen"
             }
           ]
         }
@@ -529,7 +451,6 @@
       "title": "Intoxikationen",
       "category": "Abdomen & Vergiftungen",
       "summary": "Grundprinzipien bei Vergiftungen, mit Fokus auf Alkohol und Drogen im Sanitätsdienst.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [
@@ -541,12 +462,10 @@
           "illustration": "giftaufnahmewege",
           "items": [
             {
-              "text": "Eigenschutz beachten. Z. B. bei unbekannten Substanzen oder aggressivem Patienten",
-              "minLevel": null
+              "text": "Eigenschutz beachten. Z. B. bei unbekannten Substanzen oder aggressivem Patienten"
             },
             {
-              "text": "Wenn möglich Substanz, Menge und Zeitpunkt erfragen oder Reste/Verpackung sicherstellen",
-              "minLevel": null
+              "text": "Wenn möglich Substanz, Menge und Zeitpunkt erfragen oder Reste/Verpackung sicherstellen"
             }
           ]
         },
@@ -555,16 +474,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Erkennungsmerkmale: Gangunsicherheit, verwaschene Sprache, Bewusstseinstrübung",
-              "minLevel": null
+              "text": "Erkennungsmerkmale: Gangunsicherheit, verwaschene Sprache, Bewusstseinstrübung"
             },
             {
-              "text": "Gefahr der Unterkühlung und Aspiration bei Erbrechen",
-              "minLevel": null
+              "text": "Gefahr der Unterkühlung und Aspiration bei Erbrechen"
             },
             {
-              "text": "Bei Bewusstlosigkeit: stabile Seitenlage",
-              "minLevel": null
+              "text": "Bei Bewusstlosigkeit: stabile Seitenlage"
             }
           ]
         },
@@ -573,20 +489,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Sehr unterschiedliches Bild je nach Substanz",
-              "minLevel": null
+              "text": "Sehr unterschiedliches Bild je nach Substanz"
             },
             {
-              "text": "Opioide: Atemdepression, auffällig enge Pupillen",
-              "minLevel": null
+              "text": "Opioide: Atemdepression, auffällig enge Pupillen"
             },
             {
-              "text": "Stimulanzien: Unruhe, Tachykardie, Überhitzung",
-              "minLevel": null
+              "text": "Stimulanzien: Unruhe, Tachykardie, Überhitzung"
             },
             {
-              "text": "Im Zweifel immer Notarzt alarmieren",
-              "minLevel": null
+              "text": "Im Zweifel immer Notarzt alarmieren"
             }
           ]
         },
@@ -595,12 +507,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Vitalzeichenüberwachung, Aspirationsschutz",
-              "minLevel": null
+              "text": "Vitalzeichenüberwachung, Aspirationsschutz"
             },
             {
-              "text": "Substanzreste/Verpackung nach Möglichkeit für die Klinik mitnehmen",
-              "minLevel": null
+              "text": "Substanzreste/Verpackung nach Möglichkeit für die Klinik mitnehmen"
             }
           ]
         }
@@ -611,7 +521,6 @@
       "title": "Hitzenotfälle",
       "category": "Umweltbedingte Notfälle",
       "summary": "Hitzeerschöpfung, Hitzschlag und Sonnenstich unterscheiden und richtig behandeln.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [],
@@ -621,12 +530,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Durch Flüssigkeits- und Salzverlust",
-              "minLevel": null
+              "text": "Durch Flüssigkeits- und Salzverlust"
             },
             {
-              "text": "Symptome: Schwäche, Kopfschmerz, Übelkeit, blasse und feuchte Haut, Körpertemperatur meist nur leicht erhöht",
-              "minLevel": null
+              "text": "Symptome: Schwäche, Kopfschmerz, Übelkeit, blasse und feuchte Haut, Körpertemperatur meist nur leicht erhöht"
             }
           ]
         },
@@ -635,16 +542,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Überhitzung des Körperkerns (über ca. 40 °C)",
-              "minLevel": null
+              "text": "Überhitzung des Körperkerns (über ca. 40 °C)"
             },
             {
-              "text": "Haut oft heiß und trocken, Bewusstseinstrübung bis Bewusstlosigkeit",
-              "minLevel": null
+              "text": "Haut oft heiß und trocken, Bewusstseinstrübung bis Bewusstlosigkeit"
             },
             {
-              "text": "Sofort aktiv kühlen und Notarzt alarmieren",
-              "minLevel": null
+              "text": "Sofort aktiv kühlen und Notarzt alarmieren"
             }
           ]
         },
@@ -653,12 +557,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Reizung der Hirnhäute durch direkte Sonneneinstrahlung auf den Kopf",
-              "minLevel": null
+              "text": "Reizung der Hirnhäute durch direkte Sonneneinstrahlung auf den Kopf"
             },
             {
-              "text": "Symptome: Kopfschmerz, Übelkeit, gerötetes, heißes Gesicht bei meist normaler Körpertemperatur",
-              "minLevel": null
+              "text": "Symptome: Kopfschmerz, Übelkeit, gerötetes, heißes Gesicht bei meist normaler Körpertemperatur"
             }
           ]
         },
@@ -667,16 +569,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Aus der Hitze/Sonne bringen, in den Schatten oder kühle Umgebung",
-              "minLevel": null
+              "text": "Aus der Hitze/Sonne bringen, in den Schatten oder kühle Umgebung"
             },
             {
-              "text": "Kühlen (feuchte Tücher, ggf. Ventilation)",
-              "minLevel": null
+              "text": "Kühlen (feuchte Tücher, ggf. Ventilation)"
             },
             {
-              "text": "Bei Ansprechbarkeit Flüssigkeit anbieten",
-              "minLevel": null
+              "text": "Bei Ansprechbarkeit Flüssigkeit anbieten"
             }
           ]
         }
@@ -687,7 +586,6 @@
       "title": "Unterkühlung & Erfrierung",
       "category": "Umweltbedingte Notfälle",
       "summary": "Stadiengerechter Umgang mit Unterkühlung (Hypothermie) und lokalen Kälteschäden.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.",
       "notes": [
@@ -699,16 +597,13 @@
           "illustration": "zentralisation",
           "items": [
             {
-              "text": "Leicht: Zittern vorhanden, klares Bewusstsein, Körperkerntemperatur ca. 32–35 °C",
-              "minLevel": null
+              "text": "Leicht: Zittern vorhanden, klares Bewusstsein, Körperkerntemperatur ca. 32–35 °C"
             },
             {
-              "text": "Mittel: kein Zittern mehr, Bewusstseinstrübung, ca. 28–32 °C",
-              "minLevel": null
+              "text": "Mittel: kein Zittern mehr, Bewusstseinstrübung, ca. 28–32 °C"
             },
             {
-              "text": "Schwer: bewusstlos, Kreislaufinstabilität, unter 28 °C",
-              "minLevel": null
+              "text": "Schwer: bewusstlos, Kreislaufinstabilität, unter 28 °C"
             }
           ]
         },
@@ -717,20 +612,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Sehr vorsichtiges Handling. Grobe Bewegungen können in fortgeschrittener Unterkühlung Kammerflimmern auslösen",
-              "minLevel": null
+              "text": "Sehr vorsichtiges Handling. Grobe Bewegungen können in fortgeschrittener Unterkühlung Kammerflimmern auslösen"
             },
             {
-              "text": "Nasse Kleidung entfernen",
-              "minLevel": null
+              "text": "Nasse Kleidung entfernen"
             },
             {
-              "text": "Passiv wärmen (Decken, Wärmepack am Rumpf, nicht an den Extremitäten)",
-              "minLevel": null
+              "text": "Passiv wärmen (Decken, Wärmepack am Rumpf, nicht an den Extremitäten)"
             },
             {
-              "text": "Notarzt bei mittlerer oder schwerer Unterkühlung",
-              "minLevel": "RS"
+              "text": "Notarzt bei mittlerer oder schwerer Unterkühlung"
             }
           ]
         },
@@ -739,12 +630,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Lokale Kälteschädigung, meist an Fingern, Zehen, Nase oder Ohren",
-              "minLevel": null
+              "text": "Lokale Kälteschädigung, meist an Fingern, Zehen, Nase oder Ohren"
             },
             {
-              "text": "Erkennungszeichen: Gefühllosigkeit, weiß-graue Hautverfärbung",
-              "minLevel": null
+              "text": "Erkennungszeichen: Gefühllosigkeit, weiß-graue Hautverfärbung"
             }
           ]
         },
@@ -753,16 +642,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Betroffene Stelle vor weiterer Kälte und Reibung schützen",
-              "minLevel": null
+              "text": "Betroffene Stelle vor weiterer Kälte und Reibung schützen"
             },
             {
-              "text": "Langsam mit Körperwärme erwärmen, nicht reiben",
-              "minLevel": null
+              "text": "Langsam mit Körperwärme erwärmen, nicht reiben"
             },
             {
-              "text": "Nicht auftauen, wenn ein erneutes Einfrieren droht",
-              "minLevel": null
+              "text": "Nicht auftauen, wenn ein erneutes Einfrieren droht"
             }
           ]
         }

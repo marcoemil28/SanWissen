@@ -26,8 +26,7 @@
       "besonderheiten": "• Wirkeintritt: nach 10 - 15 min\n• Wirkdauer: Tage (Lebensdauer der Thrombozyten)",
       "besondereHinweise": "• für die i.v.-Gabe Herstellerangaben beachten",
       "page": 43,
-      "wirkung": "Hemmt die Verklumpung der Blutplättchen (Thrombozytenaggregation) und wirkt dadurch gerinnungshemmend. Verhindert, dass ein Blutgerinnsel im Herzkranzgefäß weiterwächst.",
-      "minLevel": "NotSan"
+      "wirkung": "Hemmt die Verklumpung der Blutplättchen (Thrombozytenaggregation) und wirkt dadurch gerinnungshemmend. Verhindert, dass ein Blutgerinnsel im Herzkranzgefäß weiterwächst."
     },
     {
       "id": "amiodaron",
@@ -46,8 +45,7 @@
       "besonderheiten": "• bei Anwendung über Perfusor (z.B. im Rahmen der antiarrhytmischen Therapie außerhalb einer\nReanimationssituation) Verdünnung mit Glucose 5 %\n• alternatives Medikament: Lidocain",
       "besondereHinweise": null,
       "page": 44,
-      "wirkung": "Stabilisiert die elektrische Erregungsleitung am Herzen (Klasse-III-Antiarrhythmikum) und hilft, lebensbedrohliche Kammerrhythmusstörungen zu durchbrechen.",
-      "minLevel": "NotSan"
+      "wirkung": "Stabilisiert die elektrische Erregungsleitung am Herzen (Klasse-III-Antiarrhythmikum) und hilft, lebensbedrohliche Kammerrhythmusstörungen zu durchbrechen."
     },
     {
       "id": "atropin",
@@ -66,8 +64,7 @@
       "besonderheiten": "• Wechsel auf Epinephrin bei persistierender instabiler Bradykardie",
       "besondereHinweise": null,
       "page": 45,
-      "wirkung": "Blockiert den dämpfenden Einfluss des Parasympathikus (Vagus) auf das Herz und lässt dadurch die Herzfrequenz ansteigen.",
-      "minLevel": "NotSan"
+      "wirkung": "Blockiert den dämpfenden Einfluss des Parasympathikus (Vagus) auf das Herz und lässt dadurch die Herzfrequenz ansteigen."
     },
     {
       "id": "butylscopolamin",
@@ -86,8 +83,7 @@
       "besonderheiten": "• Wirkeintritt nach ca. 15 Minuten, Wirkdauer ca. 5 Stunden\n• bei Nierenkoliken laut Leitlinie (AWMF 043-025) nicht mehr angezeigt",
       "besondereHinweise": null,
       "page": 46,
-      "wirkung": "Löst Krämpfe der glatten Muskulatur, u. a. im Magen-Darm-Trakt, und lindert dadurch kolikartige Bauchschmerzen.",
-      "minLevel": "NotSan"
+      "wirkung": "Löst Krämpfe der glatten Muskulatur, u. a. im Magen-Darm-Trakt, und lindert dadurch kolikartige Bauchschmerzen."
     },
     {
       "id": "dimenhydrinat",
@@ -106,8 +102,7 @@
       "besonderheiten": "• Beeinträchtigung der Fahrtauglichkeit und Reaktionsfähigkeit",
       "besondereHinweise": null,
       "page": 47,
-      "wirkung": "Blockiert Histamin-Rezeptoren im Brechzentrum des Gehirns und wirkt dadurch gegen Übelkeit und Erbrechen.",
-      "minLevel": "NotSan"
+      "wirkung": "Blockiert Histamin-Rezeptoren im Brechzentrum des Gehirns und wirkt dadurch gegen Übelkeit und Erbrechen."
     },
     {
       "id": "dimetinden",
@@ -126,8 +121,7 @@
       "besonderheiten": "• Beeinträchtigung der Fahrtauglichkeit und Reaktionsfähigkeit",
       "besondereHinweise": null,
       "page": 48,
-      "wirkung": "Blockiert Histamin-Rezeptoren und mildert dadurch allergische Reaktionen, z. B. begleitend bei Anaphylaxie.",
-      "minLevel": "NotSan"
+      "wirkung": "Blockiert Histamin-Rezeptoren und mildert dadurch allergische Reaktionen, z. B. begleitend bei Anaphylaxie."
     },
     {
       "id": "epinephrin-adrenalin",
@@ -146,8 +140,7 @@
       "besonderheiten": "• sehr kurze Halbwertszeit\n• Interaktionen: Abschwächung der Epinephrin-Wirkung durch NaHCO3\n• nicht gleichzeitig mit NaHCO3 über einen Zugang geben",
       "besondereHinweise": null,
       "page": 49,
-      "wirkung": "Wirkt an Alpha- und Beta-Rezeptoren: verengt Blutgefäße, steigert Herzfrequenz und -kraft und erweitert die Bronchien. Zentrales Medikament bei Reanimation, Anaphylaxie und instabiler Bradykardie.",
-      "minLevel": "NotSan"
+      "wirkung": "Wirkt an Alpha- und Beta-Rezeptoren: verengt Blutgefäße, steigert Herzfrequenz und -kraft und erweitert die Bronchien. Zentrales Medikament bei Reanimation, Anaphylaxie und instabiler Bradykardie."
     },
     {
       "id": "esketamin",
@@ -166,8 +159,7 @@
       "besonderheiten": "• Cave: Ampullen mit unterschiedlichen Konzentrationen verfügbar\n• hohe Geräusch- und Lichtempfindlichkeit\n• Wirkeintritt nach ca. 1 min, Wirkdauer ca. 20 min\n• bei Verwendung von Ketamin: Dosisverdoppelung",
       "besondereHinweise": null,
       "page": 50,
-      "wirkung": "Wirkt stark schmerzstillend (niedrig dosiert) bis narkotisierend (höher dosiert) und regt dabei. Anders als viele andere Narkosemittel. Den Kreislauf eher an, statt ihn zu dämpfen.",
-      "minLevel": "NotSan"
+      "wirkung": "Wirkt stark schmerzstillend (niedrig dosiert) bis narkotisierend (höher dosiert) und regt dabei. Anders als viele andere Narkosemittel. Den Kreislauf eher an, statt ihn zu dämpfen."
     },
     {
       "id": "fentanyl",
@@ -186,8 +178,7 @@
       "besonderheiten": "• Cave: vorsichtige Titration bei alten und multimorbiden Pat.\n• Cave: Wirkungsverstärkung und erhöhtes Risiko von Atemdepression in Kombination mit Alkohol- /\nDrogenkonsum / zentral dämpfenden Medikamenten (Benzodiazepine, Gabapentin, Pregabalin,\no.ä.)",
       "besondereHinweise": null,
       "page": 51,
-      "wirkung": "Sehr potentes Opioid, wirkt stark schmerzstillend über µ-Opioidrezeptoren, mit schnellem Wirkeintritt und kurzer Wirkdauer.",
-      "minLevel": "NotSan"
+      "wirkung": "Sehr potentes Opioid, wirkt stark schmerzstillend über µ-Opioidrezeptoren, mit schnellem Wirkeintritt und kurzer Wirkdauer."
     },
     {
       "id": "furosemid",
@@ -206,8 +197,7 @@
       "besonderheiten": "• Cave: Inkompatibilitäten (pH) →  keine Mischung und / oder gleichzeitige Injektion mit anderen\nSubstanzen\n• Wirkeintritt nach 2 - 15 min",
       "besondereHinweise": null,
       "page": 52,
-      "wirkung": "Schleifendiuretikum, entwässert stark und schnell über die Niere. Entlastet das Herz bei Lungenödem durch Volumenreduktion.",
-      "minLevel": "NotSan"
+      "wirkung": "Schleifendiuretikum, entwässert stark und schnell über die Niere. Entlastet das Herz bei Lungenödem durch Volumenreduktion."
     },
     {
       "id": "glucagon",
@@ -226,8 +216,7 @@
       "besonderheiten": "• Dokumentation der Charge erforderlich",
       "besondereHinweise": null,
       "page": 53,
-      "wirkung": "Körpereigenes Hormon, setzt Zuckerreserven aus der Leber frei (Glykogenolyse) und hebt dadurch den Blutzucker an. Alternative zu Glucose i.v., z. B. wenn kein venöser Zugang gelingt.",
-      "minLevel": "NotSan"
+      "wirkung": "Körpereigenes Hormon, setzt Zuckerreserven aus der Leber frei (Glykogenolyse) und hebt dadurch den Blutzucker an. Alternative zu Glucose i.v., z. B. wenn kein venöser Zugang gelingt."
     },
     {
       "id": "glucose",
@@ -246,8 +235,7 @@
       "besonderheiten": "• Cave: unterschiedliche Konzentrationen verfügbar\n• Alternativen lt. BPR „Hypoglykämie“ prüfen (Glucagon)",
       "besondereHinweise": null,
       "page": 54,
-      "wirkung": "Führt dem Körper direkt Traubenzucker zu und hebt den Blutzucker unmittelbar an. Therapie der Hypoglykämie.",
-      "minLevel": "NotSan"
+      "wirkung": "Führt dem Körper direkt Traubenzucker zu und hebt den Blutzucker unmittelbar an. Therapie der Hypoglykämie."
     },
     {
       "id": "glyceroltrinitrat",
@@ -266,8 +254,7 @@
       "besonderheiten": "• Interaktionen: verstärkter Blutdruckabfall bei Vormedikation mit Antihypertensiva möglich\n• Cave: Reflextachykardie",
       "besondereHinweise": null,
       "page": 55,
-      "wirkung": "Organisches Nitrat, erweitert vor allem die venösen Gefäße, senkt dadurch die Vorlast des Herzens und den Blutdruck. Entlastet das Herz bei Lungenödem/Angina pectoris.",
-      "minLevel": "NotSan"
+      "wirkung": "Organisches Nitrat, erweitert vor allem die venösen Gefäße, senkt dadurch die Vorlast des Herzens und den Blutdruck. Entlastet das Herz bei Lungenödem/Angina pectoris."
     },
     {
       "id": "heparin",
@@ -286,8 +273,7 @@
       "besonderheiten": null,
       "besondereHinweise": null,
       "page": 56,
-      "wirkung": "Verstärkt die Wirkung von Antithrombin und hemmt dadurch die Blutgerinnung. Verhindert das Weiterwachsen von Blutgerinnseln, z. B. beim akuten Koronarsyndrom.",
-      "minLevel": "NotSan"
+      "wirkung": "Verstärkt die Wirkung von Antithrombin und hemmt dadurch die Blutgerinnung. Verhindert das Weiterwachsen von Blutgerinnseln, z. B. beim akuten Koronarsyndrom."
     },
     {
       "id": "ibuprofen",
@@ -306,8 +292,7 @@
       "besonderheiten": "• Präparate mit unterschiedlichen Konzentrationen bzw. Wirkstoffmengen verfügbar\n• Zeitabstand > 6 h zu letzter Gabe beachten",
       "besondereHinweise": null,
       "page": 57,
-      "wirkung": "Nichtsteroidales Schmerzmittel (NSAR), hemmt die Cyclooxygenase und wirkt dadurch schmerzstillend, fiebersenkend und entzündungshemmend.",
-      "minLevel": "NotSan"
+      "wirkung": "Nichtsteroidales Schmerzmittel (NSAR), hemmt die Cyclooxygenase und wirkt dadurch schmerzstillend, fiebersenkend und entzündungshemmend."
     },
     {
       "id": "ipratropiumbromid",
@@ -326,8 +311,7 @@
       "besonderheiten": "• unterschiedliche Konzentrationen verfügbar\nKeine Anwendung, wenn:\n• Überempfindlichkeit gegen den Wirkstoff, Atropin oder andere Atropinderivate\n• symptomatische Tachykardie / Tachyarrhythmie\n• Engwinkelglaukom",
       "besondereHinweise": null,
       "page": 58,
-      "wirkung": "Blockiert Acetylcholin-Rezeptoren in den Bronchien und wirkt dadurch bronchienerweiternd. Ergänzt Salbutamol bei Atemwegsverengung.",
-      "minLevel": "NotSan"
+      "wirkung": "Blockiert Acetylcholin-Rezeptoren in den Bronchien und wirkt dadurch bronchienerweiternd. Ergänzt Salbutamol bei Atemwegsverengung."
     },
     {
       "id": "lidocain",
@@ -346,8 +330,7 @@
       "besonderheiten": "• Cave: unterschiedliche Konzentrationen verfügbar",
       "besondereHinweise": null,
       "page": 59,
-      "wirkung": "Stabilisiert die Zellmembranen der Herzmuskelzellen (Klasse-Ib-Antiarrhythmikum). Alternative zu Amiodaron bei defibrillierbaren Rhythmen.",
-      "minLevel": "NotSan"
+      "wirkung": "Stabilisiert die Zellmembranen der Herzmuskelzellen (Klasse-Ib-Antiarrhythmikum). Alternative zu Amiodaron bei defibrillierbaren Rhythmen."
     },
     {
       "id": "metoprolol",
@@ -366,8 +349,7 @@
       "besonderheiten": "• beide beim ACS fakultativ indizierte Medikamente Metoprolol und Glyceroltrinitrat sind hypotensiv\nwirksam, daher keine zeitgleiche Gabe",
       "besondereHinweise": null,
       "page": 60,
-      "wirkung": "Betablocker, senkt Herzfrequenz und myokardialen Sauerstoffbedarf. Bei bestimmten tachykarden Rhythmusstörungen im Rahmen eines Herzinfarkts.",
-      "minLevel": "NotSan"
+      "wirkung": "Betablocker, senkt Herzfrequenz und myokardialen Sauerstoffbedarf. Bei bestimmten tachykarden Rhythmusstörungen im Rahmen eines Herzinfarkts."
     },
     {
       "id": "midazolam",
@@ -386,8 +368,7 @@
       "besonderheiten": "• unterschiedliche Konzentrationen verfügbar",
       "besondereHinweise": null,
       "page": 61,
-      "wirkung": "Benzodiazepin, wirkt beruhigend, angstlösend und krampflösend über GABA-Rezeptoren im Gehirn. U. a. bei Krampfanfällen und zur Sedierung.",
-      "minLevel": "NotSan"
+      "wirkung": "Benzodiazepin, wirkt beruhigend, angstlösend und krampflösend über GABA-Rezeptoren im Gehirn. U. a. bei Krampfanfällen und zur Sedierung."
     },
     {
       "id": "morphin",
@@ -406,8 +387,7 @@
       "besonderheiten": "• Insbesondere beim ACS zur Vorlastsenkung und Sedierung gut geeignet\n• langsame Applikation vermindert Übelkeit\n• Wirkungsverstärkung und erhöhtes Risiko von Atemdepression in Kombination mit Alkohol\nDrogenkonsum / zentral dämpfenden Medikamenten (Benzodiazepine o.ä.)\n• Ampullen mit unterschiedlichen Konzentrationen im Handel",
       "besondereHinweise": null,
       "page": 62,
-      "wirkung": "Starkes Opioid, wirkt schmerzstillend über µ-Opioidrezeptoren und senkt zusätzlich über eine venöse Gefäßerweiterung die Vorlast des Herzens.",
-      "minLevel": "NotSan"
+      "wirkung": "Starkes Opioid, wirkt schmerzstillend über µ-Opioidrezeptoren und senkt zusätzlich über eine venöse Gefäßerweiterung die Vorlast des Herzens."
     },
     {
       "id": "nalbuphin",
@@ -426,8 +406,7 @@
       "besonderheiten": "• Ceiling-Effekt beachten = keine Wirkverstärkung bei Dosissteigerung\n• geringes Risiko einer Atemdepression\n• i.m. Gabe schmerzhaft",
       "besondereHinweise": null,
       "page": 63,
-      "wirkung": "Opioid mit „Ceiling-Effekt“ (Partialagonist/-antagonist), wirkt stark schmerzstillend bei tendenziell geringerem Atemdepressions-Risiko als reine µ-Agonisten.",
-      "minLevel": "NotSan"
+      "wirkung": "Opioid mit „Ceiling-Effekt“ (Partialagonist/-antagonist), wirkt stark schmerzstillend bei tendenziell geringerem Atemdepressions-Risiko als reine µ-Agonisten."
     },
     {
       "id": "naloxon",
@@ -446,8 +425,7 @@
       "besonderheiten": "• Wirkeintritt: schnell, innerhalb von 1 - 2 Minuten\n• Gabe von Naloxon kann zum akuten Opioid-Entzugssyndrom führen\n• erneute Opioidwirkung nach Abbau von Naloxon möglich → fortgesetzte Überwachung zwingend\nerforderlich",
       "besondereHinweise": "Vor Naloxon-Gabe (primäre Maßnahmen):\n→ Kommandoatmung anwenden\n→ bei Abfall der SpO2 : Sauerstoff applizieren\n→ assistierte Beatmung (Beutel-Maske-Beatmung): BPR Atemwegsmanagement\n→ Naloxon titrieren",
       "page": 64,
-      "wirkung": "Verdrängt Opioide von ihren Rezeptoren (Antagonist) und hebt dadurch eine opioidbedingte Atemdepression akut auf.",
-      "minLevel": "NotSan"
+      "wirkung": "Verdrängt Opioide von ihren Rezeptoren (Antagonist) und hebt dadurch eine opioidbedingte Atemdepression akut auf."
     },
     {
       "id": "paracetamol",
@@ -466,8 +444,7 @@
       "besonderheiten": "• Zeitabstand zur letzten Gabe > 6 Stunden beachten",
       "besondereHinweise": null,
       "page": 65,
-      "wirkung": "Wirkt zentral schmerzstillend und fiebersenkend (genauer Mechanismus nicht vollständig geklärt). Alternative zu NSAR ohne deren Magen-/Blutungsrisiko.",
-      "minLevel": "NotSan"
+      "wirkung": "Wirkt zentral schmerzstillend und fiebersenkend (genauer Mechanismus nicht vollständig geklärt). Alternative zu NSAR ohne deren Magen-/Blutungsrisiko."
     },
     {
       "id": "prednisolon",
@@ -486,8 +463,7 @@
       "besonderheiten": "• Wirkeintritt verzögert, unspezifische frühzeitige Effekte nach 10 - 20 min\n• Wirkdauer 4 - 6 Stunden",
       "besondereHinweise": null,
       "page": 66,
-      "wirkung": "Glukokortikoid, dämpft überschießende Immun- und Entzündungsreaktionen. Bei Anaphylaxie und Bronchialobstruktion, Wirkung setzt verzögert ein.",
-      "minLevel": "NotSan"
+      "wirkung": "Glukokortikoid, dämpft überschießende Immun- und Entzündungsreaktionen. Bei Anaphylaxie und Bronchialobstruktion, Wirkung setzt verzögert ein."
     },
     {
       "id": "salbutamol",
@@ -506,8 +482,7 @@
       "besonderheiten": "• Zubereitungen mit unterschiedlichen Konzentrationen verfügbar",
       "besondereHinweise": null,
       "page": 67,
-      "wirkung": "β2-Sympathomimetikum, entspannt die glatte Muskulatur der Bronchien und wirkt dadurch bronchienerweiternd.",
-      "minLevel": "NotSan"
+      "wirkung": "β2-Sympathomimetikum, entspannt die glatte Muskulatur der Bronchien und wirkt dadurch bronchienerweiternd."
     },
     {
       "id": "sauerstoff",
@@ -526,8 +501,7 @@
       "besonderheiten": "• Explosionsgefahr bei entsprechendem Konzentrationsverhältnis gegeben, CAVE bei Defibrillation",
       "besondereHinweise": null,
       "page": 68,
-      "wirkung": "Erhöht den Sauerstoffpartialdruck im Blut und verbessert die Gewebeoxygenierung. Basistherapie bei Hypoxämie.",
-      "minLevel": "NotSan"
+      "wirkung": "Erhöht den Sauerstoffpartialdruck im Blut und verbessert die Gewebeoxygenierung. Basistherapie bei Hypoxämie."
     },
     {
       "id": "tranexamsaeure",
@@ -546,8 +520,7 @@
       "besonderheiten": "• Gabe nur innerhalb der ersten 3 Stunden nach Trauma\n• Gabe von Tranexamsäure bei Schädel-Hirntrauma (SHT) als Monotrauma, intracerebrale Blutung (ICB)\nohne Polytraumatisierung oder gastrointestinalen Blutungen wird nach aktuellen Studien nicht\nempfohlen",
       "besondereHinweise": null,
       "page": 69,
-      "wirkung": "Antifibrinolytikum, hemmt den körpereigenen Abbau von Blutgerinnseln (Fibrinolyse) und reduziert dadurch den Blutverlust bei schweren Traumablutungen.",
-      "minLevel": "NotSan"
+      "wirkung": "Antifibrinolytikum, hemmt den körpereigenen Abbau von Blutgerinnseln (Fibrinolyse) und reduziert dadurch den Blutverlust bei schweren Traumablutungen."
     },
     {
       "id": "urapidil",
@@ -566,8 +539,7 @@
       "besonderheiten": "• bei Anwendung unter Nutzen- / Risiko-Abwägung Dosisreduktion empfohlen\n• Wirkungsverstärkung bei gleichzeitiger Medikation mit anderen Antihypertensiva\n• bei hypertensivem Notfall beim akuten Aortensyndrom beträgt der angestrebte Zielwert RRsyst  100 - 120 mmHg\n• bei Hinweis auf Schlaganfall sollte eine moderate RR-Senkung auf einen Wert nicht  RRsyst <  180 mmHg erfolgen",
       "besondereHinweise": null,
       "page": 70,
-      "wirkung": "Blockiert Alpha-1-Rezeptoren und wirkt dadurch gefäßerweiternd/blutdrucksenkend, mit zusätzlicher zentral dämpfender Komponente.",
-      "minLevel": "NotSan"
+      "wirkung": "Blockiert Alpha-1-Rezeptoren und wirkt dadurch gefäßerweiternd/blutdrucksenkend, mit zusätzlicher zentral dämpfender Komponente."
     },
     {
       "id": "vollelektrolytloesung-vel",
@@ -586,8 +558,7 @@
       "besonderheiten": "• relativ kurzzeitiger intravasaler Volumeneffekt (20 - 30 Minuten)",
       "besondereHinweise": null,
       "page": 71,
-      "wirkung": "Kristalloide Infusionslösung, füllt das Gefäßvolumen auf und ersetzt Flüssigkeits-/Elektrolytverluste.",
-      "minLevel": "NotSan"
+      "wirkung": "Kristalloide Infusionslösung, füllt das Gefäßvolumen auf und ersetzt Flüssigkeits-/Elektrolytverluste."
     }
   ]
 }

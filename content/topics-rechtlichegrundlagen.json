@@ -15,7 +15,6 @@
       "title": "Garantenstellung & unterlassene Hilfeleistung",
       "category": "Grundrechte & Pflichten",
       "summary": "Warum man eine einmal begonnene Versorgung nicht einfach abbrechen darf.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rechtliches Grundlagenwissen für den Rettungsdienst. Keine SAA/BPR-Quelle und keine Rechtsberatung. Konkrete Rechtsvorschriften (Rettungsdienstgesetze, Delegationsumfang, Dokumentationsvorgaben) sind bundeslandspezifisch geregelt; im Einzelfall zählt immer die aktuelle Gesetzeslage bzw. lokale Dienstanweisung.",
       "notes": [],
@@ -25,16 +24,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Eine Rechtspflicht zum Handeln, die über die allgemeine Pflicht zur Hilfeleistung hinausgeht",
-              "minLevel": null
+              "text": "Eine Rechtspflicht zum Handeln, die über die allgemeine Pflicht zur Hilfeleistung hinausgeht"
             },
             {
-              "text": "Entsteht z. B. durch Übernahme der Behandlung, ein Dienstverhältnis oder ein bestehendes Vertrauensverhältnis",
-              "minLevel": null
+              "text": "Entsteht z. B. durch Übernahme der Behandlung, ein Dienstverhältnis oder ein bestehendes Vertrauensverhältnis"
             },
             {
-              "text": "Konsequenz: Wer die Versorgung eines Patienten übernommen hat, darf sich nicht ohne gleichwertige Übergabe oder Abschluss der Maßnahme entfernen",
-              "minLevel": "RS"
+              "text": "Konsequenz: Wer die Versorgung eines Patienten übernommen hat, darf sich nicht ohne gleichwertige Übergabe oder Abschluss der Maßnahme entfernen"
             }
           ]
         },
@@ -43,16 +39,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Jede Person ist zur zumutbaren Hilfeleistung bei Unglücksfällen verpflichtet",
-              "minLevel": null
+              "text": "Jede Person ist zur zumutbaren Hilfeleistung bei Unglücksfällen verpflichtet"
             },
             {
-              "text": "Das Unterlassen zumutbarer Hilfe ist strafbar",
-              "minLevel": null
+              "text": "Das Unterlassen zumutbarer Hilfe ist strafbar"
             },
             {
-              "text": "Zumutbarkeit hat Grenzen: die eigene Sicherheit geht vor. Niemand muss sich selbst in Gefahr bringen",
-              "minLevel": null
+              "text": "Zumutbarkeit hat Grenzen: die eigene Sicherheit geht vor. Niemand muss sich selbst in Gefahr bringen"
             }
           ]
         }
@@ -63,7 +56,6 @@
       "title": "Schweigepflicht",
       "category": "Grundrechte & Pflichten",
       "summary": "Was unter die Schweigepflicht fällt und welche Ausnahmen es gibt.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rechtliches Grundlagenwissen für den Rettungsdienst. Keine SAA/BPR-Quelle und keine Rechtsberatung. Konkrete Rechtsvorschriften (Rettungsdienstgesetze, Delegationsumfang, Dokumentationsvorgaben) sind bundeslandspezifisch geregelt; im Einzelfall zählt immer die aktuelle Gesetzeslage bzw. lokale Dienstanweisung.",
       "notes": [],
@@ -73,16 +65,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Alle im Rahmen der Tätigkeit bekannt gewordenen Patienteninformationen unterliegen der Schweigepflicht",
-              "minLevel": null
+              "text": "Alle im Rahmen der Tätigkeit bekannt gewordenen Patienteninformationen unterliegen der Schweigepflicht"
             },
             {
-              "text": "Gilt gegenüber Dritten, Angehörigen ohne Einwilligung des Patienten sowie Presse/Öffentlichkeit",
-              "minLevel": null
+              "text": "Gilt gegenüber Dritten, Angehörigen ohne Einwilligung des Patienten sowie Presse/Öffentlichkeit"
             },
             {
-              "text": "Gilt auch nach Beendigung der Tätigkeit weiter",
-              "minLevel": null
+              "text": "Gilt auch nach Beendigung der Tätigkeit weiter"
             }
           ]
         },
@@ -91,16 +80,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Einwilligung des Patienten",
-              "minLevel": null
+              "text": "Einwilligung des Patienten"
             },
             {
-              "text": "Gesetzliche Meldepflichten (z. B. bestimmte Infektionskrankheiten)",
-              "minLevel": "RS"
+              "text": "Gesetzliche Meldepflichten (z. B. bestimmte Infektionskrankheiten)"
             },
             {
-              "text": "Rechtfertigender Notstand. Z. B. akute Gefahr für Leib und Leben Dritter",
-              "minLevel": "RS"
+              "text": "Rechtfertigender Notstand. Z. B. akute Gefahr für Leib und Leben Dritter"
             }
           ]
         },
@@ -109,12 +95,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Keine Patientendaten im Klartext über offene Funkkanäle",
-              "minLevel": null
+              "text": "Keine Patientendaten im Klartext über offene Funkkanäle"
             },
             {
-              "text": "Keine Weitergabe von Einsatzdetails in sozialen Medien oder privaten Chats",
-              "minLevel": null
+              "text": "Keine Weitergabe von Einsatzdetails in sozialen Medien oder privaten Chats"
             }
           ]
         }
@@ -125,7 +109,6 @@
       "title": "Patientenverfügung, Patientenwille & mutmaßlicher Wille",
       "category": "Grundrechte & Pflichten",
       "summary": "Der Wille des Patienten hat Vorrang. Auch wenn er einer lebensrettenden Behandlung widerspricht.",
-      "minLevel": "RS",
       "page": null,
       "sourceNote": "Allgemeines rechtliches Grundlagenwissen für den Rettungsdienst. Keine SAA/BPR-Quelle und keine Rechtsberatung. Konkrete Rechtsvorschriften (Rettungsdienstgesetze, Delegationsumfang, Dokumentationsvorgaben) sind bundeslandspezifisch geregelt; im Einzelfall zählt immer die aktuelle Gesetzeslage bzw. lokale Dienstanweisung.",
       "notes": [
@@ -137,8 +120,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Ein einwilligungsfähiger, aufgeklärter Patient kann jede Behandlung ablehnen. Auch eine lebensrettende",
-              "minLevel": null
+              "text": "Ein einwilligungsfähiger, aufgeklärter Patient kann jede Behandlung ablehnen. Auch eine lebensrettende"
             }
           ]
         },
@@ -147,12 +129,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Schriftlich festgelegter Wille für den Fall der eigenen Einwilligungsunfähigkeit",
-              "minLevel": null
+              "text": "Schriftlich festgelegter Wille für den Fall der eigenen Einwilligungsunfähigkeit"
             },
             {
-              "text": "Grundsätzlich bindend, wenn sie konkret auf die vorliegende Situation zutrifft",
-              "minLevel": null
+              "text": "Grundsätzlich bindend, wenn sie konkret auf die vorliegende Situation zutrifft"
             }
           ]
         },
@@ -161,8 +141,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Ist der Patient nicht einwilligungsfähig und liegt keine anwendbare Patientenverfügung vor, muss der mutmaßliche Wille ermittelt werden. Z. B. über Angehörige oder frühere Äußerungen",
-              "minLevel": null
+              "text": "Ist der Patient nicht einwilligungsfähig und liegt keine anwendbare Patientenverfügung vor, muss der mutmaßliche Wille ermittelt werden. Z. B. über Angehörige oder frühere Äußerungen"
             }
           ]
         },
@@ -171,8 +150,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Im akuten Notfall ohne Zeit zur Klärung gilt: im Zweifel für das Leben behandeln, die Klärung der Willenslage erfolgt sekundär",
-              "minLevel": null
+              "text": "Im akuten Notfall ohne Zeit zur Klärung gilt: im Zweifel für das Leben behandeln, die Klärung der Willenslage erfolgt sekundär"
             }
           ]
         }
@@ -183,7 +161,6 @@
       "title": "Delegation ärztlicher Maßnahmen – Abgrenzung RS vs. NotSan",
       "category": "Delegation & Kompetenz",
       "summary": "Warum bestimmte Maßnahmen nur mit ärztlicher Delegation durchgeführt werden dürfen.",
-      "minLevel": "RS",
       "page": null,
       "sourceNote": "Allgemeines rechtliches Grundlagenwissen für den Rettungsdienst. Keine SAA/BPR-Quelle und keine Rechtsberatung. Konkrete Rechtsvorschriften (Rettungsdienstgesetze, Delegationsumfang, Dokumentationsvorgaben) sind bundeslandspezifisch geregelt; im Einzelfall zählt immer die aktuelle Gesetzeslage bzw. lokale Dienstanweisung.",
       "notes": [],
@@ -193,8 +170,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Invasive und medikamentöse Maßnahmen nach SAA/BPR sind grundsätzlich NotSan-Kompetenz mit ärztlicher Delegation durch die Ärztliche Leitung Rettungsdienst",
-              "minLevel": null
+              "text": "Invasive und medikamentöse Maßnahmen nach SAA/BPR sind grundsätzlich NotSan-Kompetenz mit ärztlicher Delegation durch die Ärztliche Leitung Rettungsdienst"
             }
           ]
         },
@@ -203,16 +179,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Nicht-invasive Basismaßnahmen, Beobachtung und Dokumentation",
-              "minLevel": null
+              "text": "Nicht-invasive Basismaßnahmen, Beobachtung und Dokumentation"
             },
             {
-              "text": "Unterstützung bei der Behandlung",
-              "minLevel": null
+              "text": "Unterstützung bei der Behandlung"
             },
             {
-              "text": "Keine eigenständige Medikamentengabe, siehe Medikamente-Modul",
-              "minLevel": null
+              "text": "Keine eigenständige Medikamentengabe, siehe Medikamente-Modul"
             }
           ]
         },
@@ -221,12 +194,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Delegation setzt eine entsprechende Ausbildung und eine konkrete Freigabe durch die Ärztliche Leitung voraus",
-              "minLevel": null
+              "text": "Delegation setzt eine entsprechende Ausbildung und eine konkrete Freigabe durch die Ärztliche Leitung voraus"
             },
             {
-              "text": "Ohne diese Freigabe ist eine Maßnahme auch für ausgebildetes Personal nicht zulässig",
-              "minLevel": null
+              "text": "Ohne diese Freigabe ist eine Maßnahme auch für ausgebildetes Personal nicht zulässig"
             }
           ]
         },
@@ -235,8 +206,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Welche Maßnahmen im Einzelnen delegiert sind, regelt die jeweilige Ärztliche Leitung Rettungsdienst. Das kann sich zwischen Bundesländern/Organisationen unterscheiden",
-              "minLevel": null
+              "text": "Welche Maßnahmen im Einzelnen delegiert sind, regelt die jeweilige Ärztliche Leitung Rettungsdienst. Das kann sich zwischen Bundesländern/Organisationen unterscheiden"
             }
           ]
         }
@@ -247,7 +217,6 @@
       "title": "Dokumentation: Einsatzprotokoll & DIVI-Protokoll",
       "category": "Dokumentation",
       "summary": "Was in ein Einsatzprotokoll gehört und wofür das DIVI-Protokoll steht.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rechtliches Grundlagenwissen für den Rettungsdienst. Keine SAA/BPR-Quelle und keine Rechtsberatung. Konkrete Rechtsvorschriften (Rettungsdienstgesetze, Delegationsumfang, Dokumentationsvorgaben) sind bundeslandspezifisch geregelt; im Einzelfall zählt immer die aktuelle Gesetzeslage bzw. lokale Dienstanweisung.",
       "notes": [],
@@ -257,16 +226,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Rechtliche Absicherung",
-              "minLevel": null
+              "text": "Rechtliche Absicherung"
             },
             {
-              "text": "Qualitätssicherung",
-              "minLevel": null
+              "text": "Qualitätssicherung"
             },
             {
-              "text": "Informationsweitergabe an Klinik/Notarzt",
-              "minLevel": null
+              "text": "Informationsweitergabe an Klinik/Notarzt"
             }
           ]
         },
@@ -275,20 +241,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Zeiten: Alarmierung, Eintreffen, Behandlungsbeginn, Transport, Übergabe",
-              "minLevel": null
+              "text": "Zeiten: Alarmierung, Eintreffen, Behandlungsbeginn, Transport, Übergabe"
             },
             {
-              "text": "Patientendaten und Befunde, inkl. Vitalwerte im Verlauf",
-              "minLevel": null
+              "text": "Patientendaten und Befunde, inkl. Vitalwerte im Verlauf"
             },
             {
-              "text": "Durchgeführte Maßnahmen und Verlauf",
-              "minLevel": null
+              "text": "Durchgeführte Maßnahmen und Verlauf"
             },
             {
-              "text": "Übergabe: an wen und wann",
-              "minLevel": null
+              "text": "Übergabe: an wen und wann"
             }
           ]
         },
@@ -297,12 +259,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Bundesweit standardisiertes Notarzteinsatzprotokoll",
-              "minLevel": "RS"
+              "text": "Bundesweit standardisiertes Notarzteinsatzprotokoll"
             },
             {
-              "text": "Dokumentiert u. a. NACA-Score sowie Maßnahmen und Medikamente strukturiert",
-              "minLevel": "RS"
+              "text": "Dokumentiert u. a. NACA-Score sowie Maßnahmen und Medikamente strukturiert"
             }
           ]
         },
@@ -311,12 +271,10 @@
           "illustration": null,
           "items": [
             {
-              "text": "Zeitnah, vollständig und wahrheitsgemäß dokumentieren",
-              "minLevel": null
+              "text": "Zeitnah, vollständig und wahrheitsgemäß dokumentieren"
             },
             {
-              "text": "Nachträgliche Änderungen müssen als solche erkennbar sein",
-              "minLevel": null
+              "text": "Nachträgliche Änderungen müssen als solche erkennbar sein"
             }
           ]
         }

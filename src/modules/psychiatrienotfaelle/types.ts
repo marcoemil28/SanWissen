@@ -1,5 +1,3 @@
-import type { QualificationLevel } from '../../app/levels';
-
 export type PsychiatrieNotfaelleCategory =
   | 'Psychiatrische Notfälle'
   | 'Kommunikation'
@@ -8,7 +6,6 @@ export type PsychiatrieNotfaelleCategory =
 
 export interface PsychiatrieNotfaelleFact {
   text: string;
-  minLevel?: QualificationLevel;
 }
 
 export interface PsychiatrieNotfaelleSection {
@@ -20,7 +17,6 @@ export interface PsychiatrieNotfaelleTopic {
   id: string;
   title: string;
   category: PsychiatrieNotfaelleCategory;
-  minLevel: QualificationLevel;
   summary: string;
   sections: PsychiatrieNotfaelleSection[];
   notes?: string[];

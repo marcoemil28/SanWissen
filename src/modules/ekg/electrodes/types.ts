@@ -1,5 +1,3 @@
-import type { QualificationLevel } from '../../../app/levels';
-
 export interface ElectrodeHitZone {
   /** Gültiger y-Bereich (Interkostalraum-Band) im SVG-Koordinatensystem. */
   rowY: [number, number];
@@ -38,5 +36,4 @@ export interface ElectrodeSet {
   imageName: string;
   viewBox: { w: number; h: number };
   /** Elektroden legen ist überwiegend eine technische Fertigkeit, keine Kompetenzfrage — daher niedrig angesetzt. */
-  minLevel: QualificationLevel;
 }

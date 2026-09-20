@@ -14,7 +14,6 @@
       "title": "Besonderheiten pädiatrischer Notfälle",
       "category": "Pädiatrie",
       "summary": "Warum Kinder keine \"kleinen Erwachsenen\" sind. Anatomische und physiologische Besonderheiten, altersabhängige Vitalwerte, Dosierungsbesonderheiten und Kommunikation.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu pädiatrischen Notfällen und Geburtshilfe, keine SAA/BPR-Quelle. Konkrete Vorgehensweisen können je nach Ausbildungsstand/lokaler Vorgabe variieren.",
       "notes": [],
@@ -24,20 +23,16 @@
           "illustration": "saeugling-puls",
           "items": [
             {
-              "text": "Relativ großer Kopf und kurzer Hals. Beeinflusst Lagerung und Atemwegsmanagement",
-              "minLevel": null
+              "text": "Relativ großer Kopf und kurzer Hals. Beeinflusst Lagerung und Atemwegsmanagement"
             },
             {
-              "text": "Engere Atemwege. Schon kleine Schwellungen/Fremdkörper wirken sich stark aus",
-              "minLevel": null
+              "text": "Engere Atemwege. Schon kleine Schwellungen/Fremdkörper wirken sich stark aus"
             },
             {
-              "text": "Höhere Atem- und Herzfrequenz je jünger das Kind, altersabhängige Normwerte beachten (siehe Anatomie-Modul, Vitalparameter-Normwerte)",
-              "minLevel": null
+              "text": "Höhere Atem- und Herzfrequenz je jünger das Kind, altersabhängige Normwerte beachten (siehe Anatomie-Modul, Vitalparameter-Normwerte)"
             },
             {
-              "text": "Höherer Wasser- und Wärmeverlust im Verhältnis zur Körperoberfläche, schnellere Auskühlungsgefahr",
-              "minLevel": null
+              "text": "Höherer Wasser- und Wärmeverlust im Verhältnis zur Körperoberfläche, schnellere Auskühlungsgefahr"
             }
           ]
         },
@@ -46,16 +41,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Altersgerecht ansprechen, Eltern/Bezugsperson aktiv einbeziehen. Sie kennen das \"normale\" Verhalten des Kindes",
-              "minLevel": null
+              "text": "Altersgerecht ansprechen, Eltern/Bezugsperson aktiv einbeziehen. Sie kennen das \"normale\" Verhalten des Kindes"
             },
             {
-              "text": "Blickdiagnose oft aussagekräftiger als sofortiges Abtasten: Hautfarbe, Atemarbeit, Aktivität/Ansprechbarkeit beobachten, bevor man das Kind anfasst",
-              "minLevel": null
+              "text": "Blickdiagnose oft aussagekräftiger als sofortiges Abtasten: Hautfarbe, Atemarbeit, Aktivität/Ansprechbarkeit beobachten, bevor man das Kind anfasst"
             },
             {
-              "text": "Untersuchung nach Möglichkeit auf dem Arm/Schoß der Bezugsperson beginnen",
-              "minLevel": null
+              "text": "Untersuchung nach Möglichkeit auf dem Arm/Schoß der Bezugsperson beginnen"
             }
           ]
         },
@@ -64,8 +56,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Grobe Faustformel als Orientierung (nur Richtwert, kein Ersatz für Angabe der Eltern): Alter in Jahren × 2 + 8 ≈ Gewicht in kg",
-              "minLevel": "RS"
+              "text": "Grobe Faustformel als Orientierung (nur Richtwert, kein Ersatz für Angabe der Eltern): Alter in Jahren × 2 + 8 ≈ Gewicht in kg"
             }
           ]
         },
@@ -74,20 +65,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Medikamentendosierungen bei Kindern richten sich nach dem Körpergewicht. Es gibt keine feste \"Kinderdosis\", sondern immer mg pro kg Körpergewicht",
-              "minLevel": "RS"
+              "text": "Medikamentendosierungen bei Kindern richten sich nach dem Körpergewicht. Es gibt keine feste \"Kinderdosis\", sondern immer mg pro kg Körpergewicht"
             },
             {
-              "text": "Gewichtsbasierte Referenzsysteme (z. B. farbcodierte Bänder/Karten nach Körperlänge) helfen im Notfall, wenn das tatsächliche Gewicht unbekannt ist",
-              "minLevel": "RS"
+              "text": "Gewichtsbasierte Referenzsysteme (z. B. farbcodierte Bänder/Karten nach Körperlänge) helfen im Notfall, wenn das tatsächliche Gewicht unbekannt ist"
             },
             {
-              "text": "Konkrete Dosierungen einzelner Medikamente stehen im Medikamente-Modul bzw. in der jeweils gültigen SAA/BPR. Hier bewusst keine Zahlenwerte, um Verwechslung mit veralteten/falschen Angaben zu vermeiden",
-              "minLevel": "RS"
+              "text": "Konkrete Dosierungen einzelner Medikamente stehen im Medikamente-Modul bzw. in der jeweils gültigen SAA/BPR. Hier bewusst keine Zahlenwerte, um Verwechslung mit veralteten/falschen Angaben zu vermeiden"
             },
             {
-              "text": "Im Zweifel oder bei fehlender Gewichtsangabe: ärztliche Rücksprache/Notarzt hinzuziehen statt zu schätzen",
-              "minLevel": "RS"
+              "text": "Im Zweifel oder bei fehlender Gewichtsangabe: ärztliche Rücksprache/Notarzt hinzuziehen statt zu schätzen"
             }
           ]
         },
@@ -96,8 +83,7 @@
           "illustration": null,
           "items": [
             {
-              "text": "Kinder-Reanimation folgt einem eigenen Algorithmus mit abweichenden Frequenzen/Verhältnissen. Siehe Algorithmen-Modul „Reanimation Kinder\"",
-              "minLevel": null
+              "text": "Kinder-Reanimation folgt einem eigenen Algorithmus mit abweichenden Frequenzen/Verhältnissen. Siehe Algorithmen-Modul „Reanimation Kinder\""
             }
           ]
         }
@@ -108,7 +94,6 @@
       "title": "Normale Geburt",
       "category": "Geburtshilfe",
       "summary": "Die drei Geburtsphasen und typische Anzeichen einer bevorstehenden Geburt.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu pädiatrischen Notfällen und Geburtshilfe, keine SAA/BPR-Quelle. Konkrete Vorgehensweisen können je nach Ausbildungsstand/lokaler Vorgabe variieren.",
       "notes": [],
@@ -118,16 +103,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Eröffnungsphase: regelmäßige Wehen, der Muttermund öffnet sich schrittweise",
-              "minLevel": null
+              "text": "Eröffnungsphase: regelmäßige Wehen, der Muttermund öffnet sich schrittweise"
             },
             {
-              "text": "Austreibungsphase: Pressphase bis zur Geburt des Kindes",
-              "minLevel": null
+              "text": "Austreibungsphase: Pressphase bis zur Geburt des Kindes"
             },
             {
-              "text": "Nachgeburtsphase: Ausstoßung der Plazenta",
-              "minLevel": null
+              "text": "Nachgeburtsphase: Ausstoßung der Plazenta"
             }
           ]
         },
@@ -136,20 +118,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Regelmäßige, in kürzer werdenden Abständen auftretende Wehen",
-              "minLevel": null
+              "text": "Regelmäßige, in kürzer werdenden Abständen auftretende Wehen"
             },
             {
-              "text": "Fruchtwasserabgang (Blasensprung)",
-              "minLevel": null
+              "text": "Fruchtwasserabgang (Blasensprung)"
             },
             {
-              "text": "Pressdrang der Mutter",
-              "minLevel": null
+              "text": "Pressdrang der Mutter"
             },
             {
-              "text": "Sichtbarer Kopf des Kindes in der Vulva. Geburt steht unmittelbar bevor",
-              "minLevel": null
+              "text": "Sichtbarer Kopf des Kindes in der Vulva. Geburt steht unmittelbar bevor"
             }
           ]
         }
@@ -160,7 +138,6 @@
       "title": "Notgeburt – Ablauf für den Sanitätsdienst",
       "category": "Geburtshilfe",
       "summary": "Wie eine Geburt begleitet wird, wenn kein rechtzeitiger Transport in die Klinik mehr möglich ist.",
-      "minLevel": "RS",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu pädiatrischen Notfällen und Geburtshilfe, keine SAA/BPR-Quelle. Konkrete Vorgehensweisen können je nach Ausbildungsstand/lokaler Vorgabe variieren.",
       "notes": [
@@ -172,24 +149,19 @@
           "illustration": null,
           "items": [
             {
-              "text": "Ruhe bewahren und ausstrahlen. Das beruhigt auch die Mutter",
-              "minLevel": null
+              "text": "Ruhe bewahren und ausstrahlen. Das beruhigt auch die Mutter"
             },
             {
-              "text": "Sichtschutz und Privatsphäre schaffen",
-              "minLevel": null
+              "text": "Sichtschutz und Privatsphäre schaffen"
             },
             {
-              "text": "Mutter in halbsitzende oder liegende Position mit angewinkelten, gespreizten Beinen bringen",
-              "minLevel": null
+              "text": "Mutter in halbsitzende oder liegende Position mit angewinkelten, gespreizten Beinen bringen"
             },
             {
-              "text": "Sauberes Material bereitlegen (Tücher, Handschuhe, ggf. Abnabel-Set)",
-              "minLevel": null
+              "text": "Sauberes Material bereitlegen (Tücher, Handschuhe, ggf. Abnabel-Set)"
             },
             {
-              "text": "Frühzeitig Notarzt nachfordern",
-              "minLevel": null
+              "text": "Frühzeitig Notarzt nachfordern"
             }
           ]
         },
@@ -198,16 +170,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Kopf des Kindes beim Durchtritt vorsichtig mit der Hand unterstützen, nicht ziehen",
-              "minLevel": null
+              "text": "Kopf des Kindes beim Durchtritt vorsichtig mit der Hand unterstützen, nicht ziehen"
             },
             {
-              "text": "Geburtsvorgang nicht forcieren. Der natürliche Ablauf hat Vorrang",
-              "minLevel": null
+              "text": "Geburtsvorgang nicht forcieren. Der natürliche Ablauf hat Vorrang"
             },
             {
-              "text": "Auf eine Nabelschnur um den Hals des Kindes achten",
-              "minLevel": null
+              "text": "Auf eine Nabelschnur um den Hals des Kindes achten"
             }
           ]
         },
@@ -216,20 +185,16 @@
           "illustration": null,
           "items": [
             {
-              "text": "Kind sofort abtrocknen und warmhalten. Größter Wärmeverlust unmittelbar nach der Geburt",
-              "minLevel": null
+              "text": "Kind sofort abtrocknen und warmhalten. Größter Wärmeverlust unmittelbar nach der Geburt"
             },
             {
-              "text": "Atmung und Reaktion des Kindes prüfen",
-              "minLevel": null
+              "text": "Atmung und Reaktion des Kindes prüfen"
             },
             {
-              "text": "Abnabeln erst, wenn die Nabelschnur nicht mehr pulsiert bzw. nach lokaler Vorgabe",
-              "minLevel": "RS"
+              "text": "Abnabeln erst, wenn die Nabelschnur nicht mehr pulsiert bzw. nach lokaler Vorgabe"
             },
             {
-              "text": "Kind zum Bonding und Wärmeerhalt auf die Brust/den Bauch der Mutter legen",
-              "minLevel": null
+              "text": "Kind zum Bonding und Wärmeerhalt auf die Brust/den Bauch der Mutter legen"
             }
           ]
         },
@@ -238,16 +203,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Plazentageburt abwarten. Nicht an der Nabelschnur ziehen",
-              "minLevel": null
+              "text": "Plazentageburt abwarten. Nicht an der Nabelschnur ziehen"
             },
             {
-              "text": "Fundusstand und Blutungsmenge der Mutter beobachten (Nachblutung erkennen)",
-              "minLevel": "RS"
+              "text": "Fundusstand und Blutungsmenge der Mutter beobachten (Nachblutung erkennen)"
             },
             {
-              "text": "Notarzt für Mutter und Kind ist grundsätzlich immer erforderlich",
-              "minLevel": null
+              "text": "Notarzt für Mutter und Kind ist grundsätzlich immer erforderlich"
             }
           ]
         }
@@ -258,7 +220,6 @@
       "title": "Erstversorgung Neugeborenes & APGAR-Score",
       "category": "Geburtshilfe",
       "summary": "Die ersten Maßnahmen am Neugeborenen und die standardisierte APGAR-Beurteilung.",
-      "minLevel": "SanH",
       "page": null,
       "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu pädiatrischen Notfällen und Geburtshilfe, keine SAA/BPR-Quelle. Konkrete Vorgehensweisen können je nach Ausbildungsstand/lokaler Vorgabe variieren.",
       "notes": [],
@@ -268,16 +229,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Abtrocknen und Wärmeerhalt. Direkt nach der Geburt ist der Wärmeverlust am größten",
-              "minLevel": null
+              "text": "Abtrocknen und Wärmeerhalt. Direkt nach der Geburt ist der Wärmeverlust am größten"
             },
             {
-              "text": "Absaugen nur bei sichtbar verlegten Atemwegen, nicht routinemäßig",
-              "minLevel": null
+              "text": "Absaugen nur bei sichtbar verlegten Atemwegen, nicht routinemäßig"
             },
             {
-              "text": "Taktile Stimulation (sanftes Abreiben des Rückens/der Fußsohlen) regt die Eigenatmung an",
-              "minLevel": null
+              "text": "Taktile Stimulation (sanftes Abreiben des Rückens/der Fußsohlen) regt die Eigenatmung an"
             }
           ]
         },
@@ -286,24 +244,19 @@
           "illustration": null,
           "items": [
             {
-              "text": "Atmung. Fehlend, unregelmäßig/schwach, oder regelmäßig/kräftig (Schreien)",
-              "minLevel": null
+              "text": "Atmung. Fehlend, unregelmäßig/schwach, oder regelmäßig/kräftig (Schreien)"
             },
             {
-              "text": "Puls (Herzfrequenz). Fehlend, unter 100/min, oder über 100/min",
-              "minLevel": null
+              "text": "Puls (Herzfrequenz). Fehlend, unter 100/min, oder über 100/min"
             },
             {
-              "text": "Grundtonus (Muskeltonus). Schlaff, träge Beugung, oder aktive Bewegung",
-              "minLevel": null
+              "text": "Grundtonus (Muskeltonus). Schlaff, träge Beugung, oder aktive Bewegung"
             },
             {
-              "text": "Aussehen (Hautfarbe). Blass/blau, Stamm rosig/Extremitäten blau, oder komplett rosig",
-              "minLevel": null
+              "text": "Aussehen (Hautfarbe). Blass/blau, Stamm rosig/Extremitäten blau, oder komplett rosig"
             },
             {
-              "text": "Reflexe (Reaktion auf Reiz, z. B. Absaugen). Keine, Grimassieren, oder Schreien/Husten",
-              "minLevel": null
+              "text": "Reflexe (Reaktion auf Reiz, z. B. Absaugen). Keine, Grimassieren, oder Schreien/Husten"
             }
           ]
         },
@@ -312,16 +265,13 @@
           "illustration": null,
           "items": [
             {
-              "text": "Beurteilung nach 1, 5 und 10 Minuten nach der Geburt",
-              "minLevel": null
+              "text": "Beurteilung nach 1, 5 und 10 Minuten nach der Geburt"
             },
             {
-              "text": "Der Verlauf über die drei Messzeitpunkte ist aussagekräftiger als der Einzelwert",
-              "minLevel": null
+              "text": "Der Verlauf über die drei Messzeitpunkte ist aussagekräftiger als der Einzelwert"
             },
             {
-              "text": "Interaktiver Rechner: siehe Werkzeuge & Scores → APGAR-Score",
-              "minLevel": null
+              "text": "Interaktiver Rechner: siehe Werkzeuge & Scores → APGAR-Score"
             }
           ]
         }

@@ -21,11 +21,9 @@ struct ModuleRegistry: Codable {
 
 // MARK: - Generisches Themenmodul
 
-/// Ein einzelner Merkpunkt bzw. Handlungsschritt. `minLevel` ist ein reines
-/// Metadatum aus dem Desktop-Datenmodell und steuert die Anzeige nicht.
+/// Ein einzelner Merkpunkt bzw. Handlungsschritt.
 struct TopicItem: Codable, Hashable {
     let text: String
-    let minLevel: String?
 }
 
 struct TopicSection: Codable, Hashable {
@@ -40,7 +38,6 @@ struct Topic: Codable, Identifiable, Hashable {
     let title: String
     let category: String?
     let summary: String
-    let minLevel: String
     let page: Int?
     let sourceNote: String?
     let notes: [String]
@@ -73,7 +70,6 @@ struct Medikament: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let category: String
-    let minLevel: String
     let wirkstoff: String?
     let konzentration: String?
     let arzneimittelgruppe: String?

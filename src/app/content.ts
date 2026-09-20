@@ -35,7 +35,6 @@ function undef<T>(value: T | null | undefined): T | undefined {
 
 interface RawItem {
   text: string;
-  minLevel?: string | null;
 }
 
 interface RawSection {
@@ -49,7 +48,6 @@ interface RawTopic {
   title: string;
   category?: string | null;
   summary: string;
-  minLevel?: string | null;
   page?: number | null;
   sourceNote?: string | null;
   notes?: string[];
@@ -77,7 +75,6 @@ export function topicsFrom<T>(raw: RawTopicModule, itemsKey: 'facts' | 'steps'):
     title: topic.title,
     category: undef(topic.category),
     summary: topic.summary,
-    minLevel: undef(topic.minLevel),
     page: undef(topic.page),
     sourceNote: undef(topic.sourceNote),
     notes: topic.notes ?? [],
@@ -85,10 +82,7 @@ export function topicsFrom<T>(raw: RawTopicModule, itemsKey: 'facts' | 'steps'):
       heading: undef(section.heading),
       illustrationId: undef(section.illustration),
       illustration: section.illustration ? ILLUSTRATION_COMPONENTS[section.illustration] : undefined,
-      [itemsKey]: section.items.map((item) => ({
-        text: item.text,
-        minLevel: undef(item.minLevel),
-      })),
+      [itemsKey]: section.items.map((item) => ({ text: item.text })),
     })),
   })) as unknown as T[];
 }

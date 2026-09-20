@@ -14,7 +14,6 @@
       "nameEn": "Normal sinus rhythm",
       "category": "Sinusrhythmen",
       "difficulty": 1,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Frequenz 60–100/min",
@@ -38,7 +37,6 @@
       "nameEn": "Sinus bradycardia",
       "category": "Sinusrhythmen",
       "difficulty": 1,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Frequenz <60/min",
@@ -60,7 +58,6 @@
       "nameEn": "Sinus tachycardia",
       "category": "Sinusrhythmen",
       "difficulty": 1,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Frequenz >100/min (meist <150/min)",
@@ -82,7 +79,6 @@
       "nameEn": "Sinus arrhythmia",
       "category": "Sinusrhythmen",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Leicht schwankende R-R-Abstände im Atemrhythmus",
@@ -104,7 +100,6 @@
       "nameEn": "Atrial fibrillation",
       "category": "Vorhofarrhythmien",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Absolut unregelmäßige R-R-Abstände (\"irregularly irregular\")",
@@ -127,7 +122,6 @@
       "nameEn": "Atrial flutter",
       "category": "Vorhofarrhythmien",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Sägezahnartige Flatterwellen (~250–350/min)",
@@ -147,7 +141,6 @@
       "nameEn": "Supraventricular tachycardia",
       "category": "Vorhofarrhythmien",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Regelmäßig, sehr schnell (150–220/min)",
@@ -171,7 +164,6 @@
       "nameEn": "Premature ventricular contraction",
       "category": "Kammerarrhythmien",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Vorzeitiger, breiter und bizarr geformter QRS-Komplex",
@@ -195,7 +187,6 @@
       "nameEn": "Ventricular tachycardia",
       "category": "Kammerarrhythmien",
       "difficulty": 3,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Regelmäßig, breiter QRS (>120 ms)",
@@ -217,7 +208,6 @@
       "nameEn": "Ventricular flutter",
       "category": "Kammerarrhythmien",
       "difficulty": 3,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Regelmäßige, große sinusähnliche Wellen (~250–320/min)",
@@ -235,7 +225,6 @@
       "nameEn": "Coarse ventricular fibrillation",
       "category": "Kreislaufstillstand",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Völlig chaotische, unregelmäßige Undulationen",
@@ -254,7 +243,6 @@
       "nameEn": "Fine ventricular fibrillation",
       "category": "Kreislaufstillstand",
       "difficulty": 3,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Chaotische Undulationen mit kleiner Amplitude",
@@ -272,7 +260,6 @@
       "nameEn": "Asystole",
       "category": "Kreislaufstillstand",
       "difficulty": 1,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Keine erkennbare elektrische Aktivität (Nulllinie)",
@@ -290,7 +277,6 @@
       "nameEn": "First-degree AV block",
       "category": "Erregungsleitungsstoerungen",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "PQ-Zeit konstant verlängert (>200 ms)",
@@ -313,7 +299,6 @@
       "nameEn": "Second-degree AV block, Mobitz I (Wenckebach)",
       "category": "Erregungsleitungsstoerungen",
       "difficulty": 3,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "PQ-Zeit wird von Schlag zu Schlag länger",
@@ -335,7 +320,6 @@
       "nameEn": "Second-degree AV block, Mobitz II",
       "category": "Erregungsleitungsstoerungen",
       "difficulty": 3,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "PQ-Zeit konstant (keine Verlängerung)",
@@ -356,7 +340,6 @@
       "nameEn": "Third-degree (complete) AV block",
       "category": "Erregungsleitungsstoerungen",
       "difficulty": 3,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "P-Wellen und QRS-Komplexe völlig unabhängig voneinander (AV-Dissoziation)",
@@ -377,7 +360,6 @@
       "nameEn": "ST-elevation pattern",
       "category": "Ischaemiezeichen",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Grundrhythmus meist regelmäßig, normale P-QRS-Beziehung",
@@ -400,7 +382,6 @@
       "nameEn": "ST-depression pattern",
       "category": "Ischaemiezeichen",
       "difficulty": 2,
-      "minLevel": "RS",
       "quizEligible": true,
       "keyFeatures": [
         "Grundrhythmus meist regelmäßig",

@@ -106,6 +106,15 @@ gemeinsame Inhaltsquelle ändern.
   - `medications.json` und `wirkung.ts` sind zu `content/medikamente.json`
     zusammengeführt. Sie wurden ohnehin nur an einer Stelle kombiniert.
   - Der Plan dahinter steht in [docs/inhaltspipeline.md](docs/inhaltspipeline.md).
+- **`minLevel` und `QualificationLevel` entfernt.** Das Feld stammte aus
+  der früheren Navigation nach Qualifikationsstufe (SanH/RS/NotSan), die in
+  0.17.0 durch die Gruppierung nach Thema ersetzt wurde. Seither hing es an
+  806 Stellen, ohne Anzeige, Gruppierung oder Suche zu beeinflussen. Kein
+  einziger Zugriff darauf war im Code übrig, nur Deklarationen.
+  - 806 Vorkommen in 13 Inhaltsdateien, die Felder in 13 `types.ts`, die
+    vier Swift-Modelle und `src/app/levels.ts` sind weg.
+  - Die Inhaltsdateien werden dadurch rund 16 KB kleiner, vor allem aber
+    um 806 Zeilen Rauschen leichter, was beim Bearbeiten von Hand zählt.
 - **Das Schema heißt jetzt durchgängig xABCDE statt cABCDE.** So wird es in
   der Ausbildung benannt, und das Glossar erklärte ohnehin schon das x,
   während es als cABCDE geführt war. Betroffen sind Titel, Überschriften,

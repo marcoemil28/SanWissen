@@ -125,10 +125,9 @@ Hot-Reload sofort übernommen.
 - Ursprünglich gab es hier drei Qualifikationsstufen (SanH/RS/NotSan) als
   Navigationsachse — nach Rückmeldung war das unnötig komplex, da Inhalte
   ohnehin für alle einsehbar sind. Umgestellt in 0.17.0, siehe CHANGELOG.
-- `QualificationLevel` (`src/app/levels.ts`) existiert weiterhin als
-  internes `minLevel`-Feld auf einzelnen Inhalten (Datenmodell-Altlast aus
-  der früheren Stufen-Idee), hat aber aktuell **keine** Auswirkung auf
-  Anzeige, Gruppierung oder Suche.
+- Das zugehörige `minLevel`-Feld und der Typ `QualificationLevel` sind in
+  1.1.0 entfernt worden. Sie hingen als Altlast an 806 Stellen, ohne
+  Anzeige, Gruppierung oder Suche zu beeinflussen.
 
 ### ✅ Globale Suche
 
@@ -265,10 +264,6 @@ Hot-Reload sofort übernommen.
   „Kreislaufstillstand": ABCDE-Herangehensweise/-Instabilitäten, WASB & GCS,
   SAMPLER, OPQRST, Atemwegsmanagement, Patientenanmeldung (ZOABCDE),
   Übergabe (SINNHAFT), Reanimation Erwachsene (BLS→ALS) und Kinder (PLS).
-- Jeder einzelne Handlungsschritt trägt intern sein eigenes `minLevel`-
-  Datenfeld (z. B. Basismaßnahmen der Reanimation vs. EGA/i.v.-Zugang/
-  Medikamentengabe erst ab Notfallsanitäter) — dient nur der Datenmodell-
-  Struktur, wird aber nicht mehr separat angezeigt.
 - Laien-Basismaßnahmen (Reanimation) sind allgemeines BLS-Wissen und per
   Quellenhinweis von den PDF-Inhalten (NotSan-fokussiert) abgegrenzt.
 
@@ -451,8 +446,8 @@ der Umsetzungsweg steht unter [Mobile (Android)](#mobile-android).
 ```
 src/
   app/
-    registry.tsx         # zentrale Liste aller Lernmodule + ModuleCategory (Sidebar-Gruppierung)
-    levels.ts             # QualificationLevel-Typ (nur noch inertes minLevel-Datenfeld je Inhalt)
+    registry.tsx         # Modul-Registry: Zuordnung ID → Komponente, Rest aus content/modules.json
+    content.ts            # liest content/ und bildet es auf die Typen der Ansichten ab
     NavigationContext.tsx    # modulübergreifende "spring zu Modul X, Eintrag Y"-Anfrage
     searchIndex.ts            # durchsuchbarer Index über alle Module
     GlobalSearch.tsx           # Suchfeld + Ergebnisliste in der Sidebar
@@ -504,15 +499,15 @@ src/
       data.ts             # lädt/typisiert medications.json + wirkung.ts
       MedikamenteModule.tsx  # Kategorie-Liste + Detailansicht
     algorithmen/
-      types.ts           # Datenmodell (AlgorithmEntry/-Section/-Step, je mit minLevel)
+      types.ts           # Datenmodell (AlgorithmEntry/-Section/-Step)
       data.ts             # 9 Einträge aus BPR "Herangehensweise" + "Kreislaufstillstand"
       AlgorithmenModule.tsx  # Detailansicht mit Schritten je Sektion
     medikamentenvorbereitung/
-      types.ts           # Datenmodell (MedVorbereitungEntry/-Section/-Step, je mit minLevel)
+      types.ts           # Datenmodell (MedVorbereitungEntry/-Section/-Step)
       data.ts             # 6-R-Regel, Sicherheitsprinzipien, Standardvorgehen, Verdünnungsformel
       MedikamentenvorbereitungModule.tsx  # Detailansicht (Einzelthema, keine Liste)
     anatomie/
-      types.ts           # Datenmodell (AnatomieTopic/-Section/-Fact, je mit minLevel)
+      types.ts           # Datenmodell (AnatomieTopic/-Section/-Fact)
       data.ts             # 5 Themen: Herz-Kreislauf, Atmung, Skelett/Muskulatur, Nervensystem, Vitalparameter
       AnatomieModule.tsx  # Detailansicht mit Fakten je Sektion
     werkzeuge/
@@ -521,37 +516,37 @@ src/
       NeunerRegel.tsx, NacaScore.tsx  # je ein interaktiver Rechner
       WerkzeugeModule.tsx # Liste + aktiver Rechner
     traumatologie/
-      types.ts           # Datenmodell (TraumaTopic/-Section/-Fact, je mit minLevel)
+      types.ts           # Datenmodell (TraumaTopic/-Section/-Fact)
       data.ts             # 7 Themen: Frakturen, Wundversorgung, Verbandslehre, schwere
                           #   Verletzungen, Verbrennungen, Polytrauma/Blutstillung
       TraumatologieModule.tsx  # Detailansicht mit Fakten je Sektion
     sanitaetsdienst/
-      types.ts           # Datenmodell (SanitaetsdienstTopic/-Section/-Fact, je mit minLevel)
+      types.ts           # Datenmodell (SanitaetsdienstTopic/-Section/-Fact)
       data.ts             # 5 Themen: Wachdienst-Organisation, MANV/Sichtung, Funkalphabet,
                           #   Veranstaltungs-Verletzungsmuster, Hygiene & Infektionsschutz
       SanitaetsdienstModule.tsx  # Detailansicht mit Fakten je Sektion
     internistischenotfaelle/
-      types.ts           # Datenmodell (InternistischeNotfaelleTopic/-Section/-Fact, je mit minLevel)
+      types.ts           # Datenmodell (InternistischeNotfaelleTopic/-Section/-Fact)
       data.ts             # 10 Themen: Herz & Kreislauf, Neurologisch, Stoffwechsel & Allergie,
                           #   Abdomen & Vergiftungen, Umweltbedingte Notfälle
       InternistischeNotfaelleModule.tsx  # Detailansicht mit Fakten je Sektion
     paediatrie/
-      types.ts           # Datenmodell (PaediatrieTopic/-Section/-Fact, je mit minLevel)
+      types.ts           # Datenmodell (PaediatrieTopic/-Section/-Fact)
       data.ts             # 4 Themen: Pädiatrie (Besonderheiten), Geburtshilfe (Geburt,
                           #   Notgeburt, Neugeborenen-Erstversorgung & APGAR)
       PaediatrieModule.tsx  # Detailansicht mit Fakten je Sektion
     psychiatrienotfaelle/
-      types.ts           # Datenmodell (PsychiatrieNotfaelleTopic/-Section/-Fact, je mit minLevel)
+      types.ts           # Datenmodell (PsychiatrieNotfaelleTopic/-Section/-Fact)
       data.ts             # 5 Themen: Psychiatrische Notfälle, Kommunikation,
                           #   Sterben & Todesfeststellung, Großschadenslagen
       PsychiatrieNotfaelleModule.tsx  # Detailansicht mit Fakten je Sektion
     rettungstechnik/
-      types.ts           # Datenmodell (RettungstechnikTopic/-Section/-Fact, je mit minLevel)
+      types.ts           # Datenmodell (RettungstechnikTopic/-Section/-Fact)
       data.ts             # 6 Themen: Trageformen, Lagerungsarten, Atemwege & Beatmung,
                           #   Gerätekunde (Notfallrucksack)
       RettungstechnikModule.tsx  # Detailansicht mit Fakten je Sektion
     rechtlichegrundlagen/
-      types.ts           # Datenmodell (RechtlicheGrundlagenTopic/-Section/-Fact, je mit minLevel)
+      types.ts           # Datenmodell (RechtlicheGrundlagenTopic/-Section/-Fact)
       data.ts             # 5 Themen: Grundrechte & Pflichten, Delegation & Kompetenz,
                           #   Dokumentation
       RechtlicheGrundlagenModule.tsx  # Detailansicht mit Fakten je Sektion

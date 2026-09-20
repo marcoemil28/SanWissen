@@ -10,7 +10,6 @@
         "w": 669,
         "h": 1200
       },
-      "minLevel": "RS",
       "points": [
         {
           "id": "rot",
@@ -56,7 +55,6 @@
         "w": 746,
         "h": 1000
       },
-      "minLevel": "RS",
       "points": [
         {
           "id": "ra",
