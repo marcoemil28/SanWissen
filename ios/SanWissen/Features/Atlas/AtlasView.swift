@@ -100,11 +100,12 @@ struct AtlasView: View {
                     .font(.system(size: 9, weight: .semibold))
                     .tracking(1.1)
                     .foregroundStyle(theme.secondaryText)
-                Text("\(AtlasStore.shared.parts.count) Modellteile · BodyParts3D")
+                Text("\(model.partCount) Modellteile · \(model.sourceName)")
                     .font(.caption2)
                     .foregroundStyle(theme.secondaryText)
             }
             Spacer()
+            sexPicker
             searchField
             Button {
                 if let view = model.sceneView { model.startQuiz(in: view) }
@@ -125,6 +126,28 @@ struct AtlasView: View {
         }
         .padding(.horizontal, 16)
         .padding(.top, 8)
+    }
+
+    /// Wechsel zwischen den beiden Referenzmodellen.
+    private var sexPicker: some View {
+        HStack(spacing: 0) {
+            ForEach(AtlasSex.allCases) { option in
+                Button {
+                    model.switchSex(to: option)
+                } label: {
+                    Text(option == .male ? "♂" : "♀")
+                        .font(.system(size: 15, weight: .semibold))
+                        .frame(width: 30, height: 28)
+                        .background(model.sex == option ? theme.accent : .clear,
+                                    in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                        .foregroundStyle(model.sex == option ? Color.white : theme.primaryText)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(option.label)
+            }
+        }
+        .padding(2)
+        .cardBackground()
     }
 
     private var searchField: some View {
@@ -178,7 +201,7 @@ struct AtlasView: View {
             HStack {
                 Text("Systeme").font(.subheadline.weight(.semibold))
                 Spacer()
-                Text("\(AtlasSystem.all.count)")
+                Text("\(model.availableSystems.count)")
                     .font(.caption2)
                     .foregroundStyle(theme.secondaryText)
             }
@@ -192,7 +215,7 @@ struct AtlasView: View {
 
             ScrollView {
                 VStack(spacing: 4) {
-                    ForEach(AtlasSystem.all.filter { model.filter.matches($0) }) { system in
+                    ForEach(model.availableSystems.filter { model.filter.matches($0) }) { system in
                         Toggle(isOn: Binding(
                             get: { model.visibleSystems.contains(system.id) },
                             set: { _ in model.toggle(system) })
@@ -233,7 +256,7 @@ struct AtlasView: View {
         Button {
             showsSystems = true
         } label: {
-            Label("Systeme (\(model.visibleSystems.count)/\(AtlasSystem.all.count))",
+            Label("Systeme (\(model.visibleSystems.count)/\(model.availableSystems.count))",
                   systemImage: "slider.horizontal.3")
                 .font(.caption)
                 .padding(.horizontal, 12)
@@ -381,8 +404,16 @@ struct AtlasView: View {
                     .font(.title3.weight(.semibold))
                     .fixedSize(horizontal: false, vertical: true)
 
-                if let system = model.selectedSystem {
-                    Text(system.description)
+                if let explanation = structureExplanation {
+                    Text(explanation)
+                        .font(.footnote)
+                        .foregroundStyle(theme.secondaryText)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text("Erklärung zur Struktur")
+                        .font(.system(size: 9))
+                        .foregroundStyle(theme.secondaryText.opacity(0.75))
+                } else if let system = model.selectedSystem {
+                    Text(system.description(for: model.sex))
                         .font(.footnote)
                         .foregroundStyle(theme.secondaryText)
                         .fixedSize(horizontal: false, vertical: true)
@@ -529,6 +560,12 @@ struct AtlasView: View {
         }
     }
 
+    /// Erklärung zur ausgewählten Struktur, falls es eine gibt.
+    private var structureExplanation: String? {
+        guard let name = model.selectedConcept?.name ?? model.selectedPart?.name else { return nil }
+        return AtlasExplanations.forStructure(named: name)
+    }
+
     // MARK: - Quellenangabe
 
     private var creditsSheet: some View {
@@ -541,10 +578,11 @@ struct AtlasView: View {
                         .foregroundStyle(theme.secondaryText)
                     Text("Ein Körper, aufgeschlüsselt")
                         .font(.title2.weight(.semibold))
-                    Text("Erwachsene männliche Referenzanatomie aus BodyParts3D.")
+                    Text(model.scopeText)
                         .font(.subheadline)
+                        .fixedSize(horizontal: false, vertical: true)
 
-                    Text("\(AtlasStore.shared.parts.count) einzelne Netze und \(AtlasStore.shared.concepts.count) benannte Strukturen.")
+                    Text("\(model.partCount) einzelne Netze und \(model.conceptCount) benannte Strukturen.")
                         .font(.footnote)
                         .foregroundStyle(theme.secondaryText)
                     Text("Die Referenz enthält nicht jede Struktur und nicht jede anatomische Variante. Eine benannte Struktur kann aus mehreren Teilen bestehen. Die Geometrie ist für die Darstellung vereinfacht. Das ist eine anatomische Referenz, kein diagnostisches Werkzeug.")
@@ -556,14 +594,20 @@ struct AtlasView: View {
 
                     Text("Quelle")
                         .font(.subheadline.weight(.semibold))
-                    Text("BodyParts3D, © The Database Center for Life Science, lizenziert unter CC Attribution 4.0 International.")
+                    Text("Männliches Modell: BodyParts3D, © The Database Center for Life Science. Die Herausgeber geben CC Attribution-ShareAlike 2.1 Japan an.")
                         .font(.footnote)
                         .fixedSize(horizontal: false, vertical: true)
-                    Link("Lizenz des Datensatzes",
-                         destination: URL(string: "https://creativecommons.org/licenses/by/4.0/")!)
+                    Text("Weibliches Modell: Human Reference Atlas united-female v1.5, lizenziert unter CC Attribution 4.0 International.")
                         .font(.footnote)
-                    Link("Originalgeometrie und Metadaten",
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text("Geladen: \(model.versionText)")
+                        .font(.caption2)
+                        .foregroundStyle(theme.secondaryText)
+                    Link("Originalgeometrie BodyParts3D",
                          destination: URL(string: "https://lifesciencedb.jp/bp3d/")!)
+                        .font(.footnote)
+                    Link("Human Reference Atlas",
+                         destination: URL(string: "https://humanatlas.io/")!)
                         .font(.footnote)
                 }
                 .padding()

@@ -61,37 +61,51 @@ private struct AtlasFile: Decodable {
 final class AtlasStore {
     static let shared = AtlasStore()
 
-    let parts: [AtlasPart]
-    let concepts: [AtlasConcept]
-    let triangleCount: Int
-    let scope: String
-    let source: String
+    /// Welches Referenzmodell gerade geladen ist.
+    private(set) var sex: AtlasSex = .male
+
+    private(set) var parts: [AtlasPart] = []
+    private(set) var concepts: [AtlasConcept] = []
+    private(set) var triangleCount = 0
+    private(set) var scope = ""
+    private(set) var source = ""
+    private(set) var version = ""
 
     /// Netze je System, in der Reihenfolge der Datei.
-    let partsBySystem: [String: [AtlasPart]]
-    private let partsById: [String: AtlasPart]
+    private(set) var partsBySystem: [String: [AtlasPart]] = [:]
+    private var partsById: [String: AtlasPart] = [:]
 
     /// Die eingeblendeten Binärdateien, nach Blocknummer.
     private var chunkData: [Int: Data] = [:]
-    private let chunkNames: [Int: String]
+    private var chunkNames: [Int: String] = [:]
 
     private init() {
-        guard let url = Bundle.main.url(forResource: "atlas", withExtension: "json"),
+        load(.male)
+    }
+
+    /// Lädt eines der beiden Modelle. Die Geometrie wird nur eingeblendet
+    /// (memory mapped), der Wechsel kostet deshalb kaum Speicher.
+    func load(_ sex: AtlasSex) {
+        guard let url = Bundle.main.url(forResource: sex.manifestName, withExtension: "json"),
               let data = try? Data(contentsOf: url, options: .mappedIfSafe),
               let file = try? JSONDecoder().decode(AtlasFile.self, from: data) else {
-            fatalError("atlas.json fehlt oder ist beschädigt — bitte Resources/Atlas prüfen.")
+            fatalError("\(sex.manifestName).json fehlt oder ist beschädigt — bitte Resources/Atlas prüfen.")
         }
+        self.sex = sex
         parts = file.parts
         concepts = file.concepts
         triangleCount = file.triangles
         scope = file.scope
         source = file.source
+        version = file.version
         partsById = Dictionary(uniqueKeysWithValues: file.parts.map { ($0.id, $0) })
         partsBySystem = Dictionary(grouping: file.parts, by: \.system)
         chunkNames = Dictionary(uniqueKeysWithValues: file.chunks.enumerated().map { index, chunk in
-            // "/models/body-3.bin" → "body-3"
+            // "/models/body-3.bin" → "body-3", "/models/female-2.bin" → "female-2"
             (index, (chunk.url as NSString).lastPathComponent.replacingOccurrences(of: ".bin", with: ""))
         })
+        // Blöcke des anderen Modells nicht weiter vorhalten.
+        chunkData = [:]
     }
 
     func part(id: String) -> AtlasPart? { partsById[id] }

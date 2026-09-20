@@ -7,10 +7,31 @@ final class AtlasModel {
     /// Sichtbare Systeme. Die Körperoberfläche ist zu Beginn aus, sonst
     /// verdeckt sie alles darunter — die Vorlage zeigt deshalb 2.229 der
     /// 2.234 Teile.
-    static let initiallyHidden: Set<String> = ["integumentary"]
-    var visibleSystems: Set<String> = Set(AtlasSystem.all.map(\.id))
-        .subtracting(AtlasModel.initiallyHidden)
+    var visibleSystems: Set<String> = AtlasSystem.defaultVisible
     var filter: AtlasSystem.Filter = .all
+    /// Welches Referenzmodell gezeigt wird.
+    var sex: AtlasSex = .male
+
+    // Kenndaten des geladenen Modells. Als gespeicherte Eigenschaften, damit
+    // die Ansicht den Wechsel mitbekommt — der Store selbst wird nicht
+    // beobachtet.
+    var partCount = 0
+    var conceptCount = 0
+    var sourceName = ""
+    var scopeText = ""
+    var versionText = ""
+    var availableSystems: [AtlasSystem] = []
+
+    private func captureDatasetInfo() {
+        let store = AtlasStore.shared
+        partCount = store.parts.count
+        conceptCount = store.concepts.count
+        sourceName = store.source
+        scopeText = store.scope
+        versionText = store.version
+        let present = Set(store.parts.map(\.system))
+        availableSystems = AtlasSystem.all.filter { present.contains($0.id) }
+    }
     var explode: Double = 0
     var viewpoint: AtlasViewpoint = .threeQuarter
 
@@ -62,7 +83,7 @@ final class AtlasModel {
         if isolated { return (selectedConcept?.name ?? "Ausgewählte Struktur").uppercased() }
         if explode > 0.95 { return "ANATOMISCHES INVENTAR" }
         if explode > 0.05 { return "AUFGETRENNTE STRUKTUREN" }
-        return "ERWACHSENER MENSCH · MÄNNLICH"
+        return sex == .female ? "ERWACHSENER MENSCH · WEIBLICH" : "ERWACHSENER MENSCH · MÄNNLICH"
     }
 
     @ObservationIgnored let controller = AtlasSceneController()
@@ -76,6 +97,7 @@ final class AtlasModel {
         for system in AtlasSystem.all {
             controller.setSystem(system.id, visible: visibleSystems.contains(system.id))
         }
+        captureDatasetInfo()
     }
 
     var visiblePieceCount: Int {
@@ -226,6 +248,24 @@ final class AtlasModel {
         controller.select(partIds: accepted)
     }
 
+    /// Wechselt zwischen männlichem und weiblichem Referenzmodell.
+    ///
+    /// Die Sichtbarkeit wird zurückgesetzt, weil die beiden Modelle nicht
+    /// dieselben Systeme führen: die Schwangerschaftsstrukturen gibt es nur
+    /// weiblich, Bindegewebe nur männlich.
+    func switchSex(to newSex: AtlasSex) {
+        guard newSex != sex else { return }
+        sex = newSex
+        endQuiz()
+        clearSelection()
+        setRotating(false)
+        explode = 0
+        visibleSystems = AtlasSystem.defaultVisible
+        controller.switchTo(newSex, visibleSystems: visibleSystems)
+        controller.setExplode(0)
+        captureDatasetInfo()
+    }
+
     func apply(viewpoint: AtlasViewpoint) {
         self.viewpoint = viewpoint
         controller.setViewpoint(viewpoint)
@@ -256,7 +296,7 @@ final class AtlasModel {
         controller.setExplode(0)
         controller.resetCamera()
         viewpoint = .threeQuarter
-        visibleSystems = Set(AtlasSystem.all.map(\.id)).subtracting(AtlasModel.initiallyHidden)
+        visibleSystems = AtlasSystem.defaultVisible
         for system in AtlasSystem.all {
             controller.setSystem(system.id, visible: visibleSystems.contains(system.id))
         }

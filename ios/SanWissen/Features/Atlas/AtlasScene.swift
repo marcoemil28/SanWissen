@@ -58,12 +58,35 @@ final class AtlasSceneController {
     private var panOffset = (x: Float(0), y: Float(0))
 
     private(set) var selectedPartId: String?
+    private var lightsAdded = false
 
     init() {
         buildScene()
     }
 
     // MARK: - Aufbau
+
+    /// Lädt das andere Referenzmodell und baut die Szene damit neu auf.
+    func switchTo(_ sex: AtlasSex, visibleSystems: Set<String>) {
+        guard AtlasStore.shared.sex != sex else { return }
+        AtlasStore.shared.load(sex)
+
+        // Alte Knoten und Materialien wegräumen, sonst bleiben die Netze des
+        // vorigen Modells im Speicher und in der Szene.
+        for node in systemNodes.values { node.removeFromParentNode() }
+        systemNodes = [:]
+        partNodes = [:]
+        materials = [:]
+        layoutCells = [:]
+        layoutKey = ""
+        explodeAmount = 0
+        selectedPartId = nil
+
+        buildScene()
+        for system in AtlasSystem.all {
+            setSystem(system.id, visible: visibleSystems.contains(system.id))
+        }
+    }
 
     private func buildScene() {
         let store = AtlasStore.shared
@@ -113,10 +136,12 @@ final class AtlasSceneController {
         // Den Körper so verschieben, dass er um den Ursprung kreist.
         root.position = SCNVector3(-bodyCenter.x, -bodyCenter.y, -bodyCenter.z)
 
-        let pivot = SCNNode()
-        pivot.addChildNode(root)
-        orbit.addChildNode(pivot)
-        scene.rootNode.addChildNode(orbit)
+        if orbit.parent == nil {
+            let pivot = SCNNode()
+            pivot.addChildNode(root)
+            orbit.addChildNode(pivot)
+            scene.rootNode.addChildNode(orbit)
+        }
 
         let camera = SCNCamera()
         camera.fieldOfView = fieldOfView
@@ -128,10 +153,12 @@ final class AtlasSceneController {
         camera.wantsHDR = false
         cameraNode.camera = camera
 
-        fit(usableHeightFraction: usableHeightFraction)
-        scene.rootNode.addChildNode(cameraNode)
-
-        addLights()
+        fit(usableHeightFraction: usableHeightFraction, verticalShift: verticalShiftFraction)
+        if cameraNode.parent == nil { scene.rootNode.addChildNode(cameraNode) }
+        if !lightsAdded {
+            addLights()
+            lightsAdded = true
+        }
         applyCamera()
     }
 
