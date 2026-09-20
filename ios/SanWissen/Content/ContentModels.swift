@@ -181,3 +181,14 @@ struct ContentMeta: Codable {
     let exportedAt: String
     let contentStands: [String: String]
 }
+
+/// Formatiert ein ISO-Datum (JJJJ-MM-TT) als deutsches Datum (TT.MM.JJJJ).
+///
+/// Entsprechung zu `src/app/formatDate.ts` der Desktop-App. Ohne das stand
+/// hier das rohe Datum aus dem Export, während der Desktop es umgeschrieben
+/// hat: derselbe Inhalt sah je nach App anders aus.
+func formatStand(_ isoDate: String) -> String {
+    let parts = isoDate.split(separator: "-")
+    guard parts.count == 3 else { return isoDate }
+    return "\(parts[2]).\(parts[1]).\(parts[0])"
+}

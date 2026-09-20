@@ -84,6 +84,17 @@ gemeinsame Inhaltsquelle ändern.
 
 ### Geändert
 
+- **Das Schema heißt jetzt durchgängig xABCDE statt cABCDE.** So wird es in
+  der Ausbildung benannt, und das Glossar erklärte ohnehin schon das x,
+  während es als cABCDE geführt war. Betroffen sind Titel, Überschriften,
+  Cheat-Sheet, Glossar, Checkliste, Fahrplan und die Querverweise aus
+  Anatomie und Traumatologie.
+  - Die Quellenhinweise zitieren weiterhin die Abschnittstitel des
+    SAA/BPR-Dokuments, das an dieser Stelle `<c>` schreibt. Sie sagen die
+    Abweichung jetzt ausdrücklich an, wie es die Konvention für
+    `sourceNote` verlangt. Nebenbei korrigiert: die Zitate lauteten bisher
+    „cABCDE, Herangehensweise", das Dokument schreibt aber
+    „<c>ABCDE – Herangehensweise".
 - **Elektrodenlage am Rettungsdienst statt an Mason-Likar ausgerichtet**:
   Geklebt wird an Schultern und Leisten, damit die Flächen für die
   Defibrillations-Pads frei bleiben. Die in Klinik und Intensivmedizin
@@ -130,6 +141,23 @@ gemeinsame Inhaltsquelle ändern.
   Körperknoten hängen. Und das Seitenverhältnis erreichte die Szene nie,
   weil die eingebettete Ansicht beim ersten Aufbau noch keine Größe hat;
   das Raster wurde dadurch quer statt hochkant.
+- **Atlas: Beschriftung lag auf dem Modell (iOS).** Die Kameraeinpassung
+  rechnete mit fest verdrahteten Anteilen (0,62 der Höhe, 0,11 Versatz),
+  die die Höhe der Bedienfelder nur schätzten. Seit der Umschalter für das
+  Geschlecht in der Kopfzeile sitzt, bricht die Quellenzeile dort auf drei
+  Zeilen um, und die Schätzung stimmte nicht mehr: „Erwachsener Mensch ·
+  männlich" lag auf den Unterschenkeln, die Füße waren abgeschnitten.
+  Kopfzeile und Bedienfelder melden ihre Kanten jetzt über
+  `PreferenceKey` in einem gemeinsamen Koordinatenraum, aus dem die freie
+  Fläche berechnet wird. Der gemeinsame Raum ist nötig, weil die Szene die
+  untere Safe Area ignoriert und unter der Tab-Leiste weiterläuft, die
+  Bedienfelder aber darüber liegen; reine Höhen wären nicht vergleichbar.
+  Damit stimmt die Einpassung auch im Quiz, auf dem iPad und bei großer
+  Schrift, wo die Felder jeweils anders hoch sind.
+- **Datum des Inhaltsstands wurde auf iOS roh angezeigt.** Dort stand
+  „2026-09-20" statt „20.09.2026", weil das Gegenstück zu
+  `src/app/formatDate.ts` fehlte. Betrifft die Themenmodule, die
+  Medikamente und die Suche.
 - **package-lock.json** an Name und Version aus `package.json`
   angeglichen.
 

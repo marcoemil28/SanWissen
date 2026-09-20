@@ -58,7 +58,7 @@ struct TopicModuleView: View {
 
                     if let stand = module.contentStand {
                         Section {
-                            Text("Inhalte zuletzt geprüft: \(stand)")
+                            Text("Inhalte zuletzt geprüft: \(formatStand(stand))")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
