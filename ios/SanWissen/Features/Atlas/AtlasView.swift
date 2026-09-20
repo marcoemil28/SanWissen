@@ -597,7 +597,7 @@ struct AtlasView: View {
                     Text("Männliches Modell: BodyParts3D, © The Database Center for Life Science. Die Herausgeber geben CC Attribution-ShareAlike 2.1 Japan an.")
                         .font(.footnote)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text("Weibliches Modell: Human Reference Atlas united-female v1.5, lizenziert unter CC Attribution 4.0 International.")
+                    Text("Weibliches Modell: Human Reference Atlas united-female v1.5 sowie die Referenzorgane Becken, Brustbein und Manubrium, lizenziert unter CC Attribution 4.0 International.")
                         .font(.footnote)
                         .fixedSize(horizontal: false, vertical: true)
                     Text("Geladen: \(model.versionText)")

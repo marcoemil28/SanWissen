@@ -127,6 +127,7 @@ final class AtlasSceneController {
             geometry.materials = [material]
             let node = SCNNode(geometry: geometry)
             node.name = part.id
+            node.position = part.offset
             node.castsShadow = false
             parent.addChildNode(node)
             partNodes[part.id] = node
@@ -468,7 +469,9 @@ final class AtlasSceneController {
         for (id, node) in partNodes {
             guard let part = AtlasStore.shared.part(id: id) else { continue }
             guard explodeAmount > 0, let cell = layoutCells[id] else {
-                node.position = SCNVector3Zero
+                // Ruhelage: der Versatz gleicht aus, dass die beiden
+                // Datensätze ihren Ursprung unterschiedlich legen.
+                node.position = part.offset
                 continue
             }
             // Das Netz soll mit seinem Mittelpunkt in der Rasterzelle landen.
@@ -479,9 +482,10 @@ final class AtlasSceneController {
             let target = SCNVector3(cell.x + bodyCenter.x - c.x,
                                     cell.y + bodyCenter.y - c.y,
                                     bodyCenter.z - c.z)
-            node.position = SCNVector3(target.x * explodeAmount,
-                                       target.y * explodeAmount,
-                                       target.z * explodeAmount)
+            let rest = part.offset
+            node.position = SCNVector3(rest.x + (target.x - rest.x) * explodeAmount,
+                                       rest.y + (target.y - rest.y) * explodeAmount,
+                                       rest.z + (target.z - rest.z) * explodeAmount)
         }
     }
 
