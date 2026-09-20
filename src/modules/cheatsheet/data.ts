@@ -35,10 +35,10 @@ export const CHEATSHEET_CARDS: CheatSheetCard[] = [
   },
   {
     id: 'abcde',
-    title: 'cABCDE-Schema',
+    title: 'xABCDE-Schema',
     icon: '🧭',
     points: [
-      'c – kritische Blutung zuerst stoppen, Druck und Tourniquet',
+      'x – kritische Blutung zuerst stoppen, Druck und Tourniquet',
       'A – Airway: Atemweg frei?',
       'B – Breathing: Atmung suffizient? SpO2?',
       'C – Circulation: Puls, Rekap-Zeit, innere Blutung?',
@@ -48,7 +48,8 @@ export const CHEATSHEET_CARDS: CheatSheetCard[] = [
     moduleId: 'algorithmen',
     itemId: 'abcde-herangehensweise',
     sourceNote:
-      'Nach SAA und BPR 2025, „cABCDE, Herangehensweise", Seite 75, Stand 30.04.2025.',
+      'Nach SAA und BPR 2025, „<c>ABCDE – Herangehensweise", Seite 75, Stand 30.04.2025. ' +
+      'Die Quelle schreibt das vorangestellte Zeichen als <c>, hier steht durchgängig x.',
   },
   {
     id: 'anaphylaxie',

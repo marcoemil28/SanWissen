@@ -1,7 +1,7 @@
 import type { GlossaryEntry } from './types';
 
 export const GLOSSAR: GlossaryEntry[] = [
-  { id: 'abcde', abbr: 'cABCDE', meaning: 'kritische Blutung (eXsanguinating haemorrhage), Airway, Breathing, Circulation, Disability, Exposure', description: 'Strukturiertes Schema zur Patientenbeurteilung. Das vorangestellte x steht für eine kritische äußere Blutung, die noch vor dem Atemweg gestoppt wird, siehe Algorithmen-Modul.' },
+  { id: 'abcde', abbr: 'xABCDE', meaning: 'kritische Blutung (eXsanguinating haemorrhage), Airway, Breathing, Circulation, Disability, Exposure', description: 'Strukturiertes Schema zur Patientenbeurteilung. Das vorangestellte x steht für eine kritische äußere Blutung, die noch vor dem Atemweg gestoppt wird, siehe Algorithmen-Modul. Das SAA/BPR-Dokument schreibt an derselben Stelle <c> für „critical bleeding", gemeint ist dasselbe.' },
   { id: 'aed', abbr: 'AED', meaning: 'Automatisierter Externer Defibrillator' },
   { id: 'aelrd', abbr: 'ÄLRD', meaning: 'Ärztliche/r Leiter/in Rettungsdienst', description: 'Verantwortlich für die medizinisch-organisatorischen Belange des Rettungsdienstes, u. a. Erlass der SAA/BPR.' },
   { id: 'als', abbr: 'ALS', meaning: 'Advanced Life Support', description: 'Erweiterte Reanimationsmaßnahmen (z. B. Medikamentengabe, erweiterte Atemwegssicherung).' },

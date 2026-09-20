@@ -13,7 +13,7 @@ const DLRG_SOURCE_NOTE =
   'Ergänzt um allgemeines rettungsdienstliches Grundlagenwissen. Es gilt deine lokale Ausbildungs- und Dienstordnung.';
 
 /** Zuletzt inhaltlich geprüft/aktualisiert. */
-export const CONTENT_STAND = '2026-09-17';
+export const CONTENT_STAND = '2026-09-20';
 
 export const TRAUMA_THEMEN: TraumaTopic[] = [
   {
@@ -310,7 +310,7 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
             text: 'Mehrere gleichzeitige Verletzungen, von denen mindestens eine oder deren Kombination lebensbedrohlich ist',
             minLevel: 'RS',
           },
-          { text: 'Versorgung nach cABCDE-Schema. Kritische Blutung (c) wird zuerst behandelt', minLevel: 'RS' },
+          { text: 'Versorgung nach xABCDE-Schema. Kritische Blutung (x) wird zuerst behandelt', minLevel: 'RS' },
           { text: 'Load-and-go-Prinzip: kurze Versorgungszeit vor Ort bei zeitkritischen Verletzungen anstreben', minLevel: 'RS' },
         ],
       },

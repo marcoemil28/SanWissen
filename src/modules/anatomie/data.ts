@@ -5,7 +5,7 @@ const GENERAL_SOURCE_NOTE =
   'Für Prüfungsdetails gilt dein Kurs-Lehrbuch/Skript. Normwerte und Detailtiefe können dort abweichen.';
 
 /** Zuletzt inhaltlich geprüft/aktualisiert. */
-export const CONTENT_STAND = '2026-09-17';
+export const CONTENT_STAND = '2026-09-20';
 
 export const ANATOMIE_THEMEN: AnatomieTopic[] = [
   {
@@ -296,7 +296,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
     notes: [
       'Diese Werte sind grobe Orientierung für den Rettungsdienstalltag, keine exakten Grenzwerte, verschiedene ' +
         'Quellen/Lehrbücher geben teils leicht abweichende Bereiche an. Für Instabilitätskriterien bei Erwachsenen ' +
-        'siehe Algorithmen: „cABCDE – Instabilitäten".',
+        'siehe Algorithmen: „xABCDE – Instabilitäten".',
     ],
     sourceNote: GENERAL_SOURCE_NOTE,
   },

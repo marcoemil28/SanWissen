@@ -80,7 +80,7 @@ export const CHECKLISTEN: Checklist[] = [
       { id: '1', text: 'S – Start: Ruhe, Face-to-Face-Kommunikation hergestellt?' },
       { id: '2', text: 'I – Identifikation: Geschlecht, Name, Alter genannt?' },
       { id: '3', text: 'N – Notfallereignis: Was, Wie, Wann genannt?' },
-      { id: '4', text: 'N – Notfallpriorität nach cABCDE benannt?' },
+      { id: '4', text: 'N – Notfallpriorität nach xABCDE benannt?' },
       { id: '5', text: 'H – Handlung: durchgeführte Maßnahmen genannt?' },
       { id: '6', text: 'A – Anamnese: Allergien, Medikation, Vorerkrankungen genannt?' },
       { id: '7', text: 'F – Fazit vom aufnehmenden Personal wiederholt?' },

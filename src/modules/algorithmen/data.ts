@@ -14,12 +14,12 @@ import type { AlgorithmEntry } from './types';
  */
 
 /** Zuletzt inhaltlich geprüft/aktualisiert (App-Stand, nicht das Datum der Quelle oben). */
-export const CONTENT_STAND = '2026-09-17';
+export const CONTENT_STAND = '2026-09-20';
 
 export const ALGORITHMEN: AlgorithmEntry[] = [
   {
     id: 'abcde-herangehensweise',
-    title: 'cABCDE (xABCDE) – Herangehensweise',
+    title: 'xABCDE – Herangehensweise',
     category: 'Herangehensweise & Einschätzung',
     minLevel: 'RS',
     summary:
@@ -27,7 +27,7 @@ export const ALGORITHMEN: AlgorithmEntry[] = [
       'Reihenfolge, lebensbedrohliche Probleme werden sofort bei Entdeckung behandelt statt nur dokumentiert.',
     sections: [
       {
-        heading: 'c – kritische Blutung (critical bleeding)',
+        heading: 'x – kritische Blutung (exsanguinating haemorrhage)',
         steps: [
           {
             text: 'Noch vor A wird geprüft, ob eine primär erkennbare kritische Blutung vorliegt. Daran kann jemand in wenigen Minuten versterben, bevor ein Atemwegsproblem überhaupt zum Tragen kommt',
@@ -77,7 +77,7 @@ export const ALGORITHMEN: AlgorithmEntry[] = [
             minLevel: 'RS',
           },
           {
-            text: 'Die kritische äußere Blutung ist bereits unter c versorgt. Hier geht es zusätzlich um innere Blutungsquellen in Thorax, Abdomen, Becken und langen Röhrenknochen',
+            text: 'Die kritische äußere Blutung ist bereits unter x versorgt. Hier geht es zusätzlich um innere Blutungsquellen in Thorax, Abdomen, Becken und langen Röhrenknochen',
             minLevel: 'RS',
           },
           { text: 'Bei Kreislaufinstabilität wird ein intravenöser Zugang gelegt', minLevel: 'NotSan' },
@@ -111,17 +111,18 @@ export const ALGORITHMEN: AlgorithmEntry[] = [
       'Die Versorgungsstrategie wird nach Leitsymptomen priorisiert, dann wird der passende Behandlungspfad gewählt.',
       'Der Patient wird regelmäßig neu beurteilt.',
       'Invasive Maßnahmen erfolgen nach SAA durch Notfallsanitäter mit ärztlicher Delegation.',
-      'Das Behandlungspfad-Original schreibt das vorangestellte c für „critical bleeding". In vielen Lehrbüchern und Kursen steht an derselben Stelle ein x für „exsanguinating haemorrhage". Gemeint ist dasselbe: die kritische Blutung wird vor dem Atemweg versorgt.',
+      'Das Behandlungspfad-Original schreibt an dieser Stelle <c> für „critical bleeding". In vielen Lehrbüchern und Kursen, und auch hier, steht stattdessen ein x für „exsanguinating haemorrhage". Gemeint ist dasselbe: die kritische Blutung wird vor dem Atemweg versorgt.',
     ],
     sourceNote:
-      'Inhalte geprüft gegen SAA und BPR 2025, „cABCDE, Herangehensweise", Seite 75, Stand 30.04.2025, ' +
+      'Inhalte geprüft gegen SAA und BPR 2025, „<c>ABCDE – Herangehensweise", Seite 75, Stand 30.04.2025, ' +
       'herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, ' +
-      'Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.',
+      'Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt. ' +
+      'Die Quelle schreibt das vorangestellte Zeichen als <c>, hier steht durchgängig x.',
     page: 75,
   },
   {
     id: 'abcde-instabilitaeten',
-    title: 'cABCDE – Instabilitäten',
+    title: 'xABCDE – Instabilitäten',
     category: 'Herangehensweise & Einschätzung',
     minLevel: 'RS',
     summary:
@@ -129,7 +130,7 @@ export const ALGORITHMEN: AlgorithmEntry[] = [
       'behandelt sofort statt nur zu dokumentieren.',
     sections: [
       {
-        heading: 'c – kritische Blutung',
+        heading: 'x – kritische Blutung',
         steps: [
           { text: 'Anhaltend spritzende Blutung aus offenen Wunden oder Extremitätenstümpfen' },
           { text: 'Ausgeprägte Blässe der Haut' },
@@ -185,9 +186,10 @@ export const ALGORITHMEN: AlgorithmEntry[] = [
       },
     ],
     sourceNote:
-      'Inhalte geprüft gegen SAA und BPR 2025, „cABCDE, Instabilitäten", Seite 76, Stand 22.05.2024, ' +
+      'Inhalte geprüft gegen SAA und BPR 2025, „<c>ABCDE – Instabilitäten", Seite 76, Stand 22.05.2024, ' +
       'herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, ' +
-      'Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.',
+      'Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt. ' +
+      'Die Quelle schreibt das vorangestellte Zeichen als <c>, hier steht durchgängig x.',
     page: 76,
   },
   {
@@ -472,7 +474,7 @@ export const ALGORITHMEN: AlgorithmEntry[] = [
             text: 'N – Notfallereignis: 1. Was? (Leitsymptom oder Verdachtsdiagnose), 2. Wie? (Ursache), 3. Wann? (Zeitpunkt des Ereignisses). Optional Wo oder Woher (Ort und Auffindesituation)',
           },
           {
-            text: 'N – Notfallpriorität: anhand des cABCDE-Schemas mit den pathologischen Untersuchungsbefunden und den pathologischen Vitalparametern',
+            text: 'N – Notfallpriorität: anhand des xABCDE-Schemas mit den pathologischen Untersuchungsbefunden und den pathologischen Vitalparametern',
           },
           {
             text: 'H – Handlung: durchgeführte Maßnahmen mit Dosis, Umfang, Zeitpunkt und Wirkung. Bewusst unterlassene Handlungen werden ebenfalls genannt, falls zutreffend',
@@ -494,7 +496,7 @@ export const ALGORITHMEN: AlgorithmEntry[] = [
           },
           { text: 'Liegen Informationen nicht vor, wird auch dieser Sachverhalt bei der Übergabe mitgeteilt' },
           {
-            text: 'Notfallpriorität: ein Problem im cABCDE-Schema, etwa ein C-Problem, wird übergeben, wenn Maßnahmen zur Behebung erforderlich waren oder noch sind',
+            text: 'Notfallpriorität: ein Problem im xABCDE-Schema, etwa ein C-Problem, wird übergeben, wenn Maßnahmen zur Behebung erforderlich waren oder noch sind',
           },
           {
             text: 'Besteht kein A- bis E-Problem und liegen alle Vitalparameter im Normbereich, wird genau das gesagt: „kein A-E-Problem" und „unauffällige Vitalparameter"',

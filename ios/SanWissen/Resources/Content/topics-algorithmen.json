@@ -9,25 +9,25 @@
     "Kommunikation & Übergabe",
     "Kreislaufstillstand"
   ],
-  "contentStand": "2026-09-17",
+  "contentStand": "2026-09-20",
   "topics": [
     {
       "id": "abcde-herangehensweise",
-      "title": "cABCDE (xABCDE) – Herangehensweise",
+      "title": "xABCDE – Herangehensweise",
       "category": "Herangehensweise & Einschätzung",
       "summary": "Strukturierte Erstuntersuchung und Prioritätensetzung bei jedem Notfallpatienten. Immer dieselbe Reihenfolge, lebensbedrohliche Probleme werden sofort bei Entdeckung behandelt statt nur dokumentiert.",
       "minLevel": "RS",
       "page": 75,
-      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „cABCDE, Herangehensweise\", Seite 75, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.",
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „<c>ABCDE – Herangehensweise\", Seite 75, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt. Die Quelle schreibt das vorangestellte Zeichen als <c>, hier steht durchgängig x.",
       "notes": [
         "Die Versorgungsstrategie wird nach Leitsymptomen priorisiert, dann wird der passende Behandlungspfad gewählt.",
         "Der Patient wird regelmäßig neu beurteilt.",
         "Invasive Maßnahmen erfolgen nach SAA durch Notfallsanitäter mit ärztlicher Delegation.",
-        "Das Behandlungspfad-Original schreibt das vorangestellte c für „critical bleeding\". In vielen Lehrbüchern und Kursen steht an derselben Stelle ein x für „exsanguinating haemorrhage\". Gemeint ist dasselbe: die kritische Blutung wird vor dem Atemweg versorgt."
+        "Das Behandlungspfad-Original schreibt an dieser Stelle <c> für „critical bleeding\". In vielen Lehrbüchern und Kursen, und auch hier, steht stattdessen ein x für „exsanguinating haemorrhage\". Gemeint ist dasselbe: die kritische Blutung wird vor dem Atemweg versorgt."
       ],
       "sections": [
         {
-          "heading": "c – kritische Blutung (critical bleeding)",
+          "heading": "x – kritische Blutung (exsanguinating haemorrhage)",
           "illustration": null,
           "items": [
             {
@@ -105,7 +105,7 @@
               "minLevel": "RS"
             },
             {
-              "text": "Die kritische äußere Blutung ist bereits unter c versorgt. Hier geht es zusätzlich um innere Blutungsquellen in Thorax, Abdomen, Becken und langen Röhrenknochen",
+              "text": "Die kritische äußere Blutung ist bereits unter x versorgt. Hier geht es zusätzlich um innere Blutungsquellen in Thorax, Abdomen, Becken und langen Röhrenknochen",
               "minLevel": "RS"
             },
             {
@@ -158,16 +158,16 @@
     },
     {
       "id": "abcde-instabilitaeten",
-      "title": "cABCDE – Instabilitäten",
+      "title": "xABCDE – Instabilitäten",
       "category": "Herangehensweise & Einschätzung",
       "summary": "Warnzeichen, die auf ein instabiles Problem in einem der Schritte hinweisen. Wer eines davon findet, behandelt sofort statt nur zu dokumentieren.",
       "minLevel": "RS",
       "page": 76,
-      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „cABCDE, Instabilitäten\", Seite 76, Stand 22.05.2024, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.",
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „<c>ABCDE – Instabilitäten\", Seite 76, Stand 22.05.2024, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt. Die Quelle schreibt das vorangestellte Zeichen als <c>, hier steht durchgängig x.",
       "notes": [],
       "sections": [
         {
-          "heading": "c – kritische Blutung",
+          "heading": "x – kritische Blutung",
           "illustration": null,
           "items": [
             {
@@ -745,7 +745,7 @@
               "minLevel": null
             },
             {
-              "text": "N – Notfallpriorität: anhand des cABCDE-Schemas mit den pathologischen Untersuchungsbefunden und den pathologischen Vitalparametern",
+              "text": "N – Notfallpriorität: anhand des xABCDE-Schemas mit den pathologischen Untersuchungsbefunden und den pathologischen Vitalparametern",
               "minLevel": null
             },
             {
@@ -779,7 +779,7 @@
               "minLevel": null
             },
             {
-              "text": "Notfallpriorität: ein Problem im cABCDE-Schema, etwa ein C-Problem, wird übergeben, wenn Maßnahmen zur Behebung erforderlich waren oder noch sind",
+              "text": "Notfallpriorität: ein Problem im xABCDE-Schema, etwa ein C-Problem, wird übergeben, wenn Maßnahmen zur Behebung erforderlich waren oder noch sind",
               "minLevel": null
             },
             {

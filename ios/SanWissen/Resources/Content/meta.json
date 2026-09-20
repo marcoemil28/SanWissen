@@ -1,16 +1,16 @@
 {
   "appVersion": "1.1.0",
-  "exportedAt": "2026-09-20T12:35:46.220Z",
+  "exportedAt": "2026-09-20T12:47:39.972Z",
   "contentStands": {
-    "anatomie": "2026-09-17",
-    "traumatologie": "2026-09-17",
+    "anatomie": "2026-09-20",
+    "traumatologie": "2026-09-20",
     "internistischenotfaelle": "2026-09-17",
     "paediatrie": "2026-09-17",
     "psychiatrienotfaelle": "2026-09-17",
     "rettungstechnik": "2026-09-17",
     "rechtlichegrundlagen": "2026-09-17",
     "sanitaetsdienst": "2026-09-17",
-    "algorithmen": "2026-09-17",
+    "algorithmen": "2026-09-20",
     "medikamentenvorbereitung": "2026-09-17",
     "medikamente": "2026-09-17"
   }

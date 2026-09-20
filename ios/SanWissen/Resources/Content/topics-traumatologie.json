@@ -10,7 +10,7 @@
     "Verbrennungen",
     "Polytrauma & Blutstillung"
   ],
-  "contentStand": "2026-09-17",
+  "contentStand": "2026-09-20",
   "topics": [
     {
       "id": "frakturlehre",
@@ -511,7 +511,7 @@
               "minLevel": "RS"
             },
             {
-              "text": "Versorgung nach cABCDE-Schema. Kritische Blutung (c) wird zuerst behandelt",
+              "text": "Versorgung nach xABCDE-Schema. Kritische Blutung (x) wird zuerst behandelt",
               "minLevel": "RS"
             },
             {

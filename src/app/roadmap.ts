@@ -21,11 +21,11 @@ export const ROADMAP: Record<ModuleCategory, RoadmapEntry[]> = {
     { moduleId: 'anatomie', itemId: 'nervensystem', label: 'Nervensystem' },
   ],
   'Krankheitsbilder & Algorithmen': [
-    { moduleId: 'algorithmen', itemId: 'abcde-herangehensweise', label: 'cABCDE – Herangehensweise' },
+    { moduleId: 'algorithmen', itemId: 'abcde-herangehensweise', label: 'xABCDE – Herangehensweise' },
     { moduleId: 'algorithmen', itemId: 'wasb-gcs', label: 'Beurteilung der Bewusstseinslage (WASB & GCS)' },
     { moduleId: 'algorithmen', itemId: 'reanimation-erwachsene', label: 'Reanimation Erwachsene (Basismaßnahmen)' },
     { moduleId: 'algorithmen', itemId: 'reanimation-kinder', label: 'Reanimation Kinder (Basismaßnahmen)' },
-    { moduleId: 'algorithmen', itemId: 'abcde-instabilitaeten', label: 'cABCDE – Instabilitäten' },
+    { moduleId: 'algorithmen', itemId: 'abcde-instabilitaeten', label: 'xABCDE – Instabilitäten' },
     { moduleId: 'algorithmen', itemId: 'sampler', label: 'SAMPLER(S)-Schema' },
     { moduleId: 'algorithmen', itemId: 'opqrst', label: 'OPQRST-Schema' },
     { moduleId: 'algorithmen', itemId: 'patientenanmeldung', label: 'Patientenanmeldung (ZOABCDE)' },
