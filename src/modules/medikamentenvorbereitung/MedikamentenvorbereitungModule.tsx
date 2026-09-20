@@ -1,5 +1,6 @@
 import { MED_VORBEREITUNG, CONTENT_STAND } from './data';
 import { formatStand } from '../../app/formatDate';
+import { SectionIllustration } from '../../components/SectionIllustration';
 
 export function MedikamentenvorbereitungModule() {
   const entry = MED_VORBEREITUNG[0];
@@ -28,6 +29,7 @@ export function MedikamentenvorbereitungModule() {
         {entry.sections.map((section, i) => (
           <div key={i} className="algo-section">
             {section.heading && <h4>{section.heading}</h4>}
+            <SectionIllustration id={section.illustrationId} />
             <ul>
               {section.steps.map((step, j) => (
                 <li key={j}>{step.text}</li>

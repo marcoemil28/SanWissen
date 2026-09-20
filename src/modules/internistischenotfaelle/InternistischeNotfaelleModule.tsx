@@ -4,6 +4,7 @@ import type { InternistischeNotfaelleCategory, InternistischeNotfaelleTopic } fr
 import { useNavigation } from '../../app/NavigationContext';
 import { FavoriteButton } from '../../components/FavoriteButton';
 import { formatStand } from '../../app/formatDate';
+import { SectionIllustration } from '../../components/SectionIllustration';
 
 const CATEGORY_ORDER: InternistischeNotfaelleCategory[] = [
   'Herz & Kreislauf',
@@ -35,6 +36,7 @@ function InternistischeNotfaelleDetail({ topic }: { topic: InternistischeNotfael
       {topic.sections.map((section, i) => (
         <div key={i} className="algo-section">
           {section.heading && <h4>{section.heading}</h4>}
+          <SectionIllustration id={section.illustrationId} />
           <ul>
             {section.facts.map((fact, j) => (
               <li key={j}>{fact.text}</li>

@@ -1,5 +1,3 @@
-import type { ComponentType } from 'react';
-
 export type TraumaCategory =
   | 'Frakturen & Wunden'
   | 'Verbandslehre'
@@ -14,8 +12,6 @@ export interface TraumaFact {
 export interface TraumaSection {
   heading?: string;
   facts: TraumaFact[];
-  /** Optionale stilisierte Beispiel-Illustration (kein Foto) für diesen Abschnitt. */
-  illustration?: ComponentType;
   /** ID einer schematischen Zeichnung, die nur die iOS-App rendert. */
   illustrationId?: string;
 }

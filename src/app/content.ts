@@ -12,22 +12,6 @@
  * `facts`/`steps` verschwindet, sobald die zehn Themenmodule sich eine
  * gemeinsame Ansicht teilen (siehe docs/inhaltspipeline.md, Schritt 5).
  */
-import type { ComponentType } from 'react';
-import { DruckverbandIllustration } from '../modules/traumatologie/illustrations/DruckverbandIllustration';
-import { ArmtragetuchIllustration } from '../modules/traumatologie/illustrations/ArmtragetuchIllustration';
-import { KopfverbandIllustration } from '../modules/traumatologie/illustrations/KopfverbandIllustration';
-
-/**
- * Abbildungen, die auf dem Desktop noch als SVG-Komponente gezeichnet werden.
- * Alle übrigen kommen als Bilddatei und werden bisher nur von iOS angezeigt
- * (siehe docs/inhaltspipeline.md, Schritt 3).
- */
-const ILLUSTRATION_COMPONENTS: Record<string, ComponentType> = {
-  druckverband: DruckverbandIllustration,
-  armtragetuch: ArmtragetuchIllustration,
-  kopfverband: KopfverbandIllustration,
-};
-
 /** JSON kennt nur `null`, die TS-Typen erwarten an diesen Stellen `undefined`. */
 function undef<T>(value: T | null | undefined): T | undefined {
   return value ?? undefined;
@@ -81,7 +65,6 @@ export function topicsFrom<T>(raw: RawTopicModule, itemsKey: 'facts' | 'steps'):
     sections: topic.sections.map((section) => ({
       heading: undef(section.heading),
       illustrationId: undef(section.illustration),
-      illustration: section.illustration ? ILLUSTRATION_COMPONENTS[section.illustration] : undefined,
       [itemsKey]: section.items.map((item) => ({ text: item.text })),
     })),
   })) as unknown as T[];

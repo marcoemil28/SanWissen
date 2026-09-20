@@ -351,10 +351,9 @@ Ebenfalls fest oben in der Sidebar angepinnt.
   Thorax-/Abdominaltrauma, Verbrennungen, Polytrauma & kritische
   Blutungen (Tourniquet). Allgemeines rettungsdienstliches
   Grundlagenwissen, keine SAA/BPR-Quelle.
-- Die Verbandslehre enthält stilisierte SVG-Beispiel-Illustrationen
-  (Druckverband, Armtragetuch, Kopfverband) statt Fotos — schnell
-  umsetzbar, keine Lizenzfragen. Bei Bedarf später ersetzbar durch eigene
-  Fotos (z. B. aus Kursunterlagen).
+- Abbildungen kommen als Bilddatei aus `content/images/`, in beiden Apps
+  dieselben. Bis 1.1.0 zeichnete der Desktop hier drei Abschnitte als SVG
+  und zeigte die übrigen verknüpften Abbildungen gar nicht.
 
 ### ✅ Sanitätsdienst (Veranstaltungsdienst)
 
@@ -559,6 +558,8 @@ content/                 # ALLE Fachinhalte als JSON — die einzige Pflegestell
   modules.json           # Modul-Registry: Titel, Kategorie, Icon/Symbol, angepinnt
   topics-<modul>.json    # die zehn Themenmodule mit gemeinsamem Schema
   medikamente.json, ekg-*.json, glossar.json, quiz.json, …
+  illustrations.json     # Bildunterschrift je Abbildung
+  images/                # 49 Bilddateien, von beiden Apps genutzt (ca. 5 MB)
 src-tauri/                # Rust-Backend (Tauri), native Fenster/Bundling
 docs/                    # Quell-PDFs/Unterlagen, aus denen Inhalte extrahiert werden
 scripts/
@@ -571,7 +572,6 @@ ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
     Features/            # eine Ansicht je Modul, zehn teilen sich eine gemeinsame
       Atlas/             # 3D-Anatomieatlas (SceneKit): Szene, Systeme, Quiz
     Resources/
-      Images/            # Abbildungen, per illustrationId aus den Modulen referenziert
       Atlas/             # Geometrie des 3D-Atlas (Rohpuffer, ca. 97 MB) + atlas*.json
   Signing.xcconfig       # Platzhalter, bindet die lokale, nicht versionierte Datei ein
 ```
@@ -594,12 +594,11 @@ weder TypeScript noch einen Build.
   Koordinaten beziehen sich auf die `viewBox` des jeweiligen Sets
   (Monitoring 669 × 1200, 12-Kanal 746 × 1000) und damit auf die
   Abbildungen `koerper-vorderansicht` bzw. `thorax-vorderansicht`.
-- Abbildungen: eine Datei `ios/SanWissen/Resources/Images/illu-<id>.jpg`
-  ablegen und im Abschnitt `illustrationId: '<id>'` setzen. Die
-  Bildunterschrift steht in
-  `ios/SanWissen/Features/Topics/IllustrationView.swift`. Fehlt zu einer
-  ID ein Bild, zeigt die App an der Stelle einfach nichts an.
-- Medikamente: `src/modules/medikamente/medications.json` direkt anpassen,
+- Abbildungen: eine Datei `content/images/illu-<id>.jpg` ablegen, im
+  Abschnitt `"illustration": "<id>"` setzen und die Bildunterschrift in
+  `content/illustrations.json` eintragen. `npm run check-content` meldet,
+  wenn Datei oder Unterschrift fehlt. Beide Apps zeigen dieselbe Abbildung.
+- Medikamente: `content/medikamente.json` direkt anpassen,
   oder eigene Quell-PDFs unter `docs/` ablegen und wie unten beschrieben neu
   extrahieren.
 - Wenn du eigene Skripten/Fragenkataloge hast: am besten als eigene

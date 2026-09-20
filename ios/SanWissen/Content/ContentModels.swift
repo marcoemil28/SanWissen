@@ -172,6 +172,14 @@ struct ToolInfo: Codable, Identifiable, Hashable {
 
 // MARK: - Meta
 
+/// Eine Abbildung mit ihrer Bildunterschrift. Die Datei liegt als
+/// `illu-<id>.jpg` im Bundle, die Unterschrift kommt aus
+/// `content/illustrations.json` und wird von beiden Apps gelesen.
+struct Illustration: Codable, Hashable {
+    let id: String
+    let caption: String
+}
+
 /// Formatiert ein ISO-Datum (JJJJ-MM-TT) als deutsches Datum (TT.MM.JJJJ).
 ///
 /// Entsprechung zu `src/app/formatDate.ts` der Desktop-App. Ohne das stand

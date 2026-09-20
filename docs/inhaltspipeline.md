@@ -10,42 +10,42 @@ und beide Apps sollen danach dasselbe zeigen. Das Nachladen über das Netz
 ist bewusst **nicht** Teil dieses Plans; die Apps bleiben komplett
 offline, Änderungen brauchen weiter einen Release.
 
-## Befund
+## Befund (Stand vor dem Umbau)
 
-Die verbreitete Annahme, Desktop und iOS zeigten dasselbe, stimmt nicht.
-Der Text ist tatsächlich dieselbe Quelle, aber das ist nicht das, was
-jemand in der App sieht.
+Die verbreitete Annahme, Desktop und iOS zeigten dasselbe, stimmte nicht.
+Der Text war zwar dieselbe Quelle, aber das ist nicht das, was jemand in
+der App sieht.
 
-**Abbildungen klaffen weit auseinander:**
+**Abbildungen klafften weit auseinander:**
 
 | | Desktop | iOS |
 |---|---|---|
 | `illustrationId` (Bilddateien) | 0 von 47 gerendert | 47 |
 | `illustration` (React-SVG) | 3 | 0 |
 
-47 Abbildungen sind im Inhalt verknüpft, der Desktop rendert `illustrationId`
-an keiner Stelle. Er kennt nur drei fest eingebaute SVG-Komponenten.
-Beim Herz-Kreislauf-System heißt das konkret: `herz-aufbau`,
-`erregungsleitung` und `kreislauf-schema` erscheinen auf dem iPhone und
-fehlen auf dem Desktop.
+47 Abbildungen waren im Inhalt verknüpft, der Desktop rendert `illustrationId`
+an keiner Stelle. Er kannte nur drei fest eingebaute SVG-Komponenten.
+Beim Herz-Kreislauf-System hiess das konkret: `herz-aufbau`,
+`erregungsleitung` und `kreislauf-schema` erschienen auf dem iPhone und
+fehlten auf dem Desktop.
 
-Umgekehrt gilt dasselbe: Der Kopfverband hat eine SVG-Komponente, aber
-keine `illustrationId` und keine Bilddatei. Er erscheint **nur** auf dem
+Umgekehrt galt dasselbe: Der Kopfverband hatte eine SVG-Komponente, aber
+keine `illustrationId` und keine Bilddatei. Er erschien **nur** auf dem
 Desktop.
 
-Die 49 Bilddateien (5,0 MB) liegen ausschließlich unter
-`ios/SanWissen/Resources/Images/`. Ein Präzedenzfall existiert schon:
-für den Elektroden-Trainer wurden zwei Dateien nach `public/electrodes/`
+Die 49 Bilddateien (5,0 MB) lagen ausschliesslich unter
+`ios/SanWissen/Resources/Images/`. Ein Präzedenzfall existierte schon:
+für den Elektroden-Trainer waren zwei Dateien nach `public/electrodes/`
 kopiert, also dupliziert.
 
-**Dazu kommt veralteter Auslieferungsstand.** Die erweiterte
+**Dazu kam veralteter Auslieferungsstand.** Die erweiterte
 BE-FAST-Fassung kam mit 709d443 am 18.09.2026, einen Tag nach dem
-1.0.0-Release. Wer den 1.0.0-Installer nutzt, hat sie nicht. Das behebt
+1.0.0-Release. Wer den 1.0.0-Installer nutzte, hatte sie nicht. Das behebt
 sich mit dem nächsten Desktop-Build von selbst, die Abbildungen nicht.
 
 **Struktur:** Der Desktop hat zehn eigene Modul-Renderer von je rund 120
 Zeilen, von denen gut die Hälfte identisch ist. iOS macht dasselbe mit
-einer generischen Ansicht von 92 Zeilen.
+einer generischen Ansicht von 92 Zeilen. Das bleibt bis Schritt 5.
 
 ## Der Umbau
 
@@ -165,10 +165,10 @@ Entscheidung zwischen zwei Klammerarten.
 2. ~~**`minLevel` entfernen**~~ **erledigt** (1.1.0). 806 Vorkommen in 13
    Inhaltsdateien, die Felder in 13 `types.ts`, die Swift-Modelle und
    `src/app/levels.ts` sind weg.
-3. **Abbildungen vereinheitlichen:** `illustrationId` als einziger Weg,
-   die drei SVG-Komponenten entfallen, ein gemeinsamer Bildordner für
-   beide Apps, Bildunterschrift in die Daten. Danach zeigt der Desktop
-   erstmals alle 47 Abbildungen.
+3. ~~**Abbildungen vereinheitlichen**~~ **erledigt** (1.1.0). Die Bilder
+   liegen unter `content/images/`, die Bildunterschriften in
+   `content/illustrations.json`, die drei SVG-Komponenten sind weg. Der
+   Desktop zeigt jetzt dieselben Abbildungen wie iOS.
 4. **JSON Schema** neben die Inhalte legen.
 5. Erst danach die zehn Desktop-Renderer durch einen generischen
    ersetzen, nach dem Vorbild von `TopicModuleView.swift`.

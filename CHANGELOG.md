@@ -106,6 +106,23 @@ gemeinsame Inhaltsquelle ändern.
   - `medications.json` und `wirkung.ts` sind zu `content/medikamente.json`
     zusammengeführt. Sie wurden ohnehin nur an einer Stelle kombiniert.
   - Der Plan dahinter steht in [docs/inhaltspipeline.md](docs/inhaltspipeline.md).
+- **Abbildungen vereinheitlicht: der Desktop zeigt jetzt alle 47.** Bisher
+  waren im Inhalt 47 Abbildungen verknüpft, die der Desktop an keiner
+  Stelle rendern konnte; er kannte nur drei fest eingebaute SVG-Zeichnungen.
+  Beim Herz-Kreislauf-System fehlten ihm damit Herzaufbau,
+  Erregungsleitungssystem und Kreislaufschema, die auf dem iPhone zu sehen
+  waren. Umgekehrt erschien der Kopfverband nur auf dem Desktop, weil es
+  dazu eine Zeichnung, aber kein Bild gab.
+  - Die Bilder liegen jetzt unter `content/images/` und werden von beiden
+    Apps genutzt. Die Kopie unter `public/electrodes/` entfällt.
+  - Die Bildunterschriften standen in einem `switch` in
+    `IllustrationView.swift` und damit nur auf iOS. Sie stehen jetzt in
+    `content/illustrations.json` und gelten für beide Apps.
+  - Die drei SVG-Komponenten sind entfernt. Der Kopfverband verliert damit
+    seine Abbildung, weil es dazu kein Bild gibt.
+  - `npm run check-content` meldet ab sofort, wenn zu einer verknüpften
+    Abbildung die Bilddatei oder die Bildunterschrift fehlt. Genau dieser
+    Fall war unbemerkt im Bestand.
 - **`minLevel` und `QualificationLevel` entfernt.** Das Feld stammte aus
   der früheren Navigation nach Qualifikationsstufe (SanH/RS/NotSan), die in
   0.17.0 durch die Gruppierung nach Thema ersetzt wurde. Seither hing es an

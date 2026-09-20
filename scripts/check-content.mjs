@@ -72,6 +72,37 @@ async function main() {
     }
   }
 
+  // Jede verknüpfte Abbildung braucht eine Bilddatei und eine Bildunterschrift,
+  // sonst zeigt die App an der Stelle stillschweigend nichts an.
+  const imageIds = new Set(
+    (await readdir(resolve(CONTENT_DIR, 'images')))
+      .filter((f) => f.startsWith('illu-') && f.endsWith('.jpg'))
+      .map((f) => f.slice('illu-'.length, -'.jpg'.length)),
+  );
+  const captions = new Map(
+    (await read('illustrations.json')).illustrations.map((i) => [i.id, i.caption]),
+  );
+  for (const file of (await readdir(CONTENT_DIR)).filter((f) => f.startsWith('topics-'))) {
+    const mod = await read(file);
+    for (const topic of mod.topics) {
+      for (const section of topic.sections) {
+        const id = section.illustration;
+        if (!id) continue;
+        if (!imageIds.has(id)) {
+          problems.push(`Abbildung: zu "${id}" fehlt content/images/illu-${id}.jpg (${topic.title})`);
+        }
+        if (!captions.has(id)) {
+          problems.push(`Abbildung: zu "${id}" fehlt ein Eintrag in illustrations.json (${topic.title})`);
+        }
+      }
+    }
+  }
+  for (const [id] of captions) {
+    if (!imageIds.has(id)) {
+      problems.push(`Abbildung: illustrations.json führt "${id}", aber die Bilddatei fehlt`);
+    }
+  }
+
   // Jeder Rechner braucht einen `case` in der Swift-Ansicht, sonst bleibt die
   // Seite auf iOS leer.
   const viewPath = resolve(ROOT, 'ios/SanWissen/Features/Werkzeuge/WerkzeugeView.swift');

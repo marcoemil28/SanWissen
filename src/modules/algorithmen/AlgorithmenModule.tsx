@@ -4,6 +4,7 @@ import type { AlgorithmCategory, AlgorithmEntry } from './types';
 import { useNavigation } from '../../app/NavigationContext';
 import { FavoriteButton } from '../../components/FavoriteButton';
 import { formatStand } from '../../app/formatDate';
+import { SectionIllustration } from '../../components/SectionIllustration';
 
 const CATEGORY_ORDER: AlgorithmCategory[] = [
   'Herangehensweise & Einschätzung',
@@ -29,6 +30,7 @@ function AlgorithmDetail({ entry }: { entry: AlgorithmEntry }) {
       {entry.sections.map((section, i) => (
         <div key={i} className="algo-section">
           {section.heading && <h4>{section.heading}</h4>}
+          <SectionIllustration id={section.illustrationId} />
           <ul>
             {section.steps.map((step, j) => (
               <li key={j}>{step.text}</li>

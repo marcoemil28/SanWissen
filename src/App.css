@@ -754,6 +754,13 @@ ul {
   max-width: 460px;
 }
 
+.illustration-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
 .illustration-svg {
   width: 100%;
   height: auto;

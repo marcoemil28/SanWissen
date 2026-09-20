@@ -6,6 +6,8 @@ export interface RechtlicheGrundlagenFact {
 
 export interface RechtlicheGrundlagenSection {
   heading?: string;
+  /** ID einer Abbildung zu diesem Abschnitt (siehe content/illustrations.json). */
+  illustrationId?: string;
   facts: RechtlicheGrundlagenFact[];
 }
 

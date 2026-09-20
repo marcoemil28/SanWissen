@@ -4,6 +4,7 @@ import type { AnatomieCategory, AnatomieTopic } from './types';
 import { useNavigation } from '../../app/NavigationContext';
 import { FavoriteButton } from '../../components/FavoriteButton';
 import { formatStand } from '../../app/formatDate';
+import { SectionIllustration } from '../../components/SectionIllustration';
 
 const CATEGORY_ORDER: AnatomieCategory[] = ['Herz-Kreislauf', 'Atmung', 'Skelett & Muskulatur', 'Nervensystem', 'Vitalparameter'];
 
@@ -23,6 +24,7 @@ function AnatomieDetail({ topic }: { topic: AnatomieTopic }) {
       {topic.sections.map((section, i) => (
         <div key={i} className="algo-section">
           {section.heading && <h4>{section.heading}</h4>}
+          <SectionIllustration id={section.illustrationId} />
           <ul>
             {section.facts.map((fact, j) => (
               <li key={j}>{fact.text}</li>
