@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/ekg-electrodes.schema.json",
   "sets": [
     {
       "id": "monitoring",

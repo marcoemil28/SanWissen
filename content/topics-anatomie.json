@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "anatomie",
   "title": "Anatomie & Physiologie",
   "symbol": "figure.stand",

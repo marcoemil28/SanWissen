@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "medikamentenvorbereitung",
   "title": "Medikamente vorbereiten & verabreichen",
   "symbol": "syringe.fill",

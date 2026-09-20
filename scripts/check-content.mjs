@@ -14,6 +14,7 @@
  */
 
 import { readFile, readdir } from 'node:fs/promises';
+import { validate } from './validate-schema.mjs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,6 +25,21 @@ const read = async (name) => JSON.parse(await readFile(resolve(CONTENT_DIR, name
 
 async function main() {
   const problems = [];
+
+  // ---- Gegen die Schemas unter content/schema/ prüfen ---------------------
+  // Fängt Tippfehler in Feldnamen, fehlende Pflichtfelder und falsche Typen
+  // ab. Dieselben Schemas werten Editoren wie VS Code beim Tippen aus.
+  for (const file of (await readdir(CONTENT_DIR)).filter((f) => f.endsWith('.json'))) {
+    const data = await read(file);
+    if (!data.$schema) {
+      problems.push(`${file}: kein $schema eingetragen`);
+      continue;
+    }
+    const schema = JSON.parse(
+      await readFile(resolve(CONTENT_DIR, data.$schema.replace(/^\.\//, '')), 'utf8'),
+    );
+    for (const message of validate(data, schema)) problems.push(`${file} → ${message}`);
+  }
 
   const registry = await read('modules.json');
   const moduleIds = registry.modules.map((m) => m.id);
@@ -69,6 +85,17 @@ async function main() {
   for (const m of registry.modules) {
     if (!registry.categories.includes(m.category)) {
       problems.push(`Modul-Registry: unbekannte Kategorie "${m.category}" bei ${m.id}`);
+    }
+  }
+
+  // Jede Kategorie eines Themas muss in der categoryOrder derselben Datei
+  // stehen, sonst fällt das Thema in der Gruppierung hinten runter.
+  for (const file of (await readdir(CONTENT_DIR)).filter((f) => f.startsWith('topics-'))) {
+    const mod = await read(file);
+    for (const topic of mod.topics) {
+      if (topic.category && !mod.categoryOrder.includes(topic.category)) {
+        problems.push(`${file}: Kategorie "${topic.category}" von "${topic.title}" fehlt in categoryOrder`);
+      }
     }
   }
 

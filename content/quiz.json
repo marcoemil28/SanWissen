@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/quiz.schema.json",
   "questions": [
     {
       "id": "algo-1",

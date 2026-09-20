@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "rettungstechnik",
   "title": "Rettungstechnik & Gerätekunde",
   "symbol": "backpack.fill",

@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/checklisten.schema.json",
   "checklists": [
     {
       "id": "notfallrucksack-check",

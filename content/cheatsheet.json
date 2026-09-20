@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/cheatsheet.schema.json",
   "cards": [
     {
       "id": "reanimation-erwachsene",

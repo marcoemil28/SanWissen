@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "paediatrie",
   "title": "Pädiatrie & Geburtshilfe",
   "symbol": "figure.child",

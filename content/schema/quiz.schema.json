@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "quiz.schema.json",
+  "title": "Prüfungsfragen",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Verweis auf dieses Schema. Nur für den Editor, die Apps ignorieren das Feld."
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "moduleId": {
+            "type": "string"
+          },
+          "moduleTitle": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "itemId": {
+            "type": "string",
+            "description": "Eintrag, zu dem \"Zum Eintrag springen\" führt."
+          },
+          "question": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "string"
+            }
+          },
+          "correctIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Index in options, nullbasiert."
+          }
+        },
+        "required": [
+          "id",
+          "moduleId",
+          "moduleTitle",
+          "icon",
+          "itemId",
+          "question",
+          "options",
+          "correctIndex"
+        ]
+      }
+    }
+  },
+  "required": [
+    "questions"
+  ]
+}

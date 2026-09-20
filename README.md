@@ -560,6 +560,7 @@ content/                 # ALLE Fachinhalte als JSON — die einzige Pflegestell
   medikamente.json, ekg-*.json, glossar.json, quiz.json, …
   illustrations.json     # Bildunterschrift je Abbildung
   images/                # 49 Bilddateien, von beiden Apps genutzt (ca. 5 MB)
+  schema/                # JSON Schemas: Feldhilfe im Editor + Prüfung im Build
 src-tauri/                # Rust-Backend (Tauri), native Fenster/Bundling
 docs/                    # Quell-PDFs/Unterlagen, aus denen Inhalte extrahiert werden
 scripts/
@@ -586,6 +587,24 @@ und Zugriff. Wer Texte ändert, ändert sie in `content/` und braucht dafür
 weder TypeScript noch einen Build.
 
 ### Eigene Inhalte einpflegen / korrigieren
+
+Alle Inhalte liegen als JSON unter `content/` und lassen sich direkt
+bearbeiten, ohne TypeScript oder einen Build. Jede Datei verweist über
+`$schema` auf ihr Schema unter `content/schema/`. VS Code und die meisten
+Editoren werten das ohne Zutun aus und bieten dann:
+
+- Vervollständigung der Feldnamen beim Tippen
+- eine Markierung, wenn ein Pflichtfeld wie `sourceNote` fehlt
+- eine Auswahlliste für feste Werte, etwa die Modul-Kategorien
+- eine Warnung bei vertippten Feldnamen, statt dass das Feld still
+  ignoriert wird
+
+Dieselben Schemas prüft `npm run check-content`, das auch bei
+`npm run build` läuft. Dazu kommen dort Prüfungen, die ein Schema nicht
+ausdrücken kann: dass Verweise aus Fahrplan, Cheat-Sheet, Quiz und Glossar
+auf existierende Einträge zeigen, dass zu jeder verknüpften Abbildung Datei
+und Bildunterschrift vorliegen und dass jede Kategorie in der
+`categoryOrder` ihrer Datei steht.
 
 - EKG-Rhythmen: `src/modules/ekg/rhythms.ts` — jeder Eintrag hat Merkmale,
   klinische Hinweise und die Parameter für die Kurvengenerierung

@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "sanitaetsdienst",
   "title": "Sanitätsdienst (Veranstaltungsdienst)",
   "symbol": "tent.fill",

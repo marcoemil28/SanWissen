@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/ekg-rhythms.schema.json",
   "categoryLabels": {
     "Sinusrhythmen": "Sinusrhythmen",
     "Vorhofarrhythmien": "Vorhofarrhythmien (supraventrikulär)",

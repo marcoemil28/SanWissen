@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/werkzeuge.schema.json",
   "contentStand": "2026-09-18",
   "tools": [
     {

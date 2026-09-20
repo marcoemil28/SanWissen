@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "psychiatrienotfaelle",
   "title": "Psychiatrische Notfälle & Kommunikation",
   "symbol": "brain.head.profile",

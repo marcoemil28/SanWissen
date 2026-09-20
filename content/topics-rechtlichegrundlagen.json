@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "rechtlichegrundlagen",
   "title": "Rechtliche & organisatorische Grundlagen",
   "symbol": "building.columns.fill",

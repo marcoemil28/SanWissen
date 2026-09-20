@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "traumatologie",
   "title": "Traumatologie & Verbandslehre",
   "symbol": "bandage.fill",

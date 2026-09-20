@@ -106,6 +106,17 @@ gemeinsame Inhaltsquelle ändern.
   - `medications.json` und `wirkung.ts` sind zu `content/medikamente.json`
     zusammengeführt. Sie wurden ohnehin nur an einer Stelle kombiniert.
   - Der Plan dahinter steht in [docs/inhaltspipeline.md](docs/inhaltspipeline.md).
+- **JSON Schemas für alle Inhaltsdateien** unter `content/schema/`, je Datei
+  über `$schema` verknüpft. VS Code und die meisten Editoren werten das ohne
+  Zutun aus und bieten Feldvervollständigung, eine Markierung bei fehlendem
+  Pflichtfeld wie `sourceNote`, Auswahllisten für feste Werte und eine
+  Warnung bei vertippten Feldnamen. Das war der eigentliche Zweck des
+  Umbaus: Inhalte sollen sich ohne Entwicklerhintergrund pflegen lassen.
+  - `npm run check-content` prüft dieselben Schemas, damit ein Fehler auch
+    im Build auffällt und nicht nur im Editor sichtbar ist.
+  - Dazu zwei Prüfungen, die ein Schema nicht ausdrücken kann: dass jede
+    Kategorie in der `categoryOrder` ihrer Datei steht und dass zu jeder
+    verknüpften Abbildung Datei und Bildunterschrift vorliegen.
 - **Abbildungen vereinheitlicht: der Desktop zeigt jetzt alle 47.** Bisher
   waren im Inhalt 47 Abbildungen verknüpft, die der Desktop an keiner
   Stelle rendern konnte; er kannte nur drei fest eingebaute SVG-Zeichnungen.

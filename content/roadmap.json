@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/roadmap.schema.json",
   "sections": [
     {
       "category": "Grundlagenwissen",

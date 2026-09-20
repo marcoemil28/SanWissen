@@ -169,7 +169,9 @@ Entscheidung zwischen zwei Klammerarten.
    liegen unter `content/images/`, die Bildunterschriften in
    `content/illustrations.json`, die drei SVG-Komponenten sind weg. Der
    Desktop zeigt jetzt dieselben Abbildungen wie iOS.
-4. **JSON Schema** neben die Inhalte legen.
+4. ~~**JSON Schema** neben die Inhalte legen~~ **erledigt** (1.1.0). Zwölf
+   Schemas unter `content/schema/`, je Datei über `$schema` verknüpft.
+   `npm run check-content` prüft dagegen, zusätzlich zu den Verweisen.
 5. Erst danach die zehn Desktop-Renderer durch einen generischen
    ersetzen, nach dem Vorbild von `TopicModuleView.swift`.
 

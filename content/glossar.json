@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/glossar.schema.json",
   "entries": [
     {
       "id": "aed",

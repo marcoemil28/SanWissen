@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/illustrations.schema.json",
   "illustrations": [
     {
       "id": "aed-elektroden",

@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/topic-module.schema.json",
   "moduleId": "algorithmen",
   "title": "Algorithmen (ABCDE, BLS/ALS)",
   "symbol": "list.bullet.rectangle.portrait",

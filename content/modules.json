@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema/modules.schema.json",
   "categories": [
     "Grundlagenwissen",
     "Krankheitsbilder & Algorithmen",

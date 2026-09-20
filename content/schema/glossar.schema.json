@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "glossar.schema.json",
+  "title": "Glossar & Abkürzungen",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Verweis auf dieses Schema. Nur für den Editor, die Apps ignorieren das Feld."
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "abbr": {
+            "type": "string"
+          },
+          "meaning": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "moduleId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Aufgelöster Verweis aus \"siehe …-Modul\"."
+          },
+          "itemId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "itemTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "abbr",
+          "meaning",
+          "moduleId",
+          "itemId",
+          "itemTitle"
+        ]
+      }
+    }
+  },
+  "required": [
+    "entries"
+  ]
+}
