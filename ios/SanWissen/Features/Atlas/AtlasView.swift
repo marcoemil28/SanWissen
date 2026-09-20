@@ -12,6 +12,18 @@ struct AtlasView: View {
     @State private var model = AtlasModel()
     @State private var showsSystems = false
 
+    /// Unterkante der Kopfzeile, Oberkante der unteren Bedienfelder und das
+    /// Rechteck der Szene, alle im selben Koordinatenraum (`Self.space`).
+    /// Daraus wird die freie Fläche für das Modell berechnet, statt sie zu
+    /// schätzen (siehe `applyLayout`). Gemeinsamer Raum, weil die Szene die
+    /// untere Safe Area ignoriert und die Bedienfelder nicht; reine Höhen
+    /// wären nicht vergleichbar.
+    @State private var topChromeMaxY: CGFloat = 0
+    @State private var bottomChromeMinY: CGFloat = 0
+    @State private var sceneFrame: CGRect = .zero
+
+    private static let space = "atlas"
+
     private var isCompact: Bool { sizeClass == .compact }
 
     var body: some View {
@@ -22,14 +34,18 @@ struct AtlasView: View {
             // Aufbau noch keine Größe hat. Ohne die tatsächliche Größe rechnet
             // das Raster mit dem falschen Seitenverhältnis und wird zu breit.
             GeometryReader { geo in
+                let frame = geo.frame(in: .named(Self.space))
                 AtlasSceneView(model: model)
-                    .onAppear { applyLayout(geo.size) }
-                    .onChange(of: geo.size) { _, size in applyLayout(size) }
+                    .onAppear { sceneFrame = frame; applyLayout() }
+                    .onChange(of: frame) { _, new in sceneFrame = new; applyLayout() }
             }
             .ignoresSafeArea(edges: .bottom)
 
             VStack(spacing: 0) {
-                if model.quizActive { quizBanner } else { header }
+                Group {
+                    if model.quizActive { quizBanner } else { header }
+                }
+                .measureEdge(TopChromeKey.self, in: Self.space) { $0.maxY }
                 Spacer(minLength: 0)
             }
 
@@ -48,15 +64,20 @@ struct AtlasView: View {
 
             VStack(spacing: 10) {
                 Spacer(minLength: 0)
-                if model.quizActive {
-                    quizFooter
-                } else {
-                    caption
-                    if isCompact { compactSystemsButton }
-                    explodePanel
-                        .padding(.horizontal, 16)
-                    hints
+                Group {
+                    if model.quizActive {
+                        quizFooter
+                    } else {
+                        VStack(spacing: 10) {
+                            caption
+                            if isCompact { compactSystemsButton }
+                            explodePanel
+                                .padding(.horizontal, 16)
+                            hints
+                        }
+                    }
                 }
+                .measureEdge(BottomChromeKey.self, in: Self.space) { $0.minY }
             }
             .padding(.bottom, 8)
 
@@ -65,7 +86,16 @@ struct AtlasView: View {
                     .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
+        .coordinateSpace(name: Self.space)
         .animation(.easeInOut(duration: 0.18), value: model.selectedPart)
+        .onPreferenceChange(TopChromeKey.self) { edge in
+            topChromeMaxY = edge
+            applyLayout()
+        }
+        .onPreferenceChange(BottomChromeKey.self) { edge in
+            bottomChromeMinY = edge
+            applyLayout()
+        }
         .navigationTitle("Human Atlas")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showsSystems) {
@@ -82,13 +112,39 @@ struct AtlasView: View {
 
     /// Meldet der Szene die tatsächliche Größe: Seitenverhältnis für das
     /// Raster, freie Höhe und Versatz für die Kameraeinpassung.
-    private func applyLayout(_ size: CGSize) {
-        guard size.width > 1, size.height > 1 else { return }
-        model.controller.setAspect(Float(size.width / size.height))
-        // Auf dem iPhone liegen Kopfzeile, Systemtaste und Regler über der
-        // Szene; dort bleibt nur gut die Hälfte frei.
-        model.controller.fit(usableHeightFraction: isCompact ? 0.62 : 0.84,
-                             verticalShift: isCompact ? 0.11 : 0.02)
+    ///
+    /// Kopfzeile und Bedienfelder liegen über der Szene. Ihre Höhe wird
+    /// gemessen statt geschätzt, weil sie sich mit Gerät, Schriftgröße und
+    /// Zustand ändert: auf dem iPhone kommt die Systemtaste dazu, im Quiz
+    /// stehen andere Felder da, und bei großer Schrift wachsen alle mit.
+    /// Vorher standen hier feste Anteile, bei denen die Beschriftung unter
+    /// dem Modell auf den Unterschenkeln lag und die Füße abgeschnitten waren.
+    private func applyLayout() {
+        let height = sceneFrame.height
+        guard sceneFrame.width > 1, height > 1 else { return }
+        model.controller.setAspect(Float(sceneFrame.width / height))
+
+        // Abstände der Bedienfelder von den Rändern der Szene. Beides im
+        // selben Koordinatenraum, die Szene reicht unten unter die Tab-Leiste.
+        let top = topChromeMaxY - sceneFrame.minY
+        let bottom = sceneFrame.maxY - bottomChromeMinY
+        let free = height - top - bottom
+
+        // Solange noch nichts gemessen ist, bleibt es bei einer groben
+        // Annahme, sonst füllt das Modell für einen Moment die ganze Fläche.
+        guard top > 0, bottom > 0, free > height * 0.25 else {
+            model.controller.fit(usableHeightFraction: isCompact ? 0.62 : 0.84,
+                                 verticalShift: isCompact ? 0.11 : 0.02)
+            return
+        }
+
+        // Etwas Luft zu den Feldern, damit Kopf und Füße sie nicht berühren.
+        let fraction = Float(free / height) * 0.94
+        // Der freie Streifen liegt nicht mittig; um diesen Anteil der
+        // Ansichtshöhe muss das Modell nach oben.
+        let bandCenter = top + free / 2
+        let shift = Float((height / 2 - bandCenter) / height)
+        model.controller.fit(usableHeightFraction: fraction, verticalShift: shift)
     }
 
     // MARK: - Kopfbereich
@@ -633,5 +689,38 @@ extension String {
                 return first.uppercased() + word.dropFirst()
             }
             .joined(separator: " ")
+    }
+}
+
+// MARK: - Höhe der Bedienfelder messen
+
+/// Kopfzeile und Bedienfelder liegen über der Szene. Damit die Kamera weiß,
+/// wie viel Fläche dem Modell wirklich bleibt, melden sie ihre gemessene Höhe
+/// nach oben, statt dass `applyLayout` sie schätzt.
+private struct TopChromeKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+private struct BottomChromeKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+private extension View {
+    /// Meldet eine Kante dieser Ansicht im angegebenen Koordinatenraum nach
+    /// oben, damit `applyLayout` sie mit dem Rechteck der Szene verrechnen kann.
+    func measureEdge<K: PreferenceKey>(_ key: K.Type,
+                                       in space: String,
+                                       _ edge: @escaping (CGRect) -> CGFloat) -> some View where K.Value == CGFloat {
+        background {
+            GeometryReader { geo in
+                Color.clear.preference(key: key, value: edge(geo.frame(in: .named(space))))
+            }
+        }
     }
 }
