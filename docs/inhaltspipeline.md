@@ -175,7 +175,9 @@ Entscheidung zwischen zwei Klammerarten.
 5. ~~Die zehn Desktop-Renderer durch einen generischen ersetzen~~
    **erledigt** (1.1.0). `src/components/TopicModule.tsx`, 180 Zeilen,
    nach dem Vorbild von `TopicModuleView.swift`. Die zehn Modul-Dateien
-   sind von zusammen 1.121 auf 213 Zeilen geschrumpft.
+   sind von zusammen 1.121 auf 213 Zeilen geschrumpft. Dasselbe für
+   `searchIndex.ts` (211 auf 82 Zeilen); damit wurden die zehn `data.ts`
+   und `types.ts` der Themenmodule unbenutzt und sind entfallen.
 
 Schritt 1 bis 3 lösen das eigentliche Problem. Schritt 4 macht das
 Bearbeiten erst wirklich zugänglich. Schritt 5 ist Aufräumen und kann

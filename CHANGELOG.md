@@ -106,6 +106,22 @@ gemeinsame Inhaltsquelle ändern.
   - `medications.json` und `wirkung.ts` sind zu `content/medikamente.json`
     zusammengeführt. Sie wurden ohnehin nur an einer Stelle kombiniert.
   - Der Plan dahinter steht in [docs/inhaltspipeline.md](docs/inhaltspipeline.md).
+- **Die Suche ist ebenfalls zusammengefasst.** `searchIndex.ts` hatte für
+  jedes Modul einen eigenen Block, fünfzehn an der Zahl, von denen sich zehn
+  nur in Modul-ID und Feldnamen unterschieden. Die zehn Themenmodule laufen
+  jetzt über eine Schleife; übrig bleiben die Quellen mit eigener Form. Die
+  Datei schrumpft von 211 auf 82 Zeilen.
+  - **Das Cheat-Sheet ist jetzt durchsuchbar.** Die iOS-Suche führt es seit
+    jeher, die Desktop-Suche hatte es nie aufgenommen.
+  - **Algorithmen erscheinen in der Suche jetzt unter ihrem vollen Namen**
+    („Algorithmen (ABCDE, BLS/ALS)" statt „Algorithmen"). Modultitel und
+    Icon kommen jetzt aus `content/modules.json`, wie es die iOS-Suche
+    schon macht; damit laufen Suche und Seitenleiste nicht mehr
+    auseinander.
+  - Damit sind die zehn `data.ts` und `types.ts` der Themenmodule
+    unbenutzt und entfallen, zusammen mit der Zwischenschicht in
+    `content.ts`, die `items` nach `facts`/`steps` umbenannte. Der
+    Desktop-Quellcode schrumpft dadurch um rund 570 Zeilen.
 - **Die zehn Themenmodule teilen sich auf dem Desktop eine Ansicht.** Jedes
   hatte bisher einen eigenen Renderer von rund 120 Zeilen, von denen gut die
   Hälfte identisch war; die iOS-App kam für dieselben Module schon immer mit
