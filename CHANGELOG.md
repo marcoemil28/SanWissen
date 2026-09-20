@@ -106,6 +106,19 @@ gemeinsame Inhaltsquelle ändern.
   - `medications.json` und `wirkung.ts` sind zu `content/medikamente.json`
     zusammengeführt. Sie wurden ohnehin nur an einer Stelle kombiniert.
   - Der Plan dahinter steht in [docs/inhaltspipeline.md](docs/inhaltspipeline.md).
+- **Die zehn Themenmodule teilen sich auf dem Desktop eine Ansicht.** Jedes
+  hatte bisher einen eigenen Renderer von rund 120 Zeilen, von denen gut die
+  Hälfte identisch war; die iOS-App kam für dieselben Module schon immer mit
+  einer einzigen Ansicht aus. Neu ist `src/components/TopicModule.tsx` mit
+  180 Zeilen, die zehn Modul-Dateien schrumpfen von zusammen 1.121 auf 213
+  Zeilen.
+  - Die Kategorie-Reihenfolge stand als Konstante in jedem Renderer und
+    kommt jetzt aus `categoryOrder` der Inhaltsdatei. Beide stimmten
+    überein, die Anzeige ändert sich also nicht.
+  - Ob die Seitenzahl erscheint, richtet sich jetzt danach, ob der Eintrag
+    eine hat, statt nach dem Modul. Betroffen sind dieselben zwei Module
+    wie bisher.
+  - Für den Nutzer ändert sich nichts.
 - **JSON Schemas für alle Inhaltsdateien** unter `content/schema/`, je Datei
   über `$schema` verknüpft. VS Code und die meisten Editoren werten das ohne
   Zutun aus und bieten Feldvervollständigung, eine Markierung bei fehlendem

@@ -17,17 +17,17 @@ function undef<T>(value: T | null | undefined): T | undefined {
   return value ?? undefined;
 }
 
-interface RawItem {
+export interface RawItem {
   text: string;
 }
 
-interface RawSection {
+export interface RawSection {
   heading?: string | null;
   illustration?: string | null;
   items: RawItem[];
 }
 
-interface RawTopic {
+export interface RawTopic {
   id: string;
   title: string;
   category?: string | null;
@@ -46,6 +46,26 @@ export interface RawTopicModule {
   categoryOrder: string[];
   contentStand: string | null;
   topics: RawTopic[];
+}
+
+/**
+ * Alle zehn Themenmodule, nach `moduleId` erreichbar. Wird von der
+ * gemeinsamen Ansicht `components/TopicModule.tsx` genutzt, die direkt auf
+ * dieser Form arbeitet und `items` nicht erst umbenennen muss.
+ */
+const TOPIC_MODULES: Record<string, RawTopicModule> = Object.fromEntries(
+  Object.values(
+    import.meta.glob('../../content/topics-*.json', {
+      eager: true,
+      import: 'default',
+    }) as Record<string, RawTopicModule>,
+  ).map((mod) => [mod.moduleId, mod]),
+);
+
+export function topicModuleById(moduleId: string): RawTopicModule {
+  const mod = TOPIC_MODULES[moduleId];
+  if (!mod) throw new Error(`Kein Themenmodul "${moduleId}" unter content/`);
+  return mod;
 }
 
 /**

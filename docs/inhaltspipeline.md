@@ -43,9 +43,9 @@ BE-FAST-Fassung kam mit 709d443 am 18.09.2026, einen Tag nach dem
 1.0.0-Release. Wer den 1.0.0-Installer nutzte, hatte sie nicht. Das behebt
 sich mit dem nächsten Desktop-Build von selbst, die Abbildungen nicht.
 
-**Struktur:** Der Desktop hat zehn eigene Modul-Renderer von je rund 120
-Zeilen, von denen gut die Hälfte identisch ist. iOS macht dasselbe mit
-einer generischen Ansicht von 92 Zeilen. Das bleibt bis Schritt 5.
+**Struktur:** Der Desktop hatte zehn eigene Modul-Renderer von je rund 120
+Zeilen, von denen gut die Hälfte identisch war. iOS macht dasselbe mit
+einer generischen Ansicht von 92 Zeilen.
 
 ## Der Umbau
 
@@ -172,8 +172,10 @@ Entscheidung zwischen zwei Klammerarten.
 4. ~~**JSON Schema** neben die Inhalte legen~~ **erledigt** (1.1.0). Zwölf
    Schemas unter `content/schema/`, je Datei über `$schema` verknüpft.
    `npm run check-content` prüft dagegen, zusätzlich zu den Verweisen.
-5. Erst danach die zehn Desktop-Renderer durch einen generischen
-   ersetzen, nach dem Vorbild von `TopicModuleView.swift`.
+5. ~~Die zehn Desktop-Renderer durch einen generischen ersetzen~~
+   **erledigt** (1.1.0). `src/components/TopicModule.tsx`, 180 Zeilen,
+   nach dem Vorbild von `TopicModuleView.swift`. Die zehn Modul-Dateien
+   sind von zusammen 1.121 auf 213 Zeilen geschrumpft.
 
 Schritt 1 bis 3 lösen das eigentliche Problem. Schritt 4 macht das
 Bearbeiten erst wirklich zugänglich. Schritt 5 ist Aufräumen und kann
