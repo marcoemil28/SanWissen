@@ -91,30 +91,90 @@ Vorgabe: Sie müssen in **allen** Versionen zu sehen sein.
    `IllustrationView.swift`. Sie gehört zum Inhalt und damit in die
    Daten.
 
-## Offene Entscheidungen
+## Entschieden
 
-- **JSON oder YAML als Quellformat.** JSON ist schon da und braucht kein
-  Werkzeug. YAML liest sich besser und erlaubt Kommentare, was bei
-  Quellenhinweisen hilft, braucht aber eine Abhängigkeit auf beiden
-  Seiten. Vorschlag: bei JSON bleiben, weil der Aufwand sonst ohne echten
-  Gewinn steigt.
-- **Wohin mit den Inhalten im Repo.** Heute `src/modules/<name>/data.ts`,
-  also unter dem Desktop-Quellcode. Ein eigener Ordner auf oberster Ebene
-  (`content/`) macht deutlicher, dass er zu keiner App gehört.
-- **Was passiert mit `minLevel`.** Das Feld hängt an jedem Inhalt, hat
-  aber laut README seit 0.17.0 keine Wirkung mehr. Beim Umbau wäre der
-  Moment, es entweder zu nutzen oder zu entfernen.
+- **Ort:** Die Inhalte ziehen nach `content/` auf oberster Ebene. Damit
+  ist sichtbar, dass sie zu keiner der beiden Apps gehören.
+- **`minLevel` fliegt raus.** Das Feld hängt an 806 Stellen und hat seit
+  0.17.0 keine Wirkung mehr. Das spart 7 Prozent Dateigröße und, viel
+  wichtiger, 806 Zeilen Rauschen in Dateien, die jemand von Hand
+  bearbeiten soll.
+- **Abbildungen richten sich nach der iOS-Fassung.** Die drei
+  SVG-Komponenten des Desktops entfallen ersatzlos, auch der Kopfverband,
+  der dadurch verschwindet. `illustrationId` wird der einzige Weg.
+- **Format: JSON.** Begründung unten.
+
+## Warum JSON und nicht YAML
+
+Der Zweck des Umbaus ist, dass auch Nichtentwickler Inhalte ändern
+können. Genau dafür ist YAML die schlechtere Wahl, obwohl es sich besser
+liest.
+
+**Was für YAML spricht:** weniger Satzzeichen, Kommentare sind erlaubt,
+und lange Texte lassen sich als Block schreiben statt als eine endlose
+Zeile.
+
+**Was dagegen spricht, gemessen am tatsächlichen Inhalt:**
+
+- Die iOS-App hat heute **keine einzige** Fremd-Abhängigkeit. Swift
+  bringt keinen YAML-Leser mit, es käme also die erste dazu, allein für
+  das Dateiformat.
+- **331 Zeichenketten (9 Prozent) müssten gequotet werden**, weil sie
+  einen Doppelpunkt enthalten. Eure Texte sind voll davon:
+  „Dokumentation: Einsatzprotokoll & DIVI-Protokoll", „Zumutbarkeit hat
+  Grenzen: die eigene Sicherheit geht vor". Wer das Quoting vergisst,
+  bekommt im besten Fall einen Fehler.
+- **YAML rät Typen.** `Ja` wird zu einem Wahrheitswert, `3.5` zu einer
+  Zahl, `01` zu einer Eins. In einer App mit Dosierungen und Grenzwerten
+  ist das kein theoretisches Risiko.
+- Einrückung trägt Bedeutung. Ein Leerzeichen zu viel verschiebt einen
+  Eintrag in den falschen Abschnitt.
+
+**Der Lesbarkeitsvorteil ist kleiner als gedacht.** Der Median einer
+Zeichenkette liegt bei 23 Zeichen, nur 16 Prozent sind länger als 80 und
+3 Prozent länger als 200. Der Inhalt besteht überwiegend aus kurzen
+Stichpunkten, nicht aus Fließtext.
+
+**Kommentare fehlen in JSON**, aber dafür gibt es bereits `sourceNote`
+an jedem Eintrag. Begründungen gehören ohnehin dorthin und nicht in einen
+Kommentar, den keine App anzeigt.
+
+## Das eigentliche Werkzeug: ein JSON Schema
+
+Die Formatwahl löst das Bearbeitungsproblem nur halb. Mehr bringt ein
+**JSON Schema** neben den Inhalten. VS Code und die meisten Editoren
+werten es ohne Zutun aus und liefern damit:
+
+- Vervollständigung der Feldnamen beim Tippen
+- eine Fehlermarkierung, sobald ein Pflichtfeld fehlt, etwa `sourceNote`
+- eine Auswahlliste für feste Werte wie die Kategorien eines Moduls
+- eine Warnung bei Tippfehlern in Feldnamen, statt dass das Feld still
+  ignoriert wird
+
+Das hilft jemandem ohne Entwicklerhintergrund deutlich mehr als die
+Entscheidung zwischen zwei Klammerarten.
 
 ## Reihenfolge
 
-1. Inhalte nach `content/` verschieben, als JSON, ohne sonstige Änderung.
-   Beide Apps lesen danach von dort, das Exportskript entfällt, die
-   Prüfung bleibt als eigener Schritt.
-2. Abbildungen vereinheitlichen: `illustrationId` überall, die drei SVG
-   zu Bilddateien, ein gemeinsamer Bildordner, Bildunterschrift in die
-   Daten.
-3. Erst danach die zehn Desktop-Renderer durch einen generischen
+1. **Inhalte nach `content/` verschieben**, als JSON, inhaltlich
+   unverändert. Beide Apps lesen danach von dort, das Exportskript
+   entfällt, seine Prüfung bleibt als eigener Schritt und läuft vor jedem
+   Build und in der CI.
+2. **`minLevel` entfernen**, an allen 806 Stellen, samt
+   `QualificationLevel` in `src/app/levels.ts`.
+3. **Abbildungen vereinheitlichen:** `illustrationId` als einziger Weg,
+   die drei SVG-Komponenten entfallen, ein gemeinsamer Bildordner für
+   beide Apps, Bildunterschrift in die Daten. Danach zeigt der Desktop
+   erstmals alle 47 Abbildungen.
+4. **JSON Schema** neben die Inhalte legen.
+5. Erst danach die zehn Desktop-Renderer durch einen generischen
    ersetzen, nach dem Vorbild von `TopicModuleView.swift`.
 
-Schritt 1 und 2 lösen das eigentliche Problem. Schritt 3 ist Aufräumen
-und kann warten.
+Schritt 1 bis 3 lösen das eigentliche Problem. Schritt 4 macht das
+Bearbeiten erst wirklich zugänglich. Schritt 5 ist Aufräumen und kann
+warten.
+
+Jeder Schritt ist für sich lauffähig und sollte einzeln committet werden.
+Schritt 1 und 2 fassen sehr viele Dateien an; sie gehören nicht in
+denselben Commit wie eine Verhaltensänderung, sonst ist der Diff nicht
+mehr zu prüfen.
