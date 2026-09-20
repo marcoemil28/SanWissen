@@ -8,6 +8,8 @@ export interface MedVorbereitungStep {
 
 export interface MedVorbereitungSection {
   heading?: string;
+  /** ID einer Abbildung zu diesem Abschnitt (siehe ios/…/IllustrationView.swift). */
+  illustrationId?: string;
   steps: MedVorbereitungStep[];
 }
 

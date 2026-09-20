@@ -1,0 +1,359 @@
+{
+  "sections": [
+    {
+      "category": "Grundlagenwissen",
+      "entries": [
+        {
+          "moduleId": "anatomie",
+          "itemId": "herz-kreislauf",
+          "label": "Herz-Kreislauf-System"
+        },
+        {
+          "moduleId": "anatomie",
+          "itemId": "atmungssystem",
+          "label": "Atmungssystem"
+        },
+        {
+          "moduleId": "anatomie",
+          "itemId": "skelett-muskulatur",
+          "label": "Skelett & Muskulatur"
+        },
+        {
+          "moduleId": "anatomie",
+          "itemId": "nervensystem",
+          "label": "Nervensystem"
+        }
+      ]
+    },
+    {
+      "category": "Krankheitsbilder & Algorithmen",
+      "entries": [
+        {
+          "moduleId": "algorithmen",
+          "itemId": "abcde-herangehensweise",
+          "label": "cABCDE – Herangehensweise"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "wasb-gcs",
+          "label": "Beurteilung der Bewusstseinslage (WASB & GCS)"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "reanimation-erwachsene",
+          "label": "Reanimation Erwachsene (Basismaßnahmen)"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "reanimation-kinder",
+          "label": "Reanimation Kinder (Basismaßnahmen)"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "abcde-instabilitaeten",
+          "label": "cABCDE – Instabilitäten"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "sampler",
+          "label": "SAMPLER(S)-Schema"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "opqrst",
+          "label": "OPQRST-Schema"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "patientenanmeldung",
+          "label": "Patientenanmeldung (ZOABCDE)"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "sinnhaft",
+          "label": "Übergabe (SINNHAFT)"
+        },
+        {
+          "moduleId": "algorithmen",
+          "itemId": "atemwegsmanagement",
+          "label": "Atemwegsmanagement (erweiterte Maßnahmen)"
+        },
+        {
+          "moduleId": "traumatologie",
+          "itemId": "frakturlehre",
+          "label": "Frakturlehre"
+        },
+        {
+          "moduleId": "traumatologie",
+          "itemId": "wundversorgung",
+          "label": "Wundversorgung"
+        },
+        {
+          "moduleId": "traumatologie",
+          "itemId": "verbandslehre",
+          "label": "Verbandslehre (Druckverband, Dreiecktuch)"
+        },
+        {
+          "moduleId": "traumatologie",
+          "itemId": "verbrennungen",
+          "label": "Verbrennungen"
+        },
+        {
+          "moduleId": "traumatologie",
+          "itemId": "wirbelsaeulentrauma",
+          "label": "Wirbelsäulentrauma & Immobilisation"
+        },
+        {
+          "moduleId": "traumatologie",
+          "itemId": "thorax-abdominaltrauma",
+          "label": "Thorax- und Abdominaltrauma"
+        },
+        {
+          "moduleId": "traumatologie",
+          "itemId": "polytrauma-blutstillung",
+          "label": "Polytrauma & kritische Blutungen (Tourniquet)"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "herzinfarkt-acs",
+          "label": "Herzinfarkt (ACS)"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "lungenoedem",
+          "label": "Lungenödem"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "schlaganfall-fast",
+          "label": "Schlaganfall (FAST-Test)"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "krampfanfall-epilepsie",
+          "label": "Krampfanfall / Epilepsie"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "diabetische-notfaelle",
+          "label": "Diabetische Notfälle"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "anaphylaxie",
+          "label": "Allergie / Anaphylaxie"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "akutes-abdomen",
+          "label": "Akutes Abdomen"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "intoxikationen",
+          "label": "Intoxikationen"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "hitzenotfaelle",
+          "label": "Hitzenotfälle"
+        },
+        {
+          "moduleId": "internistischenotfaelle",
+          "itemId": "unterkuehlung-erfrierung",
+          "label": "Unterkühlung & Erfrierung"
+        },
+        {
+          "moduleId": "paediatrie",
+          "itemId": "kindernotfaelle-besonderheiten",
+          "label": "Besonderheiten pädiatrischer Notfälle"
+        },
+        {
+          "moduleId": "paediatrie",
+          "itemId": "normale-geburt",
+          "label": "Normale Geburt"
+        },
+        {
+          "moduleId": "paediatrie",
+          "itemId": "notgeburt-ablauf",
+          "label": "Notgeburt — Ablauf für den Sanitätsdienst"
+        },
+        {
+          "moduleId": "paediatrie",
+          "itemId": "neugeborenen-erstversorgung-apgar",
+          "label": "Erstversorgung Neugeborenes & APGAR-Score"
+        },
+        {
+          "moduleId": "psychiatrienotfaelle",
+          "itemId": "erregungszustaende-deeskalation",
+          "label": "Erregungszustände & Deeskalation"
+        },
+        {
+          "moduleId": "psychiatrienotfaelle",
+          "itemId": "suizidalitaet",
+          "label": "Suizidalität"
+        },
+        {
+          "moduleId": "psychiatrienotfaelle",
+          "itemId": "gespraechsfuehrung",
+          "label": "Gesprächsführung mit Patienten & Angehörigen"
+        },
+        {
+          "moduleId": "psychiatrienotfaelle",
+          "itemId": "umgang-sterbende-todesfeststellung",
+          "label": "Umgang mit Sterbenden & Todesfeststellung"
+        },
+        {
+          "moduleId": "psychiatrienotfaelle",
+          "itemId": "psychische-erste-hilfe-manv",
+          "label": "Psychische Erste Hilfe bei Großschadenslagen"
+        }
+      ]
+    },
+    {
+      "category": "Medikamente",
+      "entries": [
+        {
+          "moduleId": "medikamentenvorbereitung",
+          "itemId": null,
+          "label": "Medikamente vorbereiten & sicher verabreichen"
+        },
+        {
+          "moduleId": "medikamente",
+          "itemId": "epinephrin-adrenalin",
+          "label": "Medikamente (SAA/BPR)"
+        }
+      ]
+    },
+    {
+      "category": "Diagnostik & Training",
+      "entries": [
+        {
+          "moduleId": "ekg",
+          "itemId": "sinus-normal",
+          "label": "EKG-Rhythmuserkennung"
+        },
+        {
+          "moduleId": "ekg",
+          "itemId": null,
+          "label": "Elektroden legen üben"
+        },
+        {
+          "moduleId": "werkzeuge",
+          "itemId": "schmerzskala",
+          "label": "Schmerzskala (NRS/VAS)"
+        },
+        {
+          "moduleId": "werkzeuge",
+          "itemId": "gcs",
+          "label": "GCS-Rechner"
+        },
+        {
+          "moduleId": "werkzeuge",
+          "itemId": "naca",
+          "label": "NACA-Score"
+        },
+        {
+          "moduleId": "werkzeuge",
+          "itemId": "apgar",
+          "label": "APGAR-Score"
+        },
+        {
+          "moduleId": "werkzeuge",
+          "itemId": "neuner-regel",
+          "label": "Neuner-Regel"
+        },
+        {
+          "moduleId": "werkzeuge",
+          "itemId": "verduennung",
+          "label": "Verdünnungsrechner"
+        },
+        {
+          "moduleId": "rettungstechnik",
+          "itemId": "trageformen",
+          "label": "Trageformen"
+        },
+        {
+          "moduleId": "rettungstechnik",
+          "itemId": "lagerungsarten",
+          "label": "Lagerungsarten mit Indikation"
+        },
+        {
+          "moduleId": "rettungstechnik",
+          "itemId": "sauerstoffgabe",
+          "label": "Sauerstoffgabe"
+        },
+        {
+          "moduleId": "rettungstechnik",
+          "itemId": "absaugung-atemwegshilfen",
+          "label": "Absaugung & Atemwegshilfen"
+        },
+        {
+          "moduleId": "rettungstechnik",
+          "itemId": "beatmungsbeutel",
+          "label": "Beatmungsbeutel"
+        },
+        {
+          "moduleId": "rettungstechnik",
+          "itemId": "notfallrucksack-checkliste",
+          "label": "Notfallrucksack & Checkliste"
+        }
+      ]
+    },
+    {
+      "category": "Einsatz & Organisation",
+      "entries": [
+        {
+          "moduleId": "sanitaetsdienst",
+          "itemId": "wachdienst-organisation",
+          "label": "Sanitätswachdienst-Organisation"
+        },
+        {
+          "moduleId": "sanitaetsdienst",
+          "itemId": "manv-sichtung",
+          "label": "MANV & Sichtung (Triage)"
+        },
+        {
+          "moduleId": "sanitaetsdienst",
+          "itemId": "funkalphabet",
+          "label": "Funkalphabet & Funkdisziplin"
+        },
+        {
+          "moduleId": "sanitaetsdienst",
+          "itemId": "veranstaltungs-verletzungsmuster",
+          "label": "Veranstaltungs-Verletzungsmuster"
+        },
+        {
+          "moduleId": "sanitaetsdienst",
+          "itemId": "hygiene-infektionsschutz",
+          "label": "Hygiene & Infektionsschutz"
+        },
+        {
+          "moduleId": "rechtlichegrundlagen",
+          "itemId": "garantenstellung-hilfeleistung",
+          "label": "Garantenstellung & unterlassene Hilfeleistung"
+        },
+        {
+          "moduleId": "rechtlichegrundlagen",
+          "itemId": "schweigepflicht",
+          "label": "Schweigepflicht"
+        },
+        {
+          "moduleId": "rechtlichegrundlagen",
+          "itemId": "patientenwille",
+          "label": "Patientenverfügung & mutmaßlicher Wille"
+        },
+        {
+          "moduleId": "rechtlichegrundlagen",
+          "itemId": "delegation-kompetenzabgrenzung",
+          "label": "Delegation — Abgrenzung RS vs. NotSan"
+        },
+        {
+          "moduleId": "rechtlichegrundlagen",
+          "itemId": "dokumentation-einsatzprotokoll",
+          "label": "Dokumentation: Einsatzprotokoll & DIVI"
+        }
+      ]
+    }
+  ]
+}

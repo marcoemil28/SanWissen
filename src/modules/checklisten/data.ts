@@ -1,7 +1,7 @@
 import type { Checklist } from './types';
 
 const GENERAL_SOURCE_NOTE =
-  'Abgeleitet aus den entsprechenden Themenmodulen dieser App — als praktische Checkliste für den echten ' +
+  'Abgeleitet aus den entsprechenden Themenmodulen dieser App. Als praktische Checkliste für den echten ' +
   'Dienst gedacht, nicht als vollständiger Ersatz für die ausführliche Handlungsanweisung dort.';
 
 export const CHECKLISTEN: Checklist[] = [
@@ -23,7 +23,7 @@ export const CHECKLISTEN: Checklist[] = [
   },
   {
     id: 'reanimation-erwachsene-ablauf',
-    title: 'Reanimation Erwachsene — Ablauf (BLS)',
+    title: 'Reanimation Erwachsene – Ablauf (BLS)',
     description: 'Basismaßnahmen der Erwachsenenreanimation, Schritt für Schritt.',
     items: [
       { id: '1', text: 'Eigenschutz geprüft?' },
@@ -39,7 +39,7 @@ export const CHECKLISTEN: Checklist[] = [
   },
   {
     id: 'manv-sichtung-ablauf',
-    title: 'MANV — Sichtungsablauf',
+    title: 'MANV – Sichtungsablauf',
     description: 'Schritte der Sichtung bei einem Massenanfall von Verletzten.',
     items: [
       { id: '1', text: 'Eigenschutz und Lageübersicht verschafft?' },
@@ -55,7 +55,7 @@ export const CHECKLISTEN: Checklist[] = [
   },
   {
     id: 'notgeburt-ablauf-checkliste',
-    title: 'Notgeburt — Ablauf-Checkliste',
+    title: 'Notgeburt – Ablauf-Checkliste',
     description: 'Schritte bei einer Geburt ohne rechtzeitigen Klinik-Transport.',
     items: [
       { id: '1', text: 'Notarzt nachgefordert?' },
@@ -74,7 +74,7 @@ export const CHECKLISTEN: Checklist[] = [
   },
   {
     id: 'uebergabe-sinnhaft-checkliste',
-    title: 'Übergabe (SINNHAFT) — Checkliste',
+    title: 'Übergabe (SINNHAFT) – Checkliste',
     description: 'Strukturierte mündliche Übergabe am Zielort, Punkt für Punkt.',
     items: [
       { id: '1', text: 'S – Start: Ruhe, Face-to-Face-Kommunikation hergestellt?' },

@@ -2,7 +2,7 @@ import type { PsychiatrieNotfaelleTopic } from './types';
 
 const GENERAL_SOURCE_NOTE =
   'Allgemeines rettungsdienstliches Grundlagenwissen zu psychiatrischen Notfällen, Gesprächsführung und ' +
-  'Sterbebegleitung — keine SAA/BPR-Quelle. Rechtliche Rahmenbedingungen (z. B. Unterbringung gegen den ' +
+  'Sterbebegleitung. Keine SAA/BPR-Quelle. Rechtliche Rahmenbedingungen (z. B. Unterbringung gegen den ' +
   'eigenen Willen, Todesfeststellung) sind bundeslandspezifisch geregelt; es gilt immer die aktuelle, lokale ' +
   'Dienstanweisung bzw. Gesetzeslage.';
 
@@ -37,8 +37,8 @@ export const PSYCHIATRIENOTFAELLE_THEMEN: PsychiatrieNotfaelleTopic[] = [
       {
         heading: 'Grundprinzipien der Deeskalation',
         facts: [
-          { text: 'Ruhe bewahren und ausstrahlen — die eigene Anspannung überträgt sich schnell' },
-          { text: 'Ausreichend Abstand halten, keine Fluchtwege blockieren — weder die eigenen noch die des Patienten' },
+          { text: 'Ruhe bewahren und ausstrahlen. Die eigene Anspannung überträgt sich schnell' },
+          { text: 'Ausreichend Abstand halten, keine Fluchtwege blockieren. Weder die eigenen noch die des Patienten' },
           { text: 'Ruhige, klare und kurze Sätze verwenden' },
           { text: 'Aktiv zuhören, Sorgen und Anliegen ernst nehmen' },
           { text: 'Keine Diskussionen oder Provokationen, eigene Bewegungen vorher ankündigen' },
@@ -64,20 +64,20 @@ export const PSYCHIATRIENOTFAELLE_THEMEN: PsychiatrieNotfaelleTopic[] = [
     sections: [
       {
         heading: 'Grundhaltung',
-        facts: [{ text: 'Jede Suizidäußerung ernst nehmen — niemals bagatellisieren oder als "nur Aufmerksamkeit" abtun' }],
+        facts: [{ text: 'Jede Suizidäußerung ernst nehmen. Niemals bagatellisieren oder als "nur Aufmerksamkeit" abtun' }],
       },
       {
         heading: 'Warnzeichen akuter Suizidalität',
         facts: [
           { text: 'Konkrete Pläne oder bereits vorhandene Mittel' },
-          { text: 'Abschiedshandlungen — z. B. Abschiedsbrief, Verschenken persönlicher Gegenstände' },
+          { text: 'Abschiedshandlungen. Z. B. Abschiedsbrief, Verschenken persönlicher Gegenstände' },
           { text: 'Plötzliche, auffällige Ruhe nach vorheriger schwerer Krise (kann auf einen gefassten Entschluss hindeuten)' },
         ],
       },
       {
         heading: 'Gesprächsführung',
         facts: [
-          { text: 'Das Thema offen und direkt ansprechen — das bringt niemanden erst auf die Idee, sondern signalisiert echtes Interesse' },
+          { text: 'Das Thema offen und direkt ansprechen. Das bringt niemanden erst auf die Idee, sondern signalisiert echtes Interesse' },
           { text: 'Die Person nicht allein lassen' },
           { text: 'Kein Werturteil abgeben, zuhören statt bewerten' },
         ],
@@ -88,7 +88,7 @@ export const PSYCHIATRIENOTFAELLE_THEMEN: PsychiatrieNotfaelleTopic[] = [
           { text: 'Eigengefährdung einschätzen' },
           { text: 'Mittel zur Selbstschädigung wenn möglich und ohne Eigengefährdung entfernen', minLevel: 'RS' },
           { text: 'Notarzt bzw. psychiatrischen Dienst einbeziehen', minLevel: 'RS' },
-          { text: 'Bei akuter Gefahr ggf. Unterbringung gegen den eigenen Willen nach dem jeweiligen Landesgesetz (PsychKG/Unterbringungsgesetz) — Polizei hinzuziehen, falls nötig', minLevel: 'RS' },
+          { text: 'Bei akuter Gefahr ggf. Unterbringung gegen den eigenen Willen nach dem jeweiligen Landesgesetz (PsychKG/Unterbringungsgesetz). Polizei hinzuziehen, falls nötig', minLevel: 'RS' },
         ],
       },
     ],
@@ -108,7 +108,7 @@ export const PSYCHIATRIENOTFAELLE_THEMEN: PsychiatrieNotfaelleTopic[] = [
           { text: 'Aktives Zuhören: ausreden lassen, Gehörtes zusammenfassen' },
           { text: 'Einfache, klare Sprache ohne unnötigen Fachjargon' },
           { text: 'Blickkontakt und offene Körpersprache' },
-          { text: 'Auf Augenhöhe kommunizieren — z. B. bei Kindern hinknien' },
+          { text: 'Auf Augenhöhe kommunizieren. Z. B. bei Kindern hinknien' },
         ],
       },
       {
@@ -141,7 +141,7 @@ export const PSYCHIATRIENOTFAELLE_THEMEN: PsychiatrieNotfaelleTopic[] = [
         heading: 'Sterbebegleitung',
         facts: [
           { text: 'Würde und Privatsphäre des Sterbenden wahren' },
-          { text: 'Ruhig ansprechen, auch bei vermeintlicher Bewusstlosigkeit — das Hören bleibt oft am längsten erhalten' },
+          { text: 'Ruhig ansprechen, auch bei vermeintlicher Bewusstlosigkeit. Das Hören bleibt oft am längsten erhalten' },
           { text: 'Angehörige nach Möglichkeit einbeziehen und dabei lassen' },
         ],
       },
@@ -155,7 +155,7 @@ export const PSYCHIATRIENOTFAELLE_THEMEN: PsychiatrieNotfaelleTopic[] = [
         ],
       },
       {
-        heading: 'Unsichere Todeszeichen — reichen NICHT zur Todesfeststellung',
+        heading: 'Unsichere Todeszeichen – reichen NICHT zur Todesfeststellung',
         facts: [
           { text: 'Atem- und Kreislaufstillstand allein' },
           { text: 'Bewusstlosigkeit' },
@@ -182,7 +182,7 @@ export const PSYCHIATRIENOTFAELLE_THEMEN: PsychiatrieNotfaelleTopic[] = [
     sections: [
       {
         heading: 'Ziel',
-        facts: [{ text: 'Unmittelbare Stabilisierung Betroffener und Einsatzkräfte — keine Therapie oder Verarbeitung vor Ort' }],
+        facts: [{ text: 'Unmittelbare Stabilisierung Betroffener und Einsatzkräfte. Keine Therapie oder Verarbeitung vor Ort' }],
       },
       {
         heading: 'Grundprinzipien',
@@ -190,7 +190,7 @@ export const PSYCHIATRIENOTFAELLE_THEMEN: PsychiatrieNotfaelleTopic[] = [
           { text: 'Sicherheit vermitteln, Ruhe ausstrahlen' },
           { text: 'Betroffene nicht allein lassen' },
           { text: 'Einfache, konkrete Informationen geben statt vager Aussagen' },
-          { text: 'Selbstwirksamkeit fördern — z. B. kleine, sinnvolle Aufgaben geben' },
+          { text: 'Selbstwirksamkeit fördern. Z. B. kleine, sinnvolle Aufgaben geben' },
         ],
       },
       {

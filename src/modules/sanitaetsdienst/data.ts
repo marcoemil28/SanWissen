@@ -1,7 +1,7 @@
 import type { SanitaetsdienstTopic } from './types';
 
 const GENERAL_SOURCE_NOTE =
-  'Allgemeines Grundlagenwissen zum Sanitäts-/Veranstaltungsdienst — keine SAA/BPR-Quelle. Konkrete Abläufe ' +
+  'Allgemeines Grundlagenwissen zum Sanitäts-/Veranstaltungsdienst. Keine SAA/BPR-Quelle. Konkrete Abläufe ' +
   '(Funkkanäle/Rufnamen, Sichtungsschema, Hygieneplan) sind organisations- und bundeslandspezifisch geregelt; ' +
   'es gilt immer die aktuelle, lokale Dienstanweisung bzw. der Hygieneplan des Trägers.';
 
@@ -73,16 +73,18 @@ export const SANITAETSDIENST_THEMEN: SanitaetsdienstTopic[] = [
       },
       {
         heading: 'Sichtungskategorien (Ampelschema)',
+        illustrationId: 'sichtungskarte',
         facts: [
-          { text: 'Sichtungskategorie I (rot): akute vitale Bedrohung — sofortige Behandlung' },
-          { text: 'Sichtungskategorie II (gelb): schwer verletzt/erkrankt — aufgeschobene Behandlung' },
-          { text: 'Sichtungskategorie III (grün): leicht verletzt — spätere/ambulante Behandlung' },
-          { text: 'Sichtungskategorie IV (blau): ohne Überlebenschance — betreuende/palliative Versorgung' },
+          { text: 'Sichtungskategorie I (rot): akute vitale Bedrohung, sofortige Behandlung' },
+          { text: 'Sichtungskategorie II (gelb): schwer verletzt/erkrankt, aufgeschobene Behandlung' },
+          { text: 'Sichtungskategorie III (grün): leicht verletzt, spätere/ambulante Behandlung' },
+          { text: 'Sichtungskategorie IV (blau): ohne Überlebenschance, betreuende/palliative Versorgung' },
           { text: 'Tote werden gesondert gekennzeichnet, sind aber keine eigene Sichtungskategorie' },
         ],
       },
       {
         heading: 'Sichtungsalgorithmus (Grundprinzip, angelehnt an START)',
+        illustrationId: 'sichtungskategorien',
         facts: [
           { text: 'Gehfähig? → ja: Sichtungskategorie III, Sammelpunkt für Leichtverletzte' },
           { text: 'Atmung nach Freimachen der Atemwege vorhanden? → nein: Sichtungskategorie IV/tot' },
@@ -102,7 +104,7 @@ export const SANITAETSDIENST_THEMEN: SanitaetsdienstTopic[] = [
     ],
     notes: [
       'Das genaue Ampelschema und die Kriterien-Schwellenwerte können je nach Bundesland/Landesrettungsdienstplan ' +
-        'variieren — maßgeblich ist immer die lokale Vorgabe/SOP.',
+        'variieren. Maßgeblich ist immer die lokale Vorgabe/SOP.',
     ],
     sourceNote: GENERAL_SOURCE_NOTE,
   },
@@ -111,25 +113,40 @@ export const SANITAETSDIENST_THEMEN: SanitaetsdienstTopic[] = [
     title: 'Funkalphabet & Funkdisziplin',
     category: 'Kommunikation',
     minLevel: 'SanH',
-    summary: 'Das international genormte Buchstabieralphabet und Grundregeln für klaren, kurzen Sprechfunkverkehr.',
+    summary: 'Das international genormte Buchstabieralphabet, die FMS-Statusmeldungen und Grundregeln für klaren, kurzen Sprechfunkverkehr.',
     sections: [
       {
         heading: 'Internationales Buchstabieralphabet (nach DIN 5009 / ICAO)',
         facts: [
-          { text: 'A – Alfa, B – Bravo, C – Charlie, D – Delta, E – Echo, F – Foxtrot, G – Golf, H – Hotel, I – India' },
-          { text: 'J – Juliett, K – Kilo, L – Lima, M – Mike, N – November, O – Oscar, P – Papa, Q – Quebec, R – Romeo' },
-          { text: 'S – Sierra, T – Tango, U – Uniform, V – Victor, W – Whiskey, X – X-ray, Y – Yankee, Z – Zulu' },
+          { text: 'A – Alfa, B. Bravo, C. Charlie, D. Delta, E. Echo, F. Foxtrot, G. Golf, H. Hotel, I, India' },
+          { text: 'J – Juliett, K. Kilo, L. Lima, M. Mike, N. November, O. Oscar, P. Papa, Q. Quebec, R, Romeo' },
+          { text: 'S – Sierra, T. Tango, U. Uniform, V. Victor, W. Whiskey, X. X-ray, Y. Yankee, Z, Zulu' },
+        ],
+      },
+      {
+        heading: 'FMS-Statusmeldungen 0–9',
+        facts: [
+          { text: '0 — Priorisierter Sprechwunsch (Notruf): hat Vorrang vor allem anderen auf dem Kanal' },
+          { text: '1 — Einsatzbereit über Funk: das Fahrzeug ist besetzt und unterwegs, aber frei für einen Auftrag' },
+          { text: '2 — Einsatzbereit auf Wache: besetzt und verfügbar, steht aber am Standort' },
+          { text: '3 — Einsatz übernommen: Auftrag angenommen, Anfahrt zum Einsatzort läuft' },
+          { text: '4 — Ankunft am Einsatzort' },
+          { text: '5 — Sprechwunsch (nicht dringlich): die Leitstelle ruft zurück, sobald der Kanal frei ist' },
+          { text: '6 — Nicht einsatzbereit: außer Dienst, in Reinigung, Defekt oder Pause' },
+          { text: '7 — Einsatzgebunden, Transport begonnen: Patient aufgenommen, Fahrt zum Zielort' },
+          { text: '8 — Ankunft am Zielort (z. B. Krankenhaus)' },
+          { text: '9 — Quittung/Rückfrage der Leitstelle. Belegung schwankt je nach Leitstelle am stärksten' },
         ],
       },
       {
         heading: 'Grundregeln der Funkdisziplin',
         facts: [
-          { text: 'Kurz und präzise sprechen — kein unnötiges "Füllwort"-Geplauder auf dem Kanal' },
+          { text: 'Kurz und präzise sprechen. Kein unnötiges "Füllwort"-Geplauder auf dem Kanal' },
           { text: 'Erst die Gegenstelle nennen, dann "von", dann den eigenen Rufnamen (z. B. "Wachleitung von Sani 3")' },
           {
-            text: '"Kommen" markiert nur die Übergabe an die Gegenstelle, nicht jede einzelne Durchsage — innerhalb eines laufenden Gesprächs muss es nicht jedes Mal wiederholt werden, "Ende" beendet den gesamten Sprechfunkverkehr',
+            text: '"Kommen" markiert nur die Übergabe an die Gegenstelle, nicht jede einzelne Durchsage. Innerhalb eines laufenden Gesprächs muss es nicht jedes Mal wiederholt werden, "Ende" beendet den gesamten Sprechfunkverkehr',
           },
-          { text: 'Mithören durch Dritte bedenken — keine sensiblen Patientendaten im Klartext' },
+          { text: 'Mithören durch Dritte bedenken. Keine sensiblen Patientendaten im Klartext' },
           { text: 'Kanal nach der Durchsage sofort wieder freigeben' },
         ],
       },
@@ -141,7 +158,10 @@ export const SANITAETSDIENST_THEMEN: SanitaetsdienstTopic[] = [
         ],
       },
     ],
-    notes: ['Konkrete Kanalzuteilung und Rufnamen sind organisationsspezifisch (BOS-Funk-Richtlinien, lokale Dienstanweisung).'],
+    notes: [
+      'Konkrete Kanalzuteilung und Rufnamen sind organisationsspezifisch (BOS-Funk-Richtlinien, lokale Dienstanweisung).',
+      'Die Statusmeldungen 0–6 sind bundesweit weitgehend einheitlich. Bei 7, 8 und 9 weichen einzelne Leitstellen ab. Vor dem Dienst die eigene Statusliste prüfen, nicht auf diese Liste verlassen.',
+    ],
     sourceNote: GENERAL_SOURCE_NOTE,
   },
   {
@@ -172,7 +192,7 @@ export const SANITAETSDIENST_THEMEN: SanitaetsdienstTopic[] = [
         heading: 'Verletzungen durch Gedränge (Crowd Crush)',
         facts: [
           { text: 'Quetschungen und Sturzverletzungen in dichten Menschenmengen' },
-          { text: 'Erstickungsgefahr durch Brustkorbkompression — frühzeitige Eigen- und Fremdrettung aus der Menge', minLevel: 'RS' },
+          { text: 'Erstickungsgefahr durch Brustkorbkompression. Frühzeitige Eigen- und Fremdrettung aus der Menge', minLevel: 'RS' },
         ],
       },
       {
@@ -195,6 +215,7 @@ export const SANITAETSDIENST_THEMEN: SanitaetsdienstTopic[] = [
     sections: [
       {
         heading: 'Basishygiene',
+        illustrationId: 'haendedesinfektion',
         facts: [
           { text: 'Händedesinfektion vor Patientenkontakt, vor aseptischen Tätigkeiten, nach Kontakt mit Körperflüssigkeiten, nach Patientenkontakt und nach Kontakt mit der Patientenumgebung' },
           { text: 'Flächendesinfektion von Fahrzeug und Material nach jedem Einsatz mit Kontamination' },

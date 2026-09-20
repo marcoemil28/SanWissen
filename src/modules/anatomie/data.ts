@@ -2,7 +2,7 @@ import type { AnatomieTopic } from './types';
 
 const GENERAL_SOURCE_NOTE =
   'Allgemeines anatomisch-physiologisches Grundlagenwissen (keine bestimmte Quelle wie beim SAA/BPR-PDF). ' +
-  'Für Prüfungsdetails gilt dein Kurs-Lehrbuch/Skript — Normwerte und Detailtiefe können dort abweichen.';
+  'Für Prüfungsdetails gilt dein Kurs-Lehrbuch/Skript. Normwerte und Detailtiefe können dort abweichen.';
 
 /** Zuletzt inhaltlich geprüft/aktualisiert. */
 export const CONTENT_STAND = '2026-09-17';
@@ -17,6 +17,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
     sections: [
       {
         heading: 'Aufbau des Herzens',
+        illustrationId: 'herz-aufbau',
         facts: [
           { text: '4 Kammern: rechter Vorhof, rechte Kammer, linker Vorhof, linke Kammer', minLevel: 'SanH' },
           {
@@ -24,7 +25,11 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
             minLevel: 'RS',
           },
           {
-            text: 'Große Gefäße: obere/untere Hohlvene (V. cava superior/inferior) → rechter Vorhof; Aorta ← linke Kammer; Lungenarterie ← rechte Kammer; Lungenvenen → linker Vorhof',
+            text: 'Große Gefäße, zuführend: obere und untere Hohlvene (V. cava superior und inferior) münden in den rechten Vorhof, die Lungenvenen in den linken Vorhof',
+            minLevel: 'RS',
+          },
+          {
+            text: 'Große Gefäße, abführend: die Lungenarterie verlässt die rechte Kammer, die Aorta die linke Kammer',
             minLevel: 'RS',
           },
           { text: 'Herzwand: Endokard (innen), Myokard (Muskelschicht, arbeitet), Epikard/Perikard (Herzbeutel, außen)', minLevel: 'RS' },
@@ -32,6 +37,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
       },
       {
         heading: 'Erregungsleitungssystem (Grundlage für das EKG)',
+        illustrationId: 'erregungsleitung',
         facts: [
           {
             text: 'Sinusknoten (rechter Vorhof): primärer Schrittmacher, Eigenfrequenz ~60–100/min → entspricht der P-Welle im EKG',
@@ -51,6 +57,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
       },
       {
         heading: 'Die zwei Kreisläufe',
+        illustrationId: 'kreislauf-schema',
         facts: [
           {
             text: 'Körperkreislauf (großer Kreislauf): linke Kammer → Aorta → Körper (Sauerstoffabgabe) → Hohlvenen → rechter Vorhof',
@@ -61,7 +68,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
             minLevel: 'SanH',
           },
           {
-            text: 'Merke: Nicht jede Arterie führt sauerstoffreiches Blut — die Lungenarterie führt sauerstoffarmes Blut Richtung Lunge, die Lungenvene sauerstoffreiches Blut zurück zum Herzen',
+            text: 'Merke: Nicht jede Arterie führt sauerstoffreiches Blut. Die Lungenarterie führt sauerstoffarmes Blut Richtung Lunge, die Lungenvene sauerstoffreiches Blut zurück zum Herzen',
             minLevel: 'RS',
           },
         ],
@@ -69,8 +76,8 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
       {
         heading: 'Herzzyklus',
         facts: [
-          { text: 'Systole: Anspannungs- und Austreibungsphase — das Herz zieht sich zusammen und pumpt Blut aus', minLevel: 'RS' },
-          { text: 'Diastole: Erschlaffungs- und Füllungsphase — die Kammern füllen sich wieder mit Blut', minLevel: 'RS' },
+          { text: 'Systole: Anspannungs- und Austreibungsphase. Das Herz zieht sich zusammen und pumpt Blut aus', minLevel: 'RS' },
+          { text: 'Diastole: Erschlaffungs- und Füllungsphase. Die Kammern füllen sich wieder mit Blut', minLevel: 'RS' },
         ],
       },
     ],
@@ -81,7 +88,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
     title: 'Atmungssystem',
     category: 'Atmung',
     minLevel: 'SanH',
-    summary: 'Aufbau der Atemwege, Gasaustausch und Atemmechanik — Grundlage für Atemwegsmanagement und Sauerstoffgabe.',
+    summary: 'Aufbau der Atemwege, Gasaustausch und Atemmechanik. Grundlage für Atemwegsmanagement und Sauerstoffgabe.',
     sections: [
       {
         heading: 'Obere Atemwege',
@@ -95,26 +102,29 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
       },
       {
         heading: 'Untere Atemwege',
+        illustrationId: 'atemwege',
         facts: [
           { text: 'Luftröhre (Trachea) teilt sich in den rechten und linken Hauptbronchus', minLevel: 'SanH' },
           {
             text: 'Der rechte Hauptbronchus zweigt steiler/direkter ab als der linke → Fremdkörper und Tuben rutschen bevorzugt nach rechts',
             minLevel: 'RS',
           },
-          { text: 'Weitere Aufzweigung über Bronchien und Bronchiolen bis zu den Alveolen (Lungenbläschen) — dort findet der Gasaustausch statt', minLevel: 'SanH' },
+          { text: 'Weitere Aufzweigung über Bronchien und Bronchiolen bis zu den Alveolen (Lungenbläschen). Dort findet der Gasaustausch statt', minLevel: 'SanH' },
         ],
       },
       {
         heading: 'Gasaustausch',
+        illustrationId: 'gasaustausch',
         facts: [
           {
-            text: 'In den Alveolen diffundiert Sauerstoff vom Alveolarraum ins Blut, Kohlendioxid in die Gegenrichtung — jeweils entlang des Konzentrationsgefälles',
+            text: 'In den Alveolen diffundiert Sauerstoff vom Alveolarraum ins Blut, Kohlendioxid in die Gegenrichtung. Jeweils entlang des Konzentrationsgefälles',
             minLevel: 'SanH',
           },
         ],
       },
       {
         heading: 'Atemmechanik',
+        illustrationId: 'lungenvolumina',
         facts: [
           { text: 'Zwerchfell (Diaphragma) ist der wichtigste Atemmuskel, unterstützt durch die Zwischenrippenmuskulatur', minLevel: 'SanH' },
           { text: 'Einatmung: aktive Muskelkontraktion, Brustraum vergrößert sich, Unterdruck saugt Luft ein', minLevel: 'RS' },
@@ -129,7 +139,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
             minLevel: 'RS',
           },
           {
-            text: 'Bei chronisch erhöhtem CO2 (z. B. COPD) kann sich der Atemantrieb auf den Sauerstoffmangel verlagern ("hypoxischer Atemantrieb") — relevant für eine kontrollierte Sauerstoffgabe (siehe Medikamente: Sauerstoff)',
+            text: 'Bei chronisch erhöhtem CO2 (z. B. COPD) kann sich der Atemantrieb auf den Sauerstoffmangel verlagern ("hypoxischer Atemantrieb"). Relevant für eine kontrollierte Sauerstoffgabe (siehe Medikamente: Sauerstoff)',
             minLevel: 'RS',
           },
         ],
@@ -142,10 +152,11 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
     title: 'Skelett & Muskulatur',
     category: 'Skelett & Muskulatur',
     minLevel: 'SanH',
-    summary: 'Grundzüge des Skeletts und der Muskulatur — Grundlage für Traumatologie und Verbandslehre.',
+    summary: 'Grundzüge des Skeletts und der Muskulatur. Grundlage für Traumatologie und Verbandslehre.',
     sections: [
       {
         heading: 'Achsenskelett',
+        illustrationId: 'schaedelknochen',
         facts: [
           { text: 'Schädel, Wirbelsäule und Brustkorb bilden das Achsenskelett', minLevel: 'SanH' },
           { text: 'Wirbelsäule: 7 Halswirbel, 12 Brustwirbel, 5 Lendenwirbel, Kreuzbein (5 verschmolzene Wirbel), Steißbein', minLevel: 'RS' },
@@ -174,7 +185,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
         facts: [
           { text: 'Skelettmuskulatur: willkürlich steuerbar, quergestreift (z. B. Arm-/Beinmuskeln)', minLevel: 'SanH' },
           { text: 'Glatte Muskulatur: unwillkürlich, z. B. in Gefäßwänden und im Darm', minLevel: 'RS' },
-          { text: 'Herzmuskulatur: unwillkürlich, aber quergestreift — eine Sonderform', minLevel: 'RS' },
+          { text: 'Herzmuskulatur: unwillkürlich, aber quergestreift, eine Sonderform', minLevel: 'RS' },
         ],
       },
     ],
@@ -190,6 +201,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
     sections: [
       {
         heading: 'Grobgliederung',
+        illustrationId: 'gehirn-aufbau',
         facts: [
           { text: 'Zentrales Nervensystem (ZNS): Gehirn und Rückenmark', minLevel: 'SanH' },
           { text: 'Peripheres Nervensystem (PNS): alle Nerven außerhalb von Gehirn und Rückenmark', minLevel: 'SanH' },
@@ -207,7 +219,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
             minLevel: 'RS',
           },
           {
-            text: 'Merke fürs Medikamente-Modul: Epinephrin (Adrenalin) wirkt sympathomimetisch, Atropin hemmt den Parasympathikus — deshalb heben beide die Herzfrequenz an, über unterschiedliche Mechanismen',
+            text: 'Merke fürs Medikamente-Modul: Epinephrin (Adrenalin) wirkt sympathomimetisch, Atropin hemmt den Parasympathikus. Deshalb heben beide die Herzfrequenz an, über unterschiedliche Mechanismen',
             minLevel: 'RS',
           },
         ],
@@ -219,7 +231,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
           { text: 'Miosis: eng gestellte Pupillen, z. B. bei Opioid-Wirkung', minLevel: 'RS' },
           { text: 'Mydriasis: weit gestellte Pupillen, z. B. bei Schock, Adrenalin-Wirkung oder manchen Substanzen', minLevel: 'RS' },
           {
-            text: 'Anisokorie: Seitendifferenz der Pupillengröße — ernstzunehmendes Warnzeichen, z. B. bei erhöhtem Hirndruck',
+            text: 'Anisokorie: Seitendifferenz der Pupillengröße. Ernstzunehmendes Warnzeichen, z. B. bei erhöhtem Hirndruck',
             minLevel: 'RS',
           },
         ],
@@ -234,7 +246,7 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
     category: 'Vitalparameter',
     minLevel: 'SanH',
     summary:
-      'Orientierungswerte für Herzfrequenz, Atemfrequenz und Blutdruck nach Altersgruppe — als Nachschlagetabelle, keine exakten Grenzwerte.',
+      'Orientierungswerte für Herzfrequenz, Atemfrequenz und Blutdruck nach Altersgruppe. Als Nachschlagetabelle, keine exakten Grenzwerte.',
     sections: [
       {
         heading: 'Neugeborenes (0–28 Tage)',
@@ -282,9 +294,9 @@ export const ANATOMIE_THEMEN: AnatomieTopic[] = [
       },
     ],
     notes: [
-      'Diese Werte sind grobe Orientierung für den Rettungsdienstalltag, keine exakten Grenzwerte — verschiedene ' +
+      'Diese Werte sind grobe Orientierung für den Rettungsdienstalltag, keine exakten Grenzwerte, verschiedene ' +
         'Quellen/Lehrbücher geben teils leicht abweichende Bereiche an. Für Instabilitätskriterien bei Erwachsenen ' +
-        'siehe Algorithmen: „ABCDE – Instabilitäten".',
+        'siehe Algorithmen: „cABCDE – Instabilitäten".',
     ],
     sourceNote: GENERAL_SOURCE_NOTE,
   },

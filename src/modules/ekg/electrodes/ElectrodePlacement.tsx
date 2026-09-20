@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import type { ElectrodePoint, ElectrodeSet } from './types';
-import { BodyOutline } from './BodyOutline';
-import { ThoraxOutline } from './ThoraxOutline';
+import { BodyImage } from './BodyImage';
 import { labelPlacement } from './layout';
 
 const RADIUS_TOLERANCE = 26;
@@ -37,6 +36,8 @@ export function ElectrodePlacement({ set }: { set: ElectrodeSet }) {
   const correctCount = Object.values(placed).filter(Boolean).length;
   const finished = correctCount === set.points.length;
   const { w: VIEW_W, h: VIEW_H } = set.viewBox;
+  // Anzeigebreite; die Höhe folgt dem Seitenverhältnis der viewBox.
+  const DISPLAY_W = set.bodyType === 'thorax' ? 460 : 400;
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>, id: string) {
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -80,10 +81,10 @@ export function ElectrodePlacement({ set }: { set: ElectrodeSet }) {
         <svg
           ref={svgRef}
           viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-          width={set.bodyType === 'thorax' ? 460 : 400}
-          height={set.bodyType === 'thorax' ? Math.round(460 * (VIEW_H / VIEW_W)) : Math.round(VIEW_H * 0.75)}
+          width={DISPLAY_W}
+          height={Math.round(DISPLAY_W * (VIEW_H / VIEW_W))}
         >
-          {set.bodyType === 'thorax' ? <ThoraxOutline /> : <BodyOutline />}
+          <BodyImage set={set} />
           {set.bodyType === 'full' &&
             set.points
               .filter((p) => !placed[p.id])

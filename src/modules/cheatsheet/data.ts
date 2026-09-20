@@ -14,6 +14,8 @@ export const CHEATSHEET_CARDS: CheatSheetCard[] = [
     ],
     moduleId: 'algorithmen',
     itemId: 'reanimation-erwachsene',
+    sourceNote:
+      'Basismaßnahmen nach den Leitlinien des European Resuscitation Council 2025. Die erweiterte Versorgung steht in SAA und BPR 2025, Seite 85 bis 86.',
   },
   {
     id: 'reanimation-kinder',
@@ -28,20 +30,25 @@ export const CHEATSHEET_CARDS: CheatSheetCard[] = [
     ],
     moduleId: 'algorithmen',
     itemId: 'reanimation-kinder',
+    sourceNote:
+      'Nach SAA und BPR 2025, „Reanimation Kinder, PLS", Seite 87 bis 88, Stand 30.04.2025, ergänzt um die Leitlinien des European Resuscitation Council 2025.',
   },
   {
     id: 'abcde',
-    title: 'ABCDE-Schema',
+    title: 'cABCDE-Schema',
     icon: '🧭',
     points: [
+      'c – kritische Blutung zuerst stoppen, Druck und Tourniquet',
       'A – Airway: Atemweg frei?',
       'B – Breathing: Atmung suffizient? SpO2?',
-      'C – Circulation: Puls, Rekap-Zeit, Blutung stoppen',
+      'C – Circulation: Puls, Rekap-Zeit, innere Blutung?',
       'D – Disability: Bewusstsein (WASB/GCS), Pupillen, BZ',
       'E – Exposure: Ganzkörperuntersuchung, vor Auskühlung schützen',
     ],
     moduleId: 'algorithmen',
     itemId: 'abcde-herangehensweise',
+    sourceNote:
+      'Nach SAA und BPR 2025, „cABCDE, Herangehensweise", Seite 75, Stand 30.04.2025.',
   },
   {
     id: 'anaphylaxie',
@@ -55,34 +62,62 @@ export const CHEATSHEET_CARDS: CheatSheetCard[] = [
     ],
     moduleId: 'internistischenotfaelle',
     itemId: 'anaphylaxie',
+    sourceNote:
+      'Stadieneinteilung nach Ring und Messmer, wie in der Sanitätsausbildung gelehrt. Die Adrenalin-Dosierungen stehen in der SAA Epinephrin, Seite 49.',
   },
   {
     id: 'manv-sichtung',
     title: 'MANV-Sichtung',
     icon: '🎪',
     points: [
-      'SK I (rot): akute vitale Bedrohung — sofort',
-      'SK II (gelb): schwer verletzt — aufgeschoben',
+      'SK I (rot): akute vitale Bedrohung, sofort',
+      'SK II (gelb): schwer verletzt, aufgeschoben',
       'SK III (grün): leicht verletzt',
       'SK IV (blau): ohne Überlebenschance',
       'Gehfähig? → Atmung? → Frequenz? → Kreislauf? → Bewusstsein?',
     ],
     moduleId: 'sanitaetsdienst',
     itemId: 'manv-sichtung',
+    sourceNote:
+      'Sichtungskategorien nach der Konsensuskonferenz der Bundesvereinigung der Arbeitsgemeinschaften der Notärzte Deutschlands. Der Sichtungsablauf ist an das START-Prinzip angelehnt, für Baden-Württemberg gilt die jeweilige Vorgabe des Bereichs.',
   },
   {
     id: 'schlaganfall-fast',
-    title: 'Schlaganfall (FAST)',
+    title: 'Schlaganfall (BE-FAST)',
     icon: '🩺',
     points: [
+      'B – Balance: plötzliche Gang-/Standunsicherheit?',
+      'E – Eyes: plötzliche Seh-/Gesichtsfeldstörung?',
       'F – Face: hängt ein Mundwinkel?',
       'A – Arms: sinkt ein Arm ab?',
       'S – Speech: verwaschene Sprache?',
       'T – Time: Symptombeginn notieren',
-      '"Time is brain" — zügiger, sicherer Transport',
+      'Ein auffälliges Zeichen genügt für den Verdacht',
+      '"Time is brain". Zügiger, sicherer Transport',
     ],
     moduleId: 'internistischenotfaelle',
     itemId: 'schlaganfall-fast',
+    sourceNote:
+      'BE-FAST als erweiterte Fassung des FAST-Tests. Die SAA und BPR 2025 nennen BE-FAST bei den neurologischen Defiziten in der Patientenanmeldung, Seite 82.',
+  },
+  {
+    id: 'sampler',
+    title: 'SAMPLER(S)-Schema',
+    icon: '🧭',
+    points: [
+      'S – Symptome/Schmerzen (vertiefen mit OPQRST)',
+      'A – Allergien',
+      'M – Medikamente (inkl. Gerinnungshemmer!)',
+      'P – Patientengeschichte, Vorerkrankungen, OPs',
+      'L – Letzte Mahlzeit, Stuhlgang/Miktion, Regelblutung',
+      'E – Ereignis: was führte zum Notruf?',
+      'R – Risikofaktoren (Rauchen, Alkohol, Drogen)',
+      'S – Schwangerschaft gezielt erfragen',
+    ],
+    moduleId: 'algorithmen',
+    itemId: 'sampler',
+    sourceNote:
+      'Nach SAA und BPR 2025, „SAMPLER-Schema, Erfassung der akuten Situation", Seite 78, Stand 30.04.2025. Das abschließende „(S)" für Schwangerschaft ist eine Erweiterung aus der Ausbildung.',
   },
   {
     id: 'verbrennungen',
@@ -92,11 +127,13 @@ export const CHEATSHEET_CARDS: CheatSheetCard[] = [
       'Grad 1: Rötung, schmerzhaft',
       'Grad 2: Blasen, sehr schmerzhaft',
       'Grad 3/4: weißlich-lederartig, schmerzlos',
-      'Nur kleinflächig kühlen — Hypothermie vermeiden',
+      'Nur kleinflächig kühlen, Hypothermie vermeiden',
       'Steril abdecken, keine Hausmittel',
     ],
     moduleId: 'traumatologie',
     itemId: 'verbrennungen',
+    sourceNote:
+      'Gradeinteilung und Erstmaßnahmen nach der S2k-Leitlinie „Behandlung thermischer Verletzungen des Erwachsenen" sowie den DLRG-Teilnehmerunterlagen Sanitätsausbildung A (2021), Seite 68 bis 70.',
   },
   {
     id: 'hypoglykaemie',
@@ -110,5 +147,7 @@ export const CHEATSHEET_CARDS: CheatSheetCard[] = [
     ],
     moduleId: 'internistischenotfaelle',
     itemId: 'diabetische-notfaelle',
+    sourceNote:
+      'Erstmaßnahmen nach allgemeinem rettungsdienstlichem Grundlagenwissen. Die Glucosegabe ist in der SAA Glucose, Seite 54, geregelt, die Glucagongabe in der SAA Glucagon, Seite 53.',
   },
 ];

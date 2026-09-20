@@ -9,6 +9,8 @@ export interface PaediatrieFact {
 
 export interface PaediatrieSection {
   heading?: string;
+  /** ID einer Abbildung zu diesem Abschnitt (siehe ios/…/IllustrationView.swift). */
+  illustrationId?: string;
   facts: PaediatrieFact[];
 }
 

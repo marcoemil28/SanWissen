@@ -1,10 +1,11 @@
 import type { ElectrodeSet } from './types';
-import { BodyOutline } from './BodyOutline';
-import { ThoraxOutline } from './ThoraxOutline';
+import { BodyImage } from './BodyImage';
 import { labelPlacement } from './layout';
 
 export function ElectrodeStudy({ set }: { set: ElectrodeSet }) {
   const { w: VIEW_W, h: VIEW_H } = set.viewBox;
+  // Anzeigebreite; die Höhe folgt dem Seitenverhältnis der viewBox.
+  const DISPLAY_W = set.bodyType === 'thorax' ? 460 : 400;
   const isThorax = set.bodyType === 'thorax';
   let precordialIndex = 0;
 
@@ -13,10 +14,10 @@ export function ElectrodeStudy({ set }: { set: ElectrodeSet }) {
       <div className="electrode-svg-wrap">
         <svg
           viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-          width={isThorax ? 460 : 400}
-          height={isThorax ? Math.round(460 * (VIEW_H / VIEW_W)) : Math.round(VIEW_H * 0.75)}
+          width={DISPLAY_W}
+          height={Math.round(DISPLAY_W * (VIEW_H / VIEW_W))}
         >
-          {isThorax ? <ThoraxOutline /> : <BodyOutline />}
+          <BodyImage set={set} />
           {set.points.map((p) => {
             const isPrecordial = isThorax && p.id.startsWith('v');
             if (isPrecordial) {

@@ -4,15 +4,22 @@ Eine lokale Lern- und Nachschlage-App für den Sanitäts- und Rettungsdienst —
 von Sanitätshelfer (SanH) über Rettungssanitäter (RS, schließt Rettungshelfer
 mit ein) bis Notfallsanitäter (NotSan) (EKG, Anatomie, Algorithmen, SAA/BPR,
 und perspektivisch weitere Themen). Läuft als native Desktop-App auf
-**macOS und Windows** (Tauri + React/TypeScript) — komplett offline, keine
-Accounts, keine Cloud.
+**macOS und Windows** (Tauri + React/TypeScript) sowie als native App auf
+**iPhone und iPad** (SwiftUI) — komplett offline, keine Accounts, keine
+Cloud. Beide teilen sich dieselbe Inhaltsquelle, siehe
+[Architektur](#architektur).
 
-> ⚠️ **Wichtiger Hinweis zu den Inhalten:** Die fachlichen Inhalte (EKG-Merkmale,
-> Einordnungen, Handlungsempfehlungen) basieren auf allgemeinem rettungsdienstlichem
-> Fachwissen und wurden **nicht** gegen ein bestimmtes offizielles Curriculum/Skript
-> geprüft. Vor der Prüfung unbedingt mit deinen Kursunterlagen abgleichen — Grenzwerte,
-> Algorithmen und Zuständigkeiten können sich je nach Organisation/Bundesland/Land
-> unterscheiden. Diese App ersetzt keine offizielle Ausbildung.
+> ⚠️ **Wichtiger Hinweis zu den Inhalten:** Jeder der 78 Einträge trägt einen
+> Quellenhinweis, der benennt, worauf er beruht. Die Medikamente sind zeilenweise
+> gegen „SAA und BPR 2025" geprüft, Algorithmen und Schemata ebenfalls; andere
+> Themen stützen sich auf Leitlinien, Ausbildungsunterlagen oder allgemeines
+> rettungsdienstliches Fachwissen, was der jeweilige Hinweis offenlegt.
+> Landesspezifische Angaben beziehen sich auf **Baden-Württemberg**.
+>
+> Trotzdem gilt: vor der Prüfung mit den eigenen Kursunterlagen abgleichen.
+> Grenzwerte, Algorithmen und Zuständigkeiten unterscheiden sich je nach
+> Organisation, Bundesland und Rettungsdienstbereich. Diese App ersetzt keine
+> offizielle Ausbildung.
 
 Änderungen zwischen Versionen stehen in [CHANGELOG.md](CHANGELOG.md).
 
@@ -27,7 +34,8 @@ Accounts, keine Cloud.
 - [Eigene Inhalte einpflegen](#eigene-inhalte-einpflegen--korrigieren)
 - [Neues Lernmodul hinzufügen](#neues-lernmodul-hinzufügen-zb-saabpr)
 - [Builds für macOS & Windows](#builds-für-macos--windows)
-- [Mobile (iOS & Android)](#mobile-ios--android)
+- [iOS-App (iPhone & iPad)](#ios-app-iphone--ipad)
+- [Mobile (Android)](#mobile-android)
 - [Fehlerbehebung](#fehlerbehebung)
 - [Roadmap](#roadmap)
 
@@ -206,16 +214,21 @@ Hot-Reload sofort übernommen.
 
 ### ✅ Elektroden-Platzierungstrainer (im EKG-Modul, Tab „Elektroden legen“)
 
-- Interaktiver **SVG-Körper**, auf dem du die Elektroden per Maus/Touch an
-  die richtige Stelle ziehst — kein Foto/Bildmaterial nötig.
-- **Monitoring-EKG (3-/4-Kanal, „Ampelschema“)**: Ganzkörperansicht, 4
-  Positionen am Rumpf.
-- **12-Kanal-EKG**: eigener, gezoomter **Brustkorb-Umriss** mit
-  nummerierten Rippen, schattierten Interkostalraum-Bändern und
-  durchgehenden Leitlinien (Sternal-/Medioklavikular-/Axillarlinien). Bei
-  V1, V2, V4-V6 wird **zweidimensional** geprüft (richtiger
-  Interkostalraum **und** richtige Linie), nicht nur "nah genug" an einem
-  Punkt — trainiert die echte Anlegetechnik ("Rippe zählen, Linie finden").
+- Anatomische **Körper- und Thoraxabbildung**, auf der du die Elektroden
+  per Maus oder Touch an die richtige Stelle ziehst. Die Trefferzonen sind
+  auf den Bildern ausgemessen; Desktop und iOS nutzen dieselben Dateien.
+- **Monitoring-EKG (3-/4-Kanal, „Ampelschema“)**: Ganzkörperansicht mit 4
+  Positionen. Geklebt wird an **Schultern und Leisten**, wie im
+  Rettungsdienst üblich, damit die Flächen für die Defibrillations-Pads
+  frei bleiben. Die in Klinik und Intensivmedizin übliche
+  Mason-Likar-Position ist im Einleitungstext beschrieben und gegenüber
+  der Rettungsdienst-Variante eingeordnet.
+- **12-Kanal-EKG**: gezoomte Brustkorbansicht mit sichtbarem Rippenverlauf.
+  Bei V1, V2 und V4–V6 wird **zweidimensional** geprüft (richtiger
+  Interkostalraum **und** richtige Linie), nicht nur „nah genug" an einem
+  Punkt. Das trainiert die echte Anlegetechnik: Rippe zählen, Linie finden.
+- Elektroden bleiben liegen, wo du sie ablegst. Falsch platzierte bekommen
+  einen roten Ring und lassen sich wieder aufnehmen.
 - **Lernen**-Modus zeigt alle Positionen beschriftet an, **Üben**-Modus
   lässt dich die Elektroden platzieren (Sofort-Feedback, Versuchszähler).
 
@@ -513,16 +526,37 @@ src/
   App.tsx                 # App-Shell: nach Thema gruppierte Sidebar, globale Suche, aktives Modul
 src-tauri/                # Rust-Backend (Tauri), native Fenster/Bundling
 docs/                    # Quell-PDFs/Unterlagen, aus denen Inhalte extrahiert werden
+scripts/
+  export-ios-content.mjs # liest src/modules/ und schreibt die Inhalte als JSON für iOS
+ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
+  SanWissen/
+    Content/             # Laden der JSON-Dateien + Datenmodelle
+    Features/            # eine Ansicht je Modul, zehn teilen sich eine gemeinsame
+    Resources/
+      Content/           # generiert vom Exportskript — nicht von Hand bearbeiten
+      Images/            # Abbildungen, per illustrationId aus den Modulen referenziert
+  Signing.xcconfig       # Platzhalter, bindet die lokale, nicht versionierte Datei ein
 ```
+
+Die Inhalte liegen **nur** in `src/modules/`. Die Desktop-App liest sie
+direkt als TypeScript, die iOS-App über den JSON-Export. Wer Texte ändert,
+ändert sie an einer Stelle und lässt danach `node
+scripts/export-ios-content.mjs` laufen.
 
 ### Eigene Inhalte einpflegen / korrigieren
 
 - EKG-Rhythmen: `src/modules/ekg/rhythms.ts` — jeder Eintrag hat Merkmale,
   klinische Hinweise und die Parameter für die Kurvengenerierung
   (`gen`-Feld, siehe `types.ts` für die möglichen Rhythmus-Arten).
-- Elektroden-Positionen: `src/modules/ekg/electrodes/data.ts` — Koordinaten
-  beziehen sich auf das `viewBox="0 0 400 750"` des Körperdiagramms in
-  `BodyOutline.tsx`.
+- Elektroden-Positionen: `src/modules/ekg/electrodes/data.ts` — die
+  Koordinaten beziehen sich auf die `viewBox` des jeweiligen Sets
+  (Monitoring 669 × 1200, 12-Kanal 746 × 1000) und damit auf die
+  Abbildungen `koerper-vorderansicht` bzw. `thorax-vorderansicht`.
+- Abbildungen: eine Datei `ios/SanWissen/Resources/Images/illu-<id>.jpg`
+  ablegen und im Abschnitt `illustrationId: '<id>'` setzen. Die
+  Bildunterschrift steht in
+  `ios/SanWissen/Features/Topics/IllustrationView.swift`. Fehlt zu einer
+  ID ein Bild, zeigt die App an der Stelle einfach nichts an.
 - Medikamente: `src/modules/medikamente/medications.json` direkt anpassen,
   oder eigene Quell-PDFs unter `docs/` ablegen und wie unten beschrieben neu
   extrahieren.
@@ -547,6 +581,17 @@ gesondert im Quellenhinweis).
 **Beim Anlegen oder inhaltlichen Ändern eines Moduls**: `CONTENT_STAND` in
 der `data.ts` auf das aktuelle Datum setzen, damit erkennbar bleibt, was
 ggf. veraltet ist.
+
+Zusätzlich trägt **jeder einzelne Eintrag** ein Feld `sourceNote`, das
+benennt, worauf er beruht — inklusive Seitenzahl, wenn es eine gibt.
+Derzeit sind das alle 78 Einträge. Wo ein Inhalt über die Quelle
+hinausgeht oder von ihr abweicht, sagt der Hinweis das ausdrücklich; ein
+Beispiel ist die GCS-Punktetabelle, die aus der Originalskala nach
+Teasdale und Jennett stammt, während das SAA/BPR-Dokument nur die grobe
+Schweregrad-Einteilung nennt. Ein neuer Eintrag ohne `sourceNote` ist
+unvollständig.
+
+Für landesspezifische Angaben gilt **Baden-Württemberg** als Bezug.
 
 ### Eigene PDFs als Wissensbasis nutzen
 
@@ -620,27 +665,68 @@ ein Apple Developer Account (99 $/Jahr, für Code-Signing + Notarisierung)
 und ein Windows-Codesigning-Zertifikat nötig — für eine erste Testversion
 nicht notwendig.
 
-## Mobile (iOS & Android)
+## iOS-App (iPhone & iPad)
 
-Tauri 2 unterstützt iOS und Android nativ aus derselben Codebasis wie
-Desktop — kein separates Rewrite nötig. Der Mobile-Entry-Point
+Die iOS-App liegt unter `ios/` und ist **kein Tauri-Wrapper**, sondern in
+SwiftUI geschrieben. Ursprünglich war der Tauri-Weg über
+`npm run tauri ios init` vorgesehen; umgesetzt wurde stattdessen eine
+eigenständige native App, weil Module wie der EKG-Trainer und der
+Elektroden-Trainer von echten Gesten und nativem Scrolling deutlich
+profitieren.
+
+Doppelt gepflegte Inhalte gibt es deshalb trotzdem nicht:
+`scripts/export-ios-content.mjs` liest die TypeScript-Module unter
+`src/modules/` und schreibt sie als JSON nach
+`ios/SanWissen/Resources/Content/`. Die Texte leben also weiter genau an
+einer Stelle, Desktop und iOS greifen beide darauf zu.
+
+**Einrichten:** Team-ID und Bundle-ID stehen nicht im Repository. Einmalig
+anlegen:
+
+```bash
+cp ios/Signing.local.xcconfig.example ios/Signing.local.xcconfig
+```
+
+Danach die eigene Team-ID eintragen (Xcode → *Settings → Accounts*, oder
+Apple Developer Portal → *Membership*). Die Datei steht in der
+`.gitignore`. Ohne sie baut das Projekt mit Platzhaltern für den
+Simulator; zum Signieren für Gerät, TestFlight oder App Store werden die
+eigenen Werte gebraucht.
+
+**Inhalte aktualisieren** — nach jeder Änderung an `src/modules/`:
+
+```bash
+node scripts/export-ios-content.mjs
+```
+
+Ohne diesen Schritt zeigt die iOS-App weiter den alten Stand. Der Export
+bricht ab, wenn ein Verweis ins Leere zeigt, etwa wenn eine
+Cheat-Sheet-Karte auf einen umbenannten Eintrag zeigt.
+
+**Bauen:**
+
+```bash
+xcodebuild -project ios/SanWissen.xcodeproj -scheme SanWissen -configuration Debug build
+```
+
+Neue Swift-Dateien müssen nicht ins Projekt eingetragen werden: der Ordner
+`SanWissen` ist eine synchronisierte Gruppe
+(`PBXFileSystemSynchronizedRootGroup`), Xcode nimmt alles darin
+automatisch auf.
+
+Ausführlicher steht das in [ios/README.md](ios/README.md).
+
+## Mobile (Android)
+
+Tauri 2 unterstützt Android nativ aus derselben Codebasis wie Desktop —
+kein separates Rewrite nötig. Der Mobile-Entry-Point
 (`#[cfg_attr(mobile, tauri::mobile_entry_point)]` in
 `src-tauri/src/lib.rs`) und das passende `crate-type` in
 `src-tauri/Cargo.toml` sind aus dem Standard-Tauri-Template bereits
 vorhanden.
 
-### iOS
-
-Wird aktuell von einem Kollegen umgesetzt: Tauri generiert dafür per
-`npm run tauri ios init` ein natives Xcode/Swift-Projekt unter
-`src-tauri/gen/apple/`, das mit `npm run tauri ios dev` bzw.
-`npm run tauri ios build` bespielt wird (Xcode + Apple Developer Account
-für Gerätetests/Signing nötig).
-
-### Android
-
-Läuft analog zu iOS, nur mit Android-Studio/Kotlin/Gradle statt
-Xcode/Swift:
+Der Ablauf entspricht dem früher für iOS geplanten, nur mit
+Android-Studio/Kotlin/Gradle statt Xcode/Swift:
 
 **Voraussetzungen:**
 
@@ -657,8 +743,7 @@ Xcode/Swift:
 npm run tauri android init
 ```
 
-Generiert `src-tauri/gen/android/` (Gradle-Projekt) — das Android-Pendant
-zu `src-tauri/gen/apple/`.
+Generiert `src-tauri/gen/android/` (Gradle-Projekt).
 
 **Entwickeln** (Hot-Reload auf Emulator oder angeschlossenem Gerät):
 

@@ -6,7 +6,11 @@ import { KopfverbandIllustration } from './illustrations/KopfverbandIllustration
 const GENERAL_SOURCE_NOTE =
   'Allgemeines rettungsdienstliches Grundlagenwissen (keine bestimmte Quelle wie beim SAA/BPR-PDF). ' +
   'Konkrete Vorgehensweisen (z. B. Immobilisationsumfang, Tourniquet-Freigabe) können je nach ' +
-  'Rettungsdienstbereich/aktueller Leitlinie variieren — es gilt deine lokale Ausbildungs-/Dienstordnung.';
+  'Rettungsdienstbereich/aktueller Leitlinie variieren. Es gilt deine lokale Ausbildungs-/Dienstordnung.';
+
+const DLRG_SOURCE_NOTE =
+  'Abbildungen und Handlungsabläufe aus den DLRG-Teilnehmerunterlagen Sanitätsausbildung A (2021) und B (2021). ' +
+  'Ergänzt um allgemeines rettungsdienstliches Grundlagenwissen. Es gilt deine lokale Ausbildungs- und Dienstordnung.';
 
 /** Zuletzt inhaltlich geprüft/aktualisiert. */
 export const CONTENT_STAND = '2026-09-17';
@@ -21,10 +25,11 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
     sections: [
       {
         heading: 'Frakturarten',
+        illustrationId: 'frakturarten',
         facts: [
           { text: 'Geschlossene Fraktur: Haut über der Bruchstelle intakt', minLevel: 'SanH' },
           {
-            text: 'Offene Fraktur: Wunde reicht bis zum Knochen — deutlich erhöhtes Infektionsrisiko',
+            text: 'Offene Fraktur: Wunde reicht bis zum Knochen. Deutlich erhöhtes Infektionsrisiko',
             minLevel: 'SanH',
           },
           { text: 'Grünholzfraktur: unvollständiger Bruch, v. a. bei Kindern (Knochen noch elastischer)', minLevel: 'RS' },
@@ -39,18 +44,19 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
         facts: [
           { text: 'Sichtbare Fehlstellung', minLevel: 'SanH' },
           { text: 'Abnorme Beweglichkeit außerhalb eines Gelenks', minLevel: 'RS' },
-          { text: 'Krepitation (Knochenreiben) — nicht aktiv prüfen, nur falls zufällig bemerkt', minLevel: 'RS' },
+          { text: 'Krepitation (Knochenreiben). Nicht aktiv prüfen, nur falls zufällig bemerkt', minLevel: 'RS' },
           { text: 'Sichtbare Knochenfragmente (bei offener Fraktur)', minLevel: 'SanH' },
         ],
       },
       {
         heading: 'Erstmaßnahmen',
+        illustrationId: 'blutverlust-fraktur',
         facts: [
           {
-            text: 'DMS-Kontrolle (Durchblutung, Motorik, Sensibilität) distal der Verletzung — vor UND nach jeder Maßnahme',
+            text: 'DMS-Kontrolle (Durchblutung, Motorik, Sensibilität) distal der Verletzung. Vor UND nach jeder Maßnahme',
             minLevel: 'RS',
           },
-          { text: 'Ruhigstellung in der vorgefundenen Stellung — nicht reponieren (nicht gewaltsam richten)!', minLevel: 'SanH' },
+          { text: 'Ruhigstellung in der vorgefundenen Stellung. Nicht reponieren (nicht gewaltsam richten)!', minLevel: 'SanH' },
           { text: 'Bei offener Fraktur: steril abdecken statt reponieren, Knochenfragmente nicht zurückschieben', minLevel: 'SanH' },
           { text: 'Indirekt kühlen (nie direkt Eis auf die Haut) zur Schmerz-/Schwellungslinderung', minLevel: 'SanH' },
           { text: 'Grundsatz der Schienung: jeweils ein Gelenk oberhalb UND unterhalb der Fraktur mit ruhigstellen', minLevel: 'RS' },
@@ -81,7 +87,7 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
         heading: 'Grundprinzipien der Erstversorgung',
         facts: [
           { text: 'Wunde steril abdecken, im Rahmen der Erstversorgung nicht auswaschen oder desinfizieren', minLevel: 'SanH' },
-          { text: 'Fremdkörper in der Wunde belassen und ringförmig umpolstern — niemals herausziehen', minLevel: 'SanH' },
+          { text: 'Fremdkörper in der Wunde belassen und ringförmig umpolstern, niemals herausziehen', minLevel: 'SanH' },
           { text: 'Schmuck/einengende Gegenstände nahe der Verletzung frühzeitig entfernen (vor Schwellung)', minLevel: 'SanH' },
         ],
       },
@@ -93,11 +99,12 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
     title: 'Verbandslehre (Druckverband, Dreiecktuch, Schienung)',
     category: 'Verbandslehre',
     minLevel: 'SanH',
-    summary: 'Die klassischen Verbandstechniken Schritt für Schritt — Grundlage für einen künftigen interaktiven Übungsmodus.',
+    summary: 'Die klassischen Verbandstechniken Schritt für Schritt. Grundlage für einen künftigen interaktiven Übungsmodus.',
     sections: [
       {
         heading: 'Druckverband (bei stärkerer Blutung)',
         illustration: DruckverbandIllustration,
+        illustrationId: 'druckverband',
         facts: [
           { text: '1. Sterile Wundauflage direkt auf die Wunde legen', minLevel: 'SanH' },
           { text: '2. Druckpolster (z. B. unbenutztes Verbandpäckchen) darauf platzieren', minLevel: 'SanH' },
@@ -112,6 +119,7 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
       {
         heading: 'Dreiecktuch: Armtragetuch',
         illustration: ArmtragetuchIllustration,
+        illustrationId: 'armtragetuch',
         facts: [
           { text: 'Ruhigstellung von Verletzungen an Arm oder Schulter', minLevel: 'SanH' },
           { text: 'Hand sollte etwas höher liegen als der Ellenbogen (Schwellung vorbeugen)', minLevel: 'RS' },
@@ -132,18 +140,42 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
         facts: [{ text: 'Fixierbinde-Ersatz: kann großflächige Wundauflagen provisorisch fixieren', minLevel: 'SanH' }],
       },
       {
-        heading: 'Schienung',
+        heading: 'Notverband (Israeli Bandage)',
+        illustrationId: 'notverband',
         facts: [
-          { text: 'Vakuumschiene: formbar anlegen, dann Luft absaugen — wird dadurch stabil/starr', minLevel: 'RS' },
+          {
+            text: 'Vorgefertigtes Verband-Set aus Wundauflage, elastischer Binde und aufgesetzter Druckstange, das den klassischen Druckverband ersetzen kann',
+            minLevel: 'SanH',
+          },
+          { text: '1. Wundauflage auf die Wunde legen und die Binde einmal um die Extremität führen', minLevel: 'SanH' },
+          { text: '2. Die elastische Binde in die Druckstange einfädeln', minLevel: 'SanH' },
+          {
+            text: '3. Die Binde straff ziehen und in die Gegenrichtung weiterführen, sodass die Druckstange auf die Wunde drückt',
+            minLevel: 'SanH',
+          },
+          { text: '4. Die Binde einmal verdrehen und über die Ränder der Wundkompresse wickeln', minLevel: 'SanH' },
+          { text: '5. Die Hakenenden der Schließstange in der elastischen Binde befestigen', minLevel: 'SanH' },
+          {
+            text: 'Dieselbe Technik ist am Arm, am Kopf und am Hals anwendbar. Am Hals wird der gegenüberliegende Arm über den Kopf gehoben und der Verband durch dessen Achselhöhle geführt, damit kein Druck auf den Kehlkopf entsteht',
+            minLevel: 'RS',
+          },
+          { text: 'Anschließend DMS-Kontrolle distal des Verbands durchführen', minLevel: 'RS' },
+        ],
+      },
+      {
+        heading: 'Schienung',
+        illustrationId: 'schienung',
+        facts: [
+          { text: 'Vakuumschiene: formbar anlegen, dann Luft absaugen. Wird dadurch stabil/starr', minLevel: 'RS' },
           { text: 'Grundsatz: immer ein Gelenk oberhalb und unterhalb der Verletzung mit ruhigstellen', minLevel: 'SanH' },
         ],
       },
     ],
     notes: [
-      'Die Illustrationen sind stilisierte Schemazeichnungen, keine Fotos — sie zeigen das Funktionsprinzip, ' +
-        'nicht jedes Detail. Übe die Handgriffe zusätzlich praktisch (Kurs/Selbststudium mit echtem Material).',
+      'Die Abbildungen zeigen das Funktionsprinzip, nicht jedes Detail. Übe die Handgriffe zusätzlich ' +
+        'praktisch (Kurs/Selbststudium mit echtem Material).',
     ],
-    sourceNote: GENERAL_SOURCE_NOTE,
+    sourceNote: DLRG_SOURCE_NOTE,
   },
   {
     id: 'wirbelsaeulentrauma',
@@ -154,6 +186,7 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
     sections: [
       {
         heading: 'Verdachtsmomente',
+        illustrationId: 'wirbelsaeulen-fraktur',
         facts: [
           { text: 'Unfallmechanismus: Sturz aus der Höhe, Hochrasanztrauma, Kopfsprung ins Wasser', minLevel: 'RS' },
           { text: 'Rückenschmerz im Bereich der Wirbelsäule', minLevel: 'SanH' },
@@ -162,6 +195,7 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
       },
       {
         heading: 'Immobilisationstechniken',
+        illustrationId: 'hws-stuetzkragen',
         facts: [
           { text: 'Manuelle Inline-Stabilisation des Kopfes: als erste Maßnahme und durchgehend bis zur Übergabe', minLevel: 'RS' },
           { text: 'Zervikalstütze (HWS-Immobilisationskragen) zur Unterstützung der manuellen Stabilisation', minLevel: 'RS' },
@@ -176,7 +210,7 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
     ],
     notes: [
       'Aktuelle Leitlinien differenzieren zunehmend, wann eine vollständige Immobilisation tatsächlich ' +
-        'erforderlich ist — nicht jeder Verdachtsfall braucht das volle Programm. Vorgehen ist regional/' +
+        'erforderlich ist. Nicht jeder Verdachtsfall braucht das volle Programm. Vorgehen ist regional/' +
         'schulungsabhängig unterschiedlich geregelt.',
     ],
     sourceNote: GENERAL_SOURCE_NOTE,
@@ -190,9 +224,10 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
     sections: [
       {
         heading: 'Offener Pneumothorax',
+        illustrationId: 'pneumothorax',
         facts: [
           {
-            text: 'Durchgängige Verletzung der Thoraxwand — bei Einatmung strömt Luft hörbar in den Pleuraspalt ("saugende Wunde")',
+            text: 'Durchgängige Verletzung der Thoraxwand. Bei Einatmung strömt Luft hörbar in den Pleuraspalt ("saugende Wunde")',
             minLevel: 'RS',
           },
           {
@@ -209,7 +244,7 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
           { text: 'Einseitig fehlendes oder abgeschwächtes Atemgeräusch', minLevel: 'RS' },
           { text: 'Gestaute Halsvenen, (spät) Verlagerung der Luftröhre zur Gegenseite', minLevel: 'RS' },
           { text: 'Kreislaufinstabilität bis zum Kreislaufstillstand', minLevel: 'RS' },
-          { text: 'Zeitkritisch — Therapie (Entlastungspunktion) ist NotSan-Kompetenz nach Delegation', minLevel: 'NotSan' },
+          { text: 'Zeitkritisch. Therapie (Entlastungspunktion) ist NotSan-Kompetenz nach Delegation', minLevel: 'NotSan' },
         ],
       },
       {
@@ -234,10 +269,11 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
     sections: [
       {
         heading: 'Gradeinteilung',
+        illustrationId: 'verbrennungsgrade',
         facts: [
-          { text: 'Grad 1: Rötung, schmerzhaft, keine Blasen (z. B. Sonnenbrand) — heilt folgenlos ab', minLevel: 'SanH' },
+          { text: 'Grad 1: Rötung, schmerzhaft, keine Blasen (z. B. Sonnenbrand). Heilt folgenlos ab', minLevel: 'SanH' },
           { text: 'Grad 2a: Blasenbildung, Wundgrund rosig, sehr schmerzhaft', minLevel: 'RS' },
-          { text: 'Grad 2b: Blasenbildung, Wundgrund blasser, weniger schmerzhaft — tiefere Schädigung', minLevel: 'RS' },
+          { text: 'Grad 2b: Blasenbildung, Wundgrund blasser, weniger schmerzhaft, tiefere Schädigung', minLevel: 'RS' },
           { text: 'Grad 3: weißlich-lederartig oder verkohlt, schmerzlos (Nervenenden zerstört)', minLevel: 'RS' },
           { text: 'Grad 4: Verkohlung auch tieferer Strukturen (Muskeln, Knochen)', minLevel: 'RS' },
         ],
@@ -247,7 +283,7 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
         facts: [
           { text: 'Brandursache stoppen: Kleidung löschen, aus dem Gefahrenbereich bringen (Eigenschutz beachten)', minLevel: 'SanH' },
           {
-            text: 'Nur kleinflächige Verbrennungen zeitnah kühlen — bei großflächigen Verbrennungen und bei Kindern Auskühlung (Hypothermie) vermeiden!',
+            text: 'Nur kleinflächige Verbrennungen zeitnah kühlen. Bei großflächigen Verbrennungen und bei Kindern Auskühlung (Hypothermie) vermeiden!',
             minLevel: 'SanH',
           },
           { text: 'Steril bzw. keimarm abdecken (z. B. Brandwundenverbandtuch)', minLevel: 'SanH' },
@@ -268,17 +304,19 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
     sections: [
       {
         heading: 'Polytrauma',
+        illustrationId: 'beckengurt',
         facts: [
           {
             text: 'Mehrere gleichzeitige Verletzungen, von denen mindestens eine oder deren Kombination lebensbedrohlich ist',
             minLevel: 'RS',
           },
-          { text: 'Versorgung nach cABCDE-Schema — kritische Blutung (c) wird zuerst behandelt', minLevel: 'RS' },
+          { text: 'Versorgung nach cABCDE-Schema. Kritische Blutung (c) wird zuerst behandelt', minLevel: 'RS' },
           { text: 'Load-and-go-Prinzip: kurze Versorgungszeit vor Ort bei zeitkritischen Verletzungen anstreben', minLevel: 'RS' },
         ],
       },
       {
         heading: 'Stufenschema der Blutstillung',
+        illustrationId: 'wound-packing',
         facts: [
           { text: '1. Manuelle Kompression der Blutungsquelle', minLevel: 'SanH' },
           { text: '2. Wunddruckverband', minLevel: 'SanH' },
@@ -290,10 +328,11 @@ export const TRAUMA_THEMEN: TraumaTopic[] = [
       },
       {
         heading: 'Tourniquet-Anwendung',
+        illustrationId: 'tourniquet',
         facts: [
           { text: 'So weit proximal wie nötig, so distal wie möglich anlegen', minLevel: 'RS' },
           {
-            text: 'Straff genug anziehen, bis die Blutung sicher sistiert — nur venöse Stauung verschlimmert die Blutung',
+            text: 'Straff genug anziehen, bis die Blutung sicher sistiert. Nur venöse Stauung verschlimmert die Blutung',
             minLevel: 'RS',
           },
           { text: 'Anlagezeitpunkt (Uhrzeit) gut sichtbar dokumentieren (z. B. auf dem Tourniquet selbst)', minLevel: 'RS' },

@@ -5,4 +5,9 @@ export interface CheatSheetCard {
   points: string[];
   moduleId?: string;
   itemId?: string;
+  /**
+   * Woher die Kurzfassung stammt. Die ausführliche, belegte Darstellung steht
+   * im verlinkten Eintrag (moduleId/itemId) — hier steht nur die Primärquelle.
+   */
+  sourceNote?: string;
 }

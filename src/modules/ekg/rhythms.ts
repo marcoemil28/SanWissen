@@ -75,7 +75,7 @@ export const RHYTHMS: Rhythm[] = [
       'P-Welle vor jedem QRS, normale Morphologie',
       'Frequenz meist im Normbereich',
     ],
-    clinicalNote: 'Normvariante, v. a. bei jungen/gesunden Personen — kein Handlungsbedarf.',
+    clinicalNote: 'Normvariante, v. a. bei jungen/gesunden Personen, kein Handlungsbedarf.',
     gen: { kind: 'sinus-arrhythmia', hr: [58, 95] },
   },
   {
@@ -127,7 +127,7 @@ export const RHYTHMS: Rhythm[] = [
       'Plötzlicher Beginn/Ende typisch (anamnestisch)',
     ],
     clinicalNote:
-      'Bei Instabilität: Kardioversion nach Algorithmus. Bei Stabilität: ggf. vagale Manöver (nach Schulungsstand/Kompetenz) — Vorgehen laut eigenem Algorithmus/Rücksprache.',
+      'Bei Instabilität: Kardioversion nach Algorithmus. Bei Stabilität: ggf. vagale Manöver (nach Schulungsstand/Kompetenz). Vorgehen laut eigenem Algorithmus/Rücksprache.',
     gen: { kind: 'regular-narrow', hr: [160, 200], prMs: 60 },
   },
   {
@@ -272,7 +272,7 @@ export const RHYTHMS: Rhythm[] = [
       'Plötzlicher, unangekündigter Ausfall einzelner QRS-Komplexe',
       'Fixes Überleitungsverhältnis möglich (z. B. 3:1)',
     ],
-    clinicalNote: 'Prognostisch ungünstiger als Wenckebach — Risiko für plötzlichen kompletten Block. Engmaschig überwachen, Schrittmacherbereitschaft.',
+    clinicalNote: 'Prognostisch ungünstiger als Wenckebach. Risiko für plötzlichen kompletten Block. Engmaschig überwachen, Schrittmacherbereitschaft.',
     gen: { kind: 'av-block-2-mobitz2', atrialRate: 80, prMs: 170, conduction: 3 },
   },
   {
@@ -305,7 +305,7 @@ export const RHYTHMS: Rhythm[] = [
       'Zeitkritischer Befund bei passender Klinik (Thoraxschmerz)',
     ],
     clinicalNote:
-      'Bei entsprechender Klinik zeitkritisch (Herzkatheter-Indikation). Immer 12-Kanal-EKG + Klinik + Notarzt/Zielklinik-Meldung — Einzelableitung reicht nie zur Diagnose.',
+      'Bei entsprechender Klinik zeitkritisch (Herzkatheter-Indikation). Immer 12-Kanal-EKG + Klinik + Notarzt/Zielklinik-Meldung. Einzelableitung reicht nie zur Diagnose.',
     gen: { kind: 'st-elevation', hr: [70, 95], elevationMv: 0.35 },
   },
   {

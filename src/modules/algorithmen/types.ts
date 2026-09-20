@@ -10,6 +10,8 @@ export interface AlgorithmStep {
 
 export interface AlgorithmSection {
   heading?: string;
+  /** ID einer Abbildung zu diesem Abschnitt (siehe ios/…/IllustrationView.swift). */
+  illustrationId?: string;
   steps: AlgorithmStep[];
 }
 

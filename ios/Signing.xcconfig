@@ -1,0 +1,17 @@
+// Signierung und Bundle-Identifikation.
+//
+// Diese Datei enthält bewusst nur Platzhalter und wird eingecheckt. Die
+// echten Werte gehören in Signing.local.xcconfig daneben — die steht in
+// der .gitignore und verlässt den Rechner nicht. Vorlage dafür ist
+// Signing.local.xcconfig.example.
+//
+// Ohne lokale Datei lässt sich das Projekt im Simulator bauen. Zum
+// Signieren für ein Gerät, TestFlight oder den App Store werden Team-ID
+// und Bundle-ID gebraucht.
+
+DEVELOPMENT_TEAM =
+PRODUCT_BUNDLE_IDENTIFIER = com.example.sanwissen
+
+// Muss am Ende stehen: spätere Zuweisungen gewinnen, damit die lokalen
+// Werte die Platzhalter oben überschreiben.
+#include? "Signing.local.xcconfig"

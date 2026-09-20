@@ -1,0 +1,147 @@
+{
+  "categories": [
+    "Grundlagenwissen",
+    "Krankheitsbilder & Algorithmen",
+    "Medikamente",
+    "Diagnostik & Training",
+    "Einsatz & Organisation"
+  ],
+  "modules": [
+    {
+      "id": "ekg",
+      "title": "EKG-Trainer",
+      "symbol": "waveform.path.ecg",
+      "category": "Diagnostik & Training",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "algorithmen",
+      "title": "Algorithmen (ABCDE, BLS/ALS)",
+      "symbol": "list.bullet.rectangle.portrait",
+      "category": "Krankheitsbilder & Algorithmen",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "medikamente",
+      "title": "Medikamente (SAA/BPR)",
+      "symbol": "pills.fill",
+      "category": "Medikamente",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "anatomie",
+      "title": "Anatomie & Physiologie",
+      "symbol": "figure.stand",
+      "category": "Grundlagenwissen",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "werkzeuge",
+      "title": "Werkzeuge & Scores",
+      "symbol": "function",
+      "category": "Diagnostik & Training",
+      "pinned": true,
+      "available": true
+    },
+    {
+      "id": "traumatologie",
+      "title": "Traumatologie & Verbandslehre",
+      "symbol": "bandage.fill",
+      "category": "Krankheitsbilder & Algorithmen",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "medikamentenvorbereitung",
+      "title": "Medikamente vorbereiten & verabreichen",
+      "symbol": "syringe.fill",
+      "category": "Medikamente",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "sanitaetsdienst",
+      "title": "Sanitätsdienst (Veranstaltungsdienst)",
+      "symbol": "tent.fill",
+      "category": "Einsatz & Organisation",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "internistischenotfaelle",
+      "title": "Internistische Notfälle",
+      "symbol": "stethoscope",
+      "category": "Krankheitsbilder & Algorithmen",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "paediatrie",
+      "title": "Pädiatrie & Geburtshilfe",
+      "symbol": "figure.child",
+      "category": "Krankheitsbilder & Algorithmen",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "psychiatrienotfaelle",
+      "title": "Psychiatrische Notfälle & Kommunikation",
+      "symbol": "brain.head.profile",
+      "category": "Krankheitsbilder & Algorithmen",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "rettungstechnik",
+      "title": "Rettungstechnik & Gerätekunde",
+      "symbol": "backpack.fill",
+      "category": "Diagnostik & Training",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "rechtlichegrundlagen",
+      "title": "Rechtliche & organisatorische Grundlagen",
+      "symbol": "building.columns.fill",
+      "category": "Einsatz & Organisation",
+      "pinned": false,
+      "available": true
+    },
+    {
+      "id": "glossar",
+      "title": "Glossar & Abkürzungen",
+      "symbol": "character.book.closed.fill",
+      "category": "Diagnostik & Training",
+      "pinned": true,
+      "available": true
+    },
+    {
+      "id": "quiz",
+      "title": "Prüfungsvorbereitung (Quiz)",
+      "symbol": "questionmark.circle.fill",
+      "category": "Diagnostik & Training",
+      "pinned": true,
+      "available": true
+    },
+    {
+      "id": "checklisten",
+      "title": "Checklisten",
+      "symbol": "checklist",
+      "category": "Einsatz & Organisation",
+      "pinned": true,
+      "available": true
+    },
+    {
+      "id": "cheatsheet",
+      "title": "Cheat-Sheet",
+      "symbol": "note.text",
+      "category": "Diagnostik & Training",
+      "pinned": true,
+      "available": true
+    }
+  ]
+}

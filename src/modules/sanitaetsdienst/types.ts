@@ -10,6 +10,8 @@ export interface SanitaetsdienstFact {
 export interface SanitaetsdienstSection {
   heading?: string;
   facts: SanitaetsdienstFact[];
+  /** ID einer Abbildung zu diesem Abschnitt (siehe ios/…/IllustrationView.swift). */
+  illustrationId?: string;
 }
 
 export interface SanitaetsdienstTopic {

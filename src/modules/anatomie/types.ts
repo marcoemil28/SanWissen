@@ -10,6 +10,8 @@ export interface AnatomieFact {
 export interface AnatomieSection {
   heading?: string;
   facts: AnatomieFact[];
+  /** ID einer schematischen Zeichnung zu diesem Abschnitt (siehe ios/…/IllustrationView.swift). */
+  illustrationId?: string;
 }
 
 export interface AnatomieTopic {

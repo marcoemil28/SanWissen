@@ -10,6 +10,8 @@ export interface RettungstechnikFact {
 export interface RettungstechnikSection {
   heading?: string;
   facts: RettungstechnikFact[];
+  /** ID einer schematischen Zeichnung zu diesem Abschnitt (siehe ios/…/IllustrationView.swift). */
+  illustrationId?: string;
 }
 
 export interface RettungstechnikTopic {

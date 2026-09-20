@@ -2,9 +2,9 @@ import type { InternistischeNotfaelleTopic } from './types';
 
 const GENERAL_SOURCE_NOTE =
   'Allgemeines rettungsdienstliches Grundlagenwissen zur Erkennung und Erstversorgung internistischer ' +
-  'Notfälle — keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei ' +
+  'Notfälle. Keine SAA/BPR-Quelle. Medikamentöse Therapie (z. B. ASS/Nitro bei ACS, Glucose i.v. bei ' +
   'Hypoglykämie, Adrenalin bei Anaphylaxie, Naloxon bei Opioid-Überdosierung) ist, sofern invasiv oder ' +
-  'verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz — siehe Medikamente-Modul.';
+  'verschreibungspflichtig, ärztlich delegierte NotSan-Kompetenz, siehe Medikamente-Modul.';
 
 /** Zuletzt inhaltlich geprüft/aktualisiert. */
 export const CONTENT_STAND = '2026-09-17';
@@ -20,10 +20,10 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
       {
         heading: 'Erkennungszeichen',
         facts: [
-          { text: 'Plötzlicher Brustschmerz — drückend, brennend oder einschnürend' },
+          { text: 'Plötzlicher Brustschmerz. Drückend, brennend oder einschnürend' },
           { text: 'Ausstrahlung in Arm, Kiefer, Rücken oder Oberbauch' },
           { text: 'Angst, Unruhe, Kaltschweißigkeit, Übelkeit' },
-          { text: 'Bei Frauen und Diabetiker:innen oft untypische Symptome — z. B. nur Übelkeit oder Erschöpfung' },
+          { text: 'Bei Frauen und Diabetiker:innen oft untypische Symptome. Z. B. nur Übelkeit oder Erschöpfung' },
         ],
       },
       {
@@ -37,7 +37,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
       },
       {
         heading: 'Bei Kreislaufstillstand',
-        facts: [{ text: 'Sofort mit der Reanimation beginnen — siehe Algorithmen-Modul' }],
+        facts: [{ text: 'Sofort mit der Reanimation beginnen, siehe Algorithmen-Modul' }],
       },
     ],
     notes: ['Medikamentöse Therapie (ASS, Nitro, Sauerstoff nach Bedarf) ist ärztlich delegierte NotSan-Kompetenz.'],
@@ -65,7 +65,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
       {
         heading: 'Maßnahmen',
         facts: [
-          { text: 'Oberkörperhochlagerung — sitzend, Beine tief lagern' },
+          { text: 'Oberkörperhochlagerung. Sitzend, Beine tief lagern' },
           { text: 'Beruhigen, beengende Kleidung öffnen' },
           { text: 'Sauerstoffgabe nach Verfügbarkeit und Kompetenz', minLevel: 'RS' },
           { text: 'Notarzt alarmieren' },
@@ -76,24 +76,35 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
   },
   {
     id: 'schlaganfall-fast',
-    title: 'Schlaganfall (FAST-Test)',
+    title: 'Schlaganfall (BE-FAST-Test)',
     category: 'Neurologisch',
     minLevel: 'SanH',
-    summary: 'Schneller Check auf Schlaganfall-Anzeichen — jede Minute zählt.',
+    summary: 'Schneller Check auf Schlaganfall-Anzeichen. Jede Minute zählt.',
     sections: [
       {
         heading: 'FAST-Test',
+        illustrationId: 'fazialisparese',
         facts: [
-          { text: 'Face — Lächeln lassen: hängt ein Mundwinkel herab?' },
-          { text: 'Arms — beide Arme nach vorne heben lassen: sinkt eine Seite unkontrolliert ab?' },
-          { text: 'Speech — einen Satz nachsprechen lassen: verwaschene oder unverständliche Sprache?' },
-          { text: 'Time — Zeitpunkt des Symptombeginns exakt notieren, entscheidend für die Klinikwahl' },
+          { text: 'Face. Lächeln lassen: hängt ein Mundwinkel herab?' },
+          { text: 'Arms. Beide Arme nach vorne heben lassen: sinkt eine Seite unkontrolliert ab?' },
+          { text: 'Speech. Einen Satz nachsprechen lassen: verwaschene oder unverständliche Sprache?' },
+          { text: 'Time. Zeitpunkt des Symptombeginns exakt notieren, entscheidend für die Klinikwahl' },
+        ],
+      },
+      {
+        heading: 'BE-FAST – erweiterte Fassung',
+        facts: [
+          { text: 'BE-FAST stellt dem klassischen FAST zwei Zeichen voran, die bei Schlaganfällen im hinteren Stromgebiet (Kleinhirn/Hirnstamm) oft die einzigen Symptome sind und mit FAST allein übersehen werden.' },
+          { text: 'Balance. Plötzliche Gang-/Standunsicherheit, Schwindel, Koordinationsstörung, Fallneigung zu einer Seite' },
+          { text: 'Eyes. Plötzliche Sehstörung: Doppelbilder, Gesichtsfeldausfall, einseitiger Sehverlust' },
+          { text: 'Face, Arms, Speech, Time. Wie beim FAST-Test oben' },
+          { text: 'Ein einzelnes auffälliges Zeichen genügt für den Verdacht. Es müssen nicht mehrere zutreffen.' },
         ],
       },
       {
         heading: 'Weitere mögliche Erkennungszeichen',
         facts: [
-          { text: 'Plötzliche Sehstörungen' },
+          { text: 'Plötzliche Schluckstörung' },
           { text: 'Sehr starker, plötzlich einsetzender Kopfschmerz' },
           { text: 'Verwirrtheit, Orientierungslosigkeit' },
         ],
@@ -101,14 +112,14 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
       {
         heading: 'Maßnahmen',
         facts: [
-          { text: 'Symptombeginn exakt dokumentieren (Uhrzeit) — beeinflusst mögliche Therapieoptionen in der Klinik' },
+          { text: 'Symptombeginn exakt dokumentieren (Uhrzeit). Beeinflusst mögliche Therapieoptionen in der Klinik' },
           { text: 'Patient nicht essen oder trinken lassen (Aspirationsgefahr bei Schluckstörung)' },
           { text: 'Zügiger Transport in eine geeignete Klinik (Stroke Unit)', minLevel: 'RS' },
           { text: 'Engmaschige Kontrolle von Bewusstsein und Vitalzeichen' },
         ],
       },
     ],
-    notes: ['"Time is brain" — jede Verzögerung verschlechtert die Prognose, daher zügiges, aber sicheres Vorgehen.'],
+    notes: ['"Time is brain". Jede Verzögerung verschlechtert die Prognose, daher zügiges, aber sicheres Vorgehen.'],
     sourceNote: GENERAL_SOURCE_NOTE,
   },
   {
@@ -130,7 +141,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
       {
         heading: 'Nach dem Anfall',
         facts: [
-          { text: 'Stabile Seitenlage — nach einem Anfall folgt häufig ein Terminalschlaf mit Bewusstseinstrübung' },
+          { text: 'Stabile Seitenlage. Nach einem Anfall folgt häufig ein Terminalschlaf mit Bewusstseinstrübung' },
           { text: 'Beim Erwachen ruhig und beruhigend ansprechen, Orientierung geben' },
         ],
       },
@@ -179,7 +190,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
         heading: 'Maßnahmen bei Hyperglykämie',
         facts: [
           { text: 'Engmaschige Vitalzeichenkontrolle' },
-          { text: 'Notarzt alarmieren — spezifische Therapie ist nicht durch SanH/RS möglich' },
+          { text: 'Notarzt alarmieren. Spezifische Therapie ist nicht durch SanH/RS möglich' },
         ],
       },
     ],
@@ -195,10 +206,10 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
       {
         heading: 'Stadien (grobe Orientierung)',
         facts: [
-          { text: 'Stadium I — Haut: Juckreiz, Quaddeln, Hautrötung (Flush)' },
-          { text: 'Stadium II — Kreislauf: Tachykardie, Blutdruckabfall, Übelkeit' },
-          { text: 'Stadium III — Atemwege: Bronchospasmus, Atemnot, Stridor' },
-          { text: 'Stadium IV — Kreislaufstillstand/Atemstillstand' },
+          { text: 'Stadium I. Haut: Juckreiz, Quaddeln, Hautrötung (Flush)' },
+          { text: 'Stadium II. Kreislauf: Tachykardie, Blutdruckabfall, Übelkeit' },
+          { text: 'Stadium III. Atemwege: Bronchospasmus, Atemnot, Stridor' },
+          { text: 'Stadium IV. Kreislauf- oder Atemstillstand' },
         ],
       },
       {
@@ -212,7 +223,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
           { text: 'Lagerung symptomorientiert wählen: Schocklage bei Kreislaufproblem, Oberkörperhoch bei Atemnot' },
           { text: 'Notarzt alarmieren' },
           {
-            text: 'Bei vorhandenem Adrenalin-Autoinjektor des Patienten: Unterstützung bei der Anwendung möglich, sofern der Patient selbst dazu nicht mehr in der Lage ist — lokale Kompetenzregelung beachten',
+            text: 'Bei vorhandenem Adrenalin-Autoinjektor des Patienten: Unterstützung bei der Anwendung möglich, sofern der Patient selbst dazu nicht mehr in der Lage ist. Lokale Kompetenzregelung beachten',
             minLevel: 'RS',
           },
         ],
@@ -233,13 +244,13 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
         facts: [
           { text: 'Blinddarmentzündung, Gallen- oder Nierenkolik' },
           { text: 'Darmverschluss, geplatzte Zyste' },
-          { text: 'Innere Blutung — z. B. Bauchaortenaneurysma oder Eileiterschwangerschaft' },
+          { text: 'Innere Blutung. Z. B. Bauchaortenaneurysma oder Eileiterschwangerschaft' },
         ],
       },
       {
         heading: 'Erkennungszeichen',
         facts: [
-          { text: 'Starke Bauchschmerzen — diffus oder lokalisiert, Abwehrspannung der Bauchdecke' },
+          { text: 'Starke Bauchschmerzen. Diffus oder lokalisiert, Abwehrspannung der Bauchdecke' },
           { text: 'Übelkeit, Erbrechen' },
           { text: 'Bei innerer Blutung ggf. Kreislaufinstabilität (Blässe, Tachykardie, Blutdruckabfall)' },
         ],
@@ -247,7 +258,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
       {
         heading: 'Maßnahmen',
         facts: [
-          { text: 'Lagerung nach Patientenwunsch — häufig Knierolle zur Entspannung der Bauchdecke' },
+          { text: 'Lagerung nach Patientenwunsch. Häufig Knierolle zur Entspannung der Bauchdecke' },
           { text: 'Nichts zu essen oder zu trinken geben' },
           { text: 'Engmaschige Kreislaufkontrolle' },
           { text: 'Notarzt bei Verdacht auf akute innere Blutung oder starke Schmerzen' },
@@ -265,8 +276,9 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
     sections: [
       {
         heading: 'Allgemeine Prinzipien',
+        illustrationId: 'giftaufnahmewege',
         facts: [
-          { text: 'Eigenschutz beachten — z. B. bei unbekannten Substanzen oder aggressivem Patienten' },
+          { text: 'Eigenschutz beachten. Z. B. bei unbekannten Substanzen oder aggressivem Patienten' },
           { text: 'Wenn möglich Substanz, Menge und Zeitpunkt erfragen oder Reste/Verpackung sicherstellen' },
         ],
       },
@@ -313,7 +325,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
         ],
       },
       {
-        heading: 'Hitzschlag — lebensbedrohlich',
+        heading: 'Hitzschlag – lebensbedrohlich',
         facts: [
           { text: 'Überhitzung des Körperkerns (über ca. 40 °C)' },
           { text: 'Haut oft heiß und trocken, Bewusstseinstrübung bis Bewusstlosigkeit' },
@@ -346,7 +358,8 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
     summary: 'Stadiengerechter Umgang mit Unterkühlung (Hypothermie) und lokalen Kälteschäden.',
     sections: [
       {
-        heading: 'Unterkühlung (Hypothermie) — Stadien (grobe Orientierung)',
+        heading: 'Unterkühlung (Hypothermie) – Stadien (grobe Orientierung)',
+        illustrationId: 'zentralisation',
         facts: [
           { text: 'Leicht: Zittern vorhanden, klares Bewusstsein, Körperkerntemperatur ca. 32–35 °C' },
           { text: 'Mittel: kein Zittern mehr, Bewusstseinstrübung, ca. 28–32 °C' },
@@ -356,7 +369,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
       {
         heading: 'Maßnahmen bei Unterkühlung',
         facts: [
-          { text: 'Sehr vorsichtiges Handling — grobe Bewegungen können in fortgeschrittener Unterkühlung Kammerflimmern auslösen' },
+          { text: 'Sehr vorsichtiges Handling. Grobe Bewegungen können in fortgeschrittener Unterkühlung Kammerflimmern auslösen' },
           { text: 'Nasse Kleidung entfernen' },
           { text: 'Passiv wärmen (Decken, Wärmepack am Rumpf, nicht an den Extremitäten)' },
           { text: 'Notarzt bei mittlerer oder schwerer Unterkühlung', minLevel: 'RS' },
@@ -373,7 +386,7 @@ export const INTERNISTISCHE_NOTFAELLE_THEMEN: InternistischeNotfaelleTopic[] = [
         heading: 'Maßnahmen bei Erfrierung',
         facts: [
           { text: 'Betroffene Stelle vor weiterer Kälte und Reibung schützen' },
-          { text: 'Langsam mit Körperwärme erwärmen — nicht reiben' },
+          { text: 'Langsam mit Körperwärme erwärmen, nicht reiben' },
           { text: 'Nicht auftauen, wenn ein erneutes Einfrieren droht' },
         ],
       },

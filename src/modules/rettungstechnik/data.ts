@@ -14,14 +14,15 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
     title: 'Trageformen',
     category: 'Transport & Trageformen',
     minLevel: 'SanH',
-    summary: 'Rautekgriff, Tragestuhl, Schaufeltrage und Vakuummatratze — wann welche Trageform sinnvoll ist.',
+    summary: 'Rautekgriff, Tragestuhl, Schaufeltrage und Vakuummatratze. Wann welche Trageform sinnvoll ist.',
     sections: [
       {
         heading: 'Rautekgriff (Rautek-Rettungsgriff)',
+        illustrationId: 'rautekgriff',
         facts: [
           { text: 'Zweck: schnelle Rettung aus akuter Gefahr (z. B. brennendes Fahrzeug, einsturzgefährdeter Raum)' },
           { text: 'Durchführung: von hinten unter den Achseln durchgreifen, einen Unterarm des Patienten fassen, rückwärts ziehen' },
-          { text: 'Einschränkung: keine Rücksicht auf Wirbelsäule möglich — daher nur bei unmittelbarer Lebensgefahr anwenden' },
+          { text: 'Einschränkung: keine Rücksicht auf Wirbelsäule möglich. Daher nur bei unmittelbarer Lebensgefahr anwenden' },
         ],
       },
       {
@@ -33,6 +34,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       },
       {
         heading: 'Schaufeltrage',
+        illustrationId: 'schaufeltrage',
         facts: [
           { text: 'Einsatzbereich: schonende Umlagerung, z. B. bei Verdacht auf Wirbelsäulenverletzung' },
           { text: 'Anwendung: seitlich in zwei Hälften unter dem liegenden Patienten zusammenführen, ohne ihn zu drehen', minLevel: 'RS' },
@@ -40,6 +42,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       },
       {
         heading: 'Vakuummatratze',
+        illustrationId: 'vakuummatratze',
         facts: [
           { text: 'Zweck: Ganzkörper-Immobilisation durch Anmodellieren an den Körper und Evakuierung der Luft' },
           { text: 'Einsatzbereich: Polytrauma, Wirbelsäulenverletzung, instabile Frakturen', minLevel: 'RS' },
@@ -57,6 +60,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
     sections: [
       {
         heading: 'Stabile Seitenlage',
+        illustrationId: 'stabile-seitenlage',
         facts: [
           { text: 'Indikation: Bewusstlosigkeit mit erhaltener, ausreichender Spontanatmung' },
           { text: 'Zweck: Atemwege freihalten, Schutz vor Aspiration von Erbrochenem' },
@@ -64,6 +68,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       },
       {
         heading: 'Schocklage (Beine hoch)',
+        illustrationId: 'schocklage',
         facts: [
           { text: 'Indikation: Kreislaufschwäche/Schock ohne Atemnot und ohne Kopf- oder Wirbelsäulenverletzung' },
           { text: 'Zweck: venösen Rückstrom zum Herzen fördern' },
@@ -71,6 +76,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       },
       {
         heading: 'Oberkörperhochlagerung',
+        illustrationId: 'oberkoerperhochlagerung',
         facts: [
           { text: 'Indikation: Atemnot, Herzinsuffizienz, Schlaganfall bei erhaltenem Bewusstsein' },
           { text: 'Zweck: Atemarbeit erleichtern' },
@@ -78,6 +84,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       },
       {
         heading: 'Knierolle / Flachlagerung mit angewinkelten Beinen',
+        illustrationId: 'knierolle',
         facts: [
           { text: 'Indikation: akutes Abdomen, starke Bauchschmerzen' },
           { text: 'Zweck: Entspannung der Bauchdecke' },
@@ -102,6 +109,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
     sections: [
       {
         heading: 'Systeme',
+        illustrationId: 'sauerstoffmaske',
         facts: [
           { text: 'Nasenbrille: niedrige Flussraten, wird von Patienten meist gut toleriert' },
           { text: 'Einfache Sauerstoffmaske: mittlere bis hohe Flussraten' },
@@ -126,7 +134,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
         ],
       },
     ],
-    notes: ['Sauerstoff ist ein Medikament — Gabe orientiert sich an SpO2-Messung/Klinik, nicht an einer routinemäßigen Gabe bei jedem Patienten.'],
+    notes: ['Sauerstoff ist ein Medikament. Gabe orientiert sich an SpO2-Messung/Klinik, nicht an einer routinemäßigen Gabe bei jedem Patienten.'],
     sourceNote: GENERAL_SOURCE_NOTE,
   },
   {
@@ -145,6 +153,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       },
       {
         heading: 'Guedel-Tubus (oropharyngealer Tubus)',
+        illustrationId: 'guedel-wendl',
         facts: [
           { text: 'Zweck: hält den Atemweg bei Bewusstlosigkeit offen, hält die Zunge von der Rachenhinterwand fern' },
           { text: 'Größenbestimmung: Abstand vom Mundwinkel bis zum Ohrläppchen' },
@@ -153,6 +162,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       },
       {
         heading: 'Wendl-Tubus (nasopharyngealer Tubus)',
+        illustrationId: 'wendl-tubus',
         facts: [
           { text: 'Zweck: Alternative bei erhaltenem Würgereflex oder Kieferklemme' },
           { text: 'Größenbestimmung: Abstand von der Nasenspitze bis zum Ohrläppchen' },
@@ -171,6 +181,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
     sections: [
       {
         heading: 'Aufbau',
+        illustrationId: 'beatmungsbeutel-aufbau',
         facts: [
           { text: 'Beutel, Ventil und Maske (alternativ Anschluss an Tubus oder Larynxmaske)' },
           { text: 'Optionales Reservoir für eine höhere Sauerstoffkonzentration' },
@@ -178,16 +189,17 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       },
       {
         heading: 'Anwendung',
+        illustrationId: 'beutel-masken-beatmung',
         facts: [
           { text: 'Korrekter Maskensitz (z. B. C-Griff/Esmarch-Handgriff)' },
-          { text: 'Ausreichende Kopfüberstreckung — außer bei Verdacht auf Trauma' },
+          { text: 'Ausreichende Kopfüberstreckung. Außer bei Verdacht auf Trauma' },
           { text: 'Beatmungsfrequenz und -volumen sind altersabhängig' },
         ],
       },
       {
         heading: 'Häufige Fehler',
         facts: [
-          { text: 'Zu forsches oder zu schnelles Beatmen — Gefahr von Magenüberblähung und Aspiration' },
+          { text: 'Zu forsches oder zu schnelles Beatmen. Gefahr von Magenüberblähung und Aspiration' },
           { text: 'Undichter Maskensitz mit Luftverlust' },
         ],
       },
@@ -203,6 +215,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
     sections: [
       {
         heading: 'Typischer Inhalt',
+        illustrationId: 'notfallrucksack',
         facts: [
           { text: 'Basisausstattung: Handschuhe, Verbandsmaterial, Beatmungsbeutel/-maske' },
           { text: 'Absauggerät, Blutdruckmessgerät, Stethoskop' },
@@ -220,7 +233,7 @@ export const RETTUNGSTECHNIK_THEMEN: RettungstechnikTopic[] = [
       {
         heading: 'Organisation',
         facts: [
-          { text: 'Einheitliche, immer gleiche Anordnung im Rucksack — für schnellen Zugriff auch im Dunkeln oder unter Stress' },
+          { text: 'Einheitliche, immer gleiche Anordnung im Rucksack. Für schnellen Zugriff auch im Dunkeln oder unter Stress' },
           { text: 'Regelmäßige technische Prüfung von Geräten (z. B. Absauggerät, Sauerstoffflasche)' },
         ],
       },

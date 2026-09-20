@@ -1,7 +1,7 @@
 import type { RechtlicheGrundlagenTopic } from './types';
 
 const GENERAL_SOURCE_NOTE =
-  'Allgemeines rechtliches Grundlagenwissen für den Rettungsdienst — keine SAA/BPR-Quelle und keine ' +
+  'Allgemeines rechtliches Grundlagenwissen für den Rettungsdienst. Keine SAA/BPR-Quelle und keine ' +
   'Rechtsberatung. Konkrete Rechtsvorschriften (Rettungsdienstgesetze, Delegationsumfang, ' +
   'Dokumentationsvorgaben) sind bundeslandspezifisch geregelt; im Einzelfall zählt immer die aktuelle ' +
   'Gesetzeslage bzw. lokale Dienstanweisung.';
@@ -33,7 +33,7 @@ export const RECHTLICHEGRUNDLAGEN_THEMEN: RechtlicheGrundlagenTopic[] = [
         facts: [
           { text: 'Jede Person ist zur zumutbaren Hilfeleistung bei Unglücksfällen verpflichtet' },
           { text: 'Das Unterlassen zumutbarer Hilfe ist strafbar' },
-          { text: 'Zumutbarkeit hat Grenzen: die eigene Sicherheit geht vor — niemand muss sich selbst in Gefahr bringen' },
+          { text: 'Zumutbarkeit hat Grenzen: die eigene Sicherheit geht vor. Niemand muss sich selbst in Gefahr bringen' },
         ],
       },
     ],
@@ -59,7 +59,7 @@ export const RECHTLICHEGRUNDLAGEN_THEMEN: RechtlicheGrundlagenTopic[] = [
         facts: [
           { text: 'Einwilligung des Patienten' },
           { text: 'Gesetzliche Meldepflichten (z. B. bestimmte Infektionskrankheiten)', minLevel: 'RS' },
-          { text: 'Rechtfertigender Notstand — z. B. akute Gefahr für Leib und Leben Dritter', minLevel: 'RS' },
+          { text: 'Rechtfertigender Notstand. Z. B. akute Gefahr für Leib und Leben Dritter', minLevel: 'RS' },
         ],
       },
       {
@@ -77,12 +77,12 @@ export const RECHTLICHEGRUNDLAGEN_THEMEN: RechtlicheGrundlagenTopic[] = [
     title: 'Patientenverfügung, Patientenwille & mutmaßlicher Wille',
     category: 'Grundrechte & Pflichten',
     minLevel: 'RS',
-    summary: 'Der Wille des Patienten hat Vorrang — auch wenn er einer lebensrettenden Behandlung widerspricht.',
+    summary: 'Der Wille des Patienten hat Vorrang. Auch wenn er einer lebensrettenden Behandlung widerspricht.',
     sections: [
       {
         heading: 'Patientenwille hat Vorrang',
         facts: [
-          { text: 'Ein einwilligungsfähiger, aufgeklärter Patient kann jede Behandlung ablehnen — auch eine lebensrettende' },
+          { text: 'Ein einwilligungsfähiger, aufgeklärter Patient kann jede Behandlung ablehnen. Auch eine lebensrettende' },
         ],
       },
       {
@@ -96,7 +96,7 @@ export const RECHTLICHEGRUNDLAGEN_THEMEN: RechtlicheGrundlagenTopic[] = [
         heading: 'Mutmaßlicher Wille',
         facts: [
           {
-            text: 'Ist der Patient nicht einwilligungsfähig und liegt keine anwendbare Patientenverfügung vor, muss der mutmaßliche Wille ermittelt werden — z. B. über Angehörige oder frühere Äußerungen',
+            text: 'Ist der Patient nicht einwilligungsfähig und liegt keine anwendbare Patientenverfügung vor, muss der mutmaßliche Wille ermittelt werden. Z. B. über Angehörige oder frühere Äußerungen',
           },
         ],
       },
@@ -112,7 +112,7 @@ export const RECHTLICHEGRUNDLAGEN_THEMEN: RechtlicheGrundlagenTopic[] = [
   },
   {
     id: 'delegation-kompetenzabgrenzung',
-    title: 'Delegation ärztlicher Maßnahmen — Abgrenzung RS vs. NotSan',
+    title: 'Delegation ärztlicher Maßnahmen – Abgrenzung RS vs. NotSan',
     category: 'Delegation & Kompetenz',
     minLevel: 'RS',
     summary: 'Warum bestimmte Maßnahmen nur mit ärztlicher Delegation durchgeführt werden dürfen.',
@@ -128,7 +128,7 @@ export const RECHTLICHEGRUNDLAGEN_THEMEN: RechtlicheGrundlagenTopic[] = [
         facts: [
           { text: 'Nicht-invasive Basismaßnahmen, Beobachtung und Dokumentation' },
           { text: 'Unterstützung bei der Behandlung' },
-          { text: 'Keine eigenständige Medikamentengabe — siehe Medikamente-Modul' },
+          { text: 'Keine eigenständige Medikamentengabe, siehe Medikamente-Modul' },
         ],
       },
       {
@@ -141,7 +141,7 @@ export const RECHTLICHEGRUNDLAGEN_THEMEN: RechtlicheGrundlagenTopic[] = [
       {
         heading: 'Regionale Unterschiede',
         facts: [
-          { text: 'Welche Maßnahmen im Einzelnen delegiert sind, regelt die jeweilige Ärztliche Leitung Rettungsdienst — das kann sich zwischen Bundesländern/Organisationen unterscheiden' },
+          { text: 'Welche Maßnahmen im Einzelnen delegiert sind, regelt die jeweilige Ärztliche Leitung Rettungsdienst. Das kann sich zwischen Bundesländern/Organisationen unterscheiden' },
         ],
       },
     ],

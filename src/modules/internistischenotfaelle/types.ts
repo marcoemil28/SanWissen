@@ -14,6 +14,8 @@ export interface InternistischeNotfaelleFact {
 
 export interface InternistischeNotfaelleSection {
   heading?: string;
+  /** ID einer Abbildung zu diesem Abschnitt (siehe ios/…/IllustrationView.swift). */
+  illustrationId?: string;
   facts: InternistischeNotfaelleFact[];
 }
 

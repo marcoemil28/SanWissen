@@ -1,0 +1,6 @@
+// Nach Signing.local.xcconfig kopieren und die eigenen Werte eintragen.
+// Die Team-ID steht in Xcode unter Settings, Accounts, oder im Apple
+// Developer Portal unter Membership.
+
+DEVELOPMENT_TEAM = ABCDE12345
+PRODUCT_BUNDLE_IDENTIFIER = com.deinverein.sanwissen

@@ -1,0 +1,485 @@
+{
+  "moduleId": "sanitaetsdienst",
+  "title": "Sanitätsdienst (Veranstaltungsdienst)",
+  "symbol": "tent.fill",
+  "listStyle": "facts",
+  "categoryOrder": [
+    "Einsatzorganisation",
+    "Kommunikation",
+    "Medizinische Besonderheiten"
+  ],
+  "contentStand": "2026-09-17",
+  "topics": [
+    {
+      "id": "wachdienst-organisation",
+      "title": "Sanitätswachdienst-Organisation",
+      "category": "Einsatzorganisation",
+      "summary": "Wie eine Sanitätswache bei einer Veranstaltung aufgebaut ist und welche Rollen es gibt.",
+      "minLevel": "SanH",
+      "page": null,
+      "sourceNote": "Allgemeines Grundlagenwissen zum Sanitäts-/Veranstaltungsdienst. Keine SAA/BPR-Quelle. Konkrete Abläufe (Funkkanäle/Rufnamen, Sichtungsschema, Hygieneplan) sind organisations- und bundeslandspezifisch geregelt; es gilt immer die aktuelle, lokale Dienstanweisung bzw. der Hygieneplan des Trägers.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "Aufbau einer Wache",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Anmeldung/Erstkontakt: erste Anlaufstelle für Patienten und Helfer",
+              "minLevel": null
+            },
+            {
+              "text": "Behandlungsbereich: abgetrennt, mit Liege(n), Sicht- und Lärmschutz",
+              "minLevel": null
+            },
+            {
+              "text": "Ruhebereich für Betreuung (z. B. Kreislaufkollaps, psychische Erste Hilfe)",
+              "minLevel": null
+            },
+            {
+              "text": "Materialdepot: Nachschub an Verbrauchsmaterial, getrennt vom Behandlungsbereich",
+              "minLevel": null
+            },
+            {
+              "text": "Fahrzeug-/Trage-Stellplatz mit freier Zufahrt für den Rettungsdienst",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Materialdepot & Ausstattung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Inventarliste zu Dienstbeginn und -ende prüfen (Vollständigkeit, Verfallsdaten)",
+              "minLevel": null
+            },
+            {
+              "text": "Springer-/Reservematerial für Streifenteams getrennt vorhalten",
+              "minLevel": null
+            },
+            {
+              "text": "Nachschubweg definieren: wer meldet Verbrauch, wer füllt auf",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Funkkonzept",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Wachleitung als zentrale Anlaufstelle und Koordinationsstelle",
+              "minLevel": "RS"
+            },
+            {
+              "text": "Sprechgruppen/Kanäle nach Einsatzabschnitt oder Aufgabe getrennt",
+              "minLevel": "RS"
+            },
+            {
+              "text": "Jedes Team erhält einen eindeutigen Rufnamen für die Dauer der Veranstaltung",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Einsatzabschnitte bei Großveranstaltungen",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Abschnittsleitung koordiniert mehrere Sanitätsstationen/Streifenteams",
+              "minLevel": "RS"
+            },
+            {
+              "text": "Hauptwache als zentrale Sanitätsstation, dezentrale Nebenwachen je nach Geländegröße",
+              "minLevel": null
+            },
+            {
+              "text": "Streifenteams (Fuß/Rad) zur schnellen Erstversorgung in der Menschenmenge",
+              "minLevel": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "manv-sichtung",
+      "title": "MANV & Sichtung (Triage)",
+      "category": "Einsatzorganisation",
+      "summary": "Grundprinzip der Sichtung bei einem Massenanfall von Verletzten (MANV): Ziel ist die größtmögliche Anzahl Überlebender, nicht die optimale Einzelbehandlung.",
+      "minLevel": "RS",
+      "page": null,
+      "sourceNote": "Allgemeines Grundlagenwissen zum Sanitäts-/Veranstaltungsdienst. Keine SAA/BPR-Quelle. Konkrete Abläufe (Funkkanäle/Rufnamen, Sichtungsschema, Hygieneplan) sind organisations- und bundeslandspezifisch geregelt; es gilt immer die aktuelle, lokale Dienstanweisung bzw. der Hygieneplan des Trägers.",
+      "notes": [
+        "Das genaue Ampelschema und die Kriterien-Schwellenwerte können je nach Bundesland/Landesrettungsdienstplan variieren. Maßgeblich ist immer die lokale Vorgabe/SOP."
+      ],
+      "sections": [
+        {
+          "heading": "Was ist ein MANV?",
+          "illustration": null,
+          "items": [
+            {
+              "text": "MANV = die Anzahl und/oder Schwere der Verletzten übersteigt die sofort verfügbaren Rettungsmittel",
+              "minLevel": null
+            },
+            {
+              "text": "Grundsatzwechsel: weg von \"bestmögliche Versorgung für einen Patienten\", hin zu \"größtmögliche Anzahl Überlebender\"",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Sichtungskategorien (Ampelschema)",
+          "illustration": "sichtungskarte",
+          "items": [
+            {
+              "text": "Sichtungskategorie I (rot): akute vitale Bedrohung, sofortige Behandlung",
+              "minLevel": null
+            },
+            {
+              "text": "Sichtungskategorie II (gelb): schwer verletzt/erkrankt, aufgeschobene Behandlung",
+              "minLevel": null
+            },
+            {
+              "text": "Sichtungskategorie III (grün): leicht verletzt, spätere/ambulante Behandlung",
+              "minLevel": null
+            },
+            {
+              "text": "Sichtungskategorie IV (blau): ohne Überlebenschance, betreuende/palliative Versorgung",
+              "minLevel": null
+            },
+            {
+              "text": "Tote werden gesondert gekennzeichnet, sind aber keine eigene Sichtungskategorie",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Sichtungsalgorithmus (Grundprinzip, angelehnt an START)",
+          "illustration": "sichtungskategorien",
+          "items": [
+            {
+              "text": "Gehfähig? → ja: Sichtungskategorie III, Sammelpunkt für Leichtverletzte",
+              "minLevel": null
+            },
+            {
+              "text": "Atmung nach Freimachen der Atemwege vorhanden? → nein: Sichtungskategorie IV/tot",
+              "minLevel": null
+            },
+            {
+              "text": "Atemfrequenz stark erhöht/erniedrigt (Richtwert < 10 oder > 29/min) → Sichtungskategorie I",
+              "minLevel": null
+            },
+            {
+              "text": "Kreislauf kritisch (Rekapillarisierungszeit > 2 s bzw. Radialispuls fehlt) → Sichtungskategorie I",
+              "minLevel": null
+            },
+            {
+              "text": "Bewusstsein eingeschränkt (folgt keinen einfachen Aufforderungen) → Sichtungskategorie I",
+              "minLevel": null
+            },
+            {
+              "text": "Keines der Kriterien erfüllt → Sichtungskategorie II",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Sichtung ist ein dynamischer Prozess",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Regelmäßige Nachsichtung, da sich der Zustand verschlechtern oder verbessern kann",
+              "minLevel": null
+            },
+            {
+              "text": "Kennzeichnung z. B. mit Sichtungskarten/-anhängern nach Kategorie",
+              "minLevel": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "funkalphabet",
+      "title": "Funkalphabet & Funkdisziplin",
+      "category": "Kommunikation",
+      "summary": "Das international genormte Buchstabieralphabet, die FMS-Statusmeldungen und Grundregeln für klaren, kurzen Sprechfunkverkehr.",
+      "minLevel": "SanH",
+      "page": null,
+      "sourceNote": "Allgemeines Grundlagenwissen zum Sanitäts-/Veranstaltungsdienst. Keine SAA/BPR-Quelle. Konkrete Abläufe (Funkkanäle/Rufnamen, Sichtungsschema, Hygieneplan) sind organisations- und bundeslandspezifisch geregelt; es gilt immer die aktuelle, lokale Dienstanweisung bzw. der Hygieneplan des Trägers.",
+      "notes": [
+        "Konkrete Kanalzuteilung und Rufnamen sind organisationsspezifisch (BOS-Funk-Richtlinien, lokale Dienstanweisung).",
+        "Die Statusmeldungen 0–6 sind bundesweit weitgehend einheitlich. Bei 7, 8 und 9 weichen einzelne Leitstellen ab. Vor dem Dienst die eigene Statusliste prüfen, nicht auf diese Liste verlassen."
+      ],
+      "sections": [
+        {
+          "heading": "Internationales Buchstabieralphabet (nach DIN 5009 / ICAO)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "A – Alfa, B. Bravo, C. Charlie, D. Delta, E. Echo, F. Foxtrot, G. Golf, H. Hotel, I, India",
+              "minLevel": null
+            },
+            {
+              "text": "J – Juliett, K. Kilo, L. Lima, M. Mike, N. November, O. Oscar, P. Papa, Q. Quebec, R, Romeo",
+              "minLevel": null
+            },
+            {
+              "text": "S – Sierra, T. Tango, U. Uniform, V. Victor, W. Whiskey, X. X-ray, Y. Yankee, Z, Zulu",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "FMS-Statusmeldungen 0–9",
+          "illustration": null,
+          "items": [
+            {
+              "text": "0 — Priorisierter Sprechwunsch (Notruf): hat Vorrang vor allem anderen auf dem Kanal",
+              "minLevel": null
+            },
+            {
+              "text": "1 — Einsatzbereit über Funk: das Fahrzeug ist besetzt und unterwegs, aber frei für einen Auftrag",
+              "minLevel": null
+            },
+            {
+              "text": "2 — Einsatzbereit auf Wache: besetzt und verfügbar, steht aber am Standort",
+              "minLevel": null
+            },
+            {
+              "text": "3 — Einsatz übernommen: Auftrag angenommen, Anfahrt zum Einsatzort läuft",
+              "minLevel": null
+            },
+            {
+              "text": "4 — Ankunft am Einsatzort",
+              "minLevel": null
+            },
+            {
+              "text": "5 — Sprechwunsch (nicht dringlich): die Leitstelle ruft zurück, sobald der Kanal frei ist",
+              "minLevel": null
+            },
+            {
+              "text": "6 — Nicht einsatzbereit: außer Dienst, in Reinigung, Defekt oder Pause",
+              "minLevel": null
+            },
+            {
+              "text": "7 — Einsatzgebunden, Transport begonnen: Patient aufgenommen, Fahrt zum Zielort",
+              "minLevel": null
+            },
+            {
+              "text": "8 — Ankunft am Zielort (z. B. Krankenhaus)",
+              "minLevel": null
+            },
+            {
+              "text": "9 — Quittung/Rückfrage der Leitstelle. Belegung schwankt je nach Leitstelle am stärksten",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Grundregeln der Funkdisziplin",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Kurz und präzise sprechen. Kein unnötiges \"Füllwort\"-Geplauder auf dem Kanal",
+              "minLevel": null
+            },
+            {
+              "text": "Erst die Gegenstelle nennen, dann \"von\", dann den eigenen Rufnamen (z. B. \"Wachleitung von Sani 3\")",
+              "minLevel": null
+            },
+            {
+              "text": "\"Kommen\" markiert nur die Übergabe an die Gegenstelle, nicht jede einzelne Durchsage. Innerhalb eines laufenden Gesprächs muss es nicht jedes Mal wiederholt werden, \"Ende\" beendet den gesamten Sprechfunkverkehr",
+              "minLevel": null
+            },
+            {
+              "text": "Mithören durch Dritte bedenken. Keine sensiblen Patientendaten im Klartext",
+              "minLevel": null
+            },
+            {
+              "text": "Kanal nach der Durchsage sofort wieder freigeben",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Standard-Sprechfunkverkehr-Ablauf",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Rufname der Gegenstelle → \"von\" → eigener Rufname → Nachricht",
+              "minLevel": null
+            },
+            {
+              "text": "Wichtige Angaben (Ort, Anzahl Patienten, Zustand) in fester Reihenfolge durchgeben",
+              "minLevel": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "veranstaltungs-verletzungsmuster",
+      "title": "Typische Veranstaltungs-Verletzungsmuster",
+      "category": "Medizinische Besonderheiten",
+      "summary": "Wiederkehrende Beschwerdebilder bei Menschenansammlungen, Festivals und Sportveranstaltungen.",
+      "minLevel": "SanH",
+      "page": null,
+      "sourceNote": "Allgemeines Grundlagenwissen zum Sanitäts-/Veranstaltungsdienst. Keine SAA/BPR-Quelle. Konkrete Abläufe (Funkkanäle/Rufnamen, Sichtungsschema, Hygieneplan) sind organisations- und bundeslandspezifisch geregelt; es gilt immer die aktuelle, lokale Dienstanweisung bzw. der Hygieneplan des Trägers.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "Typische Ursachen",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Menschenmengen/Gedränge (Crowd Crush)",
+              "minLevel": null
+            },
+            {
+              "text": "Alkohol- und Drogenkonsum",
+              "minLevel": null
+            },
+            {
+              "text": "Witterung (Hitze, Kälte, direkte Sonne)",
+              "minLevel": null
+            },
+            {
+              "text": "Lärm, Stress, langes Stehen",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Kreislaufkollaps (vasovagale Synkope)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Häufigstes Beschwerdebild bei Veranstaltungen",
+              "minLevel": null
+            },
+            {
+              "text": "Auslöser: langes Stehen, Hitze, Aufregung, Blutentnahme/Anblick von Blut",
+              "minLevel": null
+            },
+            {
+              "text": "Maßnahmen: hinlegen, Beine hochlagern, für kühle Umgebung und Flüssigkeit sorgen",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Verletzungen durch Gedränge (Crowd Crush)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Quetschungen und Sturzverletzungen in dichten Menschenmengen",
+              "minLevel": null
+            },
+            {
+              "text": "Erstickungsgefahr durch Brustkorbkompression. Frühzeitige Eigen- und Fremdrettung aus der Menge",
+              "minLevel": "RS"
+            }
+          ]
+        },
+        {
+          "heading": "Alkohol- und Hitzeintoxikation",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Erkennungsmerkmale: verminderte Ansprechbarkeit, Gangunsicherheit, Erbrechen",
+              "minLevel": null
+            },
+            {
+              "text": "Basismaßnahmen: stabile Seitenlage bei Erbrechen, Überwachung von Atmung und Bewusstsein",
+              "minLevel": null
+            },
+            {
+              "text": "Bei fehlender Besserung oder Bewusstlosigkeit: Notarzt/Klinikeinweisung veranlassen",
+              "minLevel": "RS"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hygiene-infektionsschutz",
+      "title": "Hygiene & Infektionsschutz",
+      "category": "Medizinische Besonderheiten",
+      "summary": "Basishygiene, persönliche Schutzausrüstung und Vorgehen nach Blutkontakt/Nadelstichverletzung.",
+      "minLevel": "SanH",
+      "page": null,
+      "sourceNote": "Allgemeines Grundlagenwissen zum Sanitäts-/Veranstaltungsdienst. Keine SAA/BPR-Quelle. Konkrete Abläufe (Funkkanäle/Rufnamen, Sichtungsschema, Hygieneplan) sind organisations- und bundeslandspezifisch geregelt; es gilt immer die aktuelle, lokale Dienstanweisung bzw. der Hygieneplan des Trägers.",
+      "notes": [
+        "Hygienevorgaben richten sich nach dem Hygieneplan des Trägers und aktuellen RKI-Empfehlungen."
+      ],
+      "sections": [
+        {
+          "heading": "Basishygiene",
+          "illustration": "haendedesinfektion",
+          "items": [
+            {
+              "text": "Händedesinfektion vor Patientenkontakt, vor aseptischen Tätigkeiten, nach Kontakt mit Körperflüssigkeiten, nach Patientenkontakt und nach Kontakt mit der Patientenumgebung",
+              "minLevel": null
+            },
+            {
+              "text": "Flächendesinfektion von Fahrzeug und Material nach jedem Einsatz mit Kontamination",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Persönliche Schutzausrüstung (PSA)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Einmalhandschuhe als Standard bei jedem Patientenkontakt",
+              "minLevel": null
+            },
+            {
+              "text": "Mund-Nasen-Schutz bzw. FFP2 bei Verdacht auf übertragbare Erkrankung",
+              "minLevel": null
+            },
+            {
+              "text": "Schutzbrille bei Spritzgefahr (z. B. Erbrechen, Blutung)",
+              "minLevel": null
+            }
+          ]
+        },
+        {
+          "heading": "Umgang mit Blutkontakt / Nadelstichverletzung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Sofortmaßnahmen: Blutfluss an der Wunde fördern, anschließend gründlich desinfizieren",
+              "minLevel": null
+            },
+            {
+              "text": "Vorfall dokumentieren und zeitnah D-Arzt bzw. Betriebsarzt vorstellen",
+              "minLevel": "RS"
+            },
+            {
+              "text": "Je nach Risikoeinschätzung ist eine Postexpositionsprophylaxe zu prüfen",
+              "minLevel": "RS"
+            }
+          ]
+        },
+        {
+          "heading": "Entsorgung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Spitze/scharfe Gegenstände ausschließlich in durchstichsicheren Behältern entsorgen",
+              "minLevel": null
+            },
+            {
+              "text": "Kontaminiertes Material getrennt vom restlichen Abfall entsorgen",
+              "minLevel": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

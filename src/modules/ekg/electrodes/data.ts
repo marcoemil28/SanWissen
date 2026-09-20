@@ -12,115 +12,149 @@ export const MONITORING_SET: ElectrodeSet = {
   title: 'Monitoring-EKG (3-/4-Kanal, „Ampelschema“)',
   intro:
     'Für die kontinuierliche Rhythmusüberwachung reichen 3 (bzw. 4) Elektroden am Rumpf. ' +
-    'Eselsbrücke „Ampelschema“: wie eine Ampel von oben nach unten und von rechts nach links – Rot, Gelb, Grün (, Schwarz).',
+    'Eselsbrücke „Ampelschema“: wie eine Ampel von oben nach unten und von rechts nach links, also Rot, Gelb, Grün. ' +
+    'Bei vier Elektroden kommt Schwarz als Erdung dazu. ' +
+    'Im Rettungsdienst wird bewusst auf Schultern und Leisten geklebt, damit die Flächen unterhalb des rechten ' +
+    'Schlüsselbeins und auf dem linken Rippenbogen für Defibrillations-Pads frei bleiben. In Klinik und Intensivmedizin ' +
+    'ist stattdessen die Mason-Likar-Position üblich (Armelektroden ca. 2 cm unterhalb des Schlüsselbeins, Beinelektrode ' +
+    'in der vorderen Axillarlinie zwischen Beckenkamm und unterster Rippe). Die belegt aber genau die Defi-Flächen.',
   bodyType: 'full',
-  viewBox: { w: 400, h: 750 },
+  imageName: 'koerper-vorderansicht',
+  viewBox: { w: 669, h: 1200 },
   minLevel: 'RS',
   points: [
     {
       id: 'rot',
       label: 'Rot',
       color: '#e5484d',
-      x: 150,
-      y: 145,
-      description: 'Rechte Infraklavikulargrube (unterhalb des rechten Schlüsselbeins)',
+      x: 214,
+      y: 262,
+      description: 'Rechte Schulter, über dem Schultergelenk. „rot = rechts, oben“',
     },
     {
       id: 'gelb',
       label: 'Gelb',
       color: '#e6c34d',
-      x: 250,
-      y: 145,
-      description: 'Linke Infraklavikulargrube (unterhalb des linken Schlüsselbeins)',
+      x: 484,
+      y: 262,
+      description: 'Linke Schulter, über dem Schultergelenk',
     },
     {
       id: 'gruen',
       label: 'Grün',
       color: '#3ddc84',
-      x: 230,
-      y: 330,
-      description: 'Linker unterer Rippenbogen / linke Flanke (Richtung Herzspitze)',
+      x: 424,
+      y: 516,
+      description: 'Linke Leiste, Höhe Beckenkamm. Die Ampel endet unten links bei Grün',
     },
     {
       id: 'schwarz',
       label: 'Schwarz',
       color: '#c7cdd6',
-      x: 170,
-      y: 330,
-      description: 'Rechter unterer Rippenbogen (Erdungselektrode, nur bei 4-Kanal-Ableitung)',
+      x: 262,
+      y: 516,
+      description: 'Rechte Leiste, Höhe Beckenkamm (Erdung, nur bei 4-Kanal-Ableitung)',
     },
   ],
 };
 
-/**
- * Brustkorb-Set: viewBox 0 0 500 560, siehe ThoraxOutline.tsx für die
- * gezeichneten Interkostalraum-Bänder (ICR1-6, y-Bänder) und vertikalen
- * Leitlinien (Sternal-/Medioklavikular-/vordere+mittlere Axillarlinie).
- * Für V1, V2, V4, V5, V6 wird beim Üben strikt geprüft, ob die Elektrode im
- * richtigen ICR-Band UND auf der richtigen Linie liegt (hitZone) — nicht nur
- * "nah genug" an einem Punkt. V3 ("zwischen V2 und V4") sowie die vier
- * Extremitätenableitungen bleiben einfache Abstands-Ziele.
- */
 export const TWELVE_LEAD_SET: ElectrodeSet = {
   id: 'twelve-lead',
-  title: '12-Kanal-EKG (Extremitäten- + Brustwandableitungen)',
+  title: '12-Kanal-EKG (Extremitäten + Brustwand V1–V6)',
   intro:
-    'Für ein vollständiges 12-Kanal-EKG (z. B. bei V. a. ACS/STEMI) braucht es 4 Extremitäten- und 6 ' +
-    'Brustwandelektroden (V1-V6) nach Wilson. Bei V1, V2, V4-V6 zählt hier sowohl der richtige ' +
-    'Interkostalraum als auch die richtige Linie – wie in echt.',
+    'Für ein vollständiges 12-Kanal-EKG (z. B. bei V. a. ACS/STEMI) braucht es 4 Extremitäten- und ' +
+    '6 Brustwandelektroden (V1–V6) nach Wilson. Gezählt wird vom Angulus sterni: dort setzt die 2. Rippe an, ' +
+    'darunter liegt der 2. Interkostalraum. Von da zwei Räume weiter nach unten sitzt V1/V2 im 4. ICR. ' +
+    'Bei V1, V2 und V4–V6 zählt hier sowohl der richtige Interkostalraum als auch die richtige Linie.',
   bodyType: 'thorax',
-  viewBox: { w: 500, h: 560 },
+  imageName: 'thorax-vorderansicht',
+  viewBox: { w: 746, h: 1000 },
   minLevel: 'RS',
   points: [
-    { id: 'ra', label: 'RA (Rot)', color: '#e5484d', x: 85, y: 65, description: 'Richtung rechter Arm (z. B. Handgelenk, innenseitig)' },
-    { id: 'la', label: 'LA (Gelb)', color: '#e6c34d', x: 415, y: 65, description: 'Richtung linker Arm (z. B. Handgelenk, innenseitig)' },
-    { id: 'rl', label: 'RL (Schwarz)', color: '#c7cdd6', x: 150, y: 500, description: 'Richtung rechtes Bein (z. B. Sprunggelenk, innenseitig)' },
-    { id: 'll', label: 'LL (Grün)', color: '#3ddc84', x: 350, y: 500, description: 'Richtung linkes Bein (z. B. Sprunggelenk, innenseitig)' },
+    {
+      id: 'ra',
+      label: 'RA (Rot)',
+      color: '#e5484d',
+      x: 108,
+      y: 280,
+      description: 'Rechte Schulter, Richtung rechter Arm',
+    },
+    {
+      id: 'la',
+      label: 'LA (Gelb)',
+      color: '#e6c34d',
+      x: 645,
+      y: 280,
+      description: 'Linke Schulter, Richtung linker Arm',
+    },
+    {
+      id: 'rl',
+      label: 'RL (Schwarz)',
+      color: '#c7cdd6',
+      x: 200,
+      y: 900,
+      description: 'Rechte Hüfte/Leiste, Richtung rechtes Bein (Erdung)',
+    },
+    {
+      id: 'll',
+      label: 'LL (Grün)',
+      color: '#3ddc84',
+      x: 550,
+      y: 900,
+      description: 'Linke Hüfte/Leiste, Richtung linkes Bein',
+    },
     {
       id: 'v1',
       label: 'V1',
       color: '#4da3ff',
-      x: 230,
-      y: 245,
-      description: '4. Interkostalraum, rechts parasternal',
-      hitZone: { rowY: [220, 268], colX: [212, 248] },
+      x: 335,
+      y: 430,
+      description: '4. Interkostalraum, rechts parasternal (direkt neben dem Brustbein)',
+      hitZone: { rowY: [405, 455], colX: [313, 357] },
     },
     {
       id: 'v2',
       label: 'V2',
       color: '#4da3ff',
-      x: 270,
-      y: 245,
+      x: 410,
+      y: 430,
       description: '4. Interkostalraum, links parasternal',
-      hitZone: { rowY: [220, 268], colX: [252, 288] },
+      hitZone: { rowY: [405, 455], colX: [388, 432] },
     },
-    { id: 'v3', label: 'V3', color: '#4da3ff', x: 305, y: 283, description: 'Zwischen V2 und V4' },
+    {
+      id: 'v3',
+      label: 'V3',
+      color: '#4da3ff',
+      x: 445,
+      y: 452,
+      description: 'Mittig zwischen V2 und V4',
+    },
     {
       id: 'v4',
       label: 'V4',
       color: '#4da3ff',
-      x: 340,
-      y: 322,
+      x: 480,
+      y: 475,
       description: '5. Interkostalraum, linke Medioklavikularlinie',
-      hitZone: { rowY: [293, 350], colX: [322, 358] },
+      hitZone: { rowY: [450, 502], colX: [458, 502] },
     },
     {
       id: 'v5',
       label: 'V5',
       color: '#4da3ff',
-      x: 400,
-      y: 335,
+      x: 540,
+      y: 475,
       description: 'Vordere Axillarlinie, auf Höhe von V4',
-      hitZone: { rowY: [303, 362], colX: [382, 418] },
+      hitZone: { rowY: [450, 502], colX: [518, 562] },
     },
     {
       id: 'v6',
       label: 'V6',
       color: '#4da3ff',
-      x: 425,
-      y: 327,
+      x: 582,
+      y: 475,
       description: 'Mittlere Axillarlinie, auf Höhe von V4',
-      hitZone: { rowY: [298, 356], colX: [407, 443] },
+      hitZone: { rowY: [450, 502], colX: [560, 604] },
     },
   ],
 };

@@ -18,6 +18,8 @@ export interface TraumaSection {
   facts: TraumaFact[];
   /** Optionale stilisierte Beispiel-Illustration (kein Foto) für diesen Abschnitt. */
   illustration?: ComponentType;
+  /** ID einer schematischen Zeichnung, die nur die iOS-App rendert. */
+  illustrationId?: string;
 }
 
 export interface TraumaTopic {

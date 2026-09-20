@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Xcode
+ios/build
+ios/build-device
+ios/build-sim
+ios/build-check
+ios/DerivedData
+*.xcuserstate
+xcuserdata/
+
+# Signierung: Team-ID und Bundle-ID bleiben lokal.
+# Vorlage: ios/Signing.local.xcconfig.example
+ios/Signing.local.xcconfig
+
+# Claude-Code-Arbeitsverzeichnis
+.claude/

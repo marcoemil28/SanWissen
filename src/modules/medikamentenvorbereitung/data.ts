@@ -14,6 +14,7 @@ export const MED_VORBEREITUNG: MedVorbereitungEntry[] = [
     sections: [
       {
         heading: '6-R-Regel',
+        illustrationId: 'medikamentenschachtel',
         steps: [
           { text: 'Richtiger Patient?', minLevel: 'RS' },
           { text: 'Richtiges Medikament?', minLevel: 'RS' },
@@ -28,7 +29,7 @@ export const MED_VORBEREITUNG: MedVorbereitungEntry[] = [
         steps: [
           { text: 'Aufgezogene Spritzen eindeutig kennzeichnen (z. B. DIVI-ISO-Aufkleber)', minLevel: 'RS' },
           { text: '4-Augen-Prinzip anwenden, wo möglich', minLevel: 'RS' },
-          { text: 'Doppelkontrolle — sowohl bei der Vorbereitung als auch bei der Verabreichung', minLevel: 'RS' },
+          { text: 'Doppelkontrolle. Sowohl bei der Vorbereitung als auch bei der Verabreichung', minLevel: 'RS' },
           {
             text: 'Gesicherte Kommunikation: Anordnungen (Präparat, Dosierung) von der ausführenden Person laut wiederholen',
             minLevel: 'RS',
@@ -37,11 +38,12 @@ export const MED_VORBEREITUNG: MedVorbereitungEntry[] = [
       },
       {
         heading: 'Standardvorgehen bei Medikamentengabe (Ablauf)',
+        illustrationId: 'infusionssystem',
         steps: [
           { text: 'Indikation anhand des passenden BPR bestätigt?', minLevel: 'RS' },
           { text: 'Kontraindikationen ausgeschlossen?', minLevel: 'RS' },
           { text: 'Einwilligung des Patienten erteilt?', minLevel: 'RS' },
-          { text: '6-R-Regel — alle sechs Punkte mit „ja" beantwortet?', minLevel: 'RS' },
+          { text: '6-R-Regel. Alle sechs Punkte mit „ja" beantwortet?', minLevel: 'RS' },
           { text: 'Durchführung: Applikation gemäß SAA', minLevel: 'NotSan' },
           { text: 'Verlaufskontrolle: gewünschte Wirkung erreicht?', minLevel: 'NotSan' },
           { text: 'Dokumentation im Einsatzprotokoll', minLevel: 'RS' },
@@ -52,7 +54,7 @@ export const MED_VORBEREITUNG: MedVorbereitungEntry[] = [
         ],
       },
       {
-        heading: 'Verdünnen — die Grundrechnung',
+        heading: 'Verdünnen – die Grundrechnung',
         steps: [
           {
             text: 'Grundformel: Ausgangskonzentration × Ausgangsvolumen = Zielkonzentration × Zielvolumen (C1×V1 = C2×V2)',
