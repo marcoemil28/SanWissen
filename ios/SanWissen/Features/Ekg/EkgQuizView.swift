@@ -21,7 +21,10 @@ struct EkgQuizView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 if let current, let trace {
-                    EcgTraceView(trace: trace)
+                    // Ohne Zoom: den Knopf gibt es nur bei Rhythmen mit
+                    // abgrenzbarem Komplex, sein Fehlen würde die Antwort auf
+                    // Kammerflimmern, Kammerflattern oder Asystole eingrenzen.
+                    EcgTraceView(trace: trace, allowsZoom: false)
 
                     Text("Welcher Rhythmus ist das?")
                         .font(.headline)

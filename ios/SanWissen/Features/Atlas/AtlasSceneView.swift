@@ -7,10 +7,31 @@ final class AtlasModel {
     /// Sichtbare Systeme. Die Körperoberfläche ist zu Beginn aus, sonst
     /// verdeckt sie alles darunter — die Vorlage zeigt deshalb 2.229 der
     /// 2.234 Teile.
-    static let initiallyHidden: Set<String> = ["integumentary"]
-    var visibleSystems: Set<String> = Set(AtlasSystem.all.map(\.id))
-        .subtracting(AtlasModel.initiallyHidden)
+    var visibleSystems: Set<String> = AtlasSystem.defaultVisible
     var filter: AtlasSystem.Filter = .all
+    /// Welches Referenzmodell gezeigt wird.
+    var sex: AtlasSex = .male
+
+    // Kenndaten des geladenen Modells. Als gespeicherte Eigenschaften, damit
+    // die Ansicht den Wechsel mitbekommt — der Store selbst wird nicht
+    // beobachtet.
+    var partCount = 0
+    var conceptCount = 0
+    var sourceName = ""
+    var scopeText = ""
+    var versionText = ""
+    var availableSystems: [AtlasSystem] = []
+
+    private func captureDatasetInfo() {
+        let store = AtlasStore.shared
+        partCount = store.parts.count
+        conceptCount = store.concepts.count
+        sourceName = store.source
+        scopeText = store.scope
+        versionText = store.version
+        let present = Set(store.parts.map(\.system))
+        availableSystems = AtlasSystem.all.filter { present.contains($0.id) }
+    }
     var explode: Double = 0
     var viewpoint: AtlasViewpoint = .threeQuarter
 
@@ -22,6 +43,33 @@ final class AtlasModel {
     var searchText = ""
     var showsCredits = false
     var isRotating = false
+
+    // MARK: - Quiz
+
+    /// Ergebnis der letzten Antwort.
+    enum QuizResult: Equatable {
+        case correct
+        /// Falsch getippt, mit dem Namen der getroffenen Struktur.
+        case wrong(String)
+    }
+
+    var quizActive = false
+    /// Die gesuchte Struktur.
+    var quizTarget: AtlasPart?
+    var quizResult: QuizResult?
+    var quizAsked = 0
+    var quizCorrect = 0
+    /// Netze, die von der aktuellen Ansicht aus getroffen werden können.
+    @ObservationIgnored private var outerPartIds: [String] = []
+    /// Bereits gefragte Strukturen, damit sich Fragen nicht sofort wiederholen.
+    @ObservationIgnored private var askedConceptIds: Set<String> = []
+
+    /// Anzeigename der gesuchten Struktur.
+    var quizPrompt: String {
+        guard let part = quizTarget else { return "" }
+        let concept = AtlasStore.shared.concepts.first { $0.id == part.conceptId }
+        return concept?.name ?? part.name
+    }
 
     /// Ab 80 Prozent liegen die Teile flach im Raster; dann ergibt nur noch die
     /// Frontalansicht Sinn, und Ziehen verschiebt statt zu drehen.
@@ -35,10 +83,13 @@ final class AtlasModel {
         if isolated { return (selectedConcept?.name ?? "Ausgewählte Struktur").uppercased() }
         if explode > 0.95 { return "ANATOMISCHES INVENTAR" }
         if explode > 0.05 { return "AUFGETRENNTE STRUKTUREN" }
-        return "ERWACHSENER MENSCH · MÄNNLICH"
+        return sex == .female ? "ERWACHSENER MENSCH · WEIBLICH" : "ERWACHSENER MENSCH · MÄNNLICH"
     }
 
     @ObservationIgnored let controller = AtlasSceneController()
+    /// Wird von der eingebetteten Ansicht gesetzt; das Quiz braucht sie für die
+    /// Abtastung, weil dafür die Bildschirmgröße zählt.
+    @ObservationIgnored weak var sceneView: SCNView?
 
     init() {
         // Die Szene wird mit allen Systemen gebaut; der Anfangszustand muss
@@ -46,6 +97,7 @@ final class AtlasModel {
         for system in AtlasSystem.all {
             controller.setSystem(system.id, visible: visibleSystems.contains(system.id))
         }
+        captureDatasetInfo()
     }
 
     var visiblePieceCount: Int {
@@ -134,6 +186,86 @@ final class AtlasModel {
                            visibleSystems: visibleSystems)
     }
 
+    /// Startet das Quiz. Die Auswahl kommt aus der Abtastung der Ansicht,
+    /// gefragt wird also nur nach Strukturen, die gerade von außen zu sehen sind.
+    func startQuiz(in view: SCNView) {
+        quizActive = true
+        quizAsked = 0
+        quizCorrect = 0
+        askedConceptIds = []
+        clearSelection()
+        setRotating(false)
+        if explode != 0 { setExplode(0) }
+        nextQuestion(in: view)
+    }
+
+    func endQuiz() {
+        quizActive = false
+        quizTarget = nil
+        quizResult = nil
+        controller.select(partIds: nil)
+    }
+
+    func nextQuestion(in view: SCNView) {
+        quizResult = nil
+        controller.select(partIds: nil)
+        outerPartIds = controller.outerParts(in: view)
+
+        let store = AtlasStore.shared
+        let candidates = outerPartIds
+            .compactMap { store.part(id: $0) }
+            .filter { !askedConceptIds.contains($0.conceptId) }
+        // Sind alle schon gefragt, wird von vorn begonnen.
+        let pool = candidates.isEmpty
+            ? outerPartIds.compactMap { store.part(id: $0) }
+            : candidates
+        guard let target = pool.randomElement() else {
+            quizTarget = nil
+            return
+        }
+        askedConceptIds.insert(target.conceptId)
+        quizTarget = target
+    }
+
+    /// Prüft den Tipp. Richtig ist jedes Netz derselben benannten Struktur,
+    /// denn eine Struktur kann aus mehreren Teilen bestehen.
+    func answer(with part: AtlasPart?) {
+        guard let target = quizTarget else { return }
+        quizAsked += 1
+        let accepted = Set(AtlasStore.shared.concepts
+            .first { $0.id == target.conceptId }?.elements ?? [target.id])
+
+        if let part, accepted.contains(part.id) || part.conceptId == target.conceptId {
+            quizCorrect += 1
+            quizResult = .correct
+        } else {
+            let hitName = part.map { p -> String in
+                AtlasStore.shared.concepts.first { $0.id == p.conceptId }?.name ?? p.name
+            } ?? "daneben"
+            quizResult = .wrong(hitName)
+        }
+        // In beiden Fällen die gesuchte Struktur zeigen.
+        controller.select(partIds: accepted)
+    }
+
+    /// Wechselt zwischen männlichem und weiblichem Referenzmodell.
+    ///
+    /// Die Sichtbarkeit wird zurückgesetzt, weil die beiden Modelle nicht
+    /// dieselben Systeme führen: die Schwangerschaftsstrukturen gibt es nur
+    /// weiblich, Bindegewebe nur männlich.
+    func switchSex(to newSex: AtlasSex) {
+        guard newSex != sex else { return }
+        sex = newSex
+        endQuiz()
+        clearSelection()
+        setRotating(false)
+        explode = 0
+        visibleSystems = AtlasSystem.defaultVisible
+        controller.switchTo(newSex, visibleSystems: visibleSystems)
+        controller.setExplode(0)
+        captureDatasetInfo()
+    }
+
     func apply(viewpoint: AtlasViewpoint) {
         self.viewpoint = viewpoint
         controller.setViewpoint(viewpoint)
@@ -164,7 +296,7 @@ final class AtlasModel {
         controller.setExplode(0)
         controller.resetCamera()
         viewpoint = .threeQuarter
-        visibleSystems = Set(AtlasSystem.all.map(\.id)).subtracting(AtlasModel.initiallyHidden)
+        visibleSystems = AtlasSystem.defaultVisible
         for system in AtlasSystem.all {
             controller.setSystem(system.id, visible: visibleSystems.contains(system.id))
         }
@@ -197,6 +329,7 @@ struct AtlasSceneView: UIViewRepresentable {
         view.addGestureRecognizer(pinch)
         view.addGestureRecognizer(tap)
         context.coordinator.view = view
+        model.sceneView = view
         return view
     }
 
@@ -216,6 +349,9 @@ struct AtlasSceneView: UIViewRepresentable {
         private var lastPan: CGPoint = .zero
 
         init(model: AtlasModel) { self.model = model }
+
+        /// Die Szene-Ansicht, damit das Quiz die Abtastung anstoßen kann.
+        var sceneView: SCNView? { view }
 
         @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
             guard let view else { return }
@@ -244,7 +380,13 @@ struct AtlasSceneView: UIViewRepresentable {
             guard let view else { return }
             let point = gesture.location(in: view)
             let part = model.controller.hitTest(point, in: view)
-            model.select(part: part)
+            if model.quizActive {
+                // Nach einer Antwort erst weiterblättern, nicht sofort neu raten.
+                guard model.quizResult == nil else { return }
+                model.answer(with: part)
+            } else {
+                model.select(part: part)
+            }
         }
     }
 }

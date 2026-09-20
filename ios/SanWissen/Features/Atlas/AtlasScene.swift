@@ -58,12 +58,35 @@ final class AtlasSceneController {
     private var panOffset = (x: Float(0), y: Float(0))
 
     private(set) var selectedPartId: String?
+    private var lightsAdded = false
 
     init() {
         buildScene()
     }
 
     // MARK: - Aufbau
+
+    /// Lädt das andere Referenzmodell und baut die Szene damit neu auf.
+    func switchTo(_ sex: AtlasSex, visibleSystems: Set<String>) {
+        guard AtlasStore.shared.sex != sex else { return }
+        AtlasStore.shared.load(sex)
+
+        // Alte Knoten und Materialien wegräumen, sonst bleiben die Netze des
+        // vorigen Modells im Speicher und in der Szene.
+        for node in systemNodes.values { node.removeFromParentNode() }
+        systemNodes = [:]
+        partNodes = [:]
+        materials = [:]
+        layoutCells = [:]
+        layoutKey = ""
+        explodeAmount = 0
+        selectedPartId = nil
+
+        buildScene()
+        for system in AtlasSystem.all {
+            setSystem(system.id, visible: visibleSystems.contains(system.id))
+        }
+    }
 
     private func buildScene() {
         let store = AtlasStore.shared
@@ -104,6 +127,7 @@ final class AtlasSceneController {
             geometry.materials = [material]
             let node = SCNNode(geometry: geometry)
             node.name = part.id
+            node.position = part.offset
             node.castsShadow = false
             parent.addChildNode(node)
             partNodes[part.id] = node
@@ -113,10 +137,12 @@ final class AtlasSceneController {
         // Den Körper so verschieben, dass er um den Ursprung kreist.
         root.position = SCNVector3(-bodyCenter.x, -bodyCenter.y, -bodyCenter.z)
 
-        let pivot = SCNNode()
-        pivot.addChildNode(root)
-        orbit.addChildNode(pivot)
-        scene.rootNode.addChildNode(orbit)
+        if orbit.parent == nil {
+            let pivot = SCNNode()
+            pivot.addChildNode(root)
+            orbit.addChildNode(pivot)
+            scene.rootNode.addChildNode(orbit)
+        }
 
         let camera = SCNCamera()
         camera.fieldOfView = fieldOfView
@@ -128,10 +154,12 @@ final class AtlasSceneController {
         camera.wantsHDR = false
         cameraNode.camera = camera
 
-        fit(usableHeightFraction: usableHeightFraction)
-        scene.rootNode.addChildNode(cameraNode)
-
-        addLights()
+        fit(usableHeightFraction: usableHeightFraction, verticalShift: verticalShiftFraction)
+        if cameraNode.parent == nil { scene.rootNode.addChildNode(cameraNode) }
+        if !lightsAdded {
+            addLights()
+            lightsAdded = true
+        }
         applyCamera()
     }
 
@@ -283,6 +311,75 @@ final class AtlasSceneController {
         return AtlasStore.shared.part(id: name)
     }
 
+    // MARK: - Was ist von außen zu sehen?
+
+    /// Sammelt die Netze, die von der aktuellen Kameraposition aus wirklich
+    /// getroffen werden können.
+    ///
+    /// Statt zu raten, welche Strukturen oberflächlich liegen, wird die Ansicht
+    /// mit einem Raster von Strahlen abgetastet. Was dabei als erstes getroffen
+    /// wird, ist von außen sichtbar — genau das, was im Quiz gefragt werden darf.
+    /// `minHits` sortiert Strukturen aus, von denen nur ein Zipfel hervorschaut.
+    func outerParts(in view: SCNView, samples: Int = 26, minHits: Int = 2) -> [String] {
+        let bounds = view.bounds
+        guard bounds.width > 1, bounds.height > 1 else { return [] }
+
+        // Nur dort abtasten, wo der Körper im Bild liegt. Über die ganze
+        // Ansicht verteilt gingen die meisten Strahlen daneben, und die
+        // wenigen Treffer verteilten sich zu fein auf zu viele Netze.
+        let area = projectedBounds(in: view) ?? bounds
+        let region = area.insetBy(dx: -4, dy: -4).intersection(bounds)
+        guard region.width > 1, region.height > 1 else { return [] }
+
+        var hits: [String: Int] = [:]
+        let options: [SCNHitTestOption: Any] = [
+            .searchMode: SCNHitTestSearchMode.closest.rawValue,
+            .ignoreHiddenNodes: true,
+            .boundingBoxOnly: false,
+        ]
+        for i in 0..<samples {
+            for j in 0..<samples {
+                let point = CGPoint(
+                    x: region.minX + region.width * (Double(i) + 0.5) / Double(samples),
+                    y: region.minY + region.height * (Double(j) + 0.5) / Double(samples))
+                if let name = view.hitTest(point, options: options).first?.node.name {
+                    hits[name, default: 0] += 1
+                }
+            }
+        }
+        return hits.filter { $0.value >= minHits }.map(\.key)
+    }
+
+    /// Bildschirmbereich, den der sichtbare Körper einnimmt. Dafür werden die
+    /// Ecken des Hüllquaders projiziert.
+    private func projectedBounds(in view: SCNView) -> CGRect? {
+        let visible = AtlasStore.shared.parts.filter { partNodes[$0.id]?.isHidden == false }
+        guard !visible.isEmpty else { return nil }
+        var lo = SCNVector3(Float.greatestFiniteMagnitude, .greatestFiniteMagnitude, .greatestFiniteMagnitude)
+        var hi = SCNVector3(-Float.greatestFiniteMagnitude, -.greatestFiniteMagnitude, -.greatestFiniteMagnitude)
+        for part in visible {
+            lo = SCNVector3(min(lo.x, part.bounds[0][0]), min(lo.y, part.bounds[0][1]), min(lo.z, part.bounds[0][2]))
+            hi = SCNVector3(max(hi.x, part.bounds[1][0]), max(hi.y, part.bounds[1][1]), max(hi.z, part.bounds[1][2]))
+        }
+
+        var minX = CGFloat.greatestFiniteMagnitude, minY = CGFloat.greatestFiniteMagnitude
+        var maxX = -CGFloat.greatestFiniteMagnitude, maxY = -CGFloat.greatestFiniteMagnitude
+        for dx in [lo.x, hi.x] {
+            for dy in [lo.y, hi.y] {
+                for dz in [lo.z, hi.z] {
+                    // Die Ecken liegen im Körpersystem, deshalb über den
+                    // Körperknoten in die Szene umrechnen.
+                    let world = root.convertPosition(SCNVector3(dx, dy, dz), to: nil)
+                    let p = view.projectPoint(world)
+                    minX = min(minX, CGFloat(p.x)); maxX = max(maxX, CGFloat(p.x))
+                    minY = min(minY, CGFloat(p.y)); maxY = max(maxY, CGFloat(p.y))
+                }
+            }
+        }
+        guard maxX > minX, maxY > minY else { return nil }
+        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+    }
+
     // MARK: - Explosionsansicht
 
     /// Zielposition je Netz im aufgelösten Raster.
@@ -372,15 +469,23 @@ final class AtlasSceneController {
         for (id, node) in partNodes {
             guard let part = AtlasStore.shared.part(id: id) else { continue }
             guard explodeAmount > 0, let cell = layoutCells[id] else {
-                node.position = SCNVector3Zero
+                // Ruhelage: der Versatz gleicht aus, dass die beiden
+                // Datensätze ihren Ursprung unterschiedlich legen.
+                node.position = part.offset
                 continue
             }
             // Das Netz soll mit seinem Mittelpunkt in der Rasterzelle landen.
+            // Die Knotenposition ist relativ zum Körperknoten, der um
+            // -bodyCenter verschoben ist — das muss hier gegengerechnet
+            // werden, sonst liegt das Raster um eine halbe Körperhöhe zu tief.
             let c = part.center
-            let target = SCNVector3(cell.x - c.x, cell.y - c.y, -c.z)
-            node.position = SCNVector3(target.x * explodeAmount,
-                                       target.y * explodeAmount,
-                                       target.z * explodeAmount)
+            let target = SCNVector3(cell.x + bodyCenter.x - c.x,
+                                    cell.y + bodyCenter.y - c.y,
+                                    bodyCenter.z - c.z)
+            let rest = part.offset
+            node.position = SCNVector3(rest.x + (target.x - rest.x) * explodeAmount,
+                                       rest.y + (target.y - rest.y) * explodeAmount,
+                                       rest.z + (target.z - rest.z) * explodeAmount)
         }
     }
 

@@ -20,16 +20,32 @@ enum EcgWaveform {
     }
 
     /// Zeitpunkte in Millisekunden ab Streifenbeginn.
+    ///
+    /// Reicht für die übliche Lehrbuchbeschriftung: die Zacken P, Q, R, S und T
+    /// einzeln, dazu QRS-Komplex, PQ- und ST-Strecke sowie PQ- und QT-Intervall.
     struct BeatAnnotation {
+        let pStart: Double?
         let pPeak: Double?
+        let pEnd: Double?
+        let qPeak: Double
         let rPeak: Double
+        let sPeak: Double
+        /// Beginn der Q-Zacke und Ende der S-Zacke, also die Grenzen des QRS.
+        let qrsStart: Double
+        let qrsEnd: Double
+        let tStart: Double
         let tPeak: Double
-        /// PQ-Zeit: Beginn der P-Welle bis Beginn des QRS.
-        let pqStart: Double?
-        let pqEnd: Double?
-        /// QT-Zeit: Beginn des QRS bis Ende der T-Welle.
-        let qtStart: Double
-        let qtEnd: Double
+        let tEnd: Double
+
+        /// PQ-Intervall: Beginn der P-Welle bis Beginn des QRS.
+        var pqIntervalStart: Double? { pStart }
+        /// PQ-Strecke: Ende der P-Welle bis Beginn des QRS.
+        var pqSegmentStart: Double? { pEnd }
+        /// ST-Strecke: Ende des QRS bis Beginn der T-Welle.
+        var stSegmentStart: Double { qrsEnd }
+        /// QT-Intervall: Beginn des QRS bis Ende der T-Welle.
+        var qtStart: Double { qrsStart }
+        var qtEnd: Double { tEnd }
     }
 
     private struct BeatMorphology {
@@ -465,14 +481,19 @@ enum EcgWaveform {
         let usable = beats.filter { $0.tMs > 400 && $0.tMs < durationMs - 600 }
         guard let beat = usable.first ?? beats.first(where: { $0.tMs > 0 }) else { return nil }
         let m = beat.morph
+        let t = beat.tMs
         return BeatAnnotation(
-            pPeak: m.hasP ? beat.tMs + m.pOffset : nil,
-            rPeak: beat.tMs,
-            tPeak: beat.tMs + m.tOffset,
-            pqStart: m.hasP ? beat.tMs + m.pOffset - m.pWidth * 2 : nil,
-            pqEnd: m.hasP ? beat.tMs + m.qOffset - m.qWidth : nil,
-            qtStart: beat.tMs + m.qOffset - m.qWidth,
-            qtEnd: beat.tMs + m.tOffset + m.tWidth * 2)
+            pStart: m.hasP ? t + m.pOffset - m.pWidth * 2 : nil,
+            pPeak: m.hasP ? t + m.pOffset : nil,
+            pEnd: m.hasP ? t + m.pOffset + m.pWidth * 2 : nil,
+            qPeak: t + m.qOffset,
+            rPeak: t,
+            sPeak: t + m.sOffset,
+            qrsStart: t + m.qOffset - m.qWidth,
+            qrsEnd: t + m.sOffset + m.sWidth,
+            tStart: t + m.tOffset - m.tWidth * 2,
+            tPeak: t + m.tOffset,
+            tEnd: t + m.tOffset + m.tWidth * 2)
     }
 
     // MARK: - Einstieg

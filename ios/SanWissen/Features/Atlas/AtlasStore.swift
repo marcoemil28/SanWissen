@@ -18,7 +18,31 @@ struct AtlasPart: Decodable, Identifiable, Hashable {
     let vertexCount: Int
     let indexCount: Int
     /// [[minX, minY, minZ], [maxX, maxY, maxZ]]
-    let bounds: [[Float]]
+    private(set) var bounds: [[Float]]
+
+    /// Aus welchem Datensatz das Netz stammt. Im weiblichen Modell werden
+    /// beide gemischt, deshalb muss jedes Teil seine Herkunft kennen.
+    var origin: AtlasSex = .male
+    /// Verschiebung, mit der das Netz in die Szene gesetzt wird. Nötig, weil
+    /// die beiden Datensätze ihren Ursprung unterschiedlich legen.
+    private(set) var offsetX: Float = 0
+    private(set) var offsetY: Float = 0
+    private(set) var offsetZ: Float = 0
+
+    private enum CodingKeys: String, CodingKey {
+        case id, name, conceptId, system, chunk, positions, normals, indices
+        case vertexCount, indexCount, bounds
+    }
+
+    /// Verschiebt das Teil, damit es zum anderen Datensatz passt. Die Grenzen
+    /// wandern mit, sonst stimmen Mittelpunkt, Raster und Trefferfläche nicht.
+    mutating func shift(x: Float, y: Float, z: Float) {
+        offsetX = x; offsetY = y; offsetZ = z
+        bounds = [[bounds[0][0] + x, bounds[0][1] + y, bounds[0][2] + z],
+                  [bounds[1][0] + x, bounds[1][1] + y, bounds[1][2] + z]]
+    }
+
+    var offset: SCNVector3 { SCNVector3(offsetX, offsetY, offsetZ) }
 
     var center: SCNVector3 {
         SCNVector3((bounds[0][0] + bounds[1][0]) / 2,
@@ -61,56 +85,150 @@ private struct AtlasFile: Decodable {
 final class AtlasStore {
     static let shared = AtlasStore()
 
-    let parts: [AtlasPart]
-    let concepts: [AtlasConcept]
-    let triangleCount: Int
-    let scope: String
-    let source: String
+    /// Welches Referenzmodell gerade geladen ist.
+    private(set) var sex: AtlasSex = .male
+
+    private(set) var parts: [AtlasPart] = []
+    private(set) var concepts: [AtlasConcept] = []
+    private(set) var triangleCount = 0
+    private(set) var scope = ""
+    private(set) var source = ""
+    private(set) var version = ""
 
     /// Netze je System, in der Reihenfolge der Datei.
-    let partsBySystem: [String: [AtlasPart]]
-    private let partsById: [String: AtlasPart]
+    private(set) var partsBySystem: [String: [AtlasPart]] = [:]
+    private var partsById: [String: AtlasPart] = [:]
 
-    /// Die eingeblendeten Binärdateien, nach Blocknummer.
-    private var chunkData: [Int: Data] = [:]
-    private let chunkNames: [Int: String]
+    /// Die eingeblendeten Binärdateien, je Herkunft und Blocknummer.
+    private var chunkData: [String: Data] = [:]
+    private var maleChunkNames: [Int: String] = [:]
+    private var femaleChunkNames: [Int: String] = [:]
 
     private init() {
-        guard let url = Bundle.main.url(forResource: "atlas", withExtension: "json"),
+        load(.male)
+    }
+
+    /// Systeme, die den Körperrahmen bilden. Sie sind weitgehend
+    /// geschlechtsneutral und kommen im weiblichen Modell aus dem männlichen
+    /// Datensatz, weil der weibliche sie nicht führt.
+    static let frameSystems: Set<String> = ["skeletal", "muscular", "connective", "integumentary"]
+
+    /// Versatz, mit dem die weichen Strukturen des weiblichen Datensatzes in
+    /// den männlichen Rahmen passen. Aus dem Vergleich der Hüllquader beider
+    /// Datensätze je System ermittelt; der Verdauungstrakt ist in beiden
+    /// gleich groß, es braucht also nur eine Verschiebung, keine Skalierung.
+    private static let femaleShift: (x: Float, y: Float, z: Float) = (0, 0.05, 0.067)
+
+    /// Knochen, die der weibliche Datensatz selbst mitbringt und die den
+    /// männlichen ersetzen. Das Becken ist der Knochen, an dem sich die
+    /// Geschlechter deutlich unterscheiden und an dem das auch gelehrt wird.
+    private static let femaleBoneTerms = ["hip bone", "sacrum", "coccyx", "sternum",
+                                          "manubrium", "ilium", "ischium", "pubis"]
+
+    private static func isFemaleSpecificBone(_ name: String) -> Bool {
+        let lower = name.lowercased()
+        return femaleBoneTerms.contains { lower.contains($0) }
+    }
+
+    private func decode(_ name: String) -> AtlasFile {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "json"),
               let data = try? Data(contentsOf: url, options: .mappedIfSafe),
               let file = try? JSONDecoder().decode(AtlasFile.self, from: data) else {
-            fatalError("atlas.json fehlt oder ist beschädigt — bitte Resources/Atlas prüfen.")
+            fatalError("\(name).json fehlt oder ist beschädigt — bitte Resources/Atlas prüfen.")
         }
-        parts = file.parts
-        concepts = file.concepts
-        triangleCount = file.triangles
-        scope = file.scope
-        source = file.source
-        partsById = Dictionary(uniqueKeysWithValues: file.parts.map { ($0.id, $0) })
-        partsBySystem = Dictionary(grouping: file.parts, by: \.system)
-        chunkNames = Dictionary(uniqueKeysWithValues: file.chunks.enumerated().map { index, chunk in
-            // "/models/body-3.bin" → "body-3"
+        return file
+    }
+
+    private func chunkTable(_ file: AtlasFile) -> [Int: String] {
+        Dictionary(uniqueKeysWithValues: file.chunks.enumerated().map { index, chunk in
+            // "/models/body-3.bin" → "body-3", "/models/female-2.bin" → "female-2"
             (index, (chunk.url as NSString).lastPathComponent.replacingOccurrences(of: ".bin", with: ""))
         })
+    }
+
+    /// Lädt ein Modell. Die Geometrie wird nur eingeblendet (memory mapped),
+    /// der Wechsel kostet deshalb kaum Speicher.
+    ///
+    /// Das weibliche Modell ist zusammengesetzt: der Human Reference Atlas
+    /// führt Organe, Gefäße und Nerven, aber weder Arme noch Schädel, Rippen
+    /// oder Becken. Skelett und Muskulatur kommen deshalb aus BodyParts3D.
+    func load(_ sex: AtlasSex) {
+        let maleFile = decode(AtlasSex.male.manifestName)
+        maleChunkNames = chunkTable(maleFile)
+
+        var combined: [AtlasPart] = []
+        var allConcepts: [AtlasConcept] = []
+
+        if sex == .female {
+            let femaleFile = decode(AtlasSex.female.manifestName)
+            femaleChunkNames = chunkTable(femaleFile)
+
+            // Rahmen aus dem männlichen Satz, ohne die Knochen, für die es
+            // ein weibliches Gegenstück gibt.
+            for var part in maleFile.parts where Self.frameSystems.contains(part.system) {
+                if part.system == "skeletal", Self.isFemaleSpecificBone(part.name) { continue }
+                part.origin = .male
+                combined.append(part)
+            }
+            // Weiches Gewebe und Organe aus dem weiblichen Satz, dazu die
+            // geschlechtstypischen Knochen. Alles eingepasst.
+            for var part in femaleFile.parts {
+                let isFrame = Self.frameSystems.contains(part.system)
+                let isOwnBone = part.system == "skeletal" && Self.isFemaleSpecificBone(part.name)
+                guard !isFrame || isOwnBone else { continue }
+                part.origin = .female
+                part.shift(x: Self.femaleShift.x, y: Self.femaleShift.y, z: Self.femaleShift.z)
+                combined.append(part)
+            }
+            let kept = Set(combined.map(\.id))
+            allConcepts = (femaleFile.concepts + maleFile.concepts)
+                .filter { $0.elements.contains(where: kept.contains) }
+            triangleCount = combined.reduce(0) { $0 + $1.indexCount / 3 }
+            scope = "Weibliche Referenz · Organe, Gefäße, Nerven sowie Becken, Kreuzbein und Brustbein "
+                + "aus dem Human Reference Atlas. Die übrigen Knochen und die Muskulatur stammen aus "
+                + "BodyParts3D und sind männlich — ein vollständiger weiblicher Datensatz ist frei "
+                + "nicht verfügbar."
+            source = "HRA und BodyParts3D"
+            version = femaleFile.version + " + " + maleFile.version
+        } else {
+            for var part in maleFile.parts {
+                part.origin = .male
+                combined.append(part)
+            }
+            allConcepts = maleFile.concepts
+            triangleCount = maleFile.triangles
+            scope = maleFile.scope
+            source = maleFile.source
+            version = maleFile.version
+        }
+
+        self.sex = sex
+        parts = combined
+        concepts = allConcepts
+        partsById = Dictionary(combined.map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
+        partsBySystem = Dictionary(grouping: combined, by: \.system)
+        // Blöcke des vorigen Modells nicht weiter vorhalten.
+        chunkData = [:]
     }
 
     func part(id: String) -> AtlasPart? { partsById[id] }
 
     /// Blendet eine Blockdatei ein. Ohne `.mappedIfSafe` läge der gesamte
     /// Atlas im Arbeitsspeicher.
-    private func data(forChunk index: Int) -> Data? {
-        if let cached = chunkData[index] { return cached }
-        guard let name = chunkNames[index],
-              let url = Bundle.main.url(forResource: name, withExtension: "bin"),
+    private func data(forChunk index: Int, origin: AtlasSex) -> Data? {
+        let table = origin == .female ? femaleChunkNames : maleChunkNames
+        guard let name = table[index] else { return nil }
+        if let cached = chunkData[name] { return cached }
+        guard let url = Bundle.main.url(forResource: name, withExtension: "bin"),
               let data = try? Data(contentsOf: url, options: .mappedIfSafe) else { return nil }
-        chunkData[index] = data
+        chunkData[name] = data
         return data
     }
 
     /// Baut die Geometrie eines Netzes. Die Teildaten werden aus der
     /// eingeblendeten Datei kopiert, weil SceneKit sie behalten muss.
     func geometry(for part: AtlasPart) -> SCNGeometry? {
-        guard let chunk = data(forChunk: part.chunk) else { return nil }
+        guard let chunk = data(forChunk: part.chunk, origin: part.origin) else { return nil }
 
         let positionBytes = part.vertexCount * 3 * MemoryLayout<Float>.size
         let normalBytes = part.vertexCount * 3 * MemoryLayout<Int16>.size
