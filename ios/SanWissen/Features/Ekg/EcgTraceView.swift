@@ -74,7 +74,8 @@ struct EcgTraceView: View {
 
             if showAnnotations, let annotation = trace.annotation {
                 var ctx = context
-                drawAnnotations(&ctx, annotation, size: size, x: x, midY: midY)
+                drawAnnotations(&ctx, annotation, size: size, x: x, midY: midY,
+                                pxPerMm: pxPerMm, detailed: isZoomed)
             }
         }
         .frame(height: boxHeight)
@@ -152,8 +153,8 @@ struct EcgTraceView: View {
             return Window(startMs: 0, durationMs: trace.durationMs)
         }
 
-        let from = (a.pqStart ?? a.qtStart) - 120
-        let to = a.qtEnd + 140
+        let from = (a.pStart ?? a.qrsStart) - 130
+        let to = a.tEnd + 150
         let centre = (from + to) / 2
         let desiredMs = max(to - from, 600)
 
@@ -179,52 +180,111 @@ struct EcgTraceView: View {
 
     // MARK: - Beschriftung
 
-    /// Beschriftet einen Schlag: P, QRS und T sowie die Strecken PQ und QT.
+    /// Beschriftet einen Schlag wie in der Lehrbuchdarstellung: die Zacken
+    /// P, Q, R, S und T einzeln, darüber der QRS-Komplex, dazwischen PQ- und
+    /// ST-Strecke, darunter PQ- und QT-Intervall.
+    ///
+    /// Im Streifen ist pro Schlag nur wenig Platz, dort bleibt es bei P, QRS
+    /// und T. Die vollständige Beschriftung erscheint im Zoom.
     private func drawAnnotations(_ ctx: inout GraphicsContext, _ a: EcgWaveform.BeatAnnotation,
-                                 size: CGSize, x: (Double) -> Double, midY: Double) {
-        func marker(_ ms: Double, _ label: String, above: Bool) {
-            let px = x(ms)
-            guard px > 4, px < size.width - 4 else { return }
-            var line = Path()
-            let yTop = above ? 14.0 : midY + 26
-            let yBottom = above ? midY - 26 : size.height - 14
-            line.move(to: CGPoint(x: px, y: yTop))
-            line.addLine(to: CGPoint(x: px, y: yBottom))
-            ctx.stroke(line, with: .color(annotationColor.opacity(0.6)),
-                       style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
-            let text = ctx.resolve(Text(label).font(.caption2.weight(.bold))
-                .foregroundStyle(annotationColor))
-            ctx.draw(text, at: CGPoint(x: px, y: above ? 8 : size.height - 8), anchor: .center)
+                                 size: CGSize, x: (Double) -> Double, midY: Double,
+                                 pxPerMm: Double, detailed: Bool) {
+        /// Bildhöhe der Kurve zu einem Zeitpunkt. Damit sitzen die Buchstaben
+        /// an der Zacke statt auf einer festen Linie.
+        func traceY(_ ms: Double) -> Double {
+            let index = Int((ms / 1000 * trace.sampleRateHz).rounded())
+            guard index >= 0, index < trace.values.count else { return midY }
+            return midY - trace.values[index] * mmPerMv * pxPerMm
         }
 
-        /// Klammer mit Beschriftung für eine Zeitstrecke.
-        func span(_ fromMs: Double, _ toMs: Double, _ label: String, y: Double) {
+        /// Buchstabe dicht an der Zacke, oberhalb oder unterhalb.
+        func letter(_ ms: Double, _ label: String, above: Bool) {
+            let px = x(ms)
+            guard px > 8, px < size.width - 8 else { return }
+            let y = traceY(ms) + (above ? -16 : 16)
+            let text = ctx.resolve(Text(label).font(.system(size: detailed ? 15 : 11, weight: .bold))
+                .foregroundStyle(waveColor))
+            // Oben bleibt Platz für die QRS-Klammer, unten für die Intervalle.
+            let top = detailed ? 46.0 : 12.0
+            let bottom = detailed ? size.height - 54 : size.height - 12
+            ctx.draw(text, at: CGPoint(x: px, y: max(top, min(bottom, y))), anchor: .center)
+        }
+
+        /// Klammer über oder unter einer Zeitstrecke, mit Beschriftung.
+        func span(_ fromMs: Double, _ toMs: Double, _ label: String,
+                  y: Double, color: Color, above: Bool) {
             let x0 = x(fromMs), x1 = x(toMs)
-            guard x1 > x0, x0 > 2, x1 < size.width - 2 else { return }
+            guard x1 > x0 + 1, x0 > 2, x1 < size.width - 2 else { return }
+            let tick = above ? 5.0 : -5.0
             var bracket = Path()
-            bracket.move(to: CGPoint(x: x0, y: y - 5))
+            bracket.move(to: CGPoint(x: x0, y: y + tick))
             bracket.addLine(to: CGPoint(x: x0, y: y))
             bracket.addLine(to: CGPoint(x: x1, y: y))
-            bracket.addLine(to: CGPoint(x: x1, y: y - 5))
-            ctx.stroke(bracket, with: .color(annotationColor), lineWidth: 1.4)
-            let text = ctx.resolve(Text(label).font(.caption2.weight(.semibold))
-                .foregroundStyle(annotationColor))
-            ctx.draw(text, at: CGPoint(x: (x0 + x1) / 2, y: y + 9), anchor: .center)
+            bracket.addLine(to: CGPoint(x: x1, y: y + tick))
+            ctx.stroke(bracket, with: .color(color), lineWidth: 1.6)
+            let text = ctx.resolve(Text(label).font(.system(size: detailed ? 10 : 9, weight: .semibold))
+                .foregroundStyle(color))
+            ctx.draw(text, at: CGPoint(x: (x0 + x1) / 2, y: above ? y - 8 : y + 9), anchor: .center)
         }
 
-        if let p = a.pPeak { marker(p, "P", above: true) }
-        marker(a.rPeak, "QRS", above: true)
-        marker(a.tPeak, "T", above: true)
-
-        if let s = a.pqStart, let e = a.pqEnd {
-            span(s, e, "PQ", y: size.height - 34)
+        guard detailed else {
+            // Kompakte Fassung für den Streifen.
+            func marker(_ ms: Double, _ label: String) {
+                let px = x(ms)
+                guard px > 4, px < size.width - 4 else { return }
+                var line = Path()
+                line.move(to: CGPoint(x: px, y: 14))
+                line.addLine(to: CGPoint(x: px, y: midY - 26))
+                ctx.stroke(line, with: .color(waveColor.opacity(0.6)),
+                           style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                let text = ctx.resolve(Text(label).font(.caption2.weight(.bold))
+                    .foregroundStyle(waveColor))
+                ctx.draw(text, at: CGPoint(x: px, y: 8), anchor: .center)
+            }
+            if let p = a.pPeak { marker(p, "P") }
+            marker(a.rPeak, "QRS")
+            marker(a.tPeak, "T")
+            if let from = a.pqIntervalStart {
+                span(from, a.qrsStart, "PQ", y: size.height - 34, color: pqIntervalColor, above: false)
+            }
+            span(a.qtStart, a.qtEnd, "QT", y: size.height - 16, color: qtIntervalColor, above: false)
+            return
         }
-        span(a.qtStart, a.qtEnd, "QT", y: size.height - 16)
+
+        // Zacken einzeln benennen. Q und S zeigen nach unten, deshalb darunter.
+        if let p = a.pPeak { letter(p, "P", above: true) }
+        letter(a.qPeak, "Q", above: false)
+        letter(a.rPeak, "R", above: true)
+        letter(a.sPeak, "S", above: false)
+        letter(a.tPeak, "T", above: true)
+
+        // QRS-Komplex über der R-Zacke.
+        span(a.qrsStart, a.qrsEnd, "QRS-Komplex", y: 26, color: qrsColor, above: true)
+
+        // Strecken auf halber Höhe zwischen Grundlinie und Zacken.
+        // Versetzt übereinander: bei schneller Herzfrequenz liegen die beiden
+        // Strecken so dicht beieinander, dass sich die Beschriftungen sonst
+        // überlagern.
+        if let from = a.pqSegmentStart {
+            span(from, a.qrsStart, "PQ-Strecke", y: midY - 78, color: pqSegmentColor, above: true)
+        }
+        span(a.stSegmentStart, a.tStart, "ST-Strecke", y: midY - 44, color: stSegmentColor, above: true)
+
+        // Intervalle unten, wie in der Lehrbuchdarstellung.
+        if let from = a.pqIntervalStart {
+            span(from, a.qrsStart, "PQ-Intervall", y: size.height - 40, color: pqIntervalColor, above: false)
+        }
+        span(a.qtStart, a.qtEnd, "QT-Intervall", y: size.height - 16, color: qtIntervalColor, above: false)
     }
 
-    private var annotationColor: Color {
-        theme.highContrast ? .white : Color(red: 0.55, green: 0.78, blue: 1.0)
-    }
+    // Farben der Beschriftung. Im Hoher-Kontrast-Modus alles weiß, sonst je
+    // Element eine eigene Farbe wie in der Lehrbuchdarstellung.
+    private var waveColor: Color { theme.highContrast ? .white : Color(white: 0.96) }
+    private var qrsColor: Color { theme.highContrast ? .white : Color(red: 1.0, green: 0.42, blue: 0.48) }
+    private var pqSegmentColor: Color { theme.highContrast ? .white : Color(red: 0.42, green: 0.88, blue: 0.52) }
+    private var stSegmentColor: Color { theme.highContrast ? .white : Color(red: 0.76, green: 0.58, blue: 1.0) }
+    private var pqIntervalColor: Color { theme.highContrast ? .white : Color(red: 1.0, green: 0.66, blue: 0.32) }
+    private var qtIntervalColor: Color { theme.highContrast ? .white : Color(red: 0.45, green: 0.68, blue: 1.0) }
 
     /// 1-mm-Feinraster und 5-mm-Grobraster wie auf EKG-Papier.
     private func drawGrid(_ context: inout GraphicsContext, size: CGSize, pxPerMm: Double) {
