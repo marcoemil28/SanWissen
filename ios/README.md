@@ -43,3 +43,67 @@ xcodebuild -project ios/SanWissen.xcodeproj -scheme SanWissen -configuration Deb
 Neue Swift-Dateien müssen nicht ins Projekt eingetragen werden: der
 Ordner `SanWissen` ist eine synchronisierte Gruppe, Xcode nimmt alles
 darin automatisch auf.
+
+## Für TestFlight und den App Store bauen
+
+Der Ablauf ist erprobt; die Signatur stimmt, wenn `Signing.local.xcconfig`
+eingerichtet ist (siehe oben).
+
+**1. Archiv erstellen**
+
+```bash
+xcodebuild -project ios/SanWissen.xcodeproj -scheme SanWissen \
+  -configuration Release -destination 'generic/platform=iOS' \
+  -archivePath build/SanWissen.xcarchive -allowProvisioningUpdates archive
+```
+
+**2. Für den App Store exportieren.** Dafür braucht es eine
+`ExportOptions.plist` mit `method: app-store-connect`, `signingStyle:
+automatic` und der eigenen `teamID`. Die Datei liegt bewusst nicht im
+Repository, weil die Team-ID dort nicht hingehört:
+
+```bash
+xcodebuild -exportArchive -archivePath build/SanWissen.xcarchive \
+  -exportPath build/export -exportOptionsPlist ExportOptions.plist \
+  -allowProvisioningUpdates
+```
+
+Das Ergebnis muss mit einem Verteilungszertifikat signiert sein. Prüfen:
+
+```bash
+codesign -dv --verbose=2 build/export/Payload/SanWissen.app
+```
+
+Dort muss `Apple Distribution` stehen, nicht `Apple Development`.
+
+**3. Hochladen.** Dafür wird ein App-Store-Connect-API-Schlüssel gebraucht
+(App Store Connect → Users and Access → Integrations → Team Keys, Rolle
+App Manager). Die heruntergeladene Datei gehört nach
+`~/.appstoreconnect/private_keys/AuthKey_<KEYID>.p8`, sie darf nicht ins
+Repository:
+
+```bash
+xcrun altool --validate-app -f build/export/SanWissen.ipa -t ios \
+  --apiKey <KEYID> --apiIssuer <ISSUER-ID>
+
+xcrun altool --upload-app -f build/export/SanWissen.ipa -t ios \
+  --apiKey <KEYID> --apiIssuer <ISSUER-ID>
+```
+
+Anschließend verarbeitet Apple den Build, meist in fünf bis dreißig
+Minuten. Den Status abfragen:
+
+```bash
+xcrun altool --list-apps --apiKey <KEYID> --apiIssuer <ISSUER-ID> --output-format json
+```
+
+**Zu beachten**
+
+- Die Bundle-ID lässt sich nach dem ersten Upload nicht mehr ändern.
+- Der App-Eintrag in App Store Connect muss vorher von Hand angelegt
+  werden; über die API geht das nicht.
+- Interne TestFlight-Tester brauchen im Team die Rolle Account Holder,
+  Admin, App Manager, Developer oder Marketing. Die Rolle Kundensupport
+  genügt nicht.
+- Externe Tester brauchen nur eine E-Mail-Adresse, der erste Build für sie
+  geht aber einmal durch Apples Beta-Prüfung.

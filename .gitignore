@@ -24,10 +24,7 @@ dist-ssr
 *.sw?
 
 # Xcode
-ios/build
-ios/build-device
-ios/build-sim
-ios/build-check
+ios/build*
 ios/DerivedData
 *.xcuserstate
 xcuserdata/
