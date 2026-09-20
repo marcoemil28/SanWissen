@@ -26,6 +26,8 @@ dist-ssr
 # Xcode
 ios/build
 ios/build-device
+ios/build-sim
+ios/build-check
 ios/DerivedData
 *.xcuserstate
 xcuserdata/

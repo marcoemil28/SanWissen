@@ -13,7 +13,7 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 24) {
                 header
 
-                DisclaimerBox(text: "Die fachlichen Inhalte wurden nicht gegen ein bestimmtes offizielles Curriculum geprüft. Vor der Prüfung mit den eigenen Kursunterlagen abgleichen — Grenzwerte, Algorithmen und Zuständigkeiten unterscheiden sich je nach Organisation und Bundesland. Diese App ersetzt keine offizielle Ausbildung.")
+                DisclaimerBox(text: "Jeder Eintrag nennt seine Quelle. Medikamente, Algorithmen und Schemata sind gegen „SAA und BPR 2025\" geprüft, andere Themen stützen sich auf Leitlinien und Ausbildungsunterlagen. Landesspezifisches bezieht sich auf Baden-Württemberg. Trotzdem gilt: vor der Prüfung mit den eigenen Kursunterlagen abgleichen. Grenzwerte, Algorithmen und Zuständigkeiten unterscheiden sich je nach Organisation und Bundesland. Diese App ersetzt keine offizielle Ausbildung.")
 
                 if !favorites.items.isEmpty { favoritesSection }
                 progressSection

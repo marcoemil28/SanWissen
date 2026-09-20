@@ -12,6 +12,8 @@ enum Route: Hashable {
     case checklist(String)
     case cheatCard(String)
     case glossarEntry(String)
+    /// Der interaktive 3D-Anatomieatlas. Nur auf iOS, die Desktop-App hat ihn nicht.
+    case atlas
 }
 
 enum AppTab: Hashable {

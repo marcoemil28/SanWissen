@@ -24,6 +24,8 @@ struct RouteDestination: View {
             CheatSheetDetailView(id: id)
         case let .glossarEntry(id):
             GlossarDetailView(id: id)
+        case .atlas:
+            AtlasView()
         }
     }
 }

@@ -14,6 +14,27 @@ struct TopicModuleView: View {
         Group {
             if let module {
                 List {
+                    // Der 3D-Atlas gehört zur Anatomie, hat aber eine eigene
+                    // Ansicht und steht deshalb vor den Themen.
+                    if moduleId == "anatomie" {
+                        Section {
+                            NavigationLink(value: Route.atlas) {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "figure.stand")
+                                        .font(.title3)
+                                        .frame(width: 30)
+                                    VStack(alignment: .leading, spacing: 3) {
+                                        Text("3D-Atlas").font(.body)
+                                        Text("\(AtlasStore.shared.parts.count) Modellteile zum Drehen, Freistellen und Auseinanderziehen")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     if !module.topics.isEmpty {
                         ForEach(groups(in: module), id: \.category) { group in
                             Section(group.category ?? "") {
