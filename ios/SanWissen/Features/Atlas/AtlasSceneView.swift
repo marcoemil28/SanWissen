@@ -23,6 +23,33 @@ final class AtlasModel {
     var showsCredits = false
     var isRotating = false
 
+    // MARK: - Quiz
+
+    /// Ergebnis der letzten Antwort.
+    enum QuizResult: Equatable {
+        case correct
+        /// Falsch getippt, mit dem Namen der getroffenen Struktur.
+        case wrong(String)
+    }
+
+    var quizActive = false
+    /// Die gesuchte Struktur.
+    var quizTarget: AtlasPart?
+    var quizResult: QuizResult?
+    var quizAsked = 0
+    var quizCorrect = 0
+    /// Netze, die von der aktuellen Ansicht aus getroffen werden können.
+    @ObservationIgnored private var outerPartIds: [String] = []
+    /// Bereits gefragte Strukturen, damit sich Fragen nicht sofort wiederholen.
+    @ObservationIgnored private var askedConceptIds: Set<String> = []
+
+    /// Anzeigename der gesuchten Struktur.
+    var quizPrompt: String {
+        guard let part = quizTarget else { return "" }
+        let concept = AtlasStore.shared.concepts.first { $0.id == part.conceptId }
+        return concept?.name ?? part.name
+    }
+
     /// Ab 80 Prozent liegen die Teile flach im Raster; dann ergibt nur noch die
     /// Frontalansicht Sinn, und Ziehen verschiebt statt zu drehen.
     var isFlattened: Bool { explode > 0.8 }
@@ -39,6 +66,9 @@ final class AtlasModel {
     }
 
     @ObservationIgnored let controller = AtlasSceneController()
+    /// Wird von der eingebetteten Ansicht gesetzt; das Quiz braucht sie für die
+    /// Abtastung, weil dafür die Bildschirmgröße zählt.
+    @ObservationIgnored weak var sceneView: SCNView?
 
     init() {
         // Die Szene wird mit allen Systemen gebaut; der Anfangszustand muss
@@ -134,6 +164,68 @@ final class AtlasModel {
                            visibleSystems: visibleSystems)
     }
 
+    /// Startet das Quiz. Die Auswahl kommt aus der Abtastung der Ansicht,
+    /// gefragt wird also nur nach Strukturen, die gerade von außen zu sehen sind.
+    func startQuiz(in view: SCNView) {
+        quizActive = true
+        quizAsked = 0
+        quizCorrect = 0
+        askedConceptIds = []
+        clearSelection()
+        setRotating(false)
+        if explode != 0 { setExplode(0) }
+        nextQuestion(in: view)
+    }
+
+    func endQuiz() {
+        quizActive = false
+        quizTarget = nil
+        quizResult = nil
+        controller.select(partIds: nil)
+    }
+
+    func nextQuestion(in view: SCNView) {
+        quizResult = nil
+        controller.select(partIds: nil)
+        outerPartIds = controller.outerParts(in: view)
+
+        let store = AtlasStore.shared
+        let candidates = outerPartIds
+            .compactMap { store.part(id: $0) }
+            .filter { !askedConceptIds.contains($0.conceptId) }
+        // Sind alle schon gefragt, wird von vorn begonnen.
+        let pool = candidates.isEmpty
+            ? outerPartIds.compactMap { store.part(id: $0) }
+            : candidates
+        guard let target = pool.randomElement() else {
+            quizTarget = nil
+            return
+        }
+        askedConceptIds.insert(target.conceptId)
+        quizTarget = target
+    }
+
+    /// Prüft den Tipp. Richtig ist jedes Netz derselben benannten Struktur,
+    /// denn eine Struktur kann aus mehreren Teilen bestehen.
+    func answer(with part: AtlasPart?) {
+        guard let target = quizTarget else { return }
+        quizAsked += 1
+        let accepted = Set(AtlasStore.shared.concepts
+            .first { $0.id == target.conceptId }?.elements ?? [target.id])
+
+        if let part, accepted.contains(part.id) || part.conceptId == target.conceptId {
+            quizCorrect += 1
+            quizResult = .correct
+        } else {
+            let hitName = part.map { p -> String in
+                AtlasStore.shared.concepts.first { $0.id == p.conceptId }?.name ?? p.name
+            } ?? "daneben"
+            quizResult = .wrong(hitName)
+        }
+        // In beiden Fällen die gesuchte Struktur zeigen.
+        controller.select(partIds: accepted)
+    }
+
     func apply(viewpoint: AtlasViewpoint) {
         self.viewpoint = viewpoint
         controller.setViewpoint(viewpoint)
@@ -197,6 +289,7 @@ struct AtlasSceneView: UIViewRepresentable {
         view.addGestureRecognizer(pinch)
         view.addGestureRecognizer(tap)
         context.coordinator.view = view
+        model.sceneView = view
         return view
     }
 
@@ -216,6 +309,9 @@ struct AtlasSceneView: UIViewRepresentable {
         private var lastPan: CGPoint = .zero
 
         init(model: AtlasModel) { self.model = model }
+
+        /// Die Szene-Ansicht, damit das Quiz die Abtastung anstoßen kann.
+        var sceneView: SCNView? { view }
 
         @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
             guard let view else { return }
@@ -244,7 +340,13 @@ struct AtlasSceneView: UIViewRepresentable {
             guard let view else { return }
             let point = gesture.location(in: view)
             let part = model.controller.hitTest(point, in: view)
-            model.select(part: part)
+            if model.quizActive {
+                // Nach einer Antwort erst weiterblättern, nicht sofort neu raten.
+                guard model.quizResult == nil else { return }
+                model.answer(with: part)
+            } else {
+                model.select(part: part)
+            }
         }
     }
 }

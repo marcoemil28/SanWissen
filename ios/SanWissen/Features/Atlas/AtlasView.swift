@@ -18,22 +18,23 @@ struct AtlasView: View {
         ZStack {
             theme.pageBackground.ignoresSafeArea()
 
-            AtlasSceneView(model: model)
-                .ignoresSafeArea(edges: .bottom)
-                .onAppear {
-                    // Auf dem iPhone liegen Kopfzeile, Systemtaste und Regler
-                    // über der Szene; dort bleibt nur gut die Hälfte frei.
-                    model.controller.fit(usableHeightFraction: isCompact ? 0.62 : 0.84,
-                                         verticalShift: isCompact ? 0.11 : 0.02)
-                }
+            // Über GeometryReader, weil die eingebettete Ansicht beim ersten
+            // Aufbau noch keine Größe hat. Ohne die tatsächliche Größe rechnet
+            // das Raster mit dem falschen Seitenverhältnis und wird zu breit.
+            GeometryReader { geo in
+                AtlasSceneView(model: model)
+                    .onAppear { applyLayout(geo.size) }
+                    .onChange(of: geo.size) { _, size in applyLayout(size) }
+            }
+            .ignoresSafeArea(edges: .bottom)
 
             VStack(spacing: 0) {
-                header
+                if model.quizActive { quizBanner } else { header }
                 Spacer(minLength: 0)
             }
 
             HStack(alignment: .top, spacing: 0) {
-                if !isCompact {
+                if !isCompact, !model.quizActive {
                     systemsPanel
                         .frame(width: 232)
                         .padding(.leading, 16)
@@ -47,15 +48,19 @@ struct AtlasView: View {
 
             VStack(spacing: 10) {
                 Spacer(minLength: 0)
-                caption
-                if isCompact { compactSystemsButton }
-                explodePanel
-                    .padding(.horizontal, 16)
-                hints
+                if model.quizActive {
+                    quizFooter
+                } else {
+                    caption
+                    if isCompact { compactSystemsButton }
+                    explodePanel
+                        .padding(.horizontal, 16)
+                    hints
+                }
             }
             .padding(.bottom, 8)
 
-            if model.selectedPart != nil {
+            if model.selectedPart != nil, !model.quizActive {
                 inspector
                     .transition(.move(edge: .trailing).combined(with: .opacity))
             }
@@ -75,6 +80,17 @@ struct AtlasView: View {
         .sheet(isPresented: $model.showsCredits) { creditsSheet }
     }
 
+    /// Meldet der Szene die tatsächliche Größe: Seitenverhältnis für das
+    /// Raster, freie Höhe und Versatz für die Kameraeinpassung.
+    private func applyLayout(_ size: CGSize) {
+        guard size.width > 1, size.height > 1 else { return }
+        model.controller.setAspect(Float(size.width / size.height))
+        // Auf dem iPhone liegen Kopfzeile, Systemtaste und Regler über der
+        // Szene; dort bleibt nur gut die Hälfte frei.
+        model.controller.fit(usableHeightFraction: isCompact ? 0.62 : 0.84,
+                             verticalShift: isCompact ? 0.11 : 0.02)
+    }
+
     // MARK: - Kopfbereich
 
     private var header: some View {
@@ -90,6 +106,14 @@ struct AtlasView: View {
             }
             Spacer()
             searchField
+            Button {
+                if let view = model.sceneView { model.startQuiz(in: view) }
+            } label: {
+                Image(systemName: "questionmark.circle")
+                    .font(.system(size: 18))
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(theme.secondaryText)
             Button {
                 model.showsCredits = true
             } label: {
@@ -417,6 +441,92 @@ struct AtlasView: View {
         }
         .padding(.top, isCompact ? 150 : 96)
         .frame(maxHeight: .infinity, alignment: .top)
+    }
+
+    // MARK: - Quiz
+
+    private var quizBanner: some View {
+        VStack(spacing: 8) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("FINDE DIE STRUKTUR")
+                        .font(.system(size: 9, weight: .semibold))
+                        .tracking(1.1)
+                        .foregroundStyle(theme.secondaryText)
+                    Text(model.quizPrompt.capitalizedStructureName)
+                        .font(.headline)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer()
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text("\(model.quizCorrect)/\(model.quizAsked)")
+                        .font(.subheadline.weight(.semibold).monospacedDigit())
+                    Text("richtig")
+                        .font(.system(size: 9))
+                        .foregroundStyle(theme.secondaryText)
+                }
+                Button {
+                    model.endQuiz()
+                } label: {
+                    Image(systemName: "xmark").font(.caption)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(theme.secondaryText)
+            }
+
+            if let result = model.quizResult {
+                HStack(spacing: 6) {
+                    switch result {
+                    case .correct:
+                        Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                        Text("Richtig")
+                    case let .wrong(name):
+                        Image(systemName: "xmark.circle.fill").foregroundStyle(.orange)
+                        Text("Das war \(name.capitalizedStructureName). Die gesuchte Struktur ist hervorgehoben.")
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer(minLength: 0)
+                }
+                .font(.caption)
+            }
+        }
+        .padding(12)
+        .cardBackground()
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+    }
+
+    private var quizFooter: some View {
+        VStack(spacing: 8) {
+            if model.quizResult != nil {
+                Button {
+                    if let view = model.sceneView { model.nextQuestion(in: view) }
+                } label: {
+                    Text("Nächste Frage")
+                        .font(.subheadline.weight(.medium))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 11)
+                        .frame(maxWidth: .infinity)
+                        .background(theme.accent, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .foregroundStyle(.white)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal, 16)
+            } else {
+                Button("Überspringen") {
+                    if let view = model.sceneView { model.nextQuestion(in: view) }
+                }
+                .font(.caption)
+                .buttonStyle(.plain)
+                .foregroundStyle(theme.secondaryText)
+            }
+
+            Text("Gefragt wird nur nach Strukturen, die von hier aus zu sehen sind. Drehen ändert die Auswahl.")
+                .font(.system(size: 9))
+                .foregroundStyle(theme.secondaryText)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
+        }
     }
 
     // MARK: - Quellenangabe
