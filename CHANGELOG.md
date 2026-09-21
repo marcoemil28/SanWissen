@@ -189,10 +189,13 @@ gemeinsame Inhaltsquelle ändern.
   - **Startseite nach `HomeView`**: großer Titel, fachlicher Hinweis als
     Karte, Favoriten, Fortschritt, Schnellzugriff, Module nach Thema und
     der Fahrplan zum Aufklappen.
-  - **Themen öffnen sich als eigene Seite.** Vorher standen Liste und
+  - **Einträge öffnen sich als eigene Seite.** Vorher standen Liste und
     Inhalt nebeneinander in einem Kasten. Jetzt zeigt das Modul erst die
-    Liste, das Thema kommt mit Zurück-Schaltfläche, und jeder Abschnitt
-    ist eine eigene Karte.
+    Liste, der Eintrag kommt mit Zurück-Schaltfläche, und jeder Abschnitt
+    ist eine eigene Karte. Betrifft die zehn Themenmodule ebenso wie
+    Werkzeuge, Medikamente und Checklisten.
+  - Der rote Hinweiskasten ist dem gemeinsamen Baustein nach dem Vorbild
+    von `DisclaimerBox` gewichen, in allen Modulen derselbe.
   - **Unten eine Reiterleiste statt der Schublade** auf schmalen
     Fenstern, mit Start, Module, Quiz und Suche wie in der TabView auf
     iOS. Dafür kamen zwei Seiten dazu, die es nur schmal braucht.
