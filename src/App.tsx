@@ -3,7 +3,10 @@ import { MODULES, MODULE_CATEGORIES, type LearningModule } from './app/registry'
 import { NavigationProvider } from './app/NavigationContext';
 import { GlobalSearch } from './app/GlobalSearch';
 import { HomePage } from './app/HomePage';
+import { ModuleListPage } from './app/ModuleListPage';
+import { SearchPage } from './app/SearchPage';
 import { AppearancePicker } from './app/AppearancePicker';
+import { GridIcon, HomeIcon, QuestionIcon, SearchIcon } from './app/TabIcons';
 import {
   applyAppearance,
   loadAppearance,
@@ -14,27 +17,37 @@ import {
 } from './app/appearance';
 import './App.css';
 
+/**
+ * Reiter der unteren Leiste auf schmalen Fenstern, dieselben vier wie in
+ * der TabView der iOS-App.
+ */
+const TABS = [
+  { id: 'home', label: 'Start', Icon: HomeIcon },
+  { id: 'modules', label: 'Module', Icon: GridIcon },
+  { id: 'quiz', label: 'Quiz', Icon: QuestionIcon },
+  { id: 'search', label: 'Suche', Icon: SearchIcon },
+] as const;
+
 function AppShell() {
   const [activeId, setActiveId] = useState('home');
   const [appearance, setAppearance] = useState<AppearanceMode>(loadAppearance);
   const resolved = resolveAppearance(appearance);
   const highContrast = resolved === 'contrast';
-  /**
-   * Auf schmalen Fenstern liegt die Seitenleiste als Schublade über dem
-   * Inhalt statt daneben. Gesteuert wird sie hier, sichtbar wird der
-   * Unterschied allein über CSS (siehe `@media` in App.css) — so gibt es
-   * keinen zweiten Umschaltpunkt, der mit dem im Stylesheet auseinanderlaufen
-   * könnte.
-   */
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  /** Nach jedem Modulwechsel schließt die Schublade, sonst verdeckt sie das Ziel. */
   function navigate(moduleId: string) {
     setActiveId(moduleId);
-    setMenuOpen(false);
   }
+
   const activeModule = MODULES.find((m) => m.id === activeId);
   const ActiveComponent = activeModule?.component;
+
+  /*
+   * Welcher Reiter leuchtet. Alles, was weder Start, Quiz noch Suche ist,
+   * liegt unter „Module" — also auch ein geöffnetes Modul. Ein Tippen auf
+   * den schon aktiven Reiter führt zurück zur Liste, so wie es eine
+   * TabView auf iOS macht.
+   */
+  const activeTab =
+    activeId === 'home' || activeId === 'quiz' || activeId === 'search' ? activeId : 'modules';
 
   useEffect(() => {
     saveAppearance(appearance);
@@ -66,18 +79,16 @@ function AppShell() {
   }, []);
 
   return (
-    <div className={`app-shell ${highContrast ? 'high-contrast' : ''} ${menuOpen ? 'menu-open' : ''}`}>
-      <button
-        className="app-menu-toggle"
-        onClick={() => setMenuOpen((open) => !open)}
-        aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
-        aria-expanded={menuOpen}
-      >
-        {menuOpen ? '✕' : '☰'}
-      </button>
-
-      {/* Schließt die Schublade beim Tippen daneben. */}
-      <div className="app-scrim" onClick={() => setMenuOpen(false)} aria-hidden="true" />
+    <div className={`app-shell ${highContrast ? 'high-contrast' : ''}`}>
+      {/*
+        Auf schmalen Fenstern steckt die Seitenleiste nicht in einer
+        Schublade, sondern entfällt zugunsten der Reiterleiste unten. Der
+        Umschalter für die Darstellung sitzt dann oben rechts, wie der
+        entsprechende Knopf in der Werkzeugleiste auf iOS.
+      */}
+      <div className="app-floating-appearance">
+        <AppearancePicker value={appearance} onChange={setAppearance} />
+      </div>
 
       <aside className="app-sidebar">
         <div className="app-brand">
@@ -134,12 +145,33 @@ function AppShell() {
       <main className="app-content">
         {activeId === 'home' ? (
           <HomePage onNavigateModule={navigate} />
+        ) : activeId === 'modules' ? (
+          <ModuleListPage onNavigateModule={navigate} />
+        ) : activeId === 'search' ? (
+          <SearchPage onNavigateModule={navigate} />
         ) : ActiveComponent ? (
           <ActiveComponent onNavigateModule={navigate} />
         ) : (
           <div className="coming-soon">Dieses Modul ist noch nicht verfügbar.</div>
         )}
       </main>
+
+      <nav className="app-tabbar" aria-label="Hauptbereiche">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            className={`app-tab ${activeTab === tab.id ? 'active' : ''}`}
+            onClick={() => navigate(tab.id)}
+            aria-current={activeTab === tab.id ? 'page' : undefined}
+          >
+            <span className="app-tab-icon">
+              <tab.Icon />
+            </span>
+            <span className="app-tab-label">{tab.label}</span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }
