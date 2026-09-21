@@ -1215,11 +1215,18 @@ ul {
   align-items: flex-start;
 }
 
+/*
+ * Kein `touch-action: none` hier. Gezogen wird ausschließlich von den
+ * Chips in der Ablage, und die setzen es selbst (ElectrodePlacement.tsx).
+ * Auf der Fläche hätte es nur einen Effekt: das Körperbild füllt am
+ * Telefon fast den ganzen Bildschirm, und ein Wischen darüber wurde
+ * verschluckt statt zu scrollen. Am Schreibtisch mit der Maus fällt das
+ * nicht auf.
+ */
 .electrode-svg-wrap {
   background-color: var(--bg-panel);
   border: 1px solid var(--border);
   border-radius: 10px;
-  touch-action: none;
   flex-shrink: 0;
 }
 
@@ -1569,6 +1576,16 @@ ul {
 }
 
 @media (max-width: 900px) {
+  /*
+   * Zu den Rändern kommt jeweils `env(safe-area-inset-*)` dazu. Ab
+   * Android 15 zeichnet die App unter Status- und Gestenleiste, und ohne
+   * diesen Zuschlag sitzt die Menütaste auf der Uhr und die Gestenleiste
+   * auf der letzten Zeile. Nötig ist dafür `viewport-fit=cover` in
+   * `index.html`, sonst meldet `env()` überall null. Die einfache Zeile
+   * steht jeweils davor, damit eine WebView ohne `env()` nicht ganz ohne
+   * Rand dasteht.
+   */
+
   /* Schublade statt fester Spalte. */
   .app-sidebar {
     position: fixed;
@@ -1580,10 +1597,33 @@ ul {
     transform: translateX(-100%);
     transition: transform 0.22s ease;
     box-shadow: 2px 0 16px rgb(0 0 0 / 35%);
+    padding: calc(1rem + env(safe-area-inset-top, 0px)) 0.75rem
+      calc(1rem + env(safe-area-inset-bottom, 0px))
+      calc(0.75rem + env(safe-area-inset-left, 0px));
   }
 
   .app-shell.menu-open .app-sidebar {
     transform: translateX(0);
+  }
+
+  /*
+   * Leiste hinter der Menütaste. Die Taste steht fest am Bildschirm, der
+   * Inhalt scrollt darunter durch. Ohne diesen undurchsichtigen Streifen
+   * verdeckt sie beim Scrollen einzelne Zeilen, was beim ersten Lauf auf
+   * Android auffiel: aus „Erregungszustände" wurde „rregungszustände".
+   * z-index 15 hält sie über dem Inhalt, aber unter Verdunklung (20) und
+   * Schublade (30).
+   */
+  .app-shell::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.4rem;
+    height: calc(3.4rem + env(safe-area-inset-top, 0px));
+    z-index: 15;
+    background-color: var(--bg);
   }
 
   .app-menu-toggle {
@@ -1592,7 +1632,9 @@ ul {
     justify-content: center;
     position: fixed;
     top: 0.6rem;
+    top: calc(0.6rem + env(safe-area-inset-top, 0px));
     left: 0.6rem;
+    left: calc(0.6rem + env(safe-area-inset-left, 0px));
     z-index: 40;
     width: 2.6rem;
     height: 2.6rem;
@@ -1616,6 +1658,10 @@ ul {
   /* Oben Platz für die Menütaste, seitlich weniger Rand. */
   .app-content {
     padding: 3.8rem 1rem 1.5rem;
+    padding: calc(3.8rem + env(safe-area-inset-top, 0px))
+      calc(1rem + env(safe-area-inset-right, 0px))
+      calc(1.5rem + env(safe-area-inset-bottom, 0px))
+      calc(1rem + env(safe-area-inset-left, 0px));
   }
 
   /* Liste und Detailansicht untereinander statt nebeneinander. */
@@ -1727,6 +1773,10 @@ ul {
 @media (max-width: 420px) {
   .app-content {
     padding: 3.6rem 0.75rem 1.25rem;
+    padding: calc(3.6rem + env(safe-area-inset-top, 0px))
+      calc(0.75rem + env(safe-area-inset-right, 0px))
+      calc(1.25rem + env(safe-area-inset-bottom, 0px))
+      calc(0.75rem + env(safe-area-inset-left, 0px));
   }
 
   .module-header h1 {

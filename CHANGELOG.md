@@ -150,6 +150,29 @@ gemeinsame Inhaltsquelle ändern.
     Abweichung an allen vier Zielen ist null.
   - Am Desktop ändert sich nichts.
   - Erster Schritt Richtung Android, siehe [docs/android.md](docs/android.md).
+- **Android: das Gradle-Projekt steht, die Debug-APK baut durch.**
+  `tauri android init` legt es unter `src-tauri/gen/android` an. Die
+  Inhalte brauchten dafür keine Anpassung, weil Tauri das Frontend samt
+  der 49 Abbildungen in die native Bibliothek einbettet statt als Dateien
+  in die APK zu legen. Im Emulator gelaufen und durchgeklickt. Der
+  3D-Atlas fehlt weiterhin, siehe [docs/android.md](docs/android.md).
+  - **Der Inhalt lag unter den Systemleisten.** Ab Android 15 zeichnet
+    eine App randlos. Ohne `viewport-fit=cover` und
+    `env(safe-area-inset-*)` saß die Menütaste auf der Uhr und die
+    Gestenleiste auf der letzten Zeile.
+  - **Die Menütaste verdeckte beim Scrollen Text.** Sie steht fest am
+    Bildschirm, der Inhalt lief darunter durch; aus „Erregungszustände"
+    wurde „rregungszustände". Jetzt liegt ein undurchsichtiger Streifen
+    dahinter.
+  - **Über dem Körperbild des Elektroden-Trainers ließ sich nicht
+    scrollen.** `touch-action: none` lag auf der ganzen Fläche, obwohl
+    ausschließlich die Chips in der Ablage gezogen werden und die es
+    selbst setzen. Am Telefon füllt das Bild fast den Bildschirm, ein
+    Wisch darüber wurde verschluckt statt zu scrollen. Mit der Maus fällt
+    das nie auf.
+  - Das Platzieren der Elektroden wurde auf dem Gerät mit echten
+    Berührungen nachgeprüft, Treffer und Fehlversuch werden erkannt.
+  - `index.html` sagt jetzt `lang="de"` statt `lang="en"`.
 - **Atlas auf dem iPad: Systemliste lag über dem Körper.** Ob die Liste
   neben der Szene steht oder über eine Taste als Blatt aufgeht, hing an der
   Größenklasse. Im iPad-Split-View ist die Detailspalte zwar „regular", aber
