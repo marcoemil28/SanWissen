@@ -89,6 +89,54 @@ voller Qualität.
   Android-Job braucht SDK, NDK und einen Keystore. Für eine erste
   Testversion reicht eine unsignierte APK zum Sideload.
 
+## Werkzeugkette einrichten
+
+Am 21.09.2026 eingerichtet und bis zur fertigen Debug-APK durchgezogen.
+Vorhanden waren Android Studio, `build-tools 36.0.0`, die Platform-Tools
+und der Emulator. Ergänzt wurden:
+
+- **Die Rust-Zielarchitekturen.** `rustup target add aarch64-linux-android
+  armv7-linux-androideabi i686-linux-android x86_64-linux-android`.
+- **Die Command-line Tools**, entpackt nach
+  `~/Library/Android/sdk/cmdline-tools/latest`. Wichtig: das Paket gibt es
+  für macOS in zwei Fassungen, `mac_x86_64` und `mac_arm64`. Seit Fassung
+  23 steckt darin ein natives `android`-Binary; die x86-Variante scheitert
+  auf Apple Silicon ohne Rosetta an „Bad CPU type in executable".
+- **Das NDK**, `ndk;27.3.13750724`. Bewusst nicht die neueste Reihe r30,
+  sondern die letzte r27, weil sie am breitesten erprobt ist.
+- **Die Plattform `android-36`**, weil das erzeugte Gradle-Projekt
+  `compileSdk = 36` setzt. Installiert war nur `android-37.0`.
+
+Gesetzt werden müssen `ANDROID_HOME` auf `~/Library/Android/sdk` und
+`NDK_HOME` auf den NDK-Ordner darunter. Ohne die Command-line Tools bricht
+`tauri android init` mit „failed to ensure Android environment" ab, weil
+Tauri sie im nicht-interaktiven Lauf nicht nachinstallieren kann.
+
+### Das JDK ist nicht beliebig
+
+Der Wrapper des erzeugten Projekts zieht Gradle 8.14.3, und das verträgt
+kein Java 25. Der Build bricht ab mit „Unsupported class file major
+version 69". Betroffen sind beide auf dem Rechner vorhandenen 25er, das
+Oracle-JDK und die mit Android Studio gelieferte JBR.
+
+`JAVA_HOME` muss deshalb auf das JDK 21 zeigen:
+
+```
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home
+```
+
+### Wo die Inhalte landen
+
+Dafür war nichts zu tun, und zwar an einer Stelle, die man nicht erwartet:
+die Abbildungen liegen **nicht** als Dateien in der APK. Tauri bettet das
+gesamte Frontend in die native Bibliothek ein. Die 49 Abbildungen aus
+`content/images/` stecken also in `libtauri_app_lib.so`, nachgeprüft über
+die Dateinamen im Binärcode. Kein Netz nötig.
+
+Die Debug-APK ist entsprechend 134 MB groß, fast alles davon die
+unoptimierte Bibliothek mit Debug-Symbolen. Ein Release-Build fällt
+deutlich kleiner aus.
+
 ## Reihenfolge, wenn es losgeht
 
 1. ~~`src/App.css` und die App-Hülle responsive machen~~ **erledigt**
@@ -96,5 +144,21 @@ voller Qualität.
    zweispaltigen Modulansichten stapeln sich, und die Abbildung des
    Elektroden-Trainers skaliert mit. Alle 17 Module laufen bei 375 Pixeln
    ohne waagerechten Überlauf.
-2. `npm run tauri android init` und ein Debug-Build auf einem Gerät.
+2. ~~`npm run tauri android init` und ein Debug-Build~~ **erledigt**.
+   Das Gradle-Projekt liegt unter `src-tauri/gen/android`, die Debug-APK
+   baut durch (`tauri android build --debug --target aarch64`). Offen ist
+   nur noch der Lauf auf einem echten Gerät oder im Emulator, wofür noch
+   kein System-Image installiert ist.
 3. Erst danach entscheiden, ob der Atlas in WebGL dazukommt.
+
+## Was beim ersten Build auffiel
+
+- **`INTERNET`-Berechtigung.** Das erzeugte `AndroidManifest.xml` fordert
+  sie an. Für eine App, die mit „komplett offline" antritt, ist das eine
+  Zeile, die im Play-Store sichtbar wäre. Ob Tauri sie wirklich braucht
+  oder ob sie nur aus der Vorlage stammt, ist noch nicht geprüft. Der
+  Test wäre, sie zu streichen und die App zu starten.
+- **Namensreste aus der Vorlage.** Das Gradle-Thema heißt
+  `Theme.tauri_app`, weil das Rust-Paket in `Cargo.toml` noch
+  `tauri-app` heißt, mit `description = "A Tauri App"` und
+  `authors = ["you"]`. Kosmetik, aber sie steht im fertigen Paket.
