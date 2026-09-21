@@ -287,11 +287,11 @@ Eigenständiges Modul, eigener Sidebar-Tab in der „Rettungssanitäter"-Gruppe
   Nachschlagetabelle.
   Allgemeines anatomisch-physiologisches Grundlagenwissen, keine SAA/BPR-Quelle.
 
-### ✅ 3D-Anatomieatlas (nur iOS)
+### ✅ 3D-Anatomieatlas
 
-Einstieg oben im Modul „Anatomie & Physiologie". Auf dem Desktop gibt es
-ihn nicht: das Modell ist auf Touch und native 3D-Darstellung (SceneKit)
-ausgelegt.
+Einstieg oben im Modul „Anatomie & Physiologie", auf allen Plattformen.
+Auf iOS in SceneKit, auf Windows, macOS und Android in WebGL über
+three.js. Beide lesen dieselbe Geometrie aus `content/atlas/`.
 
 - **Zwei Modelle**, umschaltbar in der Kopfzeile: männlich aus
   [BodyParts3D](https://lifesciencedb.jp/bp3d/) (2.234 Teile, 2,29 Mio.
@@ -315,6 +315,16 @@ ausgelegt.
   liegt als Rohpuffer in `content/atlas/` und wird nur
   eingeblendet (memory mapped) statt geladen. Sie macht den Großteil der
   rund 109 MB aus, die die App belegt.
+- **Zur WebGL-Fassung:** auf iOS bekommt jedes der 2.234 Netze einen
+  eigenen Knoten, was SceneKit wegsteckt. In WebGL wären das 2.234
+  Zeichenaufrufe pro Bild. Dort fasst deshalb ein `BatchedMesh` je
+  Organsystem alle Netze zusammen und bietet trotzdem Sichtbarkeit,
+  Farbe und Matrix je Teil. Gemessen: 14 Aufrufe pro Bild. Die Geometrie
+  wird dabei nicht eingeblendet, sondern geladen; auf dem
+  Android-Emulator dauert das 1,9 Sekunden.
+- Die Namen der Teile und Strukturen sind englisch, so wie sie in den
+  Quelldaten stehen. Die Organsysteme sind übersetzt und stehen in
+  `content/atlas-systems.json`.
 
 ### ✅ Werkzeuge & Scores
 
@@ -444,127 +454,57 @@ der Umsetzungsweg steht unter [Mobile (Android)](#mobile-android).
 
 ```
 src/
+  main.tsx                # Einstiegspunkt; setzt die Darstellung, bevor React zeichnet
+  App.tsx                 # App-Hülle: Seitenleiste am PC, Reiterleiste am Telefon
   app/
     registry.tsx         # Modul-Registry: Zuordnung ID → Komponente, Rest aus content/modules.json
-    content.ts            # liest content/ und bildet es auf die Typen der Ansichten ab
-    NavigationContext.tsx    # modulübergreifende "spring zu Modul X, Eintrag Y"-Anfrage
+    content.ts            # liest die Themenmodule aus content/
+    appearance.ts          # Automatisch/Hell/Dunkel/Hoher Kontrast, wie auf iOS
+    AppearancePicker.tsx    # Umschalter dafür
+    NavigationContext.tsx    # modulübergreifende „spring zu Modul X, Eintrag Y"-Anfrage
     searchIndex.ts            # durchsuchbarer Index über alle Module
-    GlobalSearch.tsx           # Suchfeld + Ergebnisliste in der Sidebar
-    roadmap.ts                # kuratierter "Fahrplan" je Themenkategorie (nur Links, keine Inhalte)
-    favorites.ts               # Favoriten-Store (localStorage + Pub/Sub, kein React-Context)
-    formatDate.ts               # Formatiert CONTENT_STAND (ISO-Datum) als TT.MM.JJJJ
-    HomePage.tsx               # Startseite: Modul-Karten + Favoriten + Fahrplan + EKG-Fortschritt
-    quiz/
-      types.ts                  # QuizQuestion-Datenmodell
-      questions.ts                # Fragenpool über fast alle Module hinweg
-      progress.ts                  # Fortschritt + gewichtete Auswahl (analog modules/ekg/progress.ts)
-      QuizModule.tsx                # Generalisierter Quiz-Modus (Modul-Filter, Sofort-Feedback)
-    checklisten/
-      types.ts                  # Datenmodell (Checklist/ChecklistItem)
-      data.ts                     # 5 abhakbare Checklisten, aus Themenmodulen abgeleitet
-      state.ts                     # Checked-Status je Checkliste (localStorage)
-      ChecklistenModule.tsx          # Liste + abhakbare Checkliste mit Fortschrittsanzeige
-    cheatsheet/
-      types.ts                  # Datenmodell (CheatSheetCard)
-      data.ts                     # 8 großformatige Merkzettel-Karten, aus Themenmodulen verdichtet
-      CheatSheetModule.tsx          # Karten-Grid, druckbar (@media print in App.css)
+    GlobalSearch.tsx           # Suchfeld mit Auswahlliste in der Seitenleiste (PC)
+    SearchPage.tsx              # dasselbe als eigene Seite für den Reiter „Suche" (Telefon)
+    ModuleListPage.tsx           # alle Module als gruppierte Liste für den Reiter „Module"
+    TabIcons.tsx                  # einfarbige SVG-Symbole der Reiterleiste
+    HomePage.tsx                   # Startseite nach dem Vorbild von HomeView.swift
+    roadmap.ts                      # kuratierter „Fahrplan" je Kategorie (nur Links)
+    favorites.ts                     # Favoriten (localStorage + Pub/Sub)
+    formatDate.ts                     # ISO-Datum als TT.MM.JJJJ, Gegenstück zu formatStand(_:)
+    quiz/                              # Prüfungsquiz über alle Module (Fragen, Fortschritt, Ansicht)
+    checklisten/, cheatsheet/           # siehe modules/ unten, liegen historisch hier
   components/
-    ConfirmButton.tsx      # In-App-Bestätigung statt window.confirm (Tauri-WebView-sicher)
-    FavoriteButton.tsx      # ☆/★-Stern-Button, verwendet in den meisten Modul-Detailansichten
+    TopicModule.tsx        # gemeinsame Ansicht der zehn Themenmodule: Liste, dann Detailseite
+    SectionBox.tsx          # SectionBox, RowLink, RowGroup, DisclaimerBox, BackLink
+    SectionIllustration.tsx  # Abbildung aus content/images/ samt Bildunterschrift
+    FavoriteButton.tsx        # ☆/★-Stern neben Titeln
+    ConfirmButton.tsx          # In-App-Bestätigung statt window.confirm
   modules/
-    ekg/
-      types.ts           # Datenmodell für Rhythmen
-      rhythms.ts         # Rhythmus-Bibliothek (Inhalte!)
-      waveform.ts         # EKG-Kurvengenerator (parametrisch, keine Bilder)
-      EkgTrace.tsx         # Canvas-Rendering der Kurve im Monitor-Look
-      StudyMode.tsx        # Lern-/Karteikartenansicht
-      QuizMode.tsx         # Multiple-Choice-Quiz
-      ProgressView.tsx     # Fortschrittsstatistik
-      progress.ts          # localStorage-Persistenz + gewichtete Zufallsauswahl
-      EkgModule.tsx         # Tab-Container (Lernen/Elektroden/Quiz/Fortschritt)
-      electrodes/
-        types.ts             # Datenmodell für Elektrodenpunkte/-sets (inkl. ElectrodeHitZone)
-        data.ts               # Monitoring- + 12-Kanal-Set (Positionen, Landmarken, Hit-Zonen)
-        layout.ts              # Label-Platzierung (links/rechts) im SVG
-        BodyOutline.tsx        # SVG-Ganzkörperumriss (fürs Monitoring-Set)
-        ThoraxOutline.tsx       # gezoomter Brustkorb mit ICR-Bändern + Leitlinien (fürs 12-Kanal-Set)
-        ElectrodeStudy.tsx      # Lernen: alle Positionen beschriftet
-        ElectrodePlacement.tsx  # Üben: Drag-and-drop-Platzierung + Zeile/Spalte-Prüfung
-        ElectrodesTab.tsx        # Set-/Modus-Umschalter
-    medikamente/
-      types.ts           # Datenmodell für Medikamente
-      medications.json   # aus docs/saa_bpr_2025.pdf extrahierte Rohdaten
-      wirkung.ts          # ergänzte Kurz-Wirkbeschreibungen (nicht aus dem PDF)
-      data.ts             # lädt/typisiert medications.json + wirkung.ts
-      MedikamenteModule.tsx  # Kategorie-Liste + Detailansicht
-    algorithmen/
-      types.ts           # Datenmodell (AlgorithmEntry/-Section/-Step)
-      data.ts             # 9 Einträge aus BPR "Herangehensweise" + "Kreislaufstillstand"
-      AlgorithmenModule.tsx  # Detailansicht mit Schritten je Sektion
-    medikamentenvorbereitung/
-      types.ts           # Datenmodell (MedVorbereitungEntry/-Section/-Step)
-      data.ts             # 6-R-Regel, Sicherheitsprinzipien, Standardvorgehen, Verdünnungsformel
-      MedikamentenvorbereitungModule.tsx  # Detailansicht (Einzelthema, keine Liste)
+    <zehn Themenmodule>/   # je eine Hülle um TopicModule, Inhalte in content/topics-*.json
     anatomie/
-      types.ts           # Datenmodell (AnatomieTopic/-Section/-Fact)
-      data.ts             # 5 Themen: Herz-Kreislauf, Atmung, Skelett/Muskulatur, Nervensystem, Vitalparameter
-      AnatomieModule.tsx  # Detailansicht mit Fakten je Sektion
-    werkzeuge/
-      data.ts             # Tool-Registry (GCS/Schmerzskala/APGAR/Neuner-Regel/NACA)
-      GcsCalculator.tsx, SchmerzSkala.tsx, ApgarCalculator.tsx,
-      NeunerRegel.tsx, NacaScore.tsx  # je ein interaktiver Rechner
-      WerkzeugeModule.tsx # Liste + aktiver Rechner
-    traumatologie/
-      types.ts           # Datenmodell (TraumaTopic/-Section/-Fact)
-      data.ts             # 7 Themen: Frakturen, Wundversorgung, Verbandslehre, schwere
-                          #   Verletzungen, Verbrennungen, Polytrauma/Blutstillung
-      TraumatologieModule.tsx  # Detailansicht mit Fakten je Sektion
-    sanitaetsdienst/
-      types.ts           # Datenmodell (SanitaetsdienstTopic/-Section/-Fact)
-      data.ts             # 5 Themen: Wachdienst-Organisation, MANV/Sichtung, Funkalphabet,
-                          #   Veranstaltungs-Verletzungsmuster, Hygiene & Infektionsschutz
-      SanitaetsdienstModule.tsx  # Detailansicht mit Fakten je Sektion
-    internistischenotfaelle/
-      types.ts           # Datenmodell (InternistischeNotfaelleTopic/-Section/-Fact)
-      data.ts             # 10 Themen: Herz & Kreislauf, Neurologisch, Stoffwechsel & Allergie,
-                          #   Abdomen & Vergiftungen, Umweltbedingte Notfälle
-      InternistischeNotfaelleModule.tsx  # Detailansicht mit Fakten je Sektion
-    paediatrie/
-      types.ts           # Datenmodell (PaediatrieTopic/-Section/-Fact)
-      data.ts             # 4 Themen: Pädiatrie (Besonderheiten), Geburtshilfe (Geburt,
-                          #   Notgeburt, Neugeborenen-Erstversorgung & APGAR)
-      PaediatrieModule.tsx  # Detailansicht mit Fakten je Sektion
-    psychiatrienotfaelle/
-      types.ts           # Datenmodell (PsychiatrieNotfaelleTopic/-Section/-Fact)
-      data.ts             # 5 Themen: Psychiatrische Notfälle, Kommunikation,
-                          #   Sterben & Todesfeststellung, Großschadenslagen
-      PsychiatrieNotfaelleModule.tsx  # Detailansicht mit Fakten je Sektion
-    rettungstechnik/
-      types.ts           # Datenmodell (RettungstechnikTopic/-Section/-Fact)
-      data.ts             # 6 Themen: Trageformen, Lagerungsarten, Atemwege & Beatmung,
-                          #   Gerätekunde (Notfallrucksack)
-      RettungstechnikModule.tsx  # Detailansicht mit Fakten je Sektion
-    rechtlichegrundlagen/
-      types.ts           # Datenmodell (RechtlicheGrundlagenTopic/-Section/-Fact)
-      data.ts             # 5 Themen: Grundrechte & Pflichten, Delegation & Kompetenz,
-                          #   Dokumentation
-      RechtlicheGrundlagenModule.tsx  # Detailansicht mit Fakten je Sektion
-    glossar/
-      types.ts           # Datenmodell (GlossaryEntry: abbr/meaning/description)
-      data.ts             # ca. 40 RS-typische Abkürzungen, alphabetisch sortiert
-      GlossarModule.tsx    # Durchsuchbare Liste ohne Kategorie-Sidebar
-  App.tsx                 # App-Shell: nach Thema gruppierte Sidebar, globale Suche, aktives Modul
+      atlas/               # 3D-Atlas in WebGL (three.js)
+        atlasData.ts        # Verzeichnis laden, weibliches Modell zusammensetzen
+        AtlasScene.ts        # Szene: BatchedMesh je System, Kamera, Auswahl, Explosionsansicht
+        AtlasView.tsx         # Bedienung: Suche, Systeme, Freistellen, Regler, Struktur-Quiz
+    ekg/                   # Rhythmen, Kurvengenerator, Quiz, Fortschritt
+      electrodes/          # Elektroden-Trainer (SVG, Ziehen per Pointer-Events)
+    werkzeuge/             # sechs Rechner; Titel und Texte in content/werkzeuge.json
+    medikamente/, glossar/, checklisten/, cheatsheet/
+                           # eigene Ansichten; data.ts hält nur Typisierung und Zugriff
 content/                 # ALLE Fachinhalte als JSON — die einzige Pflegestelle
   modules.json           # Modul-Registry: Titel, Kategorie, Icon/Symbol, angepinnt
   topics-<modul>.json    # die zehn Themenmodule mit gemeinsamem Schema
   medikamente.json, ekg-*.json, glossar.json, quiz.json, …
   illustrations.json     # Bildunterschrift je Abbildung
   images/                # 49 Bilddateien, von beiden Apps genutzt (ca. 5 MB)
+  atlas/                 # Geometrie des 3D-Atlas (Rohpuffer, ca. 97 MB) + atlas*.json
+  atlas-systems.json     # Namen, Farben und Beschreibungen der Organsysteme
   schema/                # JSON Schemas: Feldhilfe im Editor + Prüfung im Build
 src-tauri/                # Rust-Backend (Tauri), native Fenster/Bundling
 docs/                    # Quell-PDFs/Unterlagen, aus denen Inhalte extrahiert werden
 scripts/
   check-content.mjs      # prüft alle Verweise in content/ (läuft bei npm run build)
+  vite-plugin-atlas.ts   # liefert content/atlas/ unter /atlas/ ans Frontend aus
 ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
   SanWissen/
     App/                 # Einstiegspunkt, Wurzelansicht (TabView bzw. Split-View), Routing
@@ -572,8 +512,6 @@ ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
     Content/             # Laden der JSON-Dateien + Datenmodelle
     Features/            # eine Ansicht je Modul, zehn teilen sich eine gemeinsame
       Atlas/             # 3D-Anatomieatlas (SceneKit): Szene, Systeme, Quiz
-    Resources/
-      Atlas/             # Geometrie des 3D-Atlas (Rohpuffer, ca. 97 MB) + atlas*.json
   Signing.xcconfig       # Platzhalter, bindet die lokale, nicht versionierte Datei ein
 ```
 
