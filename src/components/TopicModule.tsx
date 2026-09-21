@@ -33,6 +33,11 @@ interface TopicModuleProps {
   disclaimer: ReactNode;
   /** Überschrift über `notes`. Die Schemamodule nennen das „Hinweise". */
   notesHeading?: string;
+  /**
+   * Steht in der Liste über den Themen. Anatomie hängt dort den 3D-Atlas
+   * ein, der kein Thema ist, sondern eine eigene Ansicht.
+   */
+  leadIn?: ReactNode;
 }
 
 function TopicDetail({
@@ -102,7 +107,13 @@ function TopicDetail({
   );
 }
 
-export function TopicModule({ moduleId, heading, disclaimer, notesHeading = 'Hinweise' }: TopicModuleProps) {
+export function TopicModule({
+  moduleId,
+  heading,
+  disclaimer,
+  notesHeading = 'Hinweise',
+  leadIn,
+}: TopicModuleProps) {
   const mod = topicModuleById(moduleId);
   const topics = mod.topics;
   const { pending, clearPending } = useNavigation();
@@ -165,6 +176,8 @@ export function TopicModule({ moduleId, heading, disclaimer, notesHeading = 'Hin
       </header>
 
       <DisclaimerBox>{disclaimer} Inhaltlicher Stand: {formatStand(mod.contentStand ?? '')}.</DisclaimerBox>
+
+      {leadIn}
 
       {mod.categoryOrder
         .filter((category) => grouped.has(category))

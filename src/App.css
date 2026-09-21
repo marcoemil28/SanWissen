@@ -1802,6 +1802,268 @@ ul {
 }
 
 /* ==========================================================================
+   3D-Atlas
+   --------------------------------------------------------------------------
+   Die Leinwand nimmt den größten Teil der Höhe ein; darunter liegen
+   Auswahl, Systemliste und der Regler zum Auseinanderziehen. Die
+   Blickrichtungen schweben rechts über der Szene, wie in der iOS-Fassung.
+   ========================================================================== */
+
+.atlas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-header h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.atlas-sex-switch {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background-color: var(--bg-panel-alt);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-control);
+}
+
+.atlas-sex-switch button {
+  background-color: transparent;
+  border: none;
+  border-radius: calc(var(--radius-control) - 3px);
+  padding: 0.35em 0.9em;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+}
+
+.atlas-sex-switch button:hover:not(:disabled) {
+  filter: none;
+  color: var(--text);
+}
+
+.atlas-sex-switch button.active {
+  background-color: var(--bg-panel);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.atlas-stage {
+  position: relative;
+  height: min(62vh, 620px);
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.atlas-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /*
+   * Ohne das übernimmt der Browser Ziehen und Kneifen selbst und die Szene
+   * bekommt nie ein Ereignis. Hier ist das richtig, weil die Leinwand eine
+   * feste Höhe hat und nichts verdeckt, an dem sonst gescrollt würde.
+   */
+  touch-action: none;
+  cursor: grab;
+}
+
+.atlas-canvas:active {
+  cursor: grabbing;
+}
+
+.atlas-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.5rem;
+  text-align: center;
+  background-color: var(--bg-panel);
+  color: var(--text-dim);
+}
+
+.atlas-overlay progress {
+  width: min(16rem, 70%);
+}
+
+.atlas-error {
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.atlas-viewpoints {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px;
+  background-color: color-mix(in srgb, var(--bg-panel-alt) 88%, transparent);
+  border-radius: var(--radius-control);
+}
+
+.atlas-viewpoints button {
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  font-size: 0.95rem;
+  background-color: transparent;
+  border: none;
+  border-radius: calc(var(--radius-control) - 3px);
+  color: var(--text);
+}
+
+.atlas-viewpoints button:hover:not(:disabled) {
+  filter: none;
+  background-color: var(--bg-panel);
+  color: var(--accent);
+}
+
+.atlas-hint {
+  margin: 0.6rem 0 1rem 0;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.atlas-selection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.8em 1em;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-selection div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.atlas-selection span {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.atlas-systems-toggle {
+  width: 100%;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-systems {
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.8em;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-system-list {
+  list-style: none;
+  margin: 0.8rem 0 0 0;
+  padding: 0;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.atlas-system-list label {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.5em 0.2em;
+  cursor: pointer;
+}
+
+.atlas-system-list li + li label {
+  border-top: 1px solid var(--border);
+}
+
+.atlas-system-dot {
+  flex-shrink: 0;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+}
+
+.atlas-system-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.atlas-system-list input[type='checkbox'] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.atlas-system-count {
+  margin: 0.6rem 0 0 0;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.atlas-explode {
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.8em 1em;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-explode label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 600;
+}
+
+.atlas-explode label span {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+.atlas-explode input[type='range'] {
+  width: 100%;
+  margin: 0.7rem 0 0.2rem 0;
+  accent-color: var(--accent);
+}
+
+.atlas-explode-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.atlas-source {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+/* ==========================================================================
    Schmale Fenster (Telefon, Android)
 
    Bis 1.1.0 hatte die App kein mobiles Layout: die Seitenleiste stand fest
