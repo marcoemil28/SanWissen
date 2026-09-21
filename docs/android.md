@@ -170,6 +170,16 @@ Offen geblieben ist eines:
   Anordnung müsste für schmale Bildschirme anders sein, etwa die Ablage
   als feste Leiste am unteren Rand. Auf iOS stellt sich die Frage nicht,
   dort ist der Trainer eigens gebaut.
+- **`env(safe-area-inset-bottom)` meldet null.** Auf dem Pixel-7-Emulator
+  unter Android 16 gibt die WebView oben 52 Pixel zurück, unten aber
+  null, obwohl die Gestenleiste dort liegt. Sie überlagert die Seite und
+  zählt der WebView nicht als unsicherer Bereich. Wer sich nach unten auf
+  `env()` verlässt, legt seine Bedienelemente unter die Gestenleiste. Im
+  Stylesheet steht deshalb ein Mindestabstand über `max()`. Nachgemessen
+  über die Chrome-Entwicklerwerkzeuge an der laufenden App:
+  `adb forward tcp:9222 localabstract:webview_devtools_remote_<pid>`,
+  dann `http://localhost:9222/json`. Debug-Builds von Tauri erlauben das
+  von sich aus.
 - **`INTERNET`-Berechtigung.** Das erzeugte `AndroidManifest.xml` fordert
   sie an. Für eine App, die mit „komplett offline" antritt, ist das eine
   Zeile, die im Play-Store sichtbar wäre. Ob Tauri sie wirklich braucht

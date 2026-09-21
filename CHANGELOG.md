@@ -173,6 +173,35 @@ gemeinsame Inhaltsquelle ändern.
   - Das Platzieren der Elektroden wurde auf dem Gerät mit echten
     Berührungen nachgeprüft, Treffer und Fehlversuch werden erkannt.
   - `index.html` sagt jetzt `lang="de"` statt `lang="en"`.
+- **Die Oberfläche von PC und Android sieht jetzt aus wie die iOS-App.**
+  Bisher war es eine eigene, blaugraue Gestaltung mit umrandeten Kästen,
+  kleiner Schrift und einer Seitenleiste; die iOS-Fassung wirkte daneben
+  aufgeräumter. Übernommen sind Farben, Schrift, Abstände, Aufbau und
+  Navigation.
+  - **Farben und Schrift.** Die semantischen Farben von iOS: schwarzer
+    Grund statt Blaugrau, randlose Karten mit größerem Radius, Systemblau
+    als Akzent. Grundschrift 17 Pixel wie die 17 Punkt auf iOS, und die
+    Schriftfamilie ist die des jeweiligen Systems.
+  - **Vier Darstellungen statt einer.** Automatisch, Hell, Dunkel und
+    Hoher Kontrast, dieselben wie auf iOS. Die App war bisher fest dunkel
+    mit einem Kontrast-Schalter; wer den an hatte, landet beim hohen
+    Kontrast.
+  - **Startseite nach `HomeView`**: großer Titel, fachlicher Hinweis als
+    Karte, Favoriten, Fortschritt, Schnellzugriff, Module nach Thema und
+    der Fahrplan zum Aufklappen.
+  - **Themen öffnen sich als eigene Seite.** Vorher standen Liste und
+    Inhalt nebeneinander in einem Kasten. Jetzt zeigt das Modul erst die
+    Liste, das Thema kommt mit Zurück-Schaltfläche, und jeder Abschnitt
+    ist eine eigene Karte.
+  - **Unten eine Reiterleiste statt der Schublade** auf schmalen
+    Fenstern, mit Start, Module, Quiz und Suche wie in der TabView auf
+    iOS. Dafür kamen zwei Seiten dazu, die es nur schmal braucht.
+  - Geprüft bei 375 und 390 Pixeln: alle vier Reiter, alle 17 Module und
+    alle Themenseiten ohne waagerechten Überlauf.
+  - **Die Gestenleiste auf Android braucht einen eigenen Mindestabstand.**
+    Die WebView meldet oben 52 Pixel sicheren Bereich, unten aber null,
+    obwohl die Gestenleiste dort liegt. Wer sich auf `env()` verlässt,
+    legt die Reiterleiste darunter.
 - **Atlas auf dem iPad: Systemliste lag über dem Körper.** Ob die Liste
   neben der Szene steht oder über eine Taste als Blatt aufgeht, hing an der
   Größenklasse. Im iPad-Split-View ist die Detailspalte zwar „regular", aber

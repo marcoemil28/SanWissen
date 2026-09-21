@@ -1896,11 +1896,16 @@ ul {
   /*
    * Zu den Rändern kommt jeweils `env(safe-area-inset-*)` dazu. Ab
    * Android 15 zeichnet die App unter Status- und Gestenleiste, und ohne
-   * diesen Zuschlag läge die Reiterleiste unter der Gestenleiste und der
-   * Inhalt unter der Uhr. Nötig ist dafür `viewport-fit=cover` in
-   * `index.html`, sonst meldet `env()` überall null. Die einfache Zeile
-   * steht jeweils davor, damit eine WebView ohne `env()` nicht ganz ohne
-   * Rand dasteht.
+   * diesen Zuschlag läge der Inhalt unter der Uhr. Nötig ist dafür
+   * `viewport-fit=cover` in `index.html`, sonst meldet `env()` überall
+   * null. Die einfache Zeile steht jeweils davor, damit eine WebView ohne
+   * `env()` nicht ganz ohne Rand dasteht.
+   *
+   * Nach unten reicht `env()` allerdings nicht. Auf dem Android-Emulator
+   * (Pixel 7, Android 16) meldet die WebView oben 52 Pixel, unten aber
+   * null, obwohl die Gestenleiste dort liegt: sie überlagert die Seite
+   * und zählt nicht als unsicherer Bereich. Deshalb steht unten ein
+   * Mindestabstand per `max()`, der auch ohne Angabe des Systems trägt.
    */
 
   .app-sidebar {
@@ -1908,10 +1913,10 @@ ul {
   }
 
   .app-content {
-    padding: 3.8rem 1rem 5.5rem;
+    padding: 3.8rem 1rem 6.4rem;
     padding: calc(3.8rem + env(safe-area-inset-top, 0px))
       calc(1rem + env(safe-area-inset-right, 0px))
-      calc(5.5rem + env(safe-area-inset-bottom, 0px))
+      max(calc(5.5rem + env(safe-area-inset-bottom, 0px)), 6.4rem)
       calc(1rem + env(safe-area-inset-left, 0px));
   }
 
@@ -1927,7 +1932,7 @@ ul {
     background-color: var(--bg-panel);
     border-top: 1px solid var(--border);
     padding: 0.35rem 0.5rem;
-    padding-bottom: calc(0.35rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: max(calc(0.35rem + env(safe-area-inset-bottom, 0px)), 1.6rem);
   }
 
   .app-tab {
