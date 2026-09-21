@@ -135,6 +135,19 @@ gemeinsame Inhaltsquelle ändern.
     eine hat, statt nach dem Modul. Betroffen sind dieselben zwei Module
     wie bisher.
   - Für den Nutzer ändert sich nichts.
+- **Atlas auf dem iPad: Systemliste lag über dem Körper.** Ob die Liste
+  neben der Szene steht oder über eine Taste als Blatt aufgeht, hing an der
+  Größenklasse. Im iPad-Split-View ist die Detailspalte zwar „regular", aber
+  oft nur gut 500 Punkt breit; die 232 Punkt breite Liste nahm davon fast
+  die Hälfte und lag über dem Rumpf. Die Entscheidung richtet sich jetzt
+  nach der gemessenen Breite. Auf breiten iPads steht die Liste weiter
+  daneben, und das Modell rückt in den freien Streifen rechts davon.
+  - Die Einpassung vermisst die Bedienfelder jetzt auf zwei Arten, als
+    Kante und als Höhe, und nimmt den größeren Wert. Je nach Gerät fällt
+    die eine oder andere Messung zu klein aus: auf dem iPhone läuft die
+    Szene unter der Tab-Leiste hindurch, im iPad-Split-View liegt ihr
+    Rechteck gegenüber den Bedienfeldern versetzt. Zu viel Rand kostet
+    etwas Modellgröße, zu wenig schneidet die Füße ab.
 - **Tests für die Rechner** (`ios/SanWissenTests/`). Die Rechenlogik steckte
   in den SwiftUI-Ansichten und war damit nicht prüfbar. Sie steht jetzt als
   reine Funktionen in `ScoreLogic.swift`, gegen die 17 Tests rechnen, die

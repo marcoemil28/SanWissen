@@ -12,19 +12,39 @@ struct AtlasView: View {
     @State private var model = AtlasModel()
     @State private var showsSystems = false
 
-    /// Unterkante der Kopfzeile, Oberkante der unteren Bedienfelder und das
-    /// Rechteck der Szene, alle im selben Koordinatenraum (`Self.space`).
-    /// Daraus wird die freie Fläche für das Modell berechnet, statt sie zu
-    /// schätzen (siehe `applyLayout`). Gemeinsamer Raum, weil die Szene die
-    /// untere Safe Area ignoriert und die Bedienfelder nicht; reine Höhen
-    /// wären nicht vergleichbar.
+    /// Kopfzeile und untere Bedienfelder, auf zwei Arten vermessen: als
+    /// Kante im gemeinsamen Koordinatenraum und als reine Höhe.
+    ///
+    /// Beides ist nötig, weil je nach Gerät die eine oder andere Messung zu
+    /// klein ausfällt. Auf dem iPhone läuft die Szene unter der Tab-Leiste
+    /// hindurch, dort stimmt die Kante. Im iPad-Split-View liegt das
+    /// Rechteck der Szene gegenüber den Bedienfeldern versetzt, dort stimmt
+    /// die Höhe. `applyLayout` nimmt jeweils den größeren Wert; zu viel
+    /// Rand kostet nur etwas Modellgröße, zu wenig schneidet die Füße ab.
     @State private var topChromeMaxY: CGFloat = 0
     @State private var bottomChromeMinY: CGFloat = 0
+    @State private var topChromeHeight: CGFloat = 0
+    @State private var bottomChromeHeight: CGFloat = 0
+    /// Anteil der Szene, der unter den Bedienfeldern hindurchläuft.
+    @State private var bottomInset: CGFloat = 0
+    /// Waagerecht dasselbe: rechte Kante der Systemliste (nur iPad) und
+    /// linke Kante der Blickrichtungen.
+    @State private var leftChromeMaxX: CGFloat = 0
+    @State private var rightChromeMinX: CGFloat = 0
     @State private var sceneFrame: CGRect = .zero
 
     private static let space = "atlas"
 
     private var isCompact: Bool { sizeClass == .compact }
+
+    /// Ob die Systemliste neben der Szene steht oder über eine Taste als
+    /// Blatt aufgeht.
+    ///
+    /// Die Größenklasse allein genügt dafür nicht: im iPad-Split-View ist
+    /// die Detailspalte zwar „regular", aber oft nur gut 500 Punkt breit.
+    /// Die 232 Punkt breite Liste nähme davon fast die Hälfte und läge über
+    /// dem Körper. Deshalb entscheidet die gemessene Breite.
+    private var usesSidePanel: Bool { !isCompact && sceneFrame.width >= 700 }
 
     var body: some View {
         ZStack {
@@ -35,9 +55,11 @@ struct AtlasView: View {
             // das Raster mit dem falschen Seitenverhältnis und wird zu breit.
             GeometryReader { geo in
                 let frame = geo.frame(in: .named(Self.space))
+                let inset = geo.safeAreaInsets.bottom
                 AtlasSceneView(model: model)
-                    .onAppear { sceneFrame = frame; applyLayout() }
+                    .onAppear { sceneFrame = frame; bottomInset = inset; applyLayout() }
                     .onChange(of: frame) { _, new in sceneFrame = new; applyLayout() }
+                    .onChange(of: inset) { _, new in bottomInset = new; applyLayout() }
             }
             .ignoresSafeArea(edges: .bottom)
 
@@ -45,21 +67,24 @@ struct AtlasView: View {
                 Group {
                     if model.quizActive { quizBanner } else { header }
                 }
+                .measureHeight(TopChromeHeightKey.self)
                 .measureEdge(TopChromeKey.self, in: Self.space) { $0.maxY }
                 Spacer(minLength: 0)
             }
 
             HStack(alignment: .top, spacing: 0) {
-                if !isCompact, !model.quizActive {
+                if usesSidePanel, !model.quizActive {
                     systemsPanel
                         .frame(width: 232)
                         .padding(.leading, 16)
                         .padding(.top, 96)
+                        .measureEdge(LeftChromeKey.self, in: Self.space) { $0.maxX }
                 }
                 Spacer(minLength: 0)
                 viewpointBar
                     .padding(.trailing, 14)
                     .padding(.top, isCompact ? 96 : 150)
+                    .measureEdge(RightChromeKey.self, in: Self.space) { $0.minX }
             }
 
             VStack(spacing: 10) {
@@ -70,13 +95,14 @@ struct AtlasView: View {
                     } else {
                         VStack(spacing: 10) {
                             caption
-                            if isCompact { compactSystemsButton }
+                            if !usesSidePanel { compactSystemsButton }
                             explodePanel
                                 .padding(.horizontal, 16)
                             hints
                         }
                     }
                 }
+                .measureHeight(BottomChromeHeightKey.self)
                 .measureEdge(BottomChromeKey.self, in: Self.space) { $0.minY }
             }
             .padding(.bottom, 8)
@@ -88,12 +114,28 @@ struct AtlasView: View {
         }
         .coordinateSpace(name: Self.space)
         .animation(.easeInOut(duration: 0.18), value: model.selectedPart)
-        .onPreferenceChange(TopChromeKey.self) { edge in
-            topChromeMaxY = edge
+        .onPreferenceChange(TopChromeKey.self) { kante in
+            topChromeMaxY = kante
             applyLayout()
         }
-        .onPreferenceChange(BottomChromeKey.self) { edge in
-            bottomChromeMinY = edge
+        .onPreferenceChange(BottomChromeKey.self) { kante in
+            bottomChromeMinY = kante
+            applyLayout()
+        }
+        .onPreferenceChange(TopChromeHeightKey.self) { hoehe in
+            topChromeHeight = hoehe
+            applyLayout()
+        }
+        .onPreferenceChange(BottomChromeHeightKey.self) { hoehe in
+            bottomChromeHeight = hoehe
+            applyLayout()
+        }
+        .onPreferenceChange(LeftChromeKey.self) { edge in
+            leftChromeMaxX = edge
+            applyLayout()
+        }
+        .onPreferenceChange(RightChromeKey.self) { edge in
+            rightChromeMinX = edge
             applyLayout()
         }
         .navigationTitle("Human Atlas")
@@ -124,10 +166,12 @@ struct AtlasView: View {
         guard sceneFrame.width > 1, height > 1 else { return }
         model.controller.setAspect(Float(sceneFrame.width / height))
 
-        // Abstände der Bedienfelder von den Rändern der Szene. Beides im
-        // selben Koordinatenraum, die Szene reicht unten unter die Tab-Leiste.
-        let top = topChromeMaxY - sceneFrame.minY
-        let bottom = sceneFrame.maxY - bottomChromeMinY
+        // Wie viel der Szene die Bedienfelder verdecken, aus beiden
+        // Messungen der jeweils größere Wert (siehe oben). Die 8 Punkt sind
+        // der Innenabstand unter den Bedienfeldern.
+        let top = max(topChromeMaxY - sceneFrame.minY, topChromeHeight)
+        let bottom = max(sceneFrame.maxY - bottomChromeMinY,
+                         bottomChromeHeight + bottomInset + 8)
         let free = height - top - bottom
 
         // Solange noch nichts gemessen ist, bleibt es bei einer groben
@@ -138,13 +182,33 @@ struct AtlasView: View {
             return
         }
 
-        // Etwas Luft zu den Feldern, damit Kopf und Füße sie nicht berühren.
-        let fraction = Float(free / height) * 0.94
+        // Luft zu den Feldern, damit Kopf und Füße sie nicht berühren. Der
+        // Wert ist am Gerät eingestellt: die Höhe des Modells stammt aus den
+        // Rohdaten und fällt etwas größer aus als das, was man sieht.
+        let fraction = Float(free / height) * 0.90
         // Der freie Streifen liegt nicht mittig; um diesen Anteil der
         // Ansichtshöhe muss das Modell nach oben.
         let bandCenter = top + free / 2
         let shift = Float((height / 2 - bandCenter) / height)
-        model.controller.fit(usableHeightFraction: fraction, verticalShift: shift)
+
+        // Waagerecht: auf dem iPad nimmt die Systemliste die linke Hälfte der
+        // Szene ein, der Körper stand deshalb zur Hälfte darunter. Er rückt
+        // jetzt in den freien Streifen rechts davon. Ohne Systemliste
+        // (iPhone, Quiz) bleibt links alles frei und es verschiebt sich
+        // praktisch nichts.
+        let width = sceneFrame.width
+        let left = max(0, leftChromeMaxX - sceneFrame.minX)
+        let right = max(0, sceneFrame.maxX - rightChromeMinX)
+        let freeWidth = width - left - right
+        var sideShift: Float = 0
+        if freeWidth > width * 0.3 {
+            let bandCenterX = left + freeWidth / 2
+            sideShift = Float((bandCenterX - width / 2) / width)
+        }
+
+        model.controller.fit(usableHeightFraction: fraction,
+                             verticalShift: shift,
+                             horizontalShift: sideShift)
     }
 
     // MARK: - Kopfbereich
@@ -712,8 +776,19 @@ private struct BottomChromeKey: PreferenceKey {
 }
 
 private extension View {
+    /// Meldet die Höhe dieser Ansicht nach oben, damit `applyLayout` sie von
+    /// der Höhe der Szene abziehen kann.
+    func measureHeight<K: PreferenceKey>(_ key: K.Type) -> some View where K.Value == CGFloat {
+        background {
+            GeometryReader { geo in
+                Color.clear.preference(key: key, value: geo.size.height)
+            }
+        }
+    }
+
     /// Meldet eine Kante dieser Ansicht im angegebenen Koordinatenraum nach
-    /// oben, damit `applyLayout` sie mit dem Rechteck der Szene verrechnen kann.
+    /// oben. Wird für die waagerechte Einpassung gebraucht, wo Szene und
+    /// Bedienfelder denselben Ursprung haben.
     func measureEdge<K: PreferenceKey>(_ key: K.Type,
                                        in space: String,
                                        _ edge: @escaping (CGRect) -> CGFloat) -> some View where K.Value == CGFloat {
@@ -722,5 +797,34 @@ private extension View {
                 Color.clear.preference(key: key, value: edge(geo.frame(in: .named(space))))
             }
         }
+    }
+}
+
+private struct LeftChromeKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+private struct RightChromeKey: PreferenceKey {
+    /// Kein Wert heißt: rechts steht nichts im Weg.
+    static let defaultValue: CGFloat = .greatestFiniteMagnitude
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = min(value, nextValue())
+    }
+}
+
+private struct TopChromeHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+private struct BottomChromeHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }

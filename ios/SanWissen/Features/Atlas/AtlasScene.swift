@@ -54,6 +54,10 @@ final class AtlasSceneController {
     /// Verschiebt den Körper im Bild nach oben, weil der freie Bereich nicht
     /// in der Mitte der Ansicht liegt. Anteil der Ansichtshöhe.
     private var verticalShiftFraction: Float = 0
+    /// Dasselbe waagerecht: auf dem iPad steht die Systemliste links über der
+    /// Szene, der freie Bereich liegt also rechts von der Mitte. Positiv
+    /// heißt, der Körper rückt nach rechts. Anteil der Ansichtsbreite.
+    private var horizontalShiftFraction: Float = 0
     /// Zusätzliche Verschiebung durch Ziehen in der flachen Ansicht.
     private var panOffset = (x: Float(0), y: Float(0))
 
@@ -154,7 +158,9 @@ final class AtlasSceneController {
         camera.wantsHDR = false
         cameraNode.camera = camera
 
-        fit(usableHeightFraction: usableHeightFraction, verticalShift: verticalShiftFraction)
+        fit(usableHeightFraction: usableHeightFraction,
+            verticalShift: verticalShiftFraction,
+            horizontalShift: horizontalShiftFraction)
         if cameraNode.parent == nil { scene.rootNode.addChildNode(cameraNode) }
         if !lightsAdded {
             addLights()
@@ -197,7 +203,8 @@ final class AtlasSceneController {
         // Bild nach oben. So landet er in der freien Fläche statt in der Mitte.
         let halfAngle = Float((fieldOfView / 2) * .pi / 180)
         let visibleHeight = 2 * distance * tan(halfAngle)
-        cameraNode.position = SCNVector3(panOffset.x,
+        let visibleWidth = visibleHeight * viewAspect
+        cameraNode.position = SCNVector3(panOffset.x - horizontalShiftFraction * visibleWidth,
                                         panOffset.y - verticalShiftFraction * visibleHeight,
                                         distance)
         cameraNode.eulerAngles = SCNVector3Zero
@@ -205,9 +212,12 @@ final class AtlasSceneController {
 
     /// Setzt den Kameraabstand so, dass der Körper in den freien Bereich passt,
     /// und verschiebt ihn dorthin. `shift` ist positiv, wenn es nach oben geht.
-    func fit(usableHeightFraction fraction: Float, verticalShift shift: Float = 0) {
+    func fit(usableHeightFraction fraction: Float,
+             verticalShift shift: Float = 0,
+             horizontalShift sideShift: Float = 0) {
         usableHeightFraction = max(0.3, min(1, fraction))
         verticalShiftFraction = shift
+        horizontalShiftFraction = sideShift
         let halfAngle = Float((fieldOfView / 2) * .pi / 180)
         let exactFit = (bodyHeight / 2) / tan(halfAngle)
         baseDistance = exactFit / usableHeightFraction
