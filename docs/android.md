@@ -151,8 +151,25 @@ deutlich kleiner aus.
    kein System-Image installiert ist.
 3. Erst danach entscheiden, ob der Atlas in WebGL dazukommt.
 
-## Was beim ersten Build auffiel
+## Was beim ersten Lauf auffiel
 
+Drei Dinge waren am Schreibtisch unsichtbar und sind behoben: der Inhalt
+lag unter den Systemleisten, die feste Menütaste verdeckte beim Scrollen
+Text, und über dem Körperbild des Elektroden-Trainers ließ sich nicht
+scrollen. Einzelheiten im Changelog zu 1.1.0.
+
+Offen geblieben ist eines:
+
+- **Der Elektroden-Trainer ist am Telefon umständlich.** Im Übungsmodus
+  liegen die Chips in der Ablage und die Zielstellen am Körper rund 1.900
+  Bildpunkte auseinander, weil zwischen Bild und Ablage ein langer
+  Beschreibungstext steht. Auf einem Pixel 7 passt beides nur in einem
+  schmalen Scrollfenster gleichzeitig ins Bild, und für die Schultern gar
+  nicht. Das Ziehen selbst funktioniert, nachgeprüft mit echten
+  Berührungen: Treffer und Fehlversuch werden beide erkannt. Aber die
+  Anordnung müsste für schmale Bildschirme anders sein, etwa die Ablage
+  als feste Leiste am unteren Rand. Auf iOS stellt sich die Frage nicht,
+  dort ist der Trainer eigens gebaut.
 - **`INTERNET`-Berechtigung.** Das erzeugte `AndroidManifest.xml` fordert
   sie an. Für eine App, die mit „komplett offline" antritt, ist das eine
   Zeile, die im Play-Store sichtbar wäre. Ob Tauri sie wirklich braucht
