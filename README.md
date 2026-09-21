@@ -868,6 +868,11 @@ Der geplante Umbau der Inhalts-Pipeline steht in
 Quelle statt ein Export-Ergebnis, und die 47 verknüpften Abbildungen
 sollen endlich auch auf dem Desktop erscheinen).
 
+Was für eine Android-Fassung nötig wäre, steht in
+[docs/android.md](docs/android.md) (kurz: die Inhalte sind bereits
+plattformneutral, die Arbeit steckt im fehlenden mobilen Layout der
+Desktop-App).
+
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
