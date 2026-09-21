@@ -193,14 +193,16 @@ gemeinsame Inhaltsquelle ändern.
     Inhalt nebeneinander in einem Kasten. Jetzt zeigt das Modul erst die
     Liste, der Eintrag kommt mit Zurück-Schaltfläche, und jeder Abschnitt
     ist eine eigene Karte. Betrifft die zehn Themenmodule ebenso wie
-    Werkzeuge, Medikamente und Checklisten.
+    Werkzeuge, Medikamente, Checklisten und die Rhythmus-Bibliothek des
+    EKG-Trainers.
   - Der rote Hinweiskasten ist dem gemeinsamen Baustein nach dem Vorbild
     von `DisclaimerBox` gewichen, in allen Modulen derselbe.
   - **Unten eine Reiterleiste statt der Schublade** auf schmalen
     Fenstern, mit Start, Module, Quiz und Suche wie in der TabView auf
     iOS. Dafür kamen zwei Seiten dazu, die es nur schmal braucht.
   - Geprüft bei 375 und 390 Pixeln: alle vier Reiter, alle 17 Module und
-    alle Themenseiten ohne waagerechten Überlauf.
+    116 Detailseiten ohne waagerechten Überlauf. Tiefe Verweise aus
+    Favoriten und Fahrplan öffnen weiterhin direkt die Detailseite.
   - **Die Gestenleiste auf Android braucht einen eigenen Mindestabstand.**
     Die WebView meldet oben 52 Pixel sicheren Bereich, unten aber null,
     obwohl die Gestenleiste dort liegt. Wer sich auf `env()` verlässt,
