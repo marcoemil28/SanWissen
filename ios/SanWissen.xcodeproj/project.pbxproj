@@ -176,12 +176,12 @@
 			);
 			inputPaths = (
 			);
-			name = "Inhalte und Bilder aus content/ kopieren";
+			name = "Inhalte, Bilder und Atlas aus content/ kopieren";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nSRC=\"$SRCROOT/../content\"\nDEST=\"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\nif [ ! -d \"$SRC\" ]; then\n  echo \"error: content/ nicht gefunden unter $SRC\"\n  exit 1\nfi\nmkdir -p \"$DEST\"\ncp \"$SRC\"/*.json \"$DEST/\"\ncp \"$SRC\"/images/* \"$DEST/\"\n";
+			shellScript = "set -e\nSRC=\"$SRCROOT/../content\"\nDEST=\"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\nif [ ! -d \"$SRC\" ]; then\n  echo \"error: content/ nicht gefunden unter $SRC\"\n  exit 1\nfi\nmkdir -p \"$DEST\"\ncp \"$SRC\"/*.json \"$DEST/\"\ncp \"$SRC\"/images/* \"$DEST/\"\n# Der Atlas sind 97 MB; rsync laesst Unveraendertes liegen.\nrsync -a --update \"$SRC\"/atlas/ \"$DEST/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

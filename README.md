@@ -312,7 +312,7 @@ ausgelegt.
   aus wirklich zu erreichen ist; Drehen ändert die Auswahl.
 - Beide Datensätze stehen unter CC Attribution 4.0 International; die
   Quellenangabe steht in der App unter dem Info-Symbol. Die Geometrie
-  liegt als Rohpuffer in `ios/SanWissen/Resources/Atlas/` und wird nur
+  liegt als Rohpuffer in `content/atlas/` und wird nur
   eingeblendet (memory mapped) statt geladen. Sie macht den Großteil der
   rund 109 MB aus, die die App belegt.
 

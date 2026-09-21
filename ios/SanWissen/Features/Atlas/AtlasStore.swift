@@ -134,7 +134,7 @@ final class AtlasStore {
         guard let url = Bundle.main.url(forResource: name, withExtension: "json"),
               let data = try? Data(contentsOf: url, options: .mappedIfSafe),
               let file = try? JSONDecoder().decode(AtlasFile.self, from: data) else {
-            fatalError("\(name).json fehlt oder ist beschädigt — bitte Resources/Atlas prüfen.")
+            fatalError("\(name).json fehlt oder ist beschädigt — bitte content/atlas prüfen.")
         }
         return file
     }
