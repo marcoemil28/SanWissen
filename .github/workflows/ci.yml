@@ -42,22 +42,38 @@ jobs:
         run: npm run build
 
   ios:
-    name: 'iOS-App bauen'
+    name: 'iOS-App bauen und testen'
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Ohne ios/Signing.local.xcconfig baut das Projekt mit Platzhaltern.
-      # Für den Simulator genügt das; signiert wird erst beim Verteilen.
-      - name: Für den Simulator bauen
+      # Gerätenamen ändern sich mit dem Runner-Abbild, deshalb wird zur
+      # Laufzeit das erste verfügbare iPhone genommen statt ein fester Name.
+      - name: Simulator wählen
+        id: sim
         run: |
-          xcodebuild \
+          UDID=$(xcrun simctl list devices available --json | python3 -c "
+          import json, sys
+          geraete = json.load(sys.stdin)['devices']
+          print(next(g['udid']
+                     for laufzeit in sorted(geraete)
+                     if 'iOS' in laufzeit
+                     for g in geraete[laufzeit]
+                     if 'iPhone' in g['name']))")
+          echo "Simulator: $UDID"
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+
+      # `test` baut die App mit und führt danach SanWissenTests aus, also
+      # die Rechenlogik der Werkzeuge. Ohne ios/Signing.local.xcconfig baut
+      # das Projekt mit Platzhaltern; für den Simulator genügt das.
+      - name: Bauen und Tests ausführen
+        run: |
+          xcodebuild test \
             -project ios/SanWissen.xcodeproj \
             -scheme SanWissen \
             -configuration Debug \
-            -destination 'generic/platform=iOS Simulator' \
-            CODE_SIGNING_ALLOWED=NO \
-            build
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            CODE_SIGNING_ALLOWED=NO
 
   tauri-rust:
     name: 'Tauri-Backend prüfen'

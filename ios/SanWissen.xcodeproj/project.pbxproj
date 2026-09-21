@@ -10,14 +10,23 @@
 		5A0000000000000000000010 /* SanWissen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SanWissen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A0000000000000000000011 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 		5A0000000000000000000012 /* Signing.local.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.local.xcconfig.example; sourceTree = "<group>"; };
+		5A0000000000000000000200 /* SanWissenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SanWissenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5A0000000000000000000020 /* SanWissen */ = {isa = PBXFileSystemSynchronizedRootGroup; path = SanWissen; sourceTree = "<group>"; };
+		5A0000000000000000000201 /* SanWissenTests */ = {isa = PBXFileSystemSynchronizedRootGroup; path = SanWissenTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5A0000000000000000000030 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A0000000000000000000204 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +42,7 @@
 				5A0000000000000000000011 /* Signing.xcconfig */,
 				5A0000000000000000000012 /* Signing.local.xcconfig.example */,
 				5A0000000000000000000020 /* SanWissen */,
+				5A0000000000000000000201 /* SanWissenTests */,
 				5A0000000000000000000041 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				5A0000000000000000000010 /* SanWissen.app */,
+				5A0000000000000000000200 /* SanWissenTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,7 +80,37 @@
 			productReference = 5A0000000000000000000010 /* SanWissen.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5A0000000000000000000202 /* SanWissenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A0000000000000000000205 /* Build configuration list for PBXNativeTarget "SanWissenTests" */;
+			buildPhases = (
+				5A0000000000000000000203 /* Sources */,
+				5A0000000000000000000204 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A0000000000000000000208 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5A0000000000000000000201 /* SanWissenTests */,
+			);
+			name = SanWissenTests;
+			productName = SanWissenTests;
+			productReference = 5A0000000000000000000200 /* SanWissenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		5A0000000000000000000209 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A0000000000000000000090 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A0000000000000000000050;
+			remoteInfo = SanWissen;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXProject section */
 		5A0000000000000000000090 /* Project object */ = {
@@ -81,6 +122,10 @@
 				TargetAttributes = {
 					5A0000000000000000000050 = {
 						CreatedOnToolsVersion = 26.6;
+					};
+					5A0000000000000000000202 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 5A0000000000000000000050;
 					};
 				};
 			};
@@ -99,9 +144,18 @@
 			projectRoot = "";
 			targets = (
 				5A0000000000000000000050 /* SanWissen */,
+				5A0000000000000000000202 /* SanWissenTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXTargetDependency section */
+		5A0000000000000000000208 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A0000000000000000000050 /* SanWissen */;
+			targetProxy = 5A0000000000000000000209 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5A0000000000000000000070 /* Resources */ = {
@@ -133,6 +187,13 @@
 
 /* Begin PBXSourcesBuildPhase section */
 		5A0000000000000000000060 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A0000000000000000000203 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -257,6 +318,46 @@
 			};
 			name = Release;
 		};
+		5A0000000000000000000206 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.sanwissen.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SanWissen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SanWissen";
+			};
+			name = Debug;
+		};
+		5A0000000000000000000207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.sanwissen.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SanWissen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SanWissen";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -274,6 +375,15 @@
 			buildConfigurations = (
 				5A0000000000000000000110 /* Debug */,
 				5A0000000000000000000111 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A0000000000000000000205 /* Build configuration list for PBXNativeTarget "SanWissenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A0000000000000000000206 /* Debug */,
+				5A0000000000000000000207 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

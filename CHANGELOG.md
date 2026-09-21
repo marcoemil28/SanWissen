@@ -135,6 +135,21 @@ gemeinsame Inhaltsquelle ändern.
     eine hat, statt nach dem Modul. Betroffen sind dieselben zwei Module
     wie bisher.
   - Für den Nutzer ändert sich nichts.
+- **Tests für die Rechner** (`ios/SanWissenTests/`). Die Rechenlogik steckte
+  in den SwiftUI-Ansichten und war damit nicht prüfbar. Sie steht jetzt als
+  reine Funktionen in `ScoreLogic.swift`, gegen die 17 Tests rechnen, die
+  über parametrisierte Fälle rund 40 Eingaben abdecken. Geprüft werden vor
+  allem die Grenzen: wo GCS von mittelschwer auf leicht springt, ab wann die
+  Schmerzskala welches Medikament nennt, dass die Neuner-Regel in beiden
+  Altersgruppen 100 Prozent ergibt, und die beiden Verdünnungsbeispiele der
+  App.
+  - Die Schwellen sind mit der Desktop-App abgeglichen; sie stimmen
+    überein. Die Tests halten beide Seiten auf demselben Stand, denn diese
+    Logik lässt sich nicht nach `content/` verschieben.
+  - Ein Test hält ausdrücklich fest, dass APGAR erst ab 8 als „guter
+    Zustand" gilt, während verbreitet 7 bis 10 genannt wird. So geschieht
+    eine spätere Korrektur bewusst und nicht unbemerkt.
+  - Der CI-Job baut die iOS-App nicht mehr nur, sondern führt die Tests aus.
 - **CI-Workflow für Pull Requests** (`.github/workflows/ci.yml`). Bisher gab
   es nur den Release-Workflow, der ausschließlich auf Tags reagiert: ein
   Fehler fiel damit erst beim Bauen der Installer auf, also lange nach dem
