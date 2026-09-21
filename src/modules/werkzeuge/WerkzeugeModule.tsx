@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { TOOLS } from './data';
 import { useNavigation } from '../../app/NavigationContext';
-import { DisclaimerBox, RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
+import { BackLink, DisclaimerBox, RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
 
 /**
  * Rechner und Scores. Wie in `WerkzeugeView` der iOS-App zuerst nur die
@@ -34,9 +34,7 @@ export function WerkzeugeModule() {
     const SelectedComponent = selected.component;
     return (
       <div className="module werkzeuge-module">
-        <button type="button" className="back-link" onClick={() => setSelectedId(null)}>
-          <span aria-hidden="true">‹</span> Werkzeuge &amp; Scores
-        </button>
+        <BackLink label="Werkzeuge & Scores" onClick={() => setSelectedId(null)} />
 
         <div className="algo-detail">
           <div className="algo-detail-header">

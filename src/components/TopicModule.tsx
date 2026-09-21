@@ -4,7 +4,7 @@ import { topicModuleById, type RawTopic } from '../app/content';
 import { useNavigation } from '../app/NavigationContext';
 import { FavoriteButton } from './FavoriteButton';
 import { SectionIllustration } from './SectionIllustration';
-import { DisclaimerBox, RowGroup, RowLink, SectionBox } from './SectionBox';
+import { BackLink, DisclaimerBox, RowGroup, RowLink, SectionBox } from './SectionBox';
 import { formatStand } from '../app/formatDate';
 
 /**
@@ -137,9 +137,7 @@ export function TopicModule({ moduleId, heading, disclaimer, notesHeading = 'Hin
     return (
       <div className={`module ${moduleId}-module`}>
         {!isSingle && (
-          <button type="button" className="back-link" onClick={() => setSelectedId(null)}>
-            <span aria-hidden="true">‹</span> {heading}
-          </button>
+          <BackLink label={heading} onClick={() => setSelectedId(null)} />
         )}
 
         {isSingle && (

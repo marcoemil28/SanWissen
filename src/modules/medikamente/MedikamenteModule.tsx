@@ -3,7 +3,7 @@ import { MEDIKAMENTE, CONTENT_STAND } from './data';
 import type { Medikament, MedikamentKategorie } from './types';
 import { useNavigation } from '../../app/NavigationContext';
 import { FavoriteButton } from '../../components/FavoriteButton';
-import { DisclaimerBox, RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
+import { BackLink, DisclaimerBox, RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
 import { formatStand } from '../../app/formatDate';
 
 const CATEGORY_ORDER: MedikamentKategorie[] = [
@@ -90,9 +90,7 @@ export function MedikamenteModule() {
   if (selected) {
     return (
       <div className="module medikamente-module">
-        <button type="button" className="back-link" onClick={() => setSelectedId(null)}>
-          <span aria-hidden="true">‹</span> Medikamente (SAA/BPR)
-        </button>
+        <BackLink label="Medikamente (SAA/BPR)" onClick={() => setSelectedId(null)} />
         <MedikamentDetail med={selected} />
       </div>
     );

@@ -3,7 +3,7 @@ import { CHECKLISTEN } from './data';
 import { getChecked, resetChecklist, toggleChecked } from './state';
 import { useNavigation } from '../../app/NavigationContext';
 import { ConfirmButton } from '../../components/ConfirmButton';
-import { DisclaimerBox, RowGroup, RowLink } from '../../components/SectionBox';
+import { BackLink, DisclaimerBox, RowGroup, RowLink } from '../../components/SectionBox';
 
 /**
  * Abhakbare Checklisten. Wie die übrigen Module zuerst nur die Liste, eine
@@ -59,9 +59,7 @@ export function ChecklistenModule() {
 
   return (
     <div className="module checklisten-module">
-      <button type="button" className="back-link" onClick={() => setSelectedId(null)}>
-        <span aria-hidden="true">‹</span> Checklisten
-      </button>
+      <BackLink label="Checklisten" onClick={() => setSelectedId(null)} />
 
       <div className="algo-detail">
         <div className="algo-detail-header">

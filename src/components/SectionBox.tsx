@@ -6,6 +6,36 @@ import type { ReactNode } from 'react';
  * gleich aus und Änderungen lassen sich an einer Stelle nachziehen.
  */
 
+/**
+ * Setzt die Inhaltsfläche wieder an den Anfang.
+ *
+ * Ohne das behält `.app-content` beim Öffnen einer Detailseite die
+ * Scrollposition der Liste, und die neue Seite beginnt irgendwo in der
+ * Mitte. Auf iOS fängt jede aufgeschobene Ansicht oben an.
+ *
+ * Die beiden Bausteine, die hier navigieren, rufen es selbst auf. So
+ * muss keine Modulansicht daran denken.
+ */
+export function scrollContentToTop(): void {
+  document.querySelector('.app-content')?.scrollTo({ top: 0 });
+}
+
+/** Zurück zur Liste, Gegenstück zu `RowLink`. */
+export function BackLink({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      className="back-link"
+      onClick={() => {
+        onClick();
+        scrollContentToTop();
+      }}
+    >
+      <span aria-hidden="true">‹</span> {label}
+    </button>
+  );
+}
+
 /** Überschrift mit optionalem Symbol in Akzentfarbe, darunter der Inhalt. */
 export function SectionBox({
   title,
@@ -52,7 +82,15 @@ export function RowLink({
   badge?: string;
 }) {
   return (
-    <button type="button" className={`row-link ${icon ? '' : 'no-icon'}`} onClick={onClick} disabled={disabled}>
+    <button
+      type="button"
+      className={`row-link ${icon ? '' : 'no-icon'}`}
+      onClick={() => {
+        onClick();
+        scrollContentToTop();
+      }}
+      disabled={disabled}
+    >
       {icon && (
         <span className="row-link-icon" aria-hidden="true">
           {icon}

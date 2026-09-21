@@ -5,7 +5,7 @@ import { EkgTrace } from './EkgTrace';
 import { CATEGORY_LABELS, type RhythmCategory } from './types';
 import { useNavigation } from '../../app/NavigationContext';
 import { FavoriteButton } from '../../components/FavoriteButton';
-import { RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
+import { BackLink, RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
 
 /**
  * Rhythmus-Bibliothek. Wie `EkgStudyView` auf iOS zuerst nur die nach
@@ -54,9 +54,7 @@ export function StudyMode() {
 
   return (
     <div className="study-mode">
-      <button type="button" className="back-link" onClick={() => setSelectedId(null)}>
-        <span aria-hidden="true">‹</span> Rhythmen
-      </button>
+      <BackLink label="Rhythmen" onClick={() => setSelectedId(null)} />
 
       <section className="rhythm-detail">
         <div className="rhythm-detail-header">

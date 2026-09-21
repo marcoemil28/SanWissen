@@ -7,6 +7,7 @@ import { ModuleListPage } from './app/ModuleListPage';
 import { SearchPage } from './app/SearchPage';
 import { AppearancePicker } from './app/AppearancePicker';
 import { GridIcon, HomeIcon, QuestionIcon, SearchIcon } from './app/TabIcons';
+import { scrollContentToTop } from './components/SectionBox';
 import {
   applyAppearance,
   loadAppearance,
@@ -30,11 +31,23 @@ const TABS = [
 
 function AppShell() {
   const [activeId, setActiveId] = useState('home');
+  const [navCount, setNavCount] = useState(0);
   const [appearance, setAppearance] = useState<AppearanceMode>(loadAppearance);
   const resolved = resolveAppearance(appearance);
   const highContrast = resolved === 'contrast';
+  /*
+   * Jeder Aufruf zählt hoch und geht in den `key` der Modulansicht ein.
+   * Das hängt die Ansicht neu ein, sodass ein Modul immer bei seiner
+   * Liste beginnt, auch wenn es schon offen war und gerade eine
+   * Detailseite zeigt. Ohne das bliebe beim Klick auf das aktive Modul
+   * die Detailseite stehen; auf iOS führt der aktive Reiter zurück zur
+   * Wurzel.
+   */
   function navigate(moduleId: string) {
     setActiveId(moduleId);
+    setNavCount((n) => n + 1);
+    // Eine neue Ansicht beginnt oben, nicht auf der Scrollposition der alten.
+    scrollContentToTop();
   }
 
   const activeModule = MODULES.find((m) => m.id === activeId);
@@ -143,17 +156,19 @@ function AppShell() {
       </aside>
 
       <main className="app-content">
-        {activeId === 'home' ? (
-          <HomePage onNavigateModule={navigate} />
-        ) : activeId === 'modules' ? (
-          <ModuleListPage onNavigateModule={navigate} />
-        ) : activeId === 'search' ? (
-          <SearchPage onNavigateModule={navigate} />
-        ) : ActiveComponent ? (
-          <ActiveComponent onNavigateModule={navigate} />
-        ) : (
-          <div className="coming-soon">Dieses Modul ist noch nicht verfügbar.</div>
-        )}
+        <div key={`${activeId}:${navCount}`}>
+          {activeId === 'home' ? (
+            <HomePage onNavigateModule={navigate} />
+          ) : activeId === 'modules' ? (
+            <ModuleListPage onNavigateModule={navigate} />
+          ) : activeId === 'search' ? (
+            <SearchPage onNavigateModule={navigate} />
+          ) : ActiveComponent ? (
+            <ActiveComponent onNavigateModule={navigate} />
+          ) : (
+            <div className="coming-soon">Dieses Modul ist noch nicht verfügbar.</div>
+          )}
+        </div>
       </main>
 
       <nav className="app-tabbar" aria-label="Hauptbereiche">

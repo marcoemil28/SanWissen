@@ -200,6 +200,12 @@ gemeinsame Inhaltsquelle ändern.
   - **Unten eine Reiterleiste statt der Schublade** auf schmalen
     Fenstern, mit Start, Module, Quiz und Suche wie in der TabView auf
     iOS. Dafür kamen zwei Seiten dazu, die es nur schmal braucht.
+  - **Jede Ansicht beginnt oben.** Vorher behielt die Inhaltsfläche beim
+    Wechsel die Scrollposition der vorherigen Seite, sodass eine gerade
+    geöffnete Detailseite irgendwo in der Mitte anfing.
+  - **Ein Klick auf das schon offene Modul führt zurück zu seiner Liste**,
+    so wie der aktive Reiter auf iOS zur Wurzel zurückgeht. Vorher blieb
+    die Detailseite stehen.
   - Geprüft bei 375 und 390 Pixeln: alle vier Reiter, alle 17 Module und
     116 Detailseiten ohne waagerechten Überlauf. Tiefe Verweise aus
     Favoriten und Fahrplan öffnen weiterhin direkt die Detailseite.
