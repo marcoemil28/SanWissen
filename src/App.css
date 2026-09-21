@@ -163,7 +163,7 @@ ul {
 }
 
 .app-sidebar {
-  width: 260px;
+  width: 280px;
   flex-shrink: 0;
   background-color: var(--bg-panel);
   border-right: 1px solid var(--border);
@@ -207,14 +207,14 @@ ul {
   background-color: var(--bg-panel-alt);
   color: var(--text);
   border: var(--card-border-width) solid var(--border);
-  border-radius: var(--radius-control);
-  padding: 0.5em 0.7em;
-  font-size: 0.88rem;
+  border-radius: var(--radius-pill);
+  padding: 0.5em 0.9em;
+  font-size: 0.92rem;
 }
 
 .global-search input:focus {
-  outline: none;
-  border-color: var(--accent);
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
 }
 
 .global-search-results {
@@ -294,11 +294,10 @@ ul {
 }
 
 .app-nav-group h4 {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--text-dim);
-  margin: 0.9em 0.5em 0.35em 0.5em;
+  margin: 1em 0.6em 0.35em 0.6em;
 }
 
 .app-nav-group:first-child h4 {
@@ -308,33 +307,41 @@ ul {
 .app-nav-item {
   display: flex;
   align-items: center;
-  gap: 0.6em;
+  gap: 0.65em;
   text-align: left;
-  border: 1px solid transparent;
+  border: none;
   background: transparent;
-  padding: 0.65em 0.7em;
+  padding: 0.6em 0.7em;
   border-radius: var(--radius-control);
-  color: var(--text-dim);
+  color: var(--text);
+  font-size: 0.95rem;
 }
 
 .app-nav-item:hover:not(.disabled) {
+  filter: none;
   background-color: var(--bg-panel-alt);
-  color: var(--text);
 }
 
+/*
+ * Gewählte Zeile wie in der iPad-Seitenleiste: getönte Fläche in der
+ * Akzentfarbe statt eines umrandeten Kastens.
+ */
 .app-nav-item.active {
-  background-color: var(--bg-panel-alt);
-  color: var(--text);
-  border-color: var(--border);
+  background-color: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .app-nav-item.disabled {
   cursor: default;
-  opacity: 0.55;
+  opacity: 0.45;
 }
 
 .app-nav-icon {
-  font-size: 1.1em;
+  flex-shrink: 0;
+  width: 1.5em;
+  text-align: center;
+  font-size: 1.05em;
 }
 
 .badge {
@@ -1094,103 +1101,269 @@ ul {
   border-color: var(--accent);
 }
 
-/* ---------- Home page ---------- */
+/* ==========================================================================
+   Startseite und ihre Bausteine
+   --------------------------------------------------------------------------
+   Nachgebaut nach `HomeView` und `SectionBox`/`RowLabel` der iOS-App:
+   großer Titel, fachlicher Hinweis als Karte, dann Abschnitte aus
+   gruppierten Zeilen. Die Zeilen einer Gruppe teilen sich die runden Ecken
+   und sind durch eingerückte Haarlinien getrennt, wie eine Inset-Liste.
+   ========================================================================== */
 
-.home-intro {
-  color: var(--text-dim);
-  max-width: 70ch;
-  line-height: 1.6;
-  margin: 0.5em 0 1.5em 0;
+.page-header {
+  margin-bottom: 1.5rem;
 }
 
-.home-progress-card {
+.page-header h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem 0;
+}
+
+.page-subtitle {
+  color: var(--text-dim);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.page-caption {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  margin: 0.25rem 0 0 0;
+}
+
+.disclaimer-box {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  align-items: flex-start;
+  gap: 0.7em;
   background-color: var(--bg-panel);
   border: var(--card-border-width) solid var(--border);
   border-radius: var(--radius-card);
-  padding: 1rem 1.5rem;
-  margin-bottom: 2rem;
+  padding: 0.9em 1em;
+  margin-bottom: 1.5rem;
 }
 
-.home-progress-card div {
+.disclaimer-box p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.disclaimer-icon {
+  font-size: 1.05em;
+  line-height: 1.4;
+}
+
+.section-box {
+  margin-bottom: 1.75rem;
+}
+
+.section-box-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1.06rem;
+  font-weight: 600;
+  margin: 0 0 0.7rem 0;
+}
+
+.section-box-icon {
+  color: var(--accent);
+}
+
+.section-box-hint {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  margin: 0 0 0.8rem 0;
+  max-width: 60ch;
+}
+
+/* ---------- Gruppierte Zeilen ---------- */
+
+.row-group {
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.row-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  width: 100%;
+  padding: 0.75em 0.9em;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--text);
+}
+
+.row-link:hover:not(:disabled) {
+  filter: none;
+  background-color: var(--bg-panel-alt);
+}
+
+/*
+ * Trennlinie zwischen zwei Zeilen, eingerückt bis unter den Text, so wie
+ * iOS es in Listen macht. Als Pseudo-Element statt als `border-top`, weil
+ * ein Rahmen über die volle Breite liefe.
+ */
+.row-link + .row-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(0.9em + 1.7em + 0.75em);
+  right: 0;
+  height: 1px;
+  background-color: var(--border);
+}
+
+.row-link-icon {
+  flex-shrink: 0;
+  width: 1.7em;
+  text-align: center;
+  font-size: 1.05em;
+}
+
+.row-link-text {
   display: flex;
   flex-direction: column;
+  gap: 0.15em;
+  min-width: 0;
+  flex: 1;
 }
 
-.home-progress-card strong {
-  font-size: 1.5rem;
+.row-link-title {
+  overflow-wrap: break-word;
 }
 
-.home-progress-card span {
+.row-link-subtitle {
+  font-size: 0.8rem;
   color: var(--text-dim);
+}
+
+.row-link-chevron {
+  flex-shrink: 0;
+  color: var(--text-dim);
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+/* ---------- Fortschritt ---------- */
+
+.progress-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.progress-tile {
+  flex: 1 1 10rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.8em 0.9em;
+}
+
+.progress-tile-title {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.progress-tile-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-tile-detail {
   font-size: 0.78rem;
+  color: var(--text-dim);
 }
 
-.home-progress-card button {
-  margin-left: auto;
-}
+/* ---------- Schnellzugriff ---------- */
 
-.home-section-title {
-  font-size: 1.1rem;
-  margin: 1.75rem 0 0.75rem 0;
-}
-
-.home-module-grid {
+.quick-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0.9rem;
-  max-width: 900px;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.75rem;
 }
 
-.home-module-card {
+.quick-tile {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5em;
-  padding: 1.1em 1.2em;
-  background-color: var(--bg-panel);
-  border-radius: var(--radius-card);
+  min-height: 5.2rem;
+  padding: 0.8em 0.9em;
   text-align: left;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
 }
 
-.home-module-card:hover {
-  border-color: var(--accent);
+.quick-tile:hover:not(:disabled) {
+  filter: none;
+  background-color: var(--bg-panel-alt);
 }
 
-.home-module-icon {
-  font-size: 1.6em;
+.quick-tile-icon {
+  font-size: 1.5em;
+  line-height: 1;
 }
 
-.home-module-title {
-  font-weight: 600;
+.quick-tile-title {
+  font-weight: 500;
+  overflow-wrap: break-word;
 }
 
-.home-roadmap-group {
-  margin-bottom: 1.25rem;
+/* ---------- Fahrplan ---------- */
+
+.roadmap-group + .roadmap-group {
+  margin-top: 0.4rem;
 }
 
-.home-roadmap-group h4 {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--text-dim);
-  margin-bottom: 0.5em;
-}
-
-.home-roadmap-group ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.roadmap-toggle {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   gap: 0.5em;
-  max-width: 900px;
+  width: 100%;
+  padding: 0.6em 0.2em;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  font-weight: 600;
+  color: var(--text);
 }
 
-.home-roadmap-group button {
-  font-size: 0.88rem;
+.roadmap-toggle:hover:not(:disabled) {
+  filter: none;
+  color: var(--accent);
+}
+
+.roadmap-chevron {
+  font-size: 1.3em;
+  line-height: 1;
+  color: var(--text-dim);
+  transition: transform 0.18s ease;
+}
+
+.roadmap-chevron.open {
+  transform: rotate(90deg);
+}
+
+.roadmap-group .row-group {
+  margin-bottom: 0.6rem;
 }
 
 /* ---------- Electrode placement ---------- */
@@ -1546,11 +1719,6 @@ ul {
   color: #f5c518;
 }
 
-.home-favorites-empty {
-  color: var(--text-dim);
-  font-size: 0.9rem;
-}
-
 .checklist-progress {
   color: var(--text-dim);
   font-size: 0.85rem;
@@ -1783,13 +1951,13 @@ ul {
    * Betraf die Modulnamen auf der Startseite („Sanitätsdienst
    * (Veranstaltungsdienst)"), die bei 375 Pixeln 16 Pixel überstanden.
    */
-  .home-module-grid > *,
+  .quick-grid > *,
   .cheatsheet-grid > *,
   .med-grid > * {
     min-width: 0;
   }
 
-  .home-module-card,
+  .quick-tile,
   .cheatsheet-card,
   .med-list button {
     overflow-wrap: break-word;
@@ -1880,7 +2048,7 @@ ul {
     font-size: 1.4rem;
   }
 
-  .home-module-grid {
+  .quick-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
