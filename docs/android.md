@@ -187,11 +187,12 @@ Offen geblieben ist eines:
   `adb forward tcp:9222 localabstract:webview_devtools_remote_<pid>`,
   dann `http://localhost:9222/json`. Debug-Builds von Tauri erlauben das
   von sich aus.
-- **`INTERNET`-Berechtigung.** Das erzeugte `AndroidManifest.xml` fordert
-  sie an. Für eine App, die mit „komplett offline" antritt, ist das eine
-  Zeile, die im Play-Store sichtbar wäre. Ob Tauri sie wirklich braucht
-  oder ob sie nur aus der Vorlage stammt, ist noch nicht geprüft. Der
-  Test wäre, sie zu streichen und die App zu starten.
+- ~~**`INTERNET`-Berechtigung.**~~ **erledigt.** Die Vorlage von Tauri
+  fordert sie an, gebraucht wird sie nicht: das Frontend kommt aus der
+  App selbst, nicht über das Netz. Gestrichen und auf dem Gerät
+  nachgeprüft, Module, Abbildungen und der 3D-Atlas laufen unverändert.
+  Damit steht in der Berechtigungsliste nichts mehr, was der Zusage
+  „komplett offline" widerspricht.
 - **Namensreste aus der Vorlage.** Das Gradle-Thema heißt
   `Theme.tauri_app`, weil das Rust-Paket in `Cargo.toml` noch
   `tauri-app` heißt, mit `description = "A Tauri App"` und
