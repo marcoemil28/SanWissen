@@ -3,21 +3,22 @@ import { MODULES, MODULE_CATEGORIES, type LearningModule } from './app/registry'
 import { NavigationProvider } from './app/NavigationContext';
 import { GlobalSearch } from './app/GlobalSearch';
 import { HomePage } from './app/HomePage';
+import { AppearancePicker } from './app/AppearancePicker';
+import {
+  applyAppearance,
+  loadAppearance,
+  resolveAppearance,
+  saveAppearance,
+  watchSystemAppearance,
+  type AppearanceMode,
+} from './app/appearance';
 import './App.css';
-
-const CONTRAST_STORAGE_KEY = 'sanwissen:highContrast';
-
-function loadInitialContrast(): boolean {
-  try {
-    return localStorage.getItem(CONTRAST_STORAGE_KEY) === '1';
-  } catch {
-    return false;
-  }
-}
 
 function AppShell() {
   const [activeId, setActiveId] = useState('home');
-  const [highContrast, setHighContrast] = useState(loadInitialContrast);
+  const [appearance, setAppearance] = useState<AppearanceMode>(loadAppearance);
+  const resolved = resolveAppearance(appearance);
+  const highContrast = resolved === 'contrast';
   /**
    * Auf schmalen Fenstern liegt die Seitenleiste als Schublade über dem
    * Inhalt statt daneben. Gesteuert wird sie hier, sichtbar wird der
@@ -36,12 +37,19 @@ function AppShell() {
   const ActiveComponent = activeModule?.component;
 
   useEffect(() => {
-    try {
-      localStorage.setItem(CONTRAST_STORAGE_KEY, highContrast ? '1' : '0');
-    } catch {
-      // localStorage nicht verfügbar — Einstellung gilt dann nur für die Sitzung.
-    }
-  }, [highContrast]);
+    saveAppearance(appearance);
+    applyAppearance(resolveAppearance(appearance));
+  }, [appearance]);
+
+  /*
+   * Bei „Automatisch" muss ein Wechsel der Systemeinstellung ankommen,
+   * ohne dass die App neu geladen wird. Das erneute Auflösen erledigt der
+   * Zustandswechsel oben; hier reicht ein Anstoß zum Neuzeichnen.
+   */
+  useEffect(() => {
+    if (appearance !== 'system') return;
+    return watchSystemAppearance(() => applyAppearance(resolveAppearance('system')));
+  }, [appearance]);
 
   const pinnedModules = useMemo(() => MODULES.filter((m) => m.pinned), []);
 
@@ -119,13 +127,7 @@ function AppShell() {
         </nav>
 
         <div className="app-sidebar-footer">
-          <button
-            className={`contrast-toggle ${highContrast ? 'active' : ''}`}
-            onClick={() => setHighContrast((v) => !v)}
-          >
-            <span>{highContrast ? '🔆' : '🌙'}</span>
-            <span>{highContrast ? 'Hoher Kontrast an' : 'Hoher Kontrast'}</span>
-          </button>
+          <AppearancePicker value={appearance} onChange={setAppearance} />
         </div>
       </aside>
 
