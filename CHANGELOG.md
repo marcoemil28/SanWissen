@@ -135,6 +135,21 @@ gemeinsame Inhaltsquelle ändern.
     eine hat, statt nach dem Modul. Betroffen sind dieselben zwei Module
     wie bisher.
   - Für den Nutzer ändert sich nichts.
+- **Die Desktop-App hat jetzt ein mobiles Layout.** Bisher gab es keine
+  einzige `@media`-Regel und die Seitenleiste stand fest auf 260 Pixel; auf
+  einem Telefon blieb für Inhalte fast nichts. Unter 900 Pixel wird die
+  Seitenleiste zu einer Schublade mit Menütaste, die zweispaltigen
+  Modulansichten stapeln sich, Kopf- und Reiterzeilen brechen um, und die
+  Abbildung des Elektroden-Trainers skaliert mit.
+  - Geprüft bei 375 Pixeln: alle 17 Module ohne waagerechten Überlauf. Die
+    Ursachen waren meist `min-width: auto` bei Raster- und Flex-Kindern,
+    an dem sich lange Modulnamen aufzogen.
+  - Das Platzieren der Elektroden bleibt korrekt, obwohl die Abbildung
+    jetzt skaliert: die Umrechnung läuft über `getScreenCTM()` und
+    berücksichtigt die tatsächliche Darstellungsgröße. Nachgemessen, die
+    Abweichung an allen vier Zielen ist null.
+  - Am Desktop ändert sich nichts.
+  - Erster Schritt Richtung Android, siehe [docs/android.md](docs/android.md).
 - **Atlas auf dem iPad: Systemliste lag über dem Körper.** Ob die Liste
   neben der Szene steht oder über eine Taste als Blatt aufgeht, hing an der
   Größenklasse. Im iPad-Split-View ist die Detailspalte zwar „regular", aber

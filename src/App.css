@@ -1550,3 +1550,190 @@ ul {
     color: #000;
   }
 }
+
+/* ==========================================================================
+   Schmale Fenster (Telefon, Android)
+
+   Bis 1.1.0 hatte die App kein mobiles Layout: die Seitenleiste stand fest
+   auf 260 Pixel, auf einem 360 Pixel breiten Gerät blieb für Inhalte fast
+   nichts. Hier liegt alles, was sich unterhalb der Schwelle ändert, damit
+   die Regeln oben unangetastet bleiben.
+
+   Umschaltpunkt ist 900 Pixel: darunter passen Seitenleiste und die
+   zweispaltigen Modulansichten nicht mehr nebeneinander.
+   ========================================================================== */
+
+.app-menu-toggle,
+.app-scrim {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  /* Schublade statt fester Spalte. */
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(280px, 85vw);
+    z-index: 30;
+    transform: translateX(-100%);
+    transition: transform 0.22s ease;
+    box-shadow: 2px 0 16px rgb(0 0 0 / 35%);
+  }
+
+  .app-shell.menu-open .app-sidebar {
+    transform: translateX(0);
+  }
+
+  .app-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 40;
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--text);
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .app-shell.menu-open .app-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background-color: rgb(0 0 0 / 45%);
+  }
+
+  /* Oben Platz für die Menütaste, seitlich weniger Rand. */
+  .app-content {
+    padding: 3.8rem 1rem 1.5rem;
+  }
+
+  /* Liste und Detailansicht untereinander statt nebeneinander. */
+  .med-layout {
+    flex-direction: column;
+  }
+
+  .med-list {
+    width: 100%;
+    max-height: 40vh;
+  }
+
+  /* Zweispaltige Raster brauchen mehr Breite, als hier da ist. */
+  .rhythm-info,
+  .med-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /*
+   * Rasterelemente haben von Haus aus `min-width: auto`: ein langes Wort
+   * zieht die Spalte breiter als 1fr und schiebt die Karte über den Rand.
+   * Betraf die Modulnamen auf der Startseite („Sanitätsdienst
+   * (Veranstaltungsdienst)"), die bei 375 Pixeln 16 Pixel überstanden.
+   */
+  .home-module-grid > *,
+  .cheatsheet-grid > *,
+  .med-grid > * {
+    min-width: 0;
+  }
+
+  .home-module-card,
+  .cheatsheet-card,
+  .med-list button {
+    overflow-wrap: break-word;
+  }
+
+  /* Dasselbe für die Detailspalte: sie ist ein Flex-Kind und zieht sich
+     sonst an ihrem breitesten Inhalt auf, statt umzubrechen. */
+  .algo-detail,
+  .med-detail {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /*
+   * Kopf- und Reiterzeilen sind Flex-Reihen ohne Umbruch. Nebeneinander
+   * passen Titel, Stern und Seitenzahl hier nicht mehr; ohne Umbruch
+   * schieben sie sich aus dem sichtbaren Bereich.
+   */
+  .module-header,
+  .tab-bar,
+  .med-detail-header,
+  .algo-detail-header,
+  .quiz-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Die Reiter des EKG-Moduls dürfen umbrechen statt zu überstehen. */
+  .tab-bar button {
+    flex: 0 1 auto;
+  }
+
+  /* Der Lernmodus des EKG-Trainers ist dieselbe Zweispalten-Anordnung wie
+     die Themenmodule: Liste und Detail untereinander statt nebeneinander. */
+  .study-mode {
+    flex-direction: column;
+  }
+
+  .study-mode > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .rhythm-detail-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /*
+   * Elektroden-Trainer: die Abbildung hat im Code eine feste Anzeigebreite
+   * (400 bzw. 460), die hier nicht mehr hinpasst. Sie skaliert über die
+   * viewBox mit. Das Ziehen der Elektroden bleibt korrekt, weil
+   * `toSvgPoint` über `getScreenCTM()` rechnet und damit die tatsächliche
+   * Darstellungsgröße berücksichtigt.
+   */
+  .electrode-board {
+    flex-direction: column;
+  }
+
+  .electrode-svg-wrap {
+    flex-shrink: 1;
+    max-width: 100%;
+  }
+
+  .electrode-svg-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .electrode-set-switch,
+  .electrode-mode-switch {
+    flex-wrap: wrap;
+  }
+}
+
+/* Sehr schmale Geräte: Überschriften und Ränder weiter zurücknehmen. */
+@media (max-width: 420px) {
+  .app-content {
+    padding: 3.6rem 0.75rem 1.25rem;
+  }
+
+  .module-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .home-module-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -39,14 +39,14 @@ also bereits mit dem Finger.
 
 Der Ablauf steht im README unter „Mobile (Android)".
 
-**Der Haken: Die Desktop-App hat kein mobiles Layout.** In `src/App.css`
-steht keine einzige `@media`-Regel, und die Seitenleiste ist fest auf 260
-Pixel gesetzt. Auf einem 360 Pixel breiten Telefon bliebe für Inhalte
-fast nichts. Das ist die eigentliche Arbeit, und sie nützt sonst
-niemandem: der Desktop braucht sie nicht.
+**Das mobile Layout steht seit 1.1.0** (siehe Reihenfolge unten). Bis
+dahin gab es keine einzige `@media`-Regel, und die Seitenleiste war fest
+auf 260 Pixel gesetzt.
 
-Dazu kommt, dass der 3D-Atlas auf dem Desktop gar nicht existiert.
-Android bekäme ihn auf diesem Weg also zunächst auch nicht.
+Offen bleibt, dass der 3D-Atlas auf dem Desktop gar nicht existiert.
+Android bekäme ihn auf diesem Weg also zunächst auch nicht. Soll Android
+gleichwertig zu iOS sein, ist eine WebGL-Umsetzung damit Pflicht und
+nicht mehr optional.
 
 ### Natives Android in Kotlin
 
@@ -91,8 +91,10 @@ voller Qualität.
 
 ## Reihenfolge, wenn es losgeht
 
-1. `src/App.css` und die App-Hülle responsive machen: Seitenleiste als
-   ausklappbares Menü unter einer Schwelle, Inhaltsbreiten mitziehen.
-   Lässt sich vollständig im Browser prüfen, ohne Android-Werkzeuge.
+1. ~~`src/App.css` und die App-Hülle responsive machen~~ **erledigt**
+   (1.1.0). Unter 900 Pixel wird die Seitenleiste zur Schublade, die
+   zweispaltigen Modulansichten stapeln sich, und die Abbildung des
+   Elektroden-Trainers skaliert mit. Alle 17 Module laufen bei 375 Pixeln
+   ohne waagerechten Überlauf.
 2. `npm run tauri android init` und ein Debug-Build auf einem Gerät.
 3. Erst danach entscheiden, ob der Atlas in WebGL dazukommt.

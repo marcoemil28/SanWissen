@@ -18,6 +18,20 @@ function loadInitialContrast(): boolean {
 function AppShell() {
   const [activeId, setActiveId] = useState('home');
   const [highContrast, setHighContrast] = useState(loadInitialContrast);
+  /**
+   * Auf schmalen Fenstern liegt die Seitenleiste als Schublade über dem
+   * Inhalt statt daneben. Gesteuert wird sie hier, sichtbar wird der
+   * Unterschied allein über CSS (siehe `@media` in App.css) — so gibt es
+   * keinen zweiten Umschaltpunkt, der mit dem im Stylesheet auseinanderlaufen
+   * könnte.
+   */
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  /** Nach jedem Modulwechsel schließt die Schublade, sonst verdeckt sie das Ziel. */
+  function navigate(moduleId: string) {
+    setActiveId(moduleId);
+    setMenuOpen(false);
+  }
   const activeModule = MODULES.find((m) => m.id === activeId);
   const ActiveComponent = activeModule?.component;
 
@@ -44,7 +58,19 @@ function AppShell() {
   }, []);
 
   return (
-    <div className={`app-shell ${highContrast ? 'high-contrast' : ''}`}>
+    <div className={`app-shell ${highContrast ? 'high-contrast' : ''} ${menuOpen ? 'menu-open' : ''}`}>
+      <button
+        className="app-menu-toggle"
+        onClick={() => setMenuOpen((open) => !open)}
+        aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
+        aria-expanded={menuOpen}
+      >
+        {menuOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Schließt die Schublade beim Tippen daneben. */}
+      <div className="app-scrim" onClick={() => setMenuOpen(false)} aria-hidden="true" />
+
       <aside className="app-sidebar">
         <div className="app-brand">
           <span className="app-brand-icon">🚑</span>
@@ -52,10 +78,10 @@ function AppShell() {
           <span className="app-brand-version">v{__APP_VERSION__}</span>
         </div>
 
-        <GlobalSearch onNavigate={setActiveId} />
+        <GlobalSearch onNavigate={navigate} />
 
         <nav className="app-nav">
-          <button className={`app-nav-item ${activeId === 'home' ? 'active' : ''}`} onClick={() => setActiveId('home')}>
+          <button className={`app-nav-item ${activeId === 'home' ? 'active' : ''}`} onClick={() => navigate('home')}>
             <span className="app-nav-icon">🏠</span>
             <span>Startseite</span>
           </button>
@@ -64,7 +90,7 @@ function AppShell() {
             <button
               key={m.id}
               className={`app-nav-item ${m.id === activeId ? 'active' : ''}`}
-              onClick={() => setActiveId(m.id)}
+              onClick={() => navigate(m.id)}
             >
               <span className="app-nav-icon">{m.icon}</span>
               <span>{m.title}</span>
@@ -80,7 +106,7 @@ function AppShell() {
                   className={`app-nav-item ${m.id === activeId ? 'active' : ''} ${
                     m.status === 'coming-soon' ? 'disabled' : ''
                   }`}
-                  onClick={() => m.status === 'available' && setActiveId(m.id)}
+                  onClick={() => m.status === 'available' && navigate(m.id)}
                   disabled={m.status === 'coming-soon'}
                 >
                   <span className="app-nav-icon">{m.icon}</span>
@@ -105,9 +131,9 @@ function AppShell() {
 
       <main className="app-content">
         {activeId === 'home' ? (
-          <HomePage onNavigateModule={setActiveId} />
+          <HomePage onNavigateModule={navigate} />
         ) : ActiveComponent ? (
-          <ActiveComponent onNavigateModule={setActiveId} />
+          <ActiveComponent onNavigateModule={navigate} />
         ) : (
           <div className="coming-soon">Dieses Modul ist noch nicht verfügbar.</div>
         )}
