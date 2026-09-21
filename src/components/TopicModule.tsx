@@ -4,6 +4,7 @@ import { topicModuleById, type RawTopic } from '../app/content';
 import { useNavigation } from '../app/NavigationContext';
 import { FavoriteButton } from './FavoriteButton';
 import { SectionIllustration } from './SectionIllustration';
+import { RowGroup, RowLink, SectionBox } from './SectionBox';
 import { formatStand } from '../app/formatDate';
 
 /**
@@ -16,6 +17,12 @@ import { formatStand } from '../app/formatDate';
  * Was sich zwischen den Modulen unterscheidet, steht in den Inhalten:
  * Kategorien und ihre Reihenfolge, der Stand, die Seitenzahl je Eintrag.
  * Als Eigenschaft bleibt nur, was Text im Code ist.
+ *
+ * Seit der Angleichung an iOS zeigt das Modul zuerst nur die Themenliste;
+ * ein Thema öffnet sich als eigene Seite mit Zurück-Schaltfläche. Vorher
+ * standen Liste und Inhalt nebeneinander, was auf einem Telefon nicht
+ * aufgeht und auf dem iPad auch nicht dem entspricht, was die iOS-App
+ * macht.
  */
 interface TopicModuleProps {
   /** Muss zu einer Datei `content/topics-<moduleId>.json` passen. */
@@ -98,12 +105,12 @@ function TopicDetail({
 export function TopicModule({ moduleId, heading, disclaimer, notesHeading = 'Hinweise' }: TopicModuleProps) {
   const mod = topicModuleById(moduleId);
   const topics = mod.topics;
-  const [selectedId, setSelectedId] = useState(topics[0].id);
   const { pending, clearPending } = useNavigation();
 
   // Module ohne Kategorien bestehen aus einem einzigen Thema und brauchen
   // weder Liste noch Favoriten-Stern (der Modul-Link führt ohnehin dorthin).
   const isSingle = mod.categoryOrder.length === 0;
+  const [selectedId, setSelectedId] = useState<string | null>(isSingle ? topics[0].id : null);
   const icon = modulesContent.modules.find((m) => m.id === moduleId)?.icon ?? '';
 
   useEffect(() => {
@@ -124,57 +131,66 @@ export function TopicModule({ moduleId, heading, disclaimer, notesHeading = 'Hin
     return map;
   }, [topics]);
 
-  const selected = topics.find((t) => t.id === selectedId) ?? topics[0];
+  const selected = selectedId ? topics.find((t) => t.id === selectedId) ?? null : null;
 
-  const detail = (
-    <TopicDetail
-      topic={selected}
-      moduleId={moduleId}
-      heading={heading}
-      icon={icon}
-      notesHeading={notesHeading}
-      withFavorite={!isSingle}
-    />
-  );
+  if (selected) {
+    return (
+      <div className={`module ${moduleId}-module`}>
+        {!isSingle && (
+          <button type="button" className="back-link" onClick={() => setSelectedId(null)}>
+            <span aria-hidden="true">‹</span> {heading}
+          </button>
+        )}
+
+        {isSingle && (
+          <header className="page-header">
+            <h1>{heading}</h1>
+          </header>
+        )}
+
+        <TopicDetail
+          topic={selected}
+          moduleId={moduleId}
+          heading={heading}
+          icon={icon}
+          notesHeading={notesHeading}
+          withFavorite={!isSingle}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={`module ${moduleId}-module`}>
-      <header className="module-header">
+      <header className="page-header">
         <h1>{heading}</h1>
       </header>
 
-      <div className="med-disclaimer">
-        ℹ️ {disclaimer} Inhaltlicher Stand: {formatStand(mod.contentStand ?? '')}.
+      <div className="disclaimer-box">
+        <span className="disclaimer-icon" aria-hidden="true">
+          ⚠️
+        </span>
+        <p>
+          {disclaimer} Inhaltlicher Stand: {formatStand(mod.contentStand ?? '')}.
+        </p>
       </div>
 
-      {isSingle ? (
-        detail
-      ) : (
-        <div className="med-layout">
-          <aside className="med-list">
-            {mod.categoryOrder
-              .filter((category) => grouped.has(category))
-              .map((category) => (
-                <div key={category} className="med-group">
-                  <h4>{category}</h4>
-                  <ul>
-                    {grouped.get(category)!.map((topic) => (
-                      <li key={topic.id}>
-                        <button
-                          className={topic.id === selectedId ? 'active' : ''}
-                          onClick={() => setSelectedId(topic.id)}
-                        >
-                          {topic.title}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+      {mod.categoryOrder
+        .filter((category) => grouped.has(category))
+        .map((category) => (
+          <SectionBox key={category} title={category}>
+            <RowGroup>
+              {grouped.get(category)!.map((topic) => (
+                <RowLink
+                  key={topic.id}
+                  title={topic.title}
+                  subtitle={topic.summary}
+                  onClick={() => setSelectedId(topic.id)}
+                />
               ))}
-          </aside>
-          {detail}
-        </div>
-      )}
+            </RowGroup>
+          </SectionBox>
+        ))}
     </div>
   );
 }

@@ -43,7 +43,8 @@ export function RowLink({
   disabled,
   badge,
 }: {
-  icon: string;
+  /** Ohne Symbol rückt der Text an den Rand, so wie in den Themenlisten auf iOS. */
+  icon?: string;
   title: string;
   subtitle?: string;
   onClick: () => void;
@@ -51,10 +52,12 @@ export function RowLink({
   badge?: string;
 }) {
   return (
-    <button type="button" className="row-link" onClick={onClick} disabled={disabled}>
-      <span className="row-link-icon" aria-hidden="true">
-        {icon}
-      </span>
+    <button type="button" className={`row-link ${icon ? '' : 'no-icon'}`} onClick={onClick} disabled={disabled}>
+      {icon && (
+        <span className="row-link-icon" aria-hidden="true">
+          {icon}
+        </span>
+      )}
       <span className="row-link-text">
         <span className="row-link-title">{title}</span>
         {subtitle && <span className="row-link-subtitle">{subtitle}</span>}

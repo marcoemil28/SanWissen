@@ -757,38 +757,73 @@ ul {
 
 /* ---------- Algorithmen module ---------- */
 
+/*
+ * Thema als eigene Seite, nachgebaut nach `TopicDetailView` auf iOS: der
+ * Titel steht gross oben, die Zusammenfassung als gewoehnlicher Text, und
+ * jeder Abschnitt ist eine eigene Karte auf dem Seitenhintergrund. Vorher
+ * war das Ganze ein einziger Kasten neben der Liste.
+ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.2em 0;
+  margin-bottom: 0.9rem;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.back-link span {
+  font-size: 1.4em;
+  line-height: 1;
+}
+
+.back-link:hover:not(:disabled) {
+  filter: none;
+  text-decoration: underline;
+}
+
 .algo-detail {
-  flex: 1;
   min-width: 0;
-  background-color: var(--bg-panel);
-  border: var(--card-border-width) solid var(--border);
-  border-radius: var(--radius-card);
-  padding: 1.25rem 1.5rem;
 }
 
 .algo-detail-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.algo-detail-header h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
 }
 
 .algo-summary {
-  color: var(--text-dim);
-  margin: 0.3em 0 0 0;
-  max-width: 60ch;
+  margin: 0.4em 0 0 0;
+  max-width: 62ch;
+  line-height: 1.5;
 }
 
 .algo-section {
-  margin: 1.1rem 0;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9em 1.05em;
+  margin: 0 0 0.9rem 0;
 }
 
 .algo-section h4 {
-  font-size: 0.85rem;
-  color: var(--accent);
-  margin-bottom: 0.4em;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5em;
 }
 
 .algo-section ul {
@@ -801,16 +836,18 @@ ul {
 }
 
 .algo-notes {
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9em 1.05em;
+  margin: 0 0 0.9rem 0;
 }
 
 .algo-notes h4 {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--text-dim);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.4em;
 }
 
 .algo-notes li {
@@ -820,10 +857,9 @@ ul {
 }
 
 .algo-source-note {
-  margin-top: 1rem;
-  font-size: 0.8rem;
+  margin: 0;
+  font-size: 0.82rem;
   color: var(--text-dim);
-  font-style: italic;
 }
 
 /* ---------- Trauma illustrations ---------- */
@@ -1213,6 +1249,10 @@ ul {
  * iOS es in Listen macht. Als Pseudo-Element statt als `border-top`, weil
  * ein Rahmen über die volle Breite liefe.
  */
+.row-link.no-icon + .row-link.no-icon::before {
+  left: 0.9em;
+}
+
 .row-link + .row-link::before {
   content: '';
   position: absolute;
