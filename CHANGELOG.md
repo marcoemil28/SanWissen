@@ -173,6 +173,34 @@ gemeinsame Inhaltsquelle ändern.
   - Das Platzieren der Elektroden wurde auf dem Gerät mit echten
     Berührungen nachgeprüft, Treffer und Fehlversuch werden erkannt.
   - `index.html` sagt jetzt `lang="de"` statt `lang="en"`.
+- **Der 3D-Atlas läuft jetzt auch auf Windows, macOS und Android.** Bisher
+  gab es ihn nur als SceneKit-Fassung auf iOS, und er war die größte
+  Lücke zwischen den Plattformen. Die Neufassung nutzt WebGL über
+  three.js und bietet dasselbe: Drehen, Zoomen, Antippen zum Untersuchen,
+  Freistellen einzelner Systeme und stufenloses Auseinanderziehen bis zum
+  vollständigen anatomischen Inventar.
+  - **An den Daten war nichts umzurechnen.** Positionen als float32,
+    Normalen als int16 und Indizes als uint32 gehen direkt als
+    Buffer-Attribute durch. In `atlas.json` stehen sogar noch die
+    ursprünglichen Web-URLs; das Format stammt aus einer Web-Vorlage,
+    SceneKit war die Zweitverwertung.
+  - **Ein Zeichenaufruf je Organsystem statt 2.234.** Auf iOS bekommt
+    jedes Netz einen eigenen Knoten, was SceneKit wegsteckt. In WebGL
+    wären das 2.234 Aufrufe pro Bild. Ein `BatchedMesh` je System fasst
+    sie zusammen und bietet trotzdem Sichtbarkeit, Farbe und Matrix je
+    Teil. Nachgemessen: 14 Aufrufe pro Bild.
+  - **Die Geometrie ist nach `content/atlas/` gezogen**, wie alle anderen
+    Inhalte, und wird über ein Vite-Plugin ans Frontend ausgeliefert. Sie
+    liegt damit in der App und braucht kein Netz.
+  - **Die Organsysteme stehen jetzt in `content/atlas-systems.json`** statt
+    fest im Swift-Code, und zwar auf Deutsch. Vorher hießen sie
+    „Skeleton", „Sensory organs" und „Body surface", auch in der
+    deutschen App. Die Teilenamen der Geometrie bleiben englisch, das
+    sind 2.234 anatomische Bezeichnungen aus BodyParts3D.
+  - Auf dem Android-Emulator gemessen: 59,5 MB Geometrie in 1,9 Sekunden
+    geladen, der Atlas nach 2,3 Sekunden bedienbar, 60 Bilder pro Sekunde
+    mit allen Systemen. **Auf einem echten Telefon ist das noch nicht
+    geprüft**, der Emulator nutzt die Grafikkarte des Macs.
 - **Die Oberfläche von PC und Android sieht jetzt aus wie die iOS-App.**
   Bisher war es eine eigene, blaugraue Gestaltung mit umrandeten Kästen,
   kleiner Schrift und einer Seitenleiste; die iOS-Fassung wirkte daneben

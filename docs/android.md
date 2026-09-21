@@ -170,6 +170,13 @@ Offen geblieben ist eines:
   Anordnung müsste für schmale Bildschirme anders sein, etwa die Ablage
   als feste Leiste am unteren Rand. Auf iOS stellt sich die Frage nicht,
   dort ist der Trainer eigens gebaut.
+- **Der Emulator rendert ohne `-gpu host` in Software.** Beim ersten Lauf
+  des 3D-Atlas kamen 2 Bilder pro Sekunde heraus. Die Ursache war nicht
+  die App: `WEBGL_debug_renderer_info` meldete
+  „SwiftShader", also einen reinen Software-Rasterisierer ohne
+  Grafikkarte. Mit `emulator -avd <name> -gpu host` meldet dieselbe
+  Messung „Apple M4 Pro" und 60 Bilder pro Sekunde. Wer die Leistung von
+  3D im Emulator misst, muss das prüfen, sonst misst er nichts.
 - **`env(safe-area-inset-bottom)` meldet null.** Auf dem Pixel-7-Emulator
   unter Android 16 gibt die WebView oben 52 Pixel zurück, unten aber
   null, obwohl die Gestenleiste dort liegt. Sie überlagert die Seite und

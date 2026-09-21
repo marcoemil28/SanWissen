@@ -87,7 +87,15 @@ export class AtlasScene {
     chunks: Map<string, ArrayBuffer>,
   ) {
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    /*
+     * Auf einem Telefon ist die Pixeldichte hoch und die Grafikeinheit
+     * klein. Bei 2,625 wären es hier 773x1134 Bildpunkte, also fast eine
+     * Million Fragmente je Bild bei 2,29 Millionen Dreiecken. Der
+     * Unterschied zwischen 1,5 und 2,625 fällt auf einem Handschirm kaum
+     * auf, die Bildrate schon.
+     */
+    const schmal = window.matchMedia('(max-width: 900px)').matches;
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, schmal ? 1.5 : 2));
 
     this.camera = new THREE.PerspectiveCamera(FIELD_OF_VIEW, 1, 0.01, 100);
     this.scene.add(this.camera);
@@ -164,10 +172,17 @@ export class AtlasScene {
       const vertices = parts.reduce((sum, p) => sum + p.vertexCount, 0);
       const indices = parts.reduce((sum, p) => sum + p.indexCount, 0);
 
-      const material = new THREE.MeshStandardMaterial({
+      /*
+       * Phong statt eines physikalisch basierten Materials. Die Vorlage
+       * nutzt auf iOS `.physicallyBased`, aber die Netze sind matt und
+       * einfarbig; der Unterschied ist kaum zu sehen, der
+       * Fragment-Shader dagegen deutlich billiger. Bei 2,29 Millionen
+       * Dreiecken auf einer Telefon-Grafikeinheit zählt das.
+       */
+      const material = new THREE.MeshPhongMaterial({
         color: new THREE.Color(info.hex),
-        roughness: 0.62,
-        metalness: 0,
+        shininess: 12,
+        specular: 0x111111,
         // Beidseitig, weil die vereinfachten Netze stellenweise offen sind.
         side: THREE.DoubleSide,
       });
