@@ -1963,11 +1963,6 @@ ul {
   color: var(--text-dim);
 }
 
-.atlas-systems-toggle {
-  width: 100%;
-  margin-bottom: 0.9rem;
-}
-
 .atlas-systems {
   background-color: var(--bg-panel);
   border: var(--card-border-width) solid var(--border);
@@ -2020,6 +2015,136 @@ ul {
   margin: 0.6rem 0 0 0;
   font-size: 0.82rem;
   color: var(--text-dim);
+}
+
+/* ---------- Suche nach Strukturen ---------- */
+
+.atlas-search {
+  position: relative;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-search input {
+  width: 100%;
+  background-color: var(--bg-panel-alt);
+  color: var(--text);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.5em 0.9em;
+  font-size: 0.95rem;
+}
+
+.atlas-search input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.atlas-search-results {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 0.3rem);
+  z-index: 20;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 16rem;
+  overflow-y: auto;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 28%);
+}
+
+.atlas-search-results button {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.55em 0.8em;
+}
+
+.atlas-search-results button:hover:not(:disabled) {
+  filter: none;
+  background-color: var(--bg-panel-alt);
+}
+
+.atlas-search-results span {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* ---------- Struktur-Quiz ---------- */
+
+/*
+ * Der Quizbalken liegt über der Szene, nicht darüber im Fluss. Sonst
+ * schiebt er das Modell auf einem Telefon aus dem Bild, und man müsste
+ * zum Antworten scrollen.
+ */
+.atlas-quiz {
+  position: absolute;
+  left: 0.6rem;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 10;
+  background-color: color-mix(in srgb, var(--bg-panel) 92%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.6em 0.8em;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 18%);
+}
+
+.atlas-quiz-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.atlas-quiz-head strong {
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.atlas-quiz-prompt {
+  margin: 0.6rem 0 0 0;
+}
+
+.atlas-quiz-right,
+.atlas-quiz-wrong {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.atlas-quiz-right {
+  color: var(--good);
+}
+
+.atlas-quiz-wrong {
+  color: var(--bad);
+}
+
+.atlas-selection-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.atlas-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-actions button {
+  flex: 1 1 8rem;
 }
 
 .atlas-explode {

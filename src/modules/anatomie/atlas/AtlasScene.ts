@@ -31,6 +31,16 @@ const VIEWPOINT_ANGLES: Record<AtlasViewpoint, { yaw: number; pitch: number }> =
 
 const FIELD_OF_VIEW = 34;
 
+/*
+ * Faktor, mit dem eine ausgewählte Struktur aufleuchtet.
+ *
+ * `setColorAt` multipliziert die Grundfarbe des Systems, ein weißer Wert
+ * änderte also gar nichts. Die Farbtextur von `BatchedMesh` ist aber
+ * Float, Werte über 1 sind erlaubt. 2,6 hebt jede Grundfarbe sicher bis
+ * ins Weiße, was der Hervorhebung auf iOS entspricht (weiß mit Eigenleuchten).
+ */
+const HIGHLIGHT = new THREE.Color(2.6, 2.6, 2.6);
+
 /** Eine Zelle der Explosionsansicht. */
 interface LayoutCell {
   x: number;
@@ -75,7 +85,7 @@ export class AtlasScene {
 
   private hiddenSystems = new Set<string>();
   private isolated: Set<string> | null = null;
-  private selectedId: string | null = null;
+  private selectedIds = new Set<string>();
 
   private frameHandle = 0;
   private needsRender = true;
@@ -339,22 +349,126 @@ export class AtlasScene {
     this.applyExplode();
   }
 
-  /** Hebt ein Teil farblich hervor. */
-  select(partId: string | null) {
-    if (this.selectedId) {
-      const previous = this.batches.get(this.partSystem.get(this.selectedId) ?? '');
-      const instanceId = previous?.instances.get(this.selectedId);
-      if (previous && instanceId !== undefined) previous.mesh.setColorAt(instanceId, previous.baseColor);
+  /**
+   * Hebt Teile farblich hervor.
+   *
+   * Mehrere, weil eine benannte Struktur oft aus mehreren Netzen besteht:
+   * „linker Oberschenkelknochen" ist ein Netz, „Speiseröhre" sind mehrere.
+   */
+  select(partIds: Set<string> | null) {
+    for (const id of this.selectedIds) {
+      const batch = this.batches.get(this.partSystem.get(id) ?? '');
+      const instanceId = batch?.instances.get(id);
+      if (batch && instanceId !== undefined) batch.mesh.setColorAt(instanceId, batch.baseColor);
     }
-    this.selectedId = partId;
-    if (partId) {
-      const batch = this.batches.get(this.partSystem.get(partId) ?? '');
-      const instanceId = batch?.instances.get(partId);
-      if (batch && instanceId !== undefined) {
-        batch.mesh.setColorAt(instanceId, new THREE.Color(0x4fb0ff));
-      }
+    this.selectedIds = partIds ?? new Set();
+    for (const id of this.selectedIds) {
+      const batch = this.batches.get(this.partSystem.get(id) ?? '');
+      const instanceId = batch?.instances.get(id);
+      if (batch && instanceId !== undefined) batch.mesh.setColorAt(instanceId, HIGHLIGHT);
     }
     this.needsRender = true;
+  }
+
+  /**
+   * Bildschirmbereich, den der sichtbare Körper einnimmt, in Pixeln der
+   * Leinwand. Dafür werden die acht Ecken des Hüllquaders projiziert.
+   */
+  private projectedBounds(): { x: number; y: number; width: number; height: number } | null {
+    const visible = this.visibleParts();
+    if (visible.length === 0) return null;
+
+    const lo = [Infinity, Infinity, Infinity];
+    const hi = [-Infinity, -Infinity, -Infinity];
+    for (const part of visible) {
+      for (let i = 0; i < 3; i++) {
+        lo[i] = Math.min(lo[i], part.bounds[0][i]);
+        hi[i] = Math.max(hi[i], part.bounds[1][i]);
+      }
+    }
+
+    this.orbit.updateMatrixWorld(true);
+    this.camera.updateMatrixWorld(true);
+
+    const width = this.canvas.clientWidth;
+    const height = this.canvas.clientHeight;
+    const point = new THREE.Vector3();
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+
+    for (const x of [lo[0], hi[0]]) {
+      for (const y of [lo[1], hi[1]]) {
+        for (const z of [lo[2], hi[2]]) {
+          // Die Ecken liegen im Körpersystem, deshalb erst in die Szene.
+          point.set(x, y, z);
+          this.body.localToWorld(point);
+          point.project(this.camera);
+          const px = ((point.x + 1) / 2) * width;
+          const py = ((1 - point.y) / 2) * height;
+          minX = Math.min(minX, px);
+          maxX = Math.max(maxX, px);
+          minY = Math.min(minY, py);
+          maxY = Math.max(maxY, py);
+        }
+      }
+    }
+    if (maxX <= minX || maxY <= minY) return null;
+    return { x: minX, y: minY, width: maxX - minX, height: maxY - minY };
+  }
+
+  /**
+   * Sammelt die Netze, die von der aktuellen Kameraposition aus wirklich
+   * getroffen werden können.
+   *
+   * Statt zu raten, welche Strukturen oberflächlich liegen, wird die Ansicht
+   * mit einem Raster von Strahlen abgetastet. Was dabei zuerst getroffen
+   * wird, ist von außen sichtbar, also genau das, wonach im Quiz gefragt
+   * werden darf. `minHits` sortiert Strukturen aus, von denen nur ein
+   * Zipfel hervorschaut.
+   */
+  outerParts(samples = 22, minHits = 2): string[] {
+    const width = this.canvas.clientWidth;
+    const height = this.canvas.clientHeight;
+    if (width < 2 || height < 2) return [];
+
+    // Nur dort abtasten, wo der Körper im Bild liegt. Über die ganze Fläche
+    // verteilt gingen die meisten Strahlen daneben.
+    const area = this.projectedBounds() ?? { x: 0, y: 0, width, height };
+    const region = {
+      x: Math.max(0, area.x - 4),
+      y: Math.max(0, area.y - 4),
+      width: Math.min(width, area.width + 8),
+      height: Math.min(height, area.height + 8),
+    };
+    if (region.width < 2 || region.height < 2) return [];
+
+    const meshes = [...this.batches.values()].filter((b) => b.mesh.visible).map((b) => b.mesh);
+    const hits = new Map<string, number>();
+    const pointer = new THREE.Vector2();
+
+    for (let i = 0; i < samples; i++) {
+      for (let j = 0; j < samples; j++) {
+        const px = region.x + (region.width * (i + 0.5)) / samples;
+        const py = region.y + (region.height * (j + 0.5)) / samples;
+        pointer.set((px / width) * 2 - 1, -((py / height) * 2 - 1));
+        this.raycaster.setFromCamera(pointer, this.camera);
+        const hit = this.raycaster.intersectObjects(meshes, false)[0];
+        if (!hit || hit.batchId === undefined) continue;
+        const id = this.partIdFor(hit.object as THREE.BatchedMesh, hit.batchId);
+        if (id) hits.set(id, (hits.get(id) ?? 0) + 1);
+      }
+    }
+
+    return [...hits.entries()].filter(([, count]) => count >= minHits).map(([id]) => id);
+  }
+
+  private partIdFor(mesh: THREE.BatchedMesh, instanceId: number): string | null {
+    const batch = this.batches.get(mesh.name);
+    if (!batch) return null;
+    for (const [partId, id] of batch.instances) if (id === instanceId) return partId;
+    return null;
   }
 
   /** Welches Teil liegt unter dem Punkt? Koordinaten in Pixeln der Leinwand. */
@@ -364,13 +478,10 @@ export class AtlasScene {
     this.raycaster.setFromCamera(pointer, this.camera);
 
     const meshes = [...this.batches.values()].filter((b) => b.mesh.visible).map((b) => b.mesh);
-    const hits = this.raycaster.intersectObjects(meshes, false);
-    for (const hit of hits) {
-      const batch = this.batches.get((hit.object as THREE.BatchedMesh).name);
-      if (!batch || hit.batchId === undefined) continue;
-      for (const [partId, instanceId] of batch.instances) {
-        if (instanceId === hit.batchId) return this.partsById.get(partId) ?? null;
-      }
+    for (const hit of this.raycaster.intersectObjects(meshes, false)) {
+      if (hit.batchId === undefined) continue;
+      const id = this.partIdFor(hit.object as THREE.BatchedMesh, hit.batchId);
+      if (id) return this.partsById.get(id) ?? null;
     }
     return null;
   }
