@@ -295,13 +295,14 @@ three.js. Beide lesen dieselbe Geometrie aus `content/atlas/`.
 
 - **Zwei Modelle**, umschaltbar in der Kopfzeile: männlich aus
   [BodyParts3D](https://lifesciencedb.jp/bp3d/) (2.234 Teile, 2,29 Mio.
-  Dreiecke, vollständige Abdeckung) und weiblich (902 Teile, 1,89 Mio.
-  Dreiecke). Ein vollständiger, frei lizenzierter weiblicher
-  Ganzkörperdatensatz existiert nicht, deshalb ist das weibliche Modell
-  zusammengesetzt: Organe, Gefäße, Nerven, Fortpflanzungsorgane und
-  Becken aus dem [Human Reference Atlas](https://humanatlas.io/)
-  (united-female v1.5), die übrigen Knochen und die Muskulatur aus
-  BodyParts3D. Dass diese Teile männlich sind, steht in der
+  Dreiecke, vollständige Abdeckung) und weiblich. Ein vollständiger, frei
+  lizenzierter weiblicher Ganzkörperdatensatz existiert nicht, deshalb ist
+  das weibliche Modell zusammengesetzt und zeigt am Ende 1.518 Teile mit
+  2,53 Mio. Dreiecken; der weibliche Datensatz allein bringt davon 902
+  Teile und 1,89 Mio. Dreiecke mit. Zusammengesetzt wird so: Organe,
+  Gefäße, Nerven, Fortpflanzungsorgane und Becken aus dem
+  [Human Reference Atlas](https://humanatlas.io/) (united-female v1.5),
+  die übrigen Knochen und die Muskulatur aus BodyParts3D. Dass diese Teile männlich sind, steht in der
   Quellenangabe der App.
 - **Bedienung:** Ziehen zum Drehen, zwei Finger zum Zoomen, Tippen zum
   Untersuchen. Einzelne Systeme lassen sich ein- und ausblenden oder
