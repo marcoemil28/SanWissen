@@ -1,9 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { TOOLS } from './data';
 import { useNavigation } from '../../app/NavigationContext';
+import { DisclaimerBox, RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
 
+/**
+ * Rechner und Scores. Wie in `WerkzeugeView` der iOS-App zuerst nur die
+ * Liste; ein Werkzeug öffnet sich als eigene Seite.
+ */
 export function WerkzeugeModule() {
-  const [selectedId, setSelectedId] = useState(TOOLS[0].id);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const { pending, clearPending } = useNavigation();
 
   useEffect(() => {
@@ -23,37 +28,15 @@ export function WerkzeugeModule() {
     return map;
   }, []);
 
-  const selected = TOOLS.find((t) => t.id === selectedId) ?? TOOLS[0];
-  const SelectedComponent = selected.component;
+  const selected = selectedId ? TOOLS.find((t) => t.id === selectedId) ?? null : null;
 
-  return (
-    <div className="module werkzeuge-module">
-      <header className="module-header">
-        <h1>Werkzeuge & Scores</h1>
-      </header>
-
-      <div className="med-disclaimer">
-        ℹ️ Interaktive Rechner für standardisierte Scores — allgemein gebräuchliche Skalen, keine SAA/BPR-Quelle.
-        Ergebnisse sind eine Einschätzungshilfe, keine automatische Diagnose oder Handlungsanweisung.
-      </div>
-
-      <div className="med-layout">
-        <aside className="med-list">
-          {[...grouped.entries()].map(([cat, items]) => (
-            <div key={cat} className="med-group">
-              <h4>{cat}</h4>
-              <ul>
-                {items.map((t) => (
-                  <li key={t.id}>
-                    <button className={t.id === selectedId ? 'active' : ''} onClick={() => setSelectedId(t.id)}>
-                      {t.title}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </aside>
+  if (selected) {
+    const SelectedComponent = selected.component;
+    return (
+      <div className="module werkzeuge-module">
+        <button type="button" className="back-link" onClick={() => setSelectedId(null)}>
+          <span aria-hidden="true">‹</span> Werkzeuge &amp; Scores
+        </button>
 
         <div className="algo-detail">
           <div className="algo-detail-header">
@@ -65,6 +48,29 @@ export function WerkzeugeModule() {
           <SelectedComponent />
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="module werkzeuge-module">
+      <header className="page-header">
+        <h1>Werkzeuge &amp; Scores</h1>
+      </header>
+
+      <DisclaimerBox>
+        Interaktive Rechner für standardisierte Scores, allgemein gebräuchliche Skalen ohne SAA/BPR-Quelle.
+        Ergebnisse sind eine Einschätzungshilfe, keine automatische Diagnose oder Handlungsanweisung.
+      </DisclaimerBox>
+
+      {[...grouped.entries()].map(([category, items]) => (
+        <SectionBox key={category} title={category}>
+          <RowGroup>
+            {items.map((t) => (
+              <RowLink key={t.id} title={t.title} subtitle={t.description} onClick={() => setSelectedId(t.id)} />
+            ))}
+          </RowGroup>
+        </SectionBox>
+      ))}
     </div>
   );
 }

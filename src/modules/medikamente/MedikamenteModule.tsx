@@ -3,6 +3,7 @@ import { MEDIKAMENTE, CONTENT_STAND } from './data';
 import type { Medikament, MedikamentKategorie } from './types';
 import { useNavigation } from '../../app/NavigationContext';
 import { FavoriteButton } from '../../components/FavoriteButton';
+import { DisclaimerBox, RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
 import { formatStand } from '../../app/formatDate';
 
 const CATEGORY_ORDER: MedikamentKategorie[] = [
@@ -59,8 +60,12 @@ function MedikamentDetail({ med }: { med: Medikament }) {
   );
 }
 
+/**
+ * Wie die Themenmodule: zuerst nur die Liste, ein Medikament öffnet sich
+ * als eigene Seite. Das entspricht `MedikamenteView` der iOS-App.
+ */
 export function MedikamenteModule() {
-  const [selectedId, setSelectedId] = useState(MEDIKAMENTE[0].id);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const { pending, clearPending } = useNavigation();
 
   useEffect(() => {
@@ -80,44 +85,49 @@ export function MedikamenteModule() {
     return map;
   }, []);
 
-  const selected = MEDIKAMENTE.find((m) => m.id === selectedId) ?? MEDIKAMENTE[0];
+  const selected = selectedId ? MEDIKAMENTE.find((m) => m.id === selectedId) ?? null : null;
+
+  if (selected) {
+    return (
+      <div className="module medikamente-module">
+        <button type="button" className="back-link" onClick={() => setSelectedId(null)}>
+          <span aria-hidden="true">‹</span> Medikamente (SAA/BPR)
+        </button>
+        <MedikamentDetail med={selected} />
+      </div>
+    );
+  }
 
   return (
     <div className="module medikamente-module">
-      <header className="module-header">
+      <header className="page-header">
         <h1>Medikamente (SAA/BPR)</h1>
       </header>
 
-      <div className="med-disclaimer">
-        ⚠️ Diese Inhalte stammen aus den <strong>Standard-Arbeitsanweisungen und Behandlungspfaden (SAA/BPR) 2025</strong>{' '}
+      <DisclaimerBox>
+        Diese Inhalte stammen aus den <strong>Standard-Arbeitsanweisungen und Behandlungspfaden (SAA/BPR) 2025</strong>{' '}
         der Ärztlichen Leitungen Rettungsdienst (BW, BB, MV, NRW, SN, ST) und richten sich an{' '}
-        <strong>Notfallsanitäter:innen (NotSan)</strong> mit ärztlicher Delegation — nicht an Rettungssanitäter:innen
+        <strong>Notfallsanitäter:innen (NotSan)</strong> mit ärztlicher Delegation, nicht an Rettungssanitäter:innen
         (RS). Als RS gibst du diese Medikamente nicht eigenständig. Nutze diesen Bereich als{' '}
-        <strong>Nachschlagewerk/Kontextwissen</strong>, nicht als RS-Prüfungsstoff. Es gilt immer deine aktuelle,
+        <strong>Nachschlagewerk und Kontextwissen</strong>, nicht als RS-Prüfungsstoff. Es gilt immer deine aktuelle,
         lokale Dienstanweisung. Der Abschnitt „Wirkung“ ist zusätzliches, allgemeines Pharmakologie-Wissen und steht
         <em> nicht</em> im Original-PDF. Inhaltlicher Stand: {formatStand(CONTENT_STAND)}.
-      </div>
+      </DisclaimerBox>
 
-      <div className="med-layout">
-        <aside className="med-list">
-          {CATEGORY_ORDER.filter((c) => grouped.has(c)).map((cat) => (
-            <div key={cat} className="med-group">
-              <h4>{cat}</h4>
-              <ul>
-                {grouped.get(cat)!.map((m) => (
-                  <li key={m.id}>
-                    <button className={m.id === selectedId ? 'active' : ''} onClick={() => setSelectedId(m.id)}>
-                      {m.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </aside>
-
-        <MedikamentDetail med={selected} />
-      </div>
+      {CATEGORY_ORDER.filter((c) => grouped.has(c)).map((category) => (
+        <SectionBox key={category} title={category}>
+          <RowGroup>
+            {grouped.get(category)!.map((m) => (
+              <RowLink
+                key={m.id}
+                title={m.name}
+                subtitle={m.arzneimittelgruppe ?? undefined}
+                onClick={() => setSelectedId(m.id)}
+              />
+            ))}
+          </RowGroup>
+        </SectionBox>
+      ))}
     </div>
   );
 }

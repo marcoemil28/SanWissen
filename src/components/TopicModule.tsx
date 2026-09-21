@@ -4,7 +4,7 @@ import { topicModuleById, type RawTopic } from '../app/content';
 import { useNavigation } from '../app/NavigationContext';
 import { FavoriteButton } from './FavoriteButton';
 import { SectionIllustration } from './SectionIllustration';
-import { RowGroup, RowLink, SectionBox } from './SectionBox';
+import { DisclaimerBox, RowGroup, RowLink, SectionBox } from './SectionBox';
 import { formatStand } from '../app/formatDate';
 
 /**
@@ -166,14 +166,7 @@ export function TopicModule({ moduleId, heading, disclaimer, notesHeading = 'Hin
         <h1>{heading}</h1>
       </header>
 
-      <div className="disclaimer-box">
-        <span className="disclaimer-icon" aria-hidden="true">
-          ⚠️
-        </span>
-        <p>
-          {disclaimer} Inhaltlicher Stand: {formatStand(mod.contentStand ?? '')}.
-        </p>
-      </div>
+      <DisclaimerBox>{disclaimer} Inhaltlicher Stand: {formatStand(mod.contentStand ?? '')}.</DisclaimerBox>
 
       {mod.categoryOrder
         .filter((category) => grouped.has(category))

@@ -78,3 +78,18 @@ export function RowLink({
 export function RowGroup({ children }: { children: ReactNode }) {
   return <div className="row-group">{children}</div>;
 }
+
+/**
+ * Fachlicher Hinweis als Karte, wie `DisclaimerBox` auf iOS. Steht über
+ * jedem Modul, das eine Quellenlage nennt.
+ */
+export function DisclaimerBox({ children }: { children: ReactNode }) {
+  return (
+    <div className="disclaimer-box">
+      <span className="disclaimer-icon" aria-hidden="true">
+        ⚠️
+      </span>
+      <p>{children}</p>
+    </div>
+  );
+}

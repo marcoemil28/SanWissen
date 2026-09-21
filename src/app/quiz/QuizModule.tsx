@@ -5,6 +5,7 @@ import type { QuizQuestion } from './types';
 import { ConfirmButton } from '../../components/ConfirmButton';
 import { useNavigation } from '../NavigationContext';
 import type { ModuleProps } from '../registry';
+import { DisclaimerBox } from '../../components/SectionBox';
 
 const MODULE_FILTERS = Array.from(new Map(QUIZ_QUESTIONS.map((q) => [q.moduleId, q.moduleTitle])).entries());
 
@@ -61,15 +62,15 @@ export function QuizModule({ onNavigateModule }: ModuleProps) {
 
   return (
     <div className="module quiz-module-page">
-      <header className="module-header">
+      <header className="page-header">
         <h1>Prüfungsvorbereitung (Quiz)</h1>
       </header>
 
-      <div className="med-disclaimer">
-        ℹ️ Generalisierter Quiz-Modus über alle Themenmodule hinweg (Multiple-Choice, gewichtete Wiederholung wie
-        beim EKG-Quiz). Kuratierter Startbestand an Fragen — kein Anspruch auf vollständige Abdeckung jedes
+      <DisclaimerBox>
+        Generalisierter Quiz-Modus über alle Themenmodule hinweg (Multiple-Choice, gewichtete Wiederholung wie
+        beim EKG-Quiz). Kuratierter Startbestand an Fragen, kein Anspruch auf vollständige Abdeckung jedes
         einzelnen Eintrags.
-      </div>
+      </DisclaimerBox>
 
       <div className="quiz-header">
         <select className="quiz-module-select" value={moduleFilter} onChange={(e) => setModuleFilter(e.target.value)}>

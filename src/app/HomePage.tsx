@@ -3,7 +3,7 @@ import { MODULES, MODULE_CATEGORIES, type LearningModule, type ModuleCategory } 
 import { ROADMAP } from './roadmap';
 import { useNavigation } from './NavigationContext';
 import { getFavorites, subscribeFavorites } from './favorites';
-import { RowGroup, RowLink, SectionBox } from '../components/SectionBox';
+import { DisclaimerBox, RowGroup, RowLink, SectionBox } from '../components/SectionBox';
 import { getProgress as getEkgProgress } from '../modules/ekg/progress';
 import { getProgress as getQuizProgress } from './quiz/progress';
 
@@ -86,12 +86,7 @@ export function HomePage({ onNavigateModule }: { onNavigateModule: (moduleId: st
         <p className="page-caption">Version {__APP_VERSION__} · komplett offline</p>
       </header>
 
-      <div className="disclaimer-box">
-        <span className="disclaimer-icon" aria-hidden="true">
-          ⚠️
-        </span>
-        <p>{DISCLAIMER}</p>
-      </div>
+      <DisclaimerBox>{DISCLAIMER}</DisclaimerBox>
 
       {favorites.length > 0 && (
         <SectionBox title="Deine Favoriten" icon="★">
