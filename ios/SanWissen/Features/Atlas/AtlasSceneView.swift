@@ -8,7 +8,7 @@ final class AtlasModel {
     /// verdeckt sie alles darunter — die Vorlage zeigt deshalb 2.229 der
     /// 2.234 Teile.
     var visibleSystems: Set<String> = AtlasSystem.defaultVisible
-    var filter: AtlasSystem.Filter = .all
+    var filter: AtlasSystem.Filter = AtlasSystem.filters[0]
     /// Welches Referenzmodell gezeigt wird.
     var sex: AtlasSex = .male
 

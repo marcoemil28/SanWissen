@@ -144,6 +144,34 @@ async function main() {
     // Swift-Ansicht nicht vorhanden — dann ist hier nichts zu prüfen.
   }
 
+  // Jedes Organsystem, das in der Geometrie vorkommt, braucht Namen und Farbe,
+  // und umgekehrt darf atlas-systems.json nichts führen, was es nicht gibt.
+  // Ohne diese Prüfung fällt eine Umbenennung erst im laufenden Atlas auf,
+  // wo das System dann namenlos und grau erscheint.
+  const atlasSystems = await read('atlas-systems.json');
+  const beschrieben = new Set(atlasSystems.systems.map((s) => s.id));
+  const inGeometrie = new Set();
+  for (const manifest of ['atlas/atlas.json', 'atlas/atlas-female.json']) {
+    for (const part of (await read(manifest)).parts) inGeometrie.add(part.system);
+  }
+  for (const id of inGeometrie) {
+    if (!beschrieben.has(id)) {
+      problems.push(`Atlas: System "${id}" kommt in der Geometrie vor, fehlt aber in atlas-systems.json`);
+    }
+  }
+  for (const id of beschrieben) {
+    if (!inGeometrie.has(id)) {
+      problems.push(`Atlas: atlas-systems.json führt "${id}", aber kein Netz hat dieses System`);
+    }
+  }
+  for (const filter of atlasSystems.filters) {
+    for (const id of filter.systems ?? []) {
+      if (!beschrieben.has(id)) {
+        problems.push(`Atlas: Reiter "${filter.label}" nennt System "${id}", das es nicht gibt`);
+      }
+    }
+  }
+
   if (problems.length > 0) {
     for (const p of problems) console.error(`✗ ${p}`);
     console.error(`\n${problems.length} Problem(e) in content/.`);

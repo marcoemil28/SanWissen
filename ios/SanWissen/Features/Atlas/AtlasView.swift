@@ -138,7 +138,7 @@ struct AtlasView: View {
             rightChromeMinX = edge
             applyLayout()
         }
-        .navigationTitle("Human Atlas")
+        .navigationTitle("3D-Atlas")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showsSystems) {
             NavigationStack {
@@ -327,8 +327,8 @@ struct AtlasView: View {
             }
 
             Picker("Filter", selection: $model.filter) {
-                ForEach(AtlasSystem.Filter.allCases) { filter in
-                    Text(filter.rawValue).tag(filter)
+                ForEach(AtlasSystem.filters) { filter in
+                    Text(filter.label).tag(filter)
                 }
             }
             .pickerStyle(.segmented)
