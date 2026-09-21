@@ -189,6 +189,11 @@ gemeinsame Inhaltsquelle ändern.
     wären das 2.234 Aufrufe pro Bild. Ein `BatchedMesh` je System fasst
     sie zusammen und bietet trotzdem Sichtbarkeit, Farbe und Matrix je
     Teil. Nachgemessen: 14 Aufrufe pro Bild.
+  - **Suche nach Strukturen, Freistellen und Struktur-Quiz** sind
+    ebenfalls übernommen. Das Quiz fragt nur nach dem, was von der
+    aktuellen Ansicht aus wirklich zu treffen ist: ein Raster von
+    Strahlen tastet das Bild ab, Drehen ändert damit die Auswahl der
+    Fragen. Links und rechts werden unterschieden.
   - **Die Geometrie ist nach `content/atlas/` gezogen**, wie alle anderen
     Inhalte, und wird über ein Vite-Plugin ans Frontend ausgeliefert. Sie
     liegt damit in der App und braucht kein Netz.
