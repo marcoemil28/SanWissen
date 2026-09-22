@@ -1,0 +1,53 @@
+{
+  "$schema": "./schema/atlas-explanations.schema.json",
+  "explanations": [
+    {
+      "match": "uterus",
+      "text": "Ein hohles Muskelorgan im Becken. Seine Schleimhaut verändert sich im Lauf des Zyklus und kann Einnistung und Entwicklung während einer Schwangerschaft tragen."
+    },
+    {
+      "match": "vagina",
+      "text": "Ein muskulärer Kanal, der den Gebärmutterhals mit dem Körperäußeren verbindet. Er leitet die Regelblutung ab und bildet einen Teil des Geburtskanals."
+    },
+    {
+      "match": "ovary",
+      "text": "Ein Organ, das heranreifende Eizellen enthält und Hormone bildet, darunter Östrogen und Progesteron."
+    },
+    {
+      "match": "heart",
+      "text": "Eine Muskelpumpe im Brustkorb. Die rechte Seite schickt das Blut zur Lunge, die linke durch den Körperkreislauf."
+    },
+    {
+      "match": "liver",
+      "text": "Ein großes Organ unter der rechten Zwerchfellkuppel. Sie verarbeitet aufgenommene Nährstoffe, bildet Galle und stellt viele Eiweiße her, die im Blut unterwegs sind."
+    },
+    {
+      "match": "brain",
+      "text": "Das zentrale Organ des Nervensystems. Seine miteinander verbundenen Bereiche tragen Wahrnehmung, Bewegung, Gedächtnis, Sprache und die Steuerung der Körperfunktionen."
+    },
+    {
+      "match": "stomach",
+      "text": "Eine Muskelkammer zwischen Speiseröhre und Dünndarm. Er speichert die Nahrung, durchmischt sie mit Säure und Enzymen und gibt sie an den Zwölffingerdarm weiter."
+    },
+    {
+      "match": "spleen",
+      "text": "Ein lymphatisches Organ im linken Oberbauch. Sie filtert das Blut, baut gealterte Blutzellen ab und ist an der Immunabwehr beteiligt."
+    },
+    {
+      "match": "pancreas",
+      "text": "Ein Bauchorgan mit verdauender und hormoneller Aufgabe. Sie liefert Enzyme an den Dünndarm und gibt Hormone ins Blut ab, darunter Insulin und Glukagon."
+    },
+    {
+      "match": "urinary bladder",
+      "text": "Ein muskulärer Speicher im Becken. Sie nimmt den Harn auf, der über die Harnleiter aus den Nieren kommt."
+    },
+    {
+      "match": "trachea",
+      "text": "Der Hauptluftweg zwischen Kehlkopf und Bronchien. Ihre Knorpelspangen halten den Luftweg beim Atmen offen."
+    },
+    {
+      "match": "diaphragm",
+      "text": "Ein flächiger Muskel zwischen Brust- und Bauchraum. Spannt er sich an, vergrößert er den Brustraum und hilft, Luft einzusaugen."
+    }
+  ]
+}

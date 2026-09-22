@@ -1,4 +1,5 @@
 import systemsContent from '../../../../content/atlas-systems.json';
+import explanationsContent from '../../../../content/atlas-explanations.json';
 
 /**
  * Lädt das Verzeichnis des 3D-Atlas und stellt daraus die Teileliste
@@ -73,6 +74,29 @@ export const ATLAS_FILTERS: { id: string; label: string; systems?: string[] }[] 
 
 export function systemById(id: string): AtlasSystemInfo | undefined {
   return ATLAS_SYSTEMS.find((s) => s.id === id);
+}
+
+/**
+ * Kurze Erklärung zu einer Struktur, ergänzend zur Beschreibung des
+ * Systems. Verglichen wird auch mit Teilwörtern, damit etwa „left ovary"
+ * die Erklärung zu „ovary" findet.
+ */
+export function explanationFor(name: string): string | undefined {
+  const needle = name.toLowerCase();
+  const list = explanationsContent.explanations;
+  return (list.find((e) => e.match === needle) ?? list.find((e) => needle.includes(e.match)))?.text;
+}
+
+/**
+ * Strukturnamen der Quelldaten sind durchgehend kleingeschrieben. Als
+ * Überschrift liest sich das schlecht, deshalb hier Wort für Wort groß,
+ * wie in `capitalizedStructureName` auf iOS.
+ */
+export function capitalizeStructure(name: string): string {
+  return name
+    .split(' ')
+    .map((word) => (word ? word[0].toUpperCase() + word.slice(1) : word))
+    .join(' ');
 }
 
 /** Systeme, die beim Start sichtbar sind. */

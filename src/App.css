@@ -1939,28 +1939,66 @@ ul {
   text-align: center;
 }
 
+/* ---------- Infokarte zur ausgewählten Struktur ---------- */
+
 .atlas-selection {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
   background-color: var(--bg-panel);
   border: var(--card-border-width) solid var(--border);
   border-radius: var(--radius-card);
-  padding: 0.8em 1em;
+  padding: 0.9em 1em;
   margin-bottom: 0.9rem;
 }
 
-.atlas-selection div {
+.atlas-selection h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.atlas-selection-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+/* Sagt, woher der Text darüber stammt. */
+.atlas-selection-source {
+  margin: 0.35rem 0 0 0;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+
+.atlas-selection-facts {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  margin: 0.9rem 0 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+.atlas-selection-facts div {
   min-width: 0;
 }
 
-.atlas-selection span {
-  font-size: 0.82rem;
+.atlas-selection-facts dt {
+  font-size: 0.72rem;
   color: var(--text-dim);
+}
+
+.atlas-selection-facts dd {
+  margin: 0.1em 0 0 0;
+  font-size: 0.88rem;
+}
+
+.atlas-selection-mono {
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
 }
 
 .atlas-systems {
@@ -2134,6 +2172,11 @@ ul {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  margin-top: 0.9rem;
+}
+
+.atlas-selection-actions button {
+  flex: 1 1 10rem;
 }
 
 .atlas-actions {

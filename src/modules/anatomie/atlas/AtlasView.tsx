@@ -3,7 +3,9 @@ import { AtlasScene, type AtlasViewpoint } from './AtlasScene';
 import {
   ATLAS_FILTERS,
   ATLAS_SYSTEMS,
+  capitalizeStructure,
   defaultVisibleSystems,
+  explanationFor,
   loadAtlasManifest,
   loadChunks,
   systemById,
@@ -330,6 +332,19 @@ export function AtlasView({ onClose }: { onClose: () => void }) {
   );
   const visibleCount = atlas ? atlas.parts.filter((p) => visibleSystems.has(p.system)).length : 0;
   const selectionName = selectedConcept?.name ?? selectedPart?.name ?? null;
+  const selectedSystem = selectedPart ? systemById(selectedPart.system) : undefined;
+  /*
+   * Erst die Erklärung zur Struktur, sonst der Überblick zum System. Dass
+   * das Zweite eine Ersatzangabe ist, steht als Fußzeile darunter; sonst
+   * liest man die Systembeschreibung als Beschreibung des angetippten
+   * Teils.
+   */
+  const explanation = selectionName ? explanationFor(selectionName) : undefined;
+  const systemText = selectedSystem
+    ? sex === 'female' && selectedSystem.femaleDescription
+      ? selectedSystem.femaleDescription
+      : selectedSystem.description
+    : undefined;
 
   return (
     <div className="atlas">
@@ -456,23 +471,45 @@ export function AtlasView({ onClose }: { onClose: () => void }) {
             </p>
           )}
 
-          {selectionName && (
+          {selectionName && !quizActive && (
             <div className="atlas-selection">
-              <div>
-                <strong>{selectionName}</strong>
-                <span>
-                  {systemById(selectedPart?.system ?? '')?.name ?? ''}
-                  {selectedConcept && selectedConcept.elements.length > 1
-                    ? ` · ${selectedConcept.elements.length} Netze`
-                    : ''}
-                </span>
-              </div>
+              <h3>{capitalizeStructure(selectionName)}</h3>
+
+              {explanation ? (
+                <>
+                  <p className="atlas-selection-text">{explanation}</p>
+                  <p className="atlas-selection-source">Erklärung zur Struktur</p>
+                </>
+              ) : systemText ? (
+                <>
+                  <p className="atlas-selection-text">{systemText}</p>
+                  <p className="atlas-selection-source">
+                    Überblick zum System {selectedSystem?.name}, keine Beschreibung dieser Struktur
+                  </p>
+                </>
+              ) : null}
+
+              <dl className="atlas-selection-facts">
+                <div>
+                  <dt>System</dt>
+                  <dd>{selectedSystem?.name ?? '—'}</dd>
+                </div>
+                <div>
+                  <dt>Atlas-Referenz</dt>
+                  <dd className="atlas-selection-mono">{selectedPart?.conceptId ?? '—'}</dd>
+                </div>
+                <div>
+                  <dt>Ausgewählte Teile</dt>
+                  <dd className="atlas-selection-mono">{selectedPartIds?.size ?? 0}</dd>
+                </div>
+              </dl>
+
               <div className="atlas-selection-actions">
-                <button type="button" className={isolated ? 'primary' : 'secondary'} onClick={toggleIsolation}>
-                  {isolated ? 'Freistellen aus' : 'Freistellen'}
+                <button type="button" className={isolated ? 'secondary' : 'primary'} onClick={toggleIsolation}>
+                  {isolated ? 'Umgebende Anatomie zeigen' : 'Struktur freistellen'}
                 </button>
                 <button type="button" className="secondary" onClick={clearSelection}>
-                  Aufheben
+                  Auswahl aufheben
                 </button>
               </div>
             </div>

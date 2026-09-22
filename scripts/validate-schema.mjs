@@ -41,7 +41,13 @@ export function validate(value, schema, path = '') {
   }
   if (typeof value === 'string') {
     if (schema.minLength !== undefined && value.length < schema.minLength) {
-      out.push(`${at}: darf nicht leer sein`);
+      // Die Meldung nennt die Bedingung: `minLength` ist längst nicht mehr
+      // überall 1, und „darf nicht leer sein" führte bei 20 in die Irre.
+      out.push(
+        schema.minLength === 1
+          ? `${at}: darf nicht leer sein`
+          : `${at}: braucht mindestens ${schema.minLength} Zeichen, hat ${value.length}`,
+      );
     }
     if (schema.pattern && !new RegExp(schema.pattern).test(value)) {
       out.push(`${at}: "${value}" passt nicht auf ${schema.pattern}`);

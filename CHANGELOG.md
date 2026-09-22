@@ -197,6 +197,17 @@ gemeinsame Inhaltsquelle ändern.
   - **Die Geometrie ist nach `content/atlas/` gezogen**, wie alle anderen
     Inhalte, und wird über ein Vite-Plugin ans Frontend ausgeliefert. Sie
     liegt damit in der App und braucht kein Netz.
+  - **Beim Antippen erscheint jetzt eine Infokarte** mit Erklärung zur
+    Struktur, Organsystem, Atlas-Referenz und Zahl der ausgewählten
+    Netze, wie auf iOS. Die erste Fassung zeigte nur den Namen. Gibt es
+    zur Struktur keinen eigenen Text, steht dort der Überblick zum
+    System, und eine Fußzeile sagt, dass es eine Ersatzangabe ist.
+  - **Die Erklärungen stehen in `content/atlas-explanations.json`** statt
+    fest im Swift-Code, und sind ins Deutsche übersetzt. Die Suchbegriffe
+    bleiben englisch, weil sie gegen die Strukturnamen der Quelldaten
+    laufen. `check-content.mjs` prüft, dass jede Erklärung auf mindestens
+    eine Struktur im Modell passt; ein Tippfehler fiele sonst nie auf,
+    weil stillschweigend die Systembeschreibung erschiene.
   - **Die Organsysteme stehen jetzt in `content/atlas-systems.json`** statt
     fest im Swift-Code, und zwar auf Deutsch. Vorher hießen sie
     „Skeleton", „Sensory organs" und „Body surface", auch in der

@@ -164,6 +164,27 @@ async function main() {
       problems.push(`Atlas: atlas-systems.json führt "${id}", aber kein Netz hat dieses System`);
     }
   }
+  // Jede Erklärung muss auf mindestens eine Struktur passen, sonst ist sie
+  // tot: ein Tippfehler im Namen fällt sonst nie auf, weil im Atlas
+  // stillschweigend die Systembeschreibung erscheint.
+  const strukturnamen = new Set();
+  for (const manifest of ['atlas/atlas.json', 'atlas/atlas-female.json']) {
+    for (const concept of (await read(manifest)).concepts) strukturnamen.add(concept.name.toLowerCase());
+    for (const part of (await read(manifest)).parts) strukturnamen.add(part.name.toLowerCase());
+  }
+  for (const { match } of (await read('atlas-explanations.json')).explanations) {
+    let trifft = false;
+    for (const name of strukturnamen) {
+      if (name.includes(match)) {
+        trifft = true;
+        break;
+      }
+    }
+    if (!trifft) {
+      problems.push(`Atlas: die Erklärung zu "${match}" passt auf keine Struktur im Modell`);
+    }
+  }
+
   for (const filter of atlasSystems.filters) {
     for (const id of filter.systems ?? []) {
       if (!beschrieben.has(id)) {
