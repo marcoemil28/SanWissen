@@ -35,3 +35,14 @@ ios/Signing.local.xcconfig
 
 # Claude-Code-Arbeitsverzeichnis
 .claude/
+
+# Konfliktkopien von iCloud Drive.
+#
+# Das Projekt liegt unter ~/Documents, und das synchronisiert macOS
+# standardmaessig mit iCloud. Wird eine Datei geaendert, waehrend die
+# Synchronisierung laeuft, legt iCloud eine Kopie mit " 2" im Namen daneben.
+# Am 22.09.2026 sind auf diesem Weg 88 solcher Kopien ins Repository
+# geraten und haben den Android-Bau zerbrochen: zwei Kotlin-Dateien
+# deklarierten dieselbe Konstante.
+*\ [0-9].*
+*\ [0-9][0-9].*
