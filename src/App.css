@@ -1,22 +1,87 @@
-:root {
-  font-family: 'Inter', 'Segoe UI', Avenir, Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
-  color-scheme: dark;
+/* ==========================================================================
+   Darstellung
+   --------------------------------------------------------------------------
+   Die Farbwerte sind die semantischen Farben von iOS, damit beide Fassungen
+   gleich aussehen. Welcher der drei Blöcke gilt, entscheidet das Attribut
+   `data-appearance` auf `<html>`; gesetzt wird es in `app/appearance.ts`,
+   das auch „Automatisch" vorher auflöst. Deshalb steht hier keine
+   `prefers-color-scheme`-Abfrage: sonst müssten die hellen Werte zweimal
+   im Stylesheet stehen.
+   ========================================================================== */
 
-  --bg: #14171c;
-  --bg-panel: #1b1f26;
-  --bg-panel-alt: #20252d;
-  --border: #2c323d;
-  --text: #e7e9ec;
-  --text-dim: #9aa3af;
-  --accent: #4da3ff;
-  --accent-strong: #2b7fe0;
-  --good: #3ddc84;
-  --bad: #ff5d5d;
+:root {
+  /* Systemschrift der jeweiligen Plattform, so wie iOS SF nimmt. */
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 17px; /* iOS-Grundschrift sind 17 Punkt */
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+
+  /* Radien nach iOS-Vorbild: Karten deutlich runder als bisher. */
+  --radius-card: 16px;
+  --radius-control: 10px;
+  --radius-pill: 999px;
+
+  /* Rahmen um Karten gibt es nur im hohen Kontrast. */
+  --card-border-width: 0px;
+
+  /* Voreinstellung dunkel; `main.tsx` setzt vor dem ersten Zeichnen den
+     tatsächlichen Wert, damit nichts aufblitzt. */
+  color-scheme: dark;
 
   background-color: var(--bg);
   color: var(--text);
+}
+
+/* Dunkel (iOS Dark Mode) */
+:root,
+:root[data-appearance='dark'] {
+  --bg: #000000; /* systemGroupedBackground */
+  --bg-panel: #1c1c1e; /* secondarySystemGroupedBackground */
+  --bg-panel-alt: #2c2c2e; /* tertiarySystemGroupedBackground */
+  --border: rgba(84, 84, 88, 0.65); /* separator */
+  --text: #ffffff; /* label */
+  --text-dim: rgba(235, 235, 245, 0.6); /* secondaryLabel */
+  --accent: #0a84ff; /* systemBlue */
+  --accent-strong: #0a84ff;
+  --good: #30d158;
+  --bad: #ff453a;
+  --warn: #ff9f0a;
+}
+
+/* Hell (iOS Light Mode) */
+:root[data-appearance='light'] {
+  --bg: #f2f2f7;
+  --bg-panel: #ffffff;
+  --bg-panel-alt: #efeff4;
+  --border: rgba(60, 60, 67, 0.29);
+  --text: #000000;
+  --text-dim: rgba(60, 60, 67, 0.6);
+  --accent: #007aff;
+  --accent-strong: #007aff;
+  --good: #34c759;
+  --bad: #ff3b30;
+  --warn: #ff9500;
+}
+
+/*
+ * Hoher Kontrast: reines Schwarz, kräftigere Akzente, sichtbare Rahmen und
+ * eine größere Grundschrift. Dieselben Werte wie `Theme.swift` auf iOS.
+ */
+:root[data-appearance='contrast'] {
+  font-size: 19px;
+
+  --bg: #000000;
+  --bg-panel: #141414;
+  --bg-panel-alt: #1f1f1f;
+  --border: #737373;
+  --text: #ffffff;
+  --text-dim: #c7c7c7;
+  --accent: #66c2ff;
+  --accent-strong: #66c2ff;
+  --good: #59ff8c;
+  --bad: #ff6b6b;
+  --warn: #ffb340;
+  --card-border-width: 1.5px;
 }
 
 * {
@@ -35,35 +100,46 @@ body {
   color: var(--text);
 }
 
+/*
+ * Schaltflächen wie auf iOS: gefüllt statt umrandet. Ein Rahmen kommt nur
+ * im hohen Kontrast dazu, dort trägt er zur Lesbarkeit bei.
+ */
 button {
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  border: var(--card-border-width) solid var(--border);
   background-color: var(--bg-panel-alt);
   color: var(--text);
-  padding: 0.55em 1em;
-  transition: border-color 0.15s, background-color 0.15s;
+  padding: 0.5em 1em;
+  transition: filter 0.15s, background-color 0.15s;
 }
 
 button:hover:not(:disabled) {
-  border-color: var(--accent);
+  filter: brightness(1.25);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 button.primary {
   background-color: var(--accent-strong);
   border-color: var(--accent-strong);
-  color: white;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 button.secondary {
   background-color: transparent;
+  color: var(--accent);
 }
 
 h1,
@@ -87,7 +163,7 @@ ul {
 }
 
 .app-sidebar {
-  width: 260px;
+  width: 280px;
   flex-shrink: 0;
   background-color: var(--bg-panel);
   border-right: 1px solid var(--border);
@@ -115,8 +191,8 @@ ul {
   font-weight: 500;
   color: var(--text-dim);
   background-color: var(--bg-panel-alt);
-  border: 1px solid var(--border);
-  border-radius: 999px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-pill);
   padding: 0.15em 0.55em;
   margin-left: auto;
 }
@@ -130,15 +206,15 @@ ul {
   width: 100%;
   background-color: var(--bg-panel-alt);
   color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.5em 0.7em;
-  font-size: 0.88rem;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.5em 0.9em;
+  font-size: 0.92rem;
 }
 
 .global-search input:focus {
-  outline: none;
-  border-color: var(--accent);
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
 }
 
 .global-search-results {
@@ -147,8 +223,8 @@ ul {
   right: 0.5em;
   top: calc(100% - 0.5em);
   background-color: var(--bg-panel-alt);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-control);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   max-height: 360px;
   overflow-y: auto;
@@ -218,11 +294,10 @@ ul {
 }
 
 .app-nav-group h4 {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--text-dim);
-  margin: 0.9em 0.5em 0.35em 0.5em;
+  margin: 1em 0.6em 0.35em 0.6em;
 }
 
 .app-nav-group:first-child h4 {
@@ -232,33 +307,41 @@ ul {
 .app-nav-item {
   display: flex;
   align-items: center;
-  gap: 0.6em;
+  gap: 0.65em;
   text-align: left;
-  border: 1px solid transparent;
+  border: none;
   background: transparent;
-  padding: 0.65em 0.7em;
-  border-radius: 8px;
-  color: var(--text-dim);
+  padding: 0.6em 0.7em;
+  border-radius: var(--radius-control);
+  color: var(--text);
+  font-size: 0.95rem;
 }
 
 .app-nav-item:hover:not(.disabled) {
+  filter: none;
   background-color: var(--bg-panel-alt);
-  color: var(--text);
 }
 
+/*
+ * Gewählte Zeile wie in der iPad-Seitenleiste: getönte Fläche in der
+ * Akzentfarbe statt eines umrandeten Kastens.
+ */
 .app-nav-item.active {
-  background-color: var(--bg-panel-alt);
-  color: var(--text);
-  border-color: var(--border);
+  background-color: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .app-nav-item.disabled {
   cursor: default;
-  opacity: 0.55;
+  opacity: 0.45;
 }
 
 .app-nav-icon {
-  font-size: 1.1em;
+  flex-shrink: 0;
+  width: 1.5em;
+  text-align: center;
+  font-size: 1.05em;
 }
 
 .badge {
@@ -266,7 +349,7 @@ ul {
   font-size: 0.7em;
   background-color: var(--border);
   padding: 0.15em 0.5em;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   color: var(--text-dim);
 }
 
@@ -283,13 +366,6 @@ ul {
 
 /* ---------- Module shell ---------- */
 
-.module-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
-}
-
 .tab-bar {
   display: flex;
   gap: 0.4em;
@@ -304,69 +380,24 @@ ul {
 /* ---------- EKG canvas ---------- */
 
 .ekg-canvas {
-  border-radius: 10px;
-  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  border: var(--card-border-width) solid var(--border);
   display: block;
   max-width: 100%;
 }
 
 /* ---------- Study mode ---------- */
 
+/*
+ * Rhythmus-Bibliothek. Seit der Angleichung an iOS keine Spalte neben
+ * einer Detailfläche mehr, sondern erst die gruppierte Liste und dann die
+ * Detailseite; `.study-mode` ist nur noch der Rahmen darum.
+ */
 .study-mode {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
-
-.rhythm-list {
-  width: 280px;
-  flex-shrink: 0;
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.75rem;
-  max-height: calc(100vh - 160px);
-  overflow-y: auto;
-}
-
-.rhythm-group h4 {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-dim);
-  margin: 0.8em 0 0.3em 0.3em;
-}
-
-.rhythm-group ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.rhythm-group button {
-  width: 100%;
-  text-align: left;
-  border: 1px solid transparent;
-  background: transparent;
-  padding: 0.45em 0.6em;
-  border-radius: 6px;
-  color: var(--text-dim);
-  font-size: 0.9rem;
-}
-
-.rhythm-group button:hover {
-  background-color: var(--bg-panel-alt);
-  color: var(--text);
-}
-
-.rhythm-group button.active {
-  background-color: var(--bg-panel-alt);
-  color: var(--accent);
-  border-color: var(--border);
+  min-width: 0;
 }
 
 .rhythm-detail {
-  flex: 1;
   min-width: 0;
 }
 
@@ -374,7 +405,21 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.rhythm-detail-header > div {
+  min-width: 0;
+}
+
+.rhythm-detail-header h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .rhythm-en {
@@ -386,12 +431,27 @@ ul {
 .rhythm-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 1.25rem;
+  gap: 0.9rem;
+  margin-top: 1.1rem;
+}
+
+.rhythm-card {
+  min-width: 0;
   background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9em 1.05em;
+}
+
+.rhythm-card h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.4em;
+}
+
+.rhythm-card p {
+  margin: 0;
 }
 
 /* ---------- Quiz mode ---------- */
@@ -439,8 +499,8 @@ ul {
 .quiz-feedback {
   margin-top: 1.25rem;
   background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
   padding: 1rem 1.25rem;
   max-width: 760px;
 }
@@ -457,8 +517,8 @@ ul {
 .quiz-module-select {
   background-color: var(--bg-panel-alt);
   color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-control);
   padding: 0.5em 0.6em;
   font-size: 0.88rem;
 }
@@ -530,104 +590,26 @@ ul {
   gap: 0.5em;
 }
 
+/* Kopf mit Druckknopf daneben; lebte vorher von `.module-header`. */
+.cheatsheet-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 /* ---------- Medikamente module ---------- */
 
-.med-disclaimer {
-  background-color: rgba(255, 93, 93, 0.1);
-  border: 1px solid rgba(255, 93, 93, 0.4);
-  color: var(--text);
-  border-radius: 10px;
-  padding: 0.75em 1em;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
-}
-
-.med-layout {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
-
-.med-list {
-  width: 300px;
-  flex-shrink: 0;
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.75rem;
-  max-height: calc(100vh - 260px);
-  overflow-y: auto;
-}
-
-.med-search {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  background-color: var(--bg-panel-alt);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  padding: 0.5em 0.7em;
-}
-
-.med-group h4 {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-dim);
-  margin: 0.8em 0 0.3em 0.3em;
-}
-
-.med-group ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.med-group button {
-  width: 100%;
-  text-align: left;
-  border: 1px solid transparent;
-  background: transparent;
-  padding: 0.4em 0.6em;
-  border-radius: 6px;
-  color: var(--text-dim);
-  font-size: 0.88rem;
-}
-
-.med-group button:hover {
-  background-color: var(--bg-panel-alt);
-  color: var(--text);
-}
-
-.med-group button.active {
-  background-color: var(--bg-panel-alt);
-  color: var(--accent);
-  border-color: var(--border);
-}
-
-.med-no-results {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  padding: 0.5em;
-}
-
 .med-detail {
-  flex: 1;
   min-width: 0;
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.25rem 1.5rem;
 }
 
 .med-detail-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .med-subtitle {
@@ -644,19 +626,25 @@ ul {
 .med-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  /* Den Abstand nach unten bringen die Karten selbst mit. */
+  column-gap: 0.9rem;
+  row-gap: 0;
 }
 
+/* Jedes Feld eine eigene Karte, wie die Abschnitte einer Themenseite. */
 .med-field {
-  margin: 1rem 0;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9em 1.05em;
+  margin: 0 0 0.9rem 0;
 }
 
 .med-field h4 {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--text-dim);
-  margin-bottom: 0.3em;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.35em;
 }
 
 .med-field p {
@@ -668,44 +656,92 @@ ul {
 .med-field-emphasis {
   background-color: rgba(77, 163, 255, 0.08);
   border: 1px solid rgba(77, 163, 255, 0.3);
-  border-radius: 8px;
+  border-radius: var(--radius-control);
   padding: 0.75em 1em;
 }
 
 /* ---------- Algorithmen module ---------- */
 
+/*
+ * Thema als eigene Seite, nachgebaut nach `TopicDetailView` auf iOS: der
+ * Titel steht gross oben, die Zusammenfassung als gewoehnlicher Text, und
+ * jeder Abschnitt ist eine eigene Karte auf dem Seitenhintergrund. Vorher
+ * war das Ganze ein einziger Kasten neben der Liste.
+ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.2em 0;
+  margin-bottom: 0.9rem;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.back-link span {
+  font-size: 1.4em;
+  line-height: 1;
+}
+
+.back-link:hover:not(:disabled) {
+  filter: none;
+  text-decoration: underline;
+}
+
 .algo-detail {
-  flex: 1;
   min-width: 0;
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.25rem 1.5rem;
 }
 
 .algo-detail-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+/*
+ * Die Textspalte muss schrumpfen dürfen: Flex-Kinder haben von Haus aus
+ * `min-width: auto` und werden so breit wie ihr längstes Wort. Bei
+ * „Atemwegsmanagement" stand die Seite dadurch 15 Pixel über.
+ */
+.algo-detail-header > div,
+.med-detail-header > div {
+  min-width: 0;
+}
+
+.algo-detail-header h2,
+.med-detail-header h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .algo-summary {
-  color: var(--text-dim);
-  margin: 0.3em 0 0 0;
-  max-width: 60ch;
+  margin: 0.4em 0 0 0;
+  max-width: 62ch;
+  line-height: 1.5;
 }
 
 .algo-section {
-  margin: 1.1rem 0;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9em 1.05em;
+  margin: 0 0 0.9rem 0;
 }
 
 .algo-section h4 {
-  font-size: 0.85rem;
-  color: var(--accent);
-  margin-bottom: 0.4em;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5em;
 }
 
 .algo-section ul {
@@ -718,16 +754,18 @@ ul {
 }
 
 .algo-notes {
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9em 1.05em;
+  margin: 0 0 0.9rem 0;
 }
 
 .algo-notes h4 {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--text-dim);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.4em;
 }
 
 .algo-notes li {
@@ -737,21 +775,27 @@ ul {
 }
 
 .algo-source-note {
-  margin-top: 1rem;
-  font-size: 0.8rem;
+  margin: 0;
+  font-size: 0.82rem;
   color: var(--text-dim);
-  font-style: italic;
 }
 
 /* ---------- Trauma illustrations ---------- */
 
 .illustration-box {
   background-color: var(--bg-panel-alt);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
   padding: 1rem;
   margin-bottom: 0.75rem;
   max-width: 460px;
+}
+
+.illustration-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-control);
 }
 
 .illustration-svg {
@@ -877,8 +921,8 @@ ul {
   margin-top: 1.5rem;
   padding: 1rem 1.25rem;
   background-color: var(--bg-panel-alt);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
 }
 
 .tool-result-score {
@@ -998,8 +1042,8 @@ ul {
 .dilution-inputs input {
   background-color: var(--bg-panel-alt);
   color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-control);
   padding: 0.5em 0.7em;
   font-size: 1rem;
   text-transform: none;
@@ -1011,103 +1055,280 @@ ul {
   border-color: var(--accent);
 }
 
-/* ---------- Home page ---------- */
+/* ==========================================================================
+   Startseite und ihre Bausteine
+   --------------------------------------------------------------------------
+   Nachgebaut nach `HomeView` und `SectionBox`/`RowLabel` der iOS-App:
+   großer Titel, fachlicher Hinweis als Karte, dann Abschnitte aus
+   gruppierten Zeilen. Die Zeilen einer Gruppe teilen sich die runden Ecken
+   und sind durch eingerückte Haarlinien getrennt, wie eine Inset-Liste.
+   ========================================================================== */
 
-.home-intro {
-  color: var(--text-dim);
-  max-width: 70ch;
-  line-height: 1.6;
-  margin: 0.5em 0 1.5em 0;
+.page-header {
+  margin-bottom: 1.5rem;
 }
 
-.home-progress-card {
+.page-header h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem 0;
+  /*
+   * Deutsche Zusammensetzungen werden lang: „Sanitätsdienst
+   * (Veranstaltungsdienst)" stand bei 375 Pixeln 6 Pixel über. Trennen
+   * darf der Browser, seit `index.html` die Seite als deutsch ausweist.
+   */
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.page-subtitle {
+  color: var(--text-dim);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.page-caption {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  margin: 0.25rem 0 0 0;
+}
+
+.disclaimer-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7em;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9em 1em;
+  margin-bottom: 1.5rem;
+}
+
+.disclaimer-box p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.disclaimer-icon {
+  font-size: 1.05em;
+  line-height: 1.4;
+}
+
+.section-box {
+  margin-bottom: 1.75rem;
+}
+
+.section-box-title {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem 1.5rem;
-  margin-bottom: 2rem;
+  gap: 0.5em;
+  font-size: 1.06rem;
+  font-weight: 600;
+  margin: 0 0 0.7rem 0;
 }
 
-.home-progress-card div {
+.section-box-icon {
+  color: var(--accent);
+}
+
+.section-box-hint {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  margin: 0 0 0.8rem 0;
+  max-width: 60ch;
+}
+
+/* ---------- Gruppierte Zeilen ---------- */
+
+.row-group {
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.row-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  width: 100%;
+  padding: 0.75em 0.9em;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--text);
+}
+
+.row-link:hover:not(:disabled) {
+  filter: none;
+  background-color: var(--bg-panel-alt);
+}
+
+/*
+ * Trennlinie zwischen zwei Zeilen, eingerückt bis unter den Text, so wie
+ * iOS es in Listen macht. Als Pseudo-Element statt als `border-top`, weil
+ * ein Rahmen über die volle Breite liefe.
+ */
+.row-link.no-icon + .row-link.no-icon::before {
+  left: 0.9em;
+}
+
+.row-link + .row-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(0.9em + 1.7em + 0.75em);
+  right: 0;
+  height: 1px;
+  background-color: var(--border);
+}
+
+.row-link-icon {
+  flex-shrink: 0;
+  width: 1.7em;
+  text-align: center;
+  font-size: 1.05em;
+}
+
+.row-link-text {
   display: flex;
   flex-direction: column;
+  gap: 0.15em;
+  min-width: 0;
+  flex: 1;
 }
 
-.home-progress-card strong {
-  font-size: 1.5rem;
+.row-link-title {
+  overflow-wrap: break-word;
 }
 
-.home-progress-card span {
+.row-link-subtitle {
+  font-size: 0.8rem;
   color: var(--text-dim);
+}
+
+.row-link-chevron {
+  flex-shrink: 0;
+  color: var(--text-dim);
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+/* ---------- Fortschritt ---------- */
+
+.progress-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.progress-tile {
+  flex: 1 1 10rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.8em 0.9em;
+}
+
+.progress-tile-title {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.progress-tile-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-tile-detail {
   font-size: 0.78rem;
+  color: var(--text-dim);
 }
 
-.home-progress-card button {
-  margin-left: auto;
-}
+/* ---------- Schnellzugriff ---------- */
 
-.home-section-title {
-  font-size: 1.1rem;
-  margin: 1.75rem 0 0.75rem 0;
-}
-
-.home-module-grid {
+.quick-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0.9rem;
-  max-width: 900px;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.75rem;
 }
 
-.home-module-card {
+.quick-tile {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5em;
-  padding: 1.1em 1.2em;
-  background-color: var(--bg-panel);
-  border-radius: 10px;
+  min-height: 5.2rem;
+  padding: 0.8em 0.9em;
   text-align: left;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
 }
 
-.home-module-card:hover {
-  border-color: var(--accent);
+.quick-tile:hover:not(:disabled) {
+  filter: none;
+  background-color: var(--bg-panel-alt);
 }
 
-.home-module-icon {
-  font-size: 1.6em;
+.quick-tile-icon {
+  font-size: 1.5em;
+  line-height: 1;
 }
 
-.home-module-title {
-  font-weight: 600;
+.quick-tile-title {
+  font-weight: 500;
+  overflow-wrap: break-word;
 }
 
-.home-roadmap-group {
-  margin-bottom: 1.25rem;
+/* ---------- Fahrplan ---------- */
+
+.roadmap-group + .roadmap-group {
+  margin-top: 0.4rem;
 }
 
-.home-roadmap-group h4 {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--text-dim);
-  margin-bottom: 0.5em;
-}
-
-.home-roadmap-group ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.roadmap-toggle {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   gap: 0.5em;
-  max-width: 900px;
+  width: 100%;
+  padding: 0.6em 0.2em;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  font-weight: 600;
+  color: var(--text);
 }
 
-.home-roadmap-group button {
-  font-size: 0.88rem;
+.roadmap-toggle:hover:not(:disabled) {
+  filter: none;
+  color: var(--accent);
+}
+
+.roadmap-chevron {
+  font-size: 1.3em;
+  line-height: 1;
+  color: var(--text-dim);
+  transition: transform 0.18s ease;
+}
+
+.roadmap-chevron.open {
+  transform: rotate(90deg);
+}
+
+.roadmap-group .row-group {
+  margin-bottom: 0.6rem;
 }
 
 /* ---------- Electrode placement ---------- */
@@ -1208,11 +1429,18 @@ ul {
   align-items: flex-start;
 }
 
+/*
+ * Kein `touch-action: none` hier. Gezogen wird ausschließlich von den
+ * Chips in der Ablage, und die setzen es selbst (ElectrodePlacement.tsx).
+ * Auf der Fläche hätte es nur einen Effekt: das Körperbild füllt am
+ * Telefon fast den ganzen Bildschirm, und ein Wischen darüber wurde
+ * verschluckt statt zu scrollen. Am Schreibtisch mit der Maus fällt das
+ * nicht auf.
+ */
 .electrode-svg-wrap {
   background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  touch-action: none;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
   flex-shrink: 0;
 }
 
@@ -1326,8 +1554,8 @@ ul {
   width: 100%;
   background-color: var(--bg-panel-alt);
   color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-control);
   padding: 0.6em 0.8em;
   font-size: 0.95rem;
   margin-bottom: 1rem;
@@ -1349,8 +1577,8 @@ ul {
   gap: 1em;
   padding: 0.7em 0.9em;
   background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-control);
 }
 
 .glossar-entry-abbr {
@@ -1376,39 +1604,60 @@ ul {
   border-top: 1px solid var(--border);
 }
 
-.contrast-toggle {
+/*
+ * Umschalter für die Darstellung, vier Felder in einer Zeile. Angelehnt an
+ * das Segmented Control von iOS: eine gefüllte Spur, das gewählte Feld
+ * hebt sich als Plättchen ab.
+ */
+.appearance-picker {
   display: flex;
-  align-items: center;
-  gap: 0.6em;
-  width: 100%;
+  gap: 2px;
+  padding: 2px;
   background-color: var(--bg-panel-alt);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.6em 0.8em;
-  font-size: 0.85rem;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-control);
 }
 
-.contrast-toggle.active {
-  border-color: var(--accent);
+.appearance-option {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45em 0.2em;
+  font-size: 0.95rem;
+  line-height: 1;
+  background-color: transparent;
+  border: none;
+  border-radius: calc(var(--radius-control) - 3px);
+  color: var(--text-dim);
+}
+
+.appearance-option:hover:not(:disabled) {
+  filter: none;
+  color: var(--text);
+}
+
+.appearance-option.active {
+  background-color: var(--bg-panel);
   color: var(--accent);
 }
 
-/* Hoher-Kontrast-Modus: kräftigere Farben, dickere Rahmen, größere Schrift — für schlechte Lichtverhältnisse im Einsatz. */
-.app-shell.high-contrast {
-  --bg: #000000;
-  --bg-panel: #0a0a0a;
-  --bg-panel-alt: #161616;
-  --border: #ffffff;
-  --text: #ffffff;
-  --text-dim: #d8d8d8;
-  --accent: #66d1ff;
-  --accent-strong: #0099ff;
-  --good: #5dffb0;
-  --bad: #ff7a7a;
-  font-size: 17px;
+/* Der Name steht nur als Tooltip und für Vorlesehilfen da. */
+.appearance-option-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
+/*
+ * Die Farbwerte des hohen Kontrasts stehen oben bei den Darstellungen auf
+ * `:root`. Hier bleiben nur die Regeln, die mehr brauchen als eine andere
+ * Farbe: sichtbare Rahmen dort, wo sonst gar keine sind.
+ */
 .app-shell.high-contrast button,
 .app-shell.high-contrast input,
 .app-shell.high-contrast .med-detail,
@@ -1435,11 +1684,6 @@ ul {
   color: #f5c518;
 }
 
-.home-favorites-empty {
-  color: var(--text-dim);
-  font-size: 0.9rem;
-}
-
 .checklist-progress {
   color: var(--text-dim);
   font-size: 0.85rem;
@@ -1462,9 +1706,22 @@ ul {
   gap: 0.7em;
   padding: 0.6em 0.8em;
   background-color: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
   cursor: pointer;
+}
+
+/*
+ * Der Text steckt in einem eigenen `span`, damit er schrumpfen darf. Als
+ * loser Text wäre er ein anonymes Flex-Kind mit `min-width: auto` und
+ * damit so breit wie sein längstes Wort. „Rekapillarisierungszeit/
+ * Radialispuls" bietet von sich aus keine Trennstelle und stand bei 375
+ * Pixeln über.
+ */
+.checklist-items label > span {
+  min-width: 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .checklist-items label.checked {
@@ -1494,7 +1751,7 @@ ul {
 
 .cheatsheet-card {
   background-color: var(--bg-panel);
-  border: 1px solid var(--border);
+  border: var(--card-border-width) solid var(--border);
   border-radius: 12px;
   padding: 1.2rem 1.4rem;
   break-inside: avoid;
@@ -1541,5 +1798,658 @@ ul {
   .cheatsheet-card {
     border: 1px solid #000;
     color: #000;
+  }
+}
+
+/* ==========================================================================
+   3D-Atlas
+   --------------------------------------------------------------------------
+   Die Leinwand nimmt den größten Teil der Höhe ein; darunter liegen
+   Auswahl, Systemliste und der Regler zum Auseinanderziehen. Die
+   Blickrichtungen schweben rechts über der Szene, wie in der iOS-Fassung.
+   ========================================================================== */
+
+.atlas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-header h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.atlas-sex-switch {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background-color: var(--bg-panel-alt);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-control);
+}
+
+.atlas-sex-switch button {
+  background-color: transparent;
+  border: none;
+  border-radius: calc(var(--radius-control) - 3px);
+  padding: 0.35em 0.9em;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+}
+
+.atlas-sex-switch button:hover:not(:disabled) {
+  filter: none;
+  color: var(--text);
+}
+
+.atlas-sex-switch button.active {
+  background-color: var(--bg-panel);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.atlas-stage {
+  position: relative;
+  height: min(62vh, 620px);
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.atlas-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /*
+   * Ohne das übernimmt der Browser Ziehen und Kneifen selbst und die Szene
+   * bekommt nie ein Ereignis. Hier ist das richtig, weil die Leinwand eine
+   * feste Höhe hat und nichts verdeckt, an dem sonst gescrollt würde.
+   */
+  touch-action: none;
+  cursor: grab;
+}
+
+.atlas-canvas:active {
+  cursor: grabbing;
+}
+
+.atlas-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.5rem;
+  text-align: center;
+  background-color: var(--bg-panel);
+  color: var(--text-dim);
+}
+
+.atlas-overlay progress {
+  width: min(16rem, 70%);
+}
+
+.atlas-error {
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.atlas-viewpoints {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px;
+  background-color: color-mix(in srgb, var(--bg-panel-alt) 88%, transparent);
+  border-radius: var(--radius-control);
+}
+
+.atlas-viewpoints button {
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  font-size: 0.95rem;
+  background-color: transparent;
+  border: none;
+  border-radius: calc(var(--radius-control) - 3px);
+  color: var(--text);
+}
+
+.atlas-viewpoints button:hover:not(:disabled) {
+  filter: none;
+  background-color: var(--bg-panel);
+  color: var(--accent);
+}
+
+.atlas-hint {
+  margin: 0.6rem 0 1rem 0;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ---------- Infokarte zur ausgewählten Struktur ---------- */
+
+.atlas-selection {
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9em 1em;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-selection h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.atlas-selection-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+/* Sagt, woher der Text darüber stammt. */
+.atlas-selection-source {
+  margin: 0.35rem 0 0 0;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+
+.atlas-selection-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  margin: 0.9rem 0 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+.atlas-selection-facts div {
+  min-width: 0;
+}
+
+.atlas-selection-facts dt {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.atlas-selection-facts dd {
+  margin: 0.1em 0 0 0;
+  font-size: 0.88rem;
+}
+
+.atlas-selection-mono {
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+}
+
+.atlas-systems {
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.8em;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-system-list {
+  list-style: none;
+  margin: 0.8rem 0 0 0;
+  padding: 0;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.atlas-system-list label {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.5em 0.2em;
+  cursor: pointer;
+}
+
+.atlas-system-list li + li label {
+  border-top: 1px solid var(--border);
+}
+
+.atlas-system-dot {
+  flex-shrink: 0;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+}
+
+.atlas-system-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.atlas-system-list input[type='checkbox'] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.atlas-system-count {
+  margin: 0.6rem 0 0 0;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+/* ---------- Suche nach Strukturen ---------- */
+
+.atlas-search {
+  position: relative;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-search input {
+  width: 100%;
+  background-color: var(--bg-panel-alt);
+  color: var(--text);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.5em 0.9em;
+  font-size: 0.95rem;
+}
+
+.atlas-search input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.atlas-search-results {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 0.3rem);
+  z-index: 20;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 16rem;
+  overflow-y: auto;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 28%);
+}
+
+.atlas-search-results button {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.55em 0.8em;
+}
+
+.atlas-search-results button:hover:not(:disabled) {
+  filter: none;
+  background-color: var(--bg-panel-alt);
+}
+
+.atlas-search-results span {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* ---------- Struktur-Quiz ---------- */
+
+/*
+ * Der Quizbalken liegt über der Szene, nicht darüber im Fluss. Sonst
+ * schiebt er das Modell auf einem Telefon aus dem Bild, und man müsste
+ * zum Antworten scrollen.
+ */
+.atlas-quiz {
+  position: absolute;
+  left: 0.6rem;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 10;
+  background-color: color-mix(in srgb, var(--bg-panel) 92%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.6em 0.8em;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 18%);
+}
+
+.atlas-quiz-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.atlas-quiz-head strong {
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.atlas-quiz-prompt {
+  margin: 0.6rem 0 0 0;
+}
+
+.atlas-quiz-right,
+.atlas-quiz-wrong {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.atlas-quiz-right {
+  color: var(--good);
+}
+
+.atlas-quiz-wrong {
+  color: var(--bad);
+}
+
+.atlas-selection-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.9rem;
+}
+
+.atlas-selection-actions button {
+  flex: 1 1 10rem;
+}
+
+.atlas-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-actions button {
+  flex: 1 1 8rem;
+}
+
+.atlas-explode {
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.8em 1em;
+  margin-bottom: 0.9rem;
+}
+
+.atlas-explode label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 600;
+}
+
+.atlas-explode label span {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+.atlas-explode input[type='range'] {
+  width: 100%;
+  margin: 0.7rem 0 0.2rem 0;
+  accent-color: var(--accent);
+}
+
+.atlas-explode-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.atlas-source {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+/* ==========================================================================
+   Schmale Fenster (Telefon, Android)
+
+   Bis 1.1.0 hatte die App kein mobiles Layout: die Seitenleiste stand fest
+   auf 260 Pixel, auf einem 360 Pixel breiten Gerät blieb für Inhalte fast
+   nichts. Hier liegt alles, was sich unterhalb der Schwelle ändert, damit
+   die Regeln oben unangetastet bleiben.
+
+   Umschaltpunkt ist 900 Pixel: darunter passen Seitenleiste und die
+   zweispaltigen Modulansichten nicht mehr nebeneinander.
+
+   Statt der Seitenleiste steht unten eine Reiterleiste, wie die TabView
+   der iOS-App. Die Schublade, die bis dahin hier stand, ist damit
+   überflüssig geworden: Module und Suche haben eigene Reiter.
+   ========================================================================== */
+
+/* Beides gehört zum schmalen Layout und ist am Schreibtisch nicht da. */
+.app-tabbar,
+.app-floating-appearance {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  /*
+   * Zu den Rändern kommt jeweils `env(safe-area-inset-*)` dazu. Ab
+   * Android 15 zeichnet die App unter Status- und Gestenleiste, und ohne
+   * diesen Zuschlag läge der Inhalt unter der Uhr. Nötig ist dafür
+   * `viewport-fit=cover` in `index.html`, sonst meldet `env()` überall
+   * null. Die einfache Zeile steht jeweils davor, damit eine WebView ohne
+   * `env()` nicht ganz ohne Rand dasteht.
+   *
+   * Nach unten reicht `env()` allerdings nicht. Auf dem Android-Emulator
+   * (Pixel 7, Android 16) meldet die WebView oben 52 Pixel, unten aber
+   * null, obwohl die Gestenleiste dort liegt: sie überlagert die Seite
+   * und zählt nicht als unsicherer Bereich. Deshalb steht unten ein
+   * Mindestabstand per `max()`, der auch ohne Angabe des Systems trägt.
+   */
+
+  .app-sidebar {
+    display: none;
+  }
+
+  .app-content {
+    padding: 3.8rem 1rem 6.4rem;
+    padding: calc(3.8rem + env(safe-area-inset-top, 0px))
+      calc(1rem + env(safe-area-inset-right, 0px))
+      max(calc(5.5rem + env(safe-area-inset-bottom, 0px)), 6.4rem)
+      calc(1rem + env(safe-area-inset-left, 0px));
+  }
+
+  /* ---------- Reiterleiste ---------- */
+
+  .app-tabbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    display: flex;
+    background-color: var(--bg-panel);
+    border-top: 1px solid var(--border);
+    padding: 0.35rem 0.5rem;
+    padding-bottom: max(calc(0.35rem + env(safe-area-inset-bottom, 0px)), 1.6rem);
+  }
+
+  .app-tab {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15em;
+    padding: 0.3em 0.2em;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--radius-control);
+    color: var(--text-dim);
+  }
+
+  .app-tab:hover:not(:disabled) {
+    filter: none;
+  }
+
+  .app-tab.active {
+    color: var(--accent);
+  }
+
+  .app-tab-icon {
+    display: flex;
+    line-height: 1;
+  }
+
+  .app-tab-icon svg {
+    width: 1.55em;
+    height: 1.55em;
+  }
+
+  .app-tab-label {
+    font-size: 0.7rem;
+  }
+
+  /*
+   * Der Umschalter für die Darstellung sitzt sonst in der Seitenleiste.
+   * Ohne sie schwebt er oben rechts, wie der entsprechende Knopf in der
+   * Werkzeugleiste der iOS-App.
+   */
+  .app-floating-appearance {
+    display: block;
+    position: fixed;
+    top: 0.6rem;
+    top: calc(0.6rem + env(safe-area-inset-top, 0px));
+    right: 0.6rem;
+    right: calc(0.6rem + env(safe-area-inset-right, 0px));
+    z-index: 25;
+  }
+
+  .app-floating-appearance .appearance-picker {
+    background-color: var(--bg-panel);
+    box-shadow: 0 2px 10px rgb(0 0 0 / 25%);
+  }
+
+  /* Zweispaltige Raster brauchen mehr Breite, als hier da ist. */
+  .rhythm-info,
+  .med-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /*
+   * Rasterelemente haben von Haus aus `min-width: auto`: ein langes Wort
+   * zieht die Spalte breiter als 1fr und schiebt die Karte über den Rand.
+   * Betraf die Modulnamen auf der Startseite („Sanitätsdienst
+   * (Veranstaltungsdienst)"), die bei 375 Pixeln 16 Pixel überstanden.
+   */
+  .quick-grid > *,
+  .cheatsheet-grid > *,
+  .med-grid > * {
+    min-width: 0;
+  }
+
+  .quick-tile,
+  .cheatsheet-card {
+    overflow-wrap: break-word;
+  }
+
+  /* Dasselbe für die Detailspalte: sie ist ein Flex-Kind und zieht sich
+     sonst an ihrem breitesten Inhalt auf, statt umzubrechen. */
+  .algo-detail,
+  .med-detail {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /*
+   * Kopf- und Reiterzeilen sind Flex-Reihen ohne Umbruch. Nebeneinander
+   * passen Titel, Stern und Seitenzahl hier nicht mehr; ohne Umbruch
+   * schieben sie sich aus dem sichtbaren Bereich.
+   */
+  .cheatsheet-header,
+  .tab-bar,
+  .med-detail-header,
+  .algo-detail-header,
+  .quiz-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Die Reiter des EKG-Moduls dürfen umbrechen statt zu überstehen. */
+  .tab-bar button {
+    flex: 0 1 auto;
+  }
+
+  .rhythm-detail-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /*
+   * Elektroden-Trainer: die Abbildung hat im Code eine feste Anzeigebreite
+   * (400 bzw. 460), die hier nicht mehr hinpasst. Sie skaliert über die
+   * viewBox mit. Das Ziehen der Elektroden bleibt korrekt, weil
+   * `toSvgPoint` über `getScreenCTM()` rechnet und damit die tatsächliche
+   * Darstellungsgröße berücksichtigt.
+   */
+  .electrode-board {
+    flex-direction: column;
+  }
+
+  .electrode-svg-wrap {
+    flex-shrink: 1;
+    max-width: 100%;
+  }
+
+  .electrode-svg-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .electrode-set-switch,
+  .electrode-mode-switch {
+    flex-wrap: wrap;
+  }
+}
+
+/* Sehr schmale Geräte: Überschriften und Ränder weiter zurücknehmen. */
+@media (max-width: 420px) {
+  .app-content {
+    padding: 3.6rem 0.75rem 1.25rem;
+    padding: calc(3.6rem + env(safe-area-inset-top, 0px))
+      calc(0.75rem + env(safe-area-inset-right, 0px))
+      calc(1.25rem + env(safe-area-inset-bottom, 0px))
+      calc(0.75rem + env(safe-area-inset-left, 0px));
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .quick-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }

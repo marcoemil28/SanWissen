@@ -31,7 +31,7 @@ struct MedikamenteView: View {
 
             if let stand = store.medikamente.contentStand {
                 Section {
-                    Text("Inhalte zuletzt geprüft: \(stand)")
+                    Text("Inhalte zuletzt geprüft: \(formatStand(stand))")
                         .font(.caption).foregroundStyle(.secondary)
                 }
             }

@@ -1,0 +1,97 @@
+name: 'PR-Prüfung'
+
+# Läuft bei jedem Pull Request und auf main. Bis 1.1.0 gab es nur den
+# Release-Workflow, der ausschließlich auf Tags reagiert: ein Fehler fiel
+# damit erst beim Bauen der Installer auf, also lange nach dem Merge.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Ältere Läufe desselben Branches abbrechen, wenn nachgeschoben wird.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  inhalte-und-frontend:
+    name: 'Inhalte & Frontend'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Abhängigkeiten installieren
+        run: npm ci
+
+      # Prüft die Inhalte gegen die Schemas unter content/schema/ und
+      # kontrolliert, dass alle Verweise aus Fahrplan, Cheat-Sheet, Quiz und
+      # Glossar auflösen. Steckt in `npm run build`, läuft hier aber vorweg,
+      # damit ein Inhaltsfehler als solcher im Protokoll steht.
+      - name: Inhalte prüfen
+        run: npm run check-content
+
+      - name: Typen prüfen und bauen
+        run: npm run build
+
+  ios:
+    name: 'iOS-App bauen und testen'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Gerätenamen ändern sich mit dem Runner-Abbild, deshalb wird zur
+      # Laufzeit das erste verfügbare iPhone genommen statt ein fester Name.
+      - name: Simulator wählen
+        id: sim
+        run: |
+          UDID=$(xcrun simctl list devices available --json | python3 -c "
+          import json, sys
+          geraete = json.load(sys.stdin)['devices']
+          print(next(g['udid']
+                     for laufzeit in sorted(geraete)
+                     if 'iOS' in laufzeit
+                     for g in geraete[laufzeit]
+                     if 'iPhone' in g['name']))")
+          echo "Simulator: $UDID"
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+
+      # `test` baut die App mit und führt danach SanWissenTests aus, also
+      # die Rechenlogik der Werkzeuge. Ohne ios/Signing.local.xcconfig baut
+      # das Projekt mit Platzhaltern; für den Simulator genügt das.
+      - name: Bauen und Tests ausführen
+        run: |
+          xcodebuild test \
+            -project ios/SanWissen.xcodeproj \
+            -scheme SanWissen \
+            -configuration Debug \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            CODE_SIGNING_ALLOWED=NO
+
+  tauri-rust:
+    name: 'Tauri-Backend prüfen'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rust einrichten
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust-Build-Cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      # Nur `cargo check`, kein vollständiger Build: es geht darum,
+      # Rust-Fehler vor dem Tag zu finden, nicht Installer zu erzeugen.
+      # Auf macOS braucht Tauri dafür keine zusätzlichen Systempakete.
+      - name: cargo check
+        working-directory: src-tauri
+        run: cargo check --locked

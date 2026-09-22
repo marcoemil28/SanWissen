@@ -1,6 +1,7 @@
 import { CHEATSHEET_CARDS } from './data';
 import { useNavigation } from '../../app/NavigationContext';
 import type { ModuleProps } from '../../app/registry';
+import { DisclaimerBox } from '../../components/SectionBox';
 
 export function CheatSheetModule({ onNavigateModule }: ModuleProps) {
   const { goTo } = useNavigation();
@@ -12,16 +13,18 @@ export function CheatSheetModule({ onNavigateModule }: ModuleProps) {
 
   return (
     <div className="module cheatsheet-module">
-      <header className="module-header cheatsheet-header">
+      <header className="page-header cheatsheet-header">
         <h1>Cheat-Sheet</h1>
         <button className="secondary" onClick={() => window.print()}>
           🖨️ Drucken
         </button>
       </header>
 
-      <div className="med-disclaimer cheatsheet-disclaimer">
-        ℹ️ Stark verkürzte Merkzettel für den Einsatzfall — großformatig, wenig Text. Ersetzt nicht die
-        ausführliche Handlungsanweisung im jeweiligen Modul.
+      <div className="cheatsheet-disclaimer">
+        <DisclaimerBox>
+          Stark verkürzte Merkzettel für den Einsatzfall: großformatig, wenig Text. Ersetzt nicht die
+          ausführliche Handlungsanweisung im jeweiligen Modul.
+        </DisclaimerBox>
       </div>
 
       <div className="cheatsheet-grid">

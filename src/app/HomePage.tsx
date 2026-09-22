@@ -1,99 +1,184 @@
 import { useEffect, useMemo, useState } from 'react';
-import { MODULES, MODULE_CATEGORIES, type ModuleCategory } from './registry';
+import { MODULES, MODULE_CATEGORIES, type LearningModule, type ModuleCategory } from './registry';
 import { ROADMAP } from './roadmap';
 import { useNavigation } from './NavigationContext';
 import { getFavorites, subscribeFavorites } from './favorites';
-import { getProgress } from '../modules/ekg/progress';
+import { DisclaimerBox, RowGroup, RowLink, SectionBox } from '../components/SectionBox';
+import { getProgress as getEkgProgress } from '../modules/ekg/progress';
+import { getProgress as getQuizProgress } from './quiz/progress';
+
+/**
+ * Startseite, aufgebaut wie `HomeView` der iOS-App: Kopf, fachlicher
+ * Hinweis, Favoriten, Fortschritt, Schnellzugriff, alle Module nach Thema
+ * und zuletzt der Fahrplan.
+ */
+
+const DISCLAIMER =
+  'Jeder Eintrag nennt seine Quelle. Medikamente, Algorithmen und Schemata sind gegen „SAA und BPR 2025" ' +
+  'geprüft, andere Themen stützen sich auf Leitlinien und Ausbildungsunterlagen. Landesspezifisches bezieht ' +
+  'sich auf Baden-Württemberg. Trotzdem gilt: vor der Prüfung mit den eigenen Kursunterlagen abgleichen. ' +
+  'Grenzwerte, Algorithmen und Zuständigkeiten unterscheiden sich je nach Organisation und Bundesland. ' +
+  'Diese App ersetzt keine offizielle Ausbildung.';
+
+interface Tally {
+  attempts: number;
+  correct: number;
+}
+
+function tally(stats: { attempts: number; correct: number }[]): Tally {
+  return {
+    attempts: stats.reduce((sum, s) => sum + s.attempts, 0),
+    correct: stats.reduce((sum, s) => sum + s.correct, 0),
+  };
+}
+
+function ProgressTile({ title, stat }: { title: string; stat: Tally }) {
+  const accuracy = Math.round((stat.correct / stat.attempts) * 100);
+  return (
+    <div className="progress-tile">
+      <span className="progress-tile-title">{title}</span>
+      <strong className="progress-tile-value">{accuracy} %</strong>
+      <span className="progress-tile-detail">
+        {stat.correct}/{stat.attempts} richtig
+      </span>
+    </div>
+  );
+}
 
 export function HomePage({ onNavigateModule }: { onNavigateModule: (moduleId: string) => void }) {
   const { goTo } = useNavigation();
   const [favorites, setFavorites] = useState(getFavorites);
+  const [openRoadmap, setOpenRoadmap] = useState<ModuleCategory | null>(null);
 
   useEffect(() => subscribeFavorites(() => setFavorites(getFavorites())), []);
 
-  const ekgStats = useMemo(() => {
-    const progress = getProgress();
-    const stats = Object.values(progress);
-    const attempts = stats.reduce((sum, s) => sum + s.attempts, 0);
-    const correct = stats.reduce((sum, s) => sum + s.correct, 0);
-    return { attempts, accuracy: attempts > 0 ? Math.round((correct / attempts) * 100) : null };
+  const ekg = useMemo(() => tally(Object.values(getEkgProgress())), []);
+  const quiz = useMemo(() => tally(Object.values(getQuizProgress())), []);
+
+  const pinned = useMemo(() => MODULES.filter((m) => m.pinned), []);
+  const groups = useMemo(() => {
+    const map = new Map<ModuleCategory, LearningModule[]>();
+    for (const category of MODULE_CATEGORIES) map.set(category, []);
+    for (const m of MODULES) {
+      if (m.pinned) continue;
+      map.get(m.category)!.push(m);
+    }
+    return MODULE_CATEGORIES.map((category) => ({ category, modules: map.get(category)! })).filter(
+      (g) => g.modules.length > 0
+    );
   }, []);
 
-  function handleRoadmapClick(moduleId: string, itemId?: string) {
+  const moduleTitle = useMemo(() => {
+    const map = new Map(MODULES.map((m) => [m.id, m.title] as const));
+    return (id: string) => map.get(id) ?? id;
+  }, []);
+
+  function open(moduleId: string, itemId?: string) {
     if (itemId) goTo({ moduleId, itemId });
     onNavigateModule(moduleId);
   }
 
   return (
     <div className="module home-page">
-      <header className="module-header">
-        <h1>Willkommen bei SanWissen</h1>
+      <header className="page-header">
+        <h1>SanWissen</h1>
+        <p className="page-subtitle">Lern- und Nachschlagewerk für den Sanitäts- und Rettungsdienst</p>
+        <p className="page-caption">Version {__APP_VERSION__} · komplett offline</p>
       </header>
 
-      <p className="home-intro">
-        Deine lokale Lern- und Nachschlage-App für den Sanitäts- und Rettungsdienst — von Sanitätshelfer bis
-        Notfallsanitäter. Durchsuche oben in der Sidebar alle Inhalte auf einmal oder folge unten dem Fahrplan.
-      </p>
+      <DisclaimerBox>{DISCLAIMER}</DisclaimerBox>
 
-      {ekgStats.attempts > 0 && (
-        <div className="home-progress-card">
-          <div>
-            <strong>{ekgStats.attempts}</strong>
-            <span>EKG-Quiz-Versuche</span>
-          </div>
-          <div>
-            <strong>{ekgStats.accuracy}%</strong>
-            <span>Trefferquote</span>
-          </div>
-          <button className="secondary" onClick={() => onNavigateModule('ekg')}>
-            Weiter üben
-          </button>
-        </div>
+      {favorites.length > 0 && (
+        <SectionBox title="Deine Favoriten" icon="★">
+          <RowGroup>
+            {favorites.map((f) => (
+              <RowLink
+                key={f.key}
+                icon={f.icon}
+                title={f.title}
+                subtitle={moduleTitle(f.moduleId)}
+                onClick={() => open(f.moduleId, f.itemId)}
+              />
+            ))}
+          </RowGroup>
+        </SectionBox>
       )}
 
-      <h2 className="home-section-title">Module</h2>
-      <div className="home-module-grid">
-        {MODULES.map((m) => (
-          <button key={m.id} className="home-module-card" onClick={() => onNavigateModule(m.id)}>
-            <span className="home-module-icon">{m.icon}</span>
-            <span className="home-module-title">{m.title}</span>
-          </button>
-        ))}
-      </div>
+      {(ekg.attempts > 0 || quiz.attempts > 0) && (
+        <SectionBox title="Dein Fortschritt" icon="📊">
+          <div className="progress-row">
+            {ekg.attempts > 0 && <ProgressTile title="EKG-Quiz" stat={ekg} />}
+            {quiz.attempts > 0 && <ProgressTile title="Prüfungsquiz" stat={quiz} />}
+          </div>
+        </SectionBox>
+      )}
 
-      <h2 className="home-section-title">Deine Favoriten</h2>
-      {favorites.length === 0 ? (
-        <p className="home-favorites-empty">
-          Noch keine Favoriten — klicke in einem Modul auf den ☆-Stern neben einem Titel, um ihn hier zu merken.
-        </p>
-      ) : (
-        <div className="home-module-grid">
-          {favorites.map((f) => (
-            <button key={f.key} className="home-module-card" onClick={() => handleRoadmapClick(f.moduleId, f.itemId)}>
-              <span className="home-module-icon">{f.icon}</span>
-              <span className="home-module-title">{f.title}</span>
+      <SectionBox title="Schnellzugriff" icon="⚡">
+        <div className="quick-grid">
+          {pinned.map((m) => (
+            <button key={m.id} type="button" className="quick-tile" onClick={() => open(m.id)}>
+              <span className="quick-tile-icon" aria-hidden="true">
+                {m.icon}
+              </span>
+              <span className="quick-tile-title">{m.title}</span>
             </button>
           ))}
         </div>
-      )}
+      </SectionBox>
 
-      <h2 className="home-section-title">Dein Fahrplan</h2>
-      <p className="home-intro">
-        Kein eigenes Modul, sondern eine Verlinkung in ausgewählte Abschnitte, gruppiert nach Thema.
-      </p>
-
-      {MODULE_CATEGORIES.map((category: ModuleCategory) => (
-        <div key={category} className="home-roadmap-group">
-          <h4>{category}</h4>
-          <ul>
-            {ROADMAP[category].map((entry, i) => (
-              <li key={i}>
-                <button onClick={() => handleRoadmapClick(entry.moduleId, entry.itemId)}>{entry.label}</button>
-              </li>
+      {groups.map((g) => (
+        <SectionBox key={g.category} title={g.category}>
+          <RowGroup>
+            {g.modules.map((m) => (
+              <RowLink
+                key={m.id}
+                icon={m.icon}
+                title={m.title}
+                onClick={() => open(m.id)}
+                disabled={m.status === 'coming-soon'}
+                badge={m.status === 'coming-soon' ? 'bald' : undefined}
+              />
             ))}
-          </ul>
-        </div>
+          </RowGroup>
+        </SectionBox>
       ))}
+
+      <SectionBox title="Dein Fahrplan" icon="🗺️">
+        <p className="section-box-hint">
+          Kuratierte Reihenfolge durch die bestehenden Module, reine Verlinkung ohne eigene Inhalte.
+        </p>
+        {MODULE_CATEGORIES.map((category) => {
+          const open_ = openRoadmap === category;
+          return (
+            <div key={category} className="roadmap-group">
+              <button
+                type="button"
+                className="roadmap-toggle"
+                onClick={() => setOpenRoadmap(open_ ? null : category)}
+                aria-expanded={open_}
+              >
+                <span>{category}</span>
+                <span className={`roadmap-chevron ${open_ ? 'open' : ''}`} aria-hidden="true">
+                  ›
+                </span>
+              </button>
+              {open_ && (
+                <RowGroup>
+                  {ROADMAP[category].map((entry, i) => (
+                    <RowLink
+                      key={i}
+                      icon={MODULES.find((m) => m.id === entry.moduleId)?.icon ?? '•'}
+                      title={entry.label}
+                      subtitle={moduleTitle(entry.moduleId)}
+                      onClick={() => open(entry.moduleId, entry.itemId)}
+                    />
+                  ))}
+                </RowGroup>
+              )}
+            </div>
+          );
+        })}
+      </SectionBox>
     </div>
   );
 }

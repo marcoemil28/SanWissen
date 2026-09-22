@@ -1,0 +1,193 @@
+{
+  "$schema": "./schema/illustrations.schema.json",
+  "illustrations": [
+    {
+      "id": "aed-elektroden",
+      "caption": "Klebeelektroden rechts unterhalb des Schlüsselbeins und links seitlich unter der Achsel"
+    },
+    {
+      "id": "armtragetuch",
+      "caption": "Armtragetuch aus dem Dreiecktuch"
+    },
+    {
+      "id": "atemweg-freimachen",
+      "caption": "Kopf überstrecken und Kinn anheben, danach höchstens 10 Sekunden auf normale Atmung prüfen"
+    },
+    {
+      "id": "atemwege",
+      "caption": ""
+    },
+    {
+      "id": "beatmungsbeutel-aufbau",
+      "caption": "Beatmungsbeutel mit Maske und Reservoirbeutel"
+    },
+    {
+      "id": "beckengurt",
+      "caption": "Beckenbruchstabilisierungsgurt (T-POD) — stabilisiert das verletzte Becken und begrenzt die innere Blutung"
+    },
+    {
+      "id": "beutel-masken-beatmung",
+      "caption": "C-Griff: Daumen und Zeigefinger halten die Maske, die übrigen Finger ziehen den Unterkiefer an"
+    },
+    {
+      "id": "blutverlust-fraktur",
+      "caption": "Größenordnung des Blutverlusts je nach gebrochenem Knochen"
+    },
+    {
+      "id": "druckverband",
+      "caption": "Druckverband: Wundauflage, Druckpolster, straffe Fixierbinde"
+    },
+    {
+      "id": "erregungsleitung",
+      "caption": "Erregungsleitungssystem — Grundlage für das EKG"
+    },
+    {
+      "id": "fazialisparese",
+      "caption": "Halbseitige Gesichtslähmung — hängender Mundwinkel auf der betroffenen Seite"
+    },
+    {
+      "id": "frakturarten",
+      "caption": "Offene Fraktur: steril abdecken, nicht reponieren"
+    },
+    {
+      "id": "gasaustausch",
+      "caption": "Atemwege bis zu den Lungenbläschen, in denen der Gasaustausch stattfindet"
+    },
+    {
+      "id": "gehirn-aufbau",
+      "caption": "Großhirn, Kleinhirn, verlängertes Mark und Rückenmark im Längsschnitt"
+    },
+    {
+      "id": "giftaufnahmewege",
+      "caption": "Aufnahmewege von Giften: Atemwege, Verdauungsweg, Haut und direkt in die Blutbahn"
+    },
+    {
+      "id": "guedel-wendl",
+      "caption": "Guedel-Tubus über die Zunge, Wendl-Tubus durch die Nase — beide enden im Rachen"
+    },
+    {
+      "id": "haendedesinfektion",
+      "caption": "Die sechs Einreibeschritte der hygienischen Händedesinfektion"
+    },
+    {
+      "id": "herz-aufbau",
+      "caption": "Herz im Längsschnitt: Vorhöfe, Kammern, Klappen und große Gefäße"
+    },
+    {
+      "id": "hws-stuetzkragen",
+      "caption": "HWS-Stützkragen: Größe ermitteln und einstellen (oben), danach vorformen und anlegen (unten)"
+    },
+    {
+      "id": "infusionssystem",
+      "caption": "Infusionssystem mit Tropfkammer und Rollenklemme"
+    },
+    {
+      "id": "intraossaerer-zugang",
+      "caption": "Punktionsorte für den intraossären Zugang"
+    },
+    {
+      "id": "knierolle",
+      "caption": "Knierolle: die angewinkelten Beine liegen auf dem Rucksack, das entlastet die Bauchdecke"
+    },
+    {
+      "id": "kreislauf-schema",
+      "caption": "Körperkreislauf und Lungenkreislauf als geschlossenes System"
+    },
+    {
+      "id": "larynxtubus",
+      "caption": "Aufbau des Larynxtubus mit proximalem und distalem Cuff"
+    },
+    {
+      "id": "lungenvolumina",
+      "caption": "Atemzugvolumen, Reservevolumina und Vitalkapazität"
+    },
+    {
+      "id": "medikamentenschachtel",
+      "caption": "Angaben auf der Faltschachtel: Bezeichnung, Stärke, Charge und Verfalldatum"
+    },
+    {
+      "id": "notfallrucksack",
+      "caption": "Typisch bestückter Notfallrucksack"
+    },
+    {
+      "id": "notverband",
+      "caption": "Notverband: Wundauflage anlegen, Binde in die Druckstange einfädeln, straff in die Gegenrichtung führen"
+    },
+    {
+      "id": "oberkoerperhochlagerung",
+      "caption": "Oberkörperhochlagerung bei Atemnot — der Notfallrucksack stützt Rücken und Kopf"
+    },
+    {
+      "id": "pneumothorax",
+      "caption": "Geschlossener und offener Pneumothorax im Vergleich zum gesunden Thorax"
+    },
+    {
+      "id": "rautekgriff",
+      "caption": "Rautek-Rettungsgriff — nie am verletzten Arm greifen"
+    },
+    {
+      "id": "saeugling-puls",
+      "caption": "Pulskontrolle beim Säugling an der Oberarminnenseite, nicht am Hals"
+    },
+    {
+      "id": "sauerstoffmaske",
+      "caption": "Sauerstoffmaske mit Reservoirbeutel"
+    },
+    {
+      "id": "schaedelknochen",
+      "caption": "Knochen des Schädels"
+    },
+    {
+      "id": "schaufeltrage",
+      "caption": "Schaufeltrage — längenverstellbar und seitlich teilbar"
+    },
+    {
+      "id": "schienung",
+      "caption": "Schienung über beide angrenzenden Gelenke, Finger zur DMS-Kontrolle frei"
+    },
+    {
+      "id": "schocklage",
+      "caption": "Schocklage: Beine etwa 30 Grad erhöht, Oberkörper bleibt flach"
+    },
+    {
+      "id": "sichtungskarte",
+      "caption": "Anhängekarte für Verletzte und Kranke mit den Sichtungskategorien I bis IV"
+    },
+    {
+      "id": "sichtungskategorien",
+      "caption": "Sichtungskategorien I bis IV mit Behandlungsdringlichkeit"
+    },
+    {
+      "id": "stabile-seitenlage",
+      "caption": "Stabile Seitenlage — Kopf zusätzlich überstrecken, damit der Mund der tiefste Punkt ist und Erbrochenes ablaufen kann"
+    },
+    {
+      "id": "tourniquet",
+      "caption": "Tourniquet körpernah oberhalb der Wunde, nie über einem Gelenk"
+    },
+    {
+      "id": "vakuummatratze",
+      "caption": "Vakuummatratze: erst modellieren, dann Luft absaugen"
+    },
+    {
+      "id": "verbrennungsgrade",
+      "caption": "Verbrennung Grad 1 mit Rötung (links) und Grad 2 mit Blasenbildung (rechts)"
+    },
+    {
+      "id": "wendl-tubus",
+      "caption": "Wendl-Tubus — wird durch die Nase eingeführt und auch bei erhaltenen Schutzreflexen toleriert"
+    },
+    {
+      "id": "wirbelsaeulen-fraktur",
+      "caption": "Wirbelkörperfraktur mit Einengung des Rückenmarks"
+    },
+    {
+      "id": "wound-packing",
+      "caption": "Wound Packing: Kompressen Lage für Lage in die Wunde, danach mindestens drei Minuten kräftig draufdrücken"
+    },
+    {
+      "id": "zentralisation",
+      "caption": "Zentralisation: der Körper opfert die Peripherie, um Rumpf und Kopf warm zu halten"
+    }
+  ]
+}

@@ -95,7 +95,6 @@ struct Rhythm: Decodable, Identifiable, Hashable {
     let nameEn: String
     let category: String
     let difficulty: Int
-    let minLevel: String
     /// Ob dieser Rhythmus im Quiz als "am Streifen erkennbar" abgefragt wird.
     let quizEligible: Bool
     let keyFeatures: [String]
@@ -150,7 +149,6 @@ struct ElectrodeSet: Decodable, Identifiable, Hashable {
     /// nil, zeichnet die App den Körper selbst (siehe `BodyShapes`).
     let imageName: String?
     let viewBox: ElectrodeViewBox
-    let minLevel: String
 }
 
 struct ElectrodesFile: Decodable {

@@ -21,7 +21,7 @@ final class ContentStore {
     let quiz: [QuizQuestion]
     let roadmap: [RoadmapSection]
     let tools: [ToolInfo]
-    let meta: ContentMeta
+    private let illustrations: [String: String]
 
     private(set) lazy var searchIndex: [SearchItem] = SearchIndex.build(from: self)
 
@@ -49,7 +49,9 @@ final class ContentStore {
         quiz = load("quiz", as: QuizFile.self).questions
         roadmap = load("roadmap", as: RoadmapFile.self).sections
         tools = load("werkzeuge", as: WerkzeugeFile.self).tools
-        meta = load("meta")
+        illustrations = Dictionary(
+            uniqueKeysWithValues: load("illustrations", as: IllustrationsFile.self)
+                .illustrations.map { ($0.id, $0.caption) })
 
         var modules: [String: TopicModule] = [:]
         for id in Self.topicModuleIds {
@@ -84,6 +86,11 @@ final class ContentStore {
         topicModules[moduleId]?.topics.first { $0.id == itemId }
     }
 
+    /// Bildunterschrift zu einer Abbildung, leer wenn keine hinterlegt ist.
+    func caption(forIllustration id: String) -> String {
+        illustrations[id] ?? ""
+    }
+
     func rhythm(id: String) -> Rhythm? {
         rhythms.rhythms.first { $0.id == id }
     }
@@ -114,3 +121,4 @@ private struct CheatSheetFile: Decodable { let cards: [CheatSheetCard] }
 private struct QuizFile: Decodable { let questions: [QuizQuestion] }
 private struct RoadmapFile: Decodable { let sections: [RoadmapSection] }
 private struct WerkzeugeFile: Decodable { let tools: [ToolInfo] }
+private struct IllustrationsFile: Decodable { let illustrations: [Illustration] }

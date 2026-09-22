@@ -1,51 +1,13 @@
+import raw from '../../../content/glossar.json';
 import type { GlossaryEntry } from './types';
 
-export const GLOSSAR: GlossaryEntry[] = [
-  { id: 'abcde', abbr: 'cABCDE', meaning: 'kritische Blutung (eXsanguinating haemorrhage), Airway, Breathing, Circulation, Disability, Exposure', description: 'Strukturiertes Schema zur Patientenbeurteilung. Das vorangestellte x steht für eine kritische äußere Blutung, die noch vor dem Atemweg gestoppt wird, siehe Algorithmen-Modul.' },
-  { id: 'aed', abbr: 'AED', meaning: 'Automatisierter Externer Defibrillator' },
-  { id: 'aelrd', abbr: 'ÄLRD', meaning: 'Ärztliche/r Leiter/in Rettungsdienst', description: 'Verantwortlich für die medizinisch-organisatorischen Belange des Rettungsdienstes, u. a. Erlass der SAA/BPR.' },
-  { id: 'als', abbr: 'ALS', meaning: 'Advanced Life Support', description: 'Erweiterte Reanimationsmaßnahmen (z. B. Medikamentengabe, erweiterte Atemwegssicherung).' },
-  { id: 'apgar', abbr: 'APGAR', meaning: 'Atmung, Puls, Grundtonus, Aussehen, Reflexe', description: 'Standardisierte Beurteilung des Neugeborenen nach 1, 5 und 10 Minuten, siehe Pädiatrie-Modul.' },
-  { id: 'bls', abbr: 'BLS', meaning: 'Basic Life Support', description: 'Basismaßnahmen der Reanimation ohne Hilfsmittel (Herzdruckmassage, Beatmung, AED).' },
-  { id: 'bos', abbr: 'BOS', meaning: 'Behörden und Organisationen mit Sicherheitsaufgaben' },
-  { id: 'bpr', abbr: 'BPR', meaning: 'Behandlungspfad(e)', description: 'Standardisierte, strukturierte Vorgehensweisen bei bestimmten Krankheitsbildern.' },
-  { id: 'divi', abbr: 'DIVI', meaning: 'Deutsche Interdisziplinäre Vereinigung für Intensiv- und Notfallmedizin', description: 'U. a. Herausgeber des bundesweit standardisierten Notarzteinsatzprotokolls (DIVI-Protokoll).' },
-  { id: 'ega', abbr: 'EGA', meaning: 'Extraglottische Atemwegshilfe', description: 'Z. B. Larynxmaske oder Larynxtubus.' },
-  { id: 'ffp2', abbr: 'FFP2', meaning: 'Filtering Face Piece (Schutzklasse 2)', description: 'Partikelfiltrierende Atemschutzmaske.' },
-  { id: 'gcs', abbr: 'GCS', meaning: 'Glasgow Coma Scale', description: 'Standardisierte Skala zur Beurteilung der Bewusstseinslage, siehe Werkzeuge-Modul.' },
-  { id: 'hdm', abbr: 'HDM', meaning: 'Herzdruckmassage' },
-  { id: 'im', abbr: 'i.m.', meaning: 'intramuskulär' },
-  { id: 'io', abbr: 'i.o.', meaning: 'intraossär' },
-  { id: 'itw', abbr: 'ITW', meaning: 'Intensivtransportwagen' },
-  { id: 'iv', abbr: 'i.v.', meaning: 'intravenös' },
-  { id: 'kit', abbr: 'KIT', meaning: 'Kriseninterventionsteam', description: 'Team zur psychosozialen Erstbetreuung nach belastenden Ereignissen.' },
-  { id: 'ktw', abbr: 'KTW', meaning: 'Krankentransportwagen' },
-  { id: 'manv', abbr: 'MANV', meaning: 'Massenanfall von Verletzten', description: 'Anzahl/Schwere der Verletzten übersteigt die sofort verfügbaren Rettungsmittel, siehe Sanitätsdienst-Modul.' },
-  { id: 'nacl', abbr: 'NaCl', meaning: 'Natriumchlorid (Kochsalzlösung)' },
-  { id: 'naca', abbr: 'NACA', meaning: 'National Advisory Committee for Aeronautics (Score)', description: 'Einteilung der Einsatzschwere von 0–7, siehe Werkzeuge-Modul.' },
-  { id: 'nef', abbr: 'NEF', meaning: 'Notarzteinsatzfahrzeug' },
-  { id: 'notsan', abbr: 'NotSan', meaning: 'Notfallsanitäter:in', description: 'Höchste nichtärztliche Qualifikationsstufe im deutschen Rettungsdienst.' },
-  { id: 'nrs-vas', abbr: 'NRS / VAS', meaning: 'Numerische Ratingskala / Visuelle Analogskala', description: 'Schmerzskalen von 0–10, siehe Werkzeuge-Modul.' },
-  { id: 'opqrst', abbr: 'OPQRST', meaning: 'Onset, Provocation, Quality, Radiation, Severity, Time', description: 'Schema zur strukturierten Schmerzanamnese, siehe Algorithmen-Modul.' },
-  { id: 'pea', abbr: 'PEA', meaning: 'Pulslose elektrische Aktivität', description: 'Nicht-schockbarer Rhythmus bei der Reanimation.' },
-  { id: 'pls', abbr: 'PLS', meaning: 'Paediatric Life Support', description: 'Reanimation bei Kindern.' },
-  { id: 'psa', abbr: 'PSA', meaning: 'Persönliche Schutzausrüstung' },
-  { id: 'psychkg', abbr: 'PsychKG', meaning: 'Gesetz über Hilfen und Schutzmaßnahmen bei psychischen Krankheiten', description: 'Regelt u. a. die Unterbringung gegen den eigenen Willen. Bezeichnung ist bundeslandspezifisch unterschiedlich.' },
-  { id: 'psnv', abbr: 'PSNV', meaning: 'Psychosoziale Notfallversorgung', description: 'Betreuung von Betroffenen und Einsatzkräften nach belastenden Ereignissen.' },
-  { id: 'rh', abbr: 'RH', meaning: 'Rettungshelfer:in', description: 'Ähnlicher Kompetenzumfang wie Rettungssanitäter. In dieser App unter „RS" zusammengefasst.' },
-  { id: 'rosc', abbr: 'ROSC', meaning: 'Return of Spontaneous Circulation', description: 'Wiedereinsetzen des Spontankreislaufs nach Reanimation.' },
-  { id: 'rs', abbr: 'RS', meaning: 'Rettungssanitäter:in' },
-  { id: 'rth', abbr: 'RTH', meaning: 'Rettungshubschrauber' },
-  { id: 'rtw', abbr: 'RTW', meaning: 'Rettungswagen' },
-  { id: 'saa', abbr: 'SAA', meaning: 'Standard-Arbeitsanweisung(en)', description: 'Standardisierte Handlungsanweisungen für den Rettungsdienst. Grundlage vieler Inhalte in dieser App.' },
-  { id: 'sampler', abbr: 'SAMPLER(S)', meaning: 'Symptome, Allergien, Medikamente, Patientenvorgeschichte, Letzte Mahlzeit, Ereignis, Risikofaktoren, (Schwangerschaft)', description: 'Anamnese-Schema, siehe Algorithmen-Modul.' },
-  { id: 'sanh', abbr: 'SanH', meaning: 'Sanitätshelfer:in', description: 'Grundlegende Qualifikationsstufe im Sanitätsdienst.' },
-  { id: 'sinnhaft', abbr: 'SINNHAFT', meaning: 'Start, Identifikation, Notfallereignis, Notfallpriorität, Handlungen, Auffälligkeiten, Fazit, Transportziel', description: 'Schema für die strukturierte mündliche Übergabe, siehe Algorithmen-Modul.' },
-  { id: 'stgb', abbr: 'StGB', meaning: 'Strafgesetzbuch' },
-  { id: 'vf-pvt', abbr: 'VF / pVT', meaning: 'Kammerflimmern / pulslose ventrikuläre Tachykardie', description: 'Schockbare Rhythmen bei der Reanimation.' },
-  { id: 'zoabcde', abbr: 'ZOABCDE', meaning: 'Zeiten, Opening, Airway, Breathing, Circulation, Disability, Exposure', description: 'Schema zur strukturierten telefonischen Patientenanmeldung in der Zielklinik, siehe Algorithmen-Modul.' },
-].sort((a, b) => a.abbr.localeCompare(b.abbr, 'de'));
+/**
+ * Inhalte aus `content/glossar.json`. Die dort zusätzlich hinterlegten Felder
+ * `moduleId`/`itemId`/`itemTitle` lösen den Verweis „siehe …-Modul" auf einen
+ * Sprunglink auf; die Desktop-Ansicht nutzt sie bisher nicht.
+ */
+export const GLOSSAR = raw.entries as GlossaryEntry[];
 
 export function getGlossarEntryById(id: string): GlossaryEntry | undefined {
-  return GLOSSAR.find((e) => e.id === id);
+  return GLOSSAR.find((entry) => entry.id === id);
 }

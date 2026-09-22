@@ -1,19 +1,11 @@
+import modulesContent from '../../content/modules.json';
+import { allTopicModules } from './content';
 import { RHYTHMS } from '../modules/ekg/rhythms';
 import { MEDIKAMENTE } from '../modules/medikamente/data';
-import { ALGORITHMEN } from '../modules/algorithmen/data';
-import { ANATOMIE_THEMEN } from '../modules/anatomie/data';
 import { TOOLS } from '../modules/werkzeuge/data';
-import { TRAUMA_THEMEN } from '../modules/traumatologie/data';
-import { MED_VORBEREITUNG } from '../modules/medikamentenvorbereitung/data';
-import { SANITAETSDIENST_THEMEN } from '../modules/sanitaetsdienst/data';
-import { INTERNISTISCHE_NOTFAELLE_THEMEN } from '../modules/internistischenotfaelle/data';
-import { PAEDIATRIE_THEMEN } from '../modules/paediatrie/data';
-import { PSYCHIATRIENOTFAELLE_THEMEN } from '../modules/psychiatrienotfaelle/data';
-import { RETTUNGSTECHNIK_THEMEN } from '../modules/rettungstechnik/data';
-import { RECHTLICHEGRUNDLAGEN_THEMEN } from '../modules/rechtlichegrundlagen/data';
 import { GLOSSAR } from '../modules/glossar/data';
 import { CHECKLISTEN } from '../modules/checklisten/data';
-import { MODULES } from './registry';
+import { CHEATSHEET_CARDS } from '../modules/cheatsheet/data';
 
 export interface SearchItem {
   key: string;
@@ -26,183 +18,62 @@ export interface SearchItem {
   haystack: string;
 }
 
-type RawSearchItem = Omit<SearchItem, 'category'>;
+/**
+ * Durchsuchbarer Index über alle Module.
+ *
+ * Bis 1.1.0 stand hier für jedes Modul ein eigener Block, fünfzehn an der
+ * Zahl, von denen sich zehn nur in Modul-ID und Feldnamen unterschieden.
+ * Die zehn Themenmodule laufen jetzt über eine Schleife; übrig bleiben die
+ * Quellen mit eigener Form.
+ *
+ * Titel, Icon und Kategorie je Modul kommen aus `content/modules.json`,
+ * damit Suche und Seitenleiste nicht auseinanderlaufen. Die iOS-Suche
+ * macht es genauso.
+ */
+const MODULE_INFO = new Map(modulesContent.modules.map((m) => [m.id, m]));
 
-const CATEGORY_BY_MODULE_ID = new Map(MODULES.map((m) => [m.id, m.category]));
+function make(moduleId: string, itemId: string, title: string, parts: (string | null | undefined)[]): SearchItem {
+  const info = MODULE_INFO.get(moduleId);
+  return {
+    key: `${moduleId}:${itemId}`,
+    title,
+    moduleId,
+    moduleTitle: info?.title ?? moduleId,
+    icon: info?.icon ?? '',
+    itemId,
+    category: info?.category ?? '',
+    haystack: parts.filter(Boolean).join(' ').toLowerCase(),
+  };
+}
 
-const RAW_INDEX: RawSearchItem[] = [
-  ...RHYTHMS.map(
-    (r): RawSearchItem => ({
-      key: `ekg:${r.id}`,
-      title: r.nameDe,
-      moduleId: 'ekg',
-      moduleTitle: 'EKG-Trainer',
-      icon: '📈',
-      itemId: r.id,
-      haystack: [r.nameDe, r.nameEn, ...r.keyFeatures].join(' ').toLowerCase(),
-    })
+const INDEX: SearchItem[] = [
+  ...RHYTHMS.map((r) => make('ekg', r.id, r.nameDe, [r.nameDe, r.nameEn, ...r.keyFeatures])),
+
+  ...MEDIKAMENTE.map((m) =>
+    make('medikamente', m.id, m.name, [m.name, m.wirkstoff, m.arzneimittelgruppe, m.indikationen]),
   ),
-  ...MEDIKAMENTE.map(
-    (m): RawSearchItem => ({
-      key: `medikamente:${m.id}`,
-      title: m.name,
-      moduleId: 'medikamente',
-      moduleTitle: 'Medikamente (SAA/BPR)',
-      icon: '💊',
-      itemId: m.id,
-      haystack: [m.name, m.wirkstoff, m.arzneimittelgruppe, m.indikationen].filter(Boolean).join(' ').toLowerCase(),
-    })
+
+  // Die zehn Module mit gemeinsamem Schema.
+  ...allTopicModules().flatMap((mod) =>
+    mod.topics.map((topic) =>
+      make(mod.moduleId, topic.id, topic.title, [
+        topic.title,
+        topic.summary,
+        ...topic.sections.flatMap((section) => section.items.map((item) => item.text)),
+      ]),
+    ),
   ),
-  ...ALGORITHMEN.map(
-    (a): RawSearchItem => ({
-      key: `algorithmen:${a.id}`,
-      title: a.title,
-      moduleId: 'algorithmen',
-      moduleTitle: 'Algorithmen',
-      icon: '🧭',
-      itemId: a.id,
-      haystack: [a.title, a.summary, ...a.sections.flatMap((s) => s.steps.map((step) => step.text))]
-        .join(' ')
-        .toLowerCase(),
-    })
+
+  ...TOOLS.map((t) => make('werkzeuge', t.id, t.title, [t.title, t.description, t.category])),
+
+  ...GLOSSAR.map((e) => make('glossar', e.id, e.abbr, [e.abbr, e.meaning, e.description])),
+
+  ...CHECKLISTEN.map((c) =>
+    make('checklisten', c.id, c.title, [c.title, c.description, ...c.items.map((i) => i.text)]),
   ),
-  ...ANATOMIE_THEMEN.map(
-    (t): RawSearchItem => ({
-      key: `anatomie:${t.id}`,
-      title: t.title,
-      moduleId: 'anatomie',
-      moduleTitle: 'Anatomie & Physiologie',
-      icon: '🫀',
-      itemId: t.id,
-      haystack: [t.title, t.summary, ...t.sections.flatMap((s) => s.facts.map((f) => f.text))].join(' ').toLowerCase(),
-    })
-  ),
-  ...TOOLS.map(
-    (t): RawSearchItem => ({
-      key: `werkzeuge:${t.id}`,
-      title: t.title,
-      moduleId: 'werkzeuge',
-      moduleTitle: 'Werkzeuge & Scores',
-      icon: '🧮',
-      itemId: t.id,
-      haystack: [t.title, t.description, t.category].join(' ').toLowerCase(),
-    })
-  ),
-  ...TRAUMA_THEMEN.map(
-    (t): RawSearchItem => ({
-      key: `traumatologie:${t.id}`,
-      title: t.title,
-      moduleId: 'traumatologie',
-      moduleTitle: 'Traumatologie & Verbandslehre',
-      icon: '🩹',
-      itemId: t.id,
-      haystack: [t.title, t.summary, ...t.sections.flatMap((s) => s.facts.map((f) => f.text))].join(' ').toLowerCase(),
-    })
-  ),
-  ...MED_VORBEREITUNG.map(
-    (e): RawSearchItem => ({
-      key: `medikamentenvorbereitung:${e.id}`,
-      title: e.title,
-      moduleId: 'medikamentenvorbereitung',
-      moduleTitle: 'Medikamente vorbereiten & verabreichen',
-      icon: '💉',
-      itemId: e.id,
-      haystack: [e.title, e.summary, ...e.sections.flatMap((s) => s.steps.map((step) => step.text))]
-        .join(' ')
-        .toLowerCase(),
-    })
-  ),
-  ...SANITAETSDIENST_THEMEN.map(
-    (t): RawSearchItem => ({
-      key: `sanitaetsdienst:${t.id}`,
-      title: t.title,
-      moduleId: 'sanitaetsdienst',
-      moduleTitle: 'Sanitätsdienst (Veranstaltungsdienst)',
-      icon: '🎪',
-      itemId: t.id,
-      haystack: [t.title, t.summary, ...t.sections.flatMap((s) => s.facts.map((f) => f.text))].join(' ').toLowerCase(),
-    })
-  ),
-  ...INTERNISTISCHE_NOTFAELLE_THEMEN.map(
-    (t): RawSearchItem => ({
-      key: `internistischenotfaelle:${t.id}`,
-      title: t.title,
-      moduleId: 'internistischenotfaelle',
-      moduleTitle: 'Internistische Notfälle',
-      icon: '🩺',
-      itemId: t.id,
-      haystack: [t.title, t.summary, ...t.sections.flatMap((s) => s.facts.map((f) => f.text))].join(' ').toLowerCase(),
-    })
-  ),
-  ...PAEDIATRIE_THEMEN.map(
-    (t): RawSearchItem => ({
-      key: `paediatrie:${t.id}`,
-      title: t.title,
-      moduleId: 'paediatrie',
-      moduleTitle: 'Pädiatrie & Geburtshilfe',
-      icon: '🍼',
-      itemId: t.id,
-      haystack: [t.title, t.summary, ...t.sections.flatMap((s) => s.facts.map((f) => f.text))].join(' ').toLowerCase(),
-    })
-  ),
-  ...PSYCHIATRIENOTFAELLE_THEMEN.map(
-    (t): RawSearchItem => ({
-      key: `psychiatrienotfaelle:${t.id}`,
-      title: t.title,
-      moduleId: 'psychiatrienotfaelle',
-      moduleTitle: 'Psychiatrische Notfälle & Kommunikation',
-      icon: '🧠',
-      itemId: t.id,
-      haystack: [t.title, t.summary, ...t.sections.flatMap((s) => s.facts.map((f) => f.text))].join(' ').toLowerCase(),
-    })
-  ),
-  ...RETTUNGSTECHNIK_THEMEN.map(
-    (t): RawSearchItem => ({
-      key: `rettungstechnik:${t.id}`,
-      title: t.title,
-      moduleId: 'rettungstechnik',
-      moduleTitle: 'Rettungstechnik & Gerätekunde',
-      icon: '🎒',
-      itemId: t.id,
-      haystack: [t.title, t.summary, ...t.sections.flatMap((s) => s.facts.map((f) => f.text))].join(' ').toLowerCase(),
-    })
-  ),
-  ...RECHTLICHEGRUNDLAGEN_THEMEN.map(
-    (t): RawSearchItem => ({
-      key: `rechtlichegrundlagen:${t.id}`,
-      title: t.title,
-      moduleId: 'rechtlichegrundlagen',
-      moduleTitle: 'Rechtliche & organisatorische Grundlagen',
-      icon: '⚖️',
-      itemId: t.id,
-      haystack: [t.title, t.summary, ...t.sections.flatMap((s) => s.facts.map((f) => f.text))].join(' ').toLowerCase(),
-    })
-  ),
-  ...GLOSSAR.map(
-    (e): RawSearchItem => ({
-      key: `glossar:${e.id}`,
-      title: e.abbr,
-      moduleId: 'glossar',
-      moduleTitle: 'Glossar & Abkürzungen',
-      icon: '📖',
-      itemId: e.id,
-      haystack: [e.abbr, e.meaning, e.description].filter(Boolean).join(' ').toLowerCase(),
-    })
-  ),
-  ...CHECKLISTEN.map(
-    (c): RawSearchItem => ({
-      key: `checklisten:${c.id}`,
-      title: c.title,
-      moduleId: 'checklisten',
-      moduleTitle: 'Checklisten',
-      icon: '✅',
-      itemId: c.id,
-      haystack: [c.title, c.description, ...c.items.map((i) => i.text)].join(' ').toLowerCase(),
-    })
-  ),
+
+  ...CHEATSHEET_CARDS.map((c) => make('cheatsheet', c.id, c.title, [c.title, ...c.points])),
 ];
-
-const INDEX: SearchItem[] = RAW_INDEX.map((item) => ({ ...item, category: CATEGORY_BY_MODULE_ID.get(item.moduleId)! }));
 
 export function searchAll(query: string, limit = 12): SearchItem[] {
   const q = query.trim().toLowerCase();

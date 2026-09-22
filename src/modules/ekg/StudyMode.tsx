@@ -5,9 +5,14 @@ import { EkgTrace } from './EkgTrace';
 import { CATEGORY_LABELS, type RhythmCategory } from './types';
 import { useNavigation } from '../../app/NavigationContext';
 import { FavoriteButton } from '../../components/FavoriteButton';
+import { BackLink, RowGroup, RowLink, SectionBox } from '../../components/SectionBox';
 
+/**
+ * Rhythmus-Bibliothek. Wie `EkgStudyView` auf iOS zuerst nur die nach
+ * Kategorie gruppierte Liste, ein Rhythmus öffnet sich als eigene Seite.
+ */
 export function StudyMode() {
-  const [selectedId, setSelectedId] = useState(RHYTHMS[0].id);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [seed, setSeed] = useState(0);
   const { pending, clearPending } = useNavigation();
 
@@ -18,8 +23,8 @@ export function StudyMode() {
     }
   }, [pending, clearPending]);
 
-  const rhythm = RHYTHMS.find((r) => r.id === selectedId) ?? RHYTHMS[0];
-  const trace = useMemo(() => generateTrace(rhythm.gen), [rhythm, seed]);
+  const rhythm = selectedId ? RHYTHMS.find((r) => r.id === selectedId) ?? null : null;
+  const trace = useMemo(() => (rhythm ? generateTrace(rhythm.gen) : null), [rhythm, seed]);
 
   const grouped = useMemo(() => {
     const map = new Map<RhythmCategory, typeof RHYTHMS>();
@@ -31,24 +36,25 @@ export function StudyMode() {
     return map;
   }, []);
 
+  if (!rhythm || !trace) {
+    return (
+      <div className="study-mode">
+        {[...grouped.entries()].map(([category, items]) => (
+          <SectionBox key={category} title={CATEGORY_LABELS[category]}>
+            <RowGroup>
+              {items.map((r) => (
+                <RowLink key={r.id} title={r.nameDe} subtitle={r.nameEn} onClick={() => setSelectedId(r.id)} />
+              ))}
+            </RowGroup>
+          </SectionBox>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="study-mode">
-      <aside className="rhythm-list">
-        {[...grouped.entries()].map(([cat, items]) => (
-          <div key={cat} className="rhythm-group">
-            <h4>{CATEGORY_LABELS[cat]}</h4>
-            <ul>
-              {items.map((r) => (
-                <li key={r.id}>
-                  <button className={r.id === selectedId ? 'active' : ''} onClick={() => setSelectedId(r.id)}>
-                    {r.nameDe}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </aside>
+      <BackLink label="Rhythmen" onClick={() => setSelectedId(null)} />
 
       <section className="rhythm-detail">
         <div className="rhythm-detail-header">
@@ -67,15 +73,15 @@ export function StudyMode() {
         <EkgTrace trace={trace} />
 
         <div className="rhythm-info">
-          <div>
-            <h4>Merkmale</h4>
+          <div className="rhythm-card">
+            <h4>Erkennungsmerkmale</h4>
             <ul>
               {rhythm.keyFeatures.map((f) => (
                 <li key={f}>{f}</li>
               ))}
             </ul>
           </div>
-          <div>
+          <div className="rhythm-card">
             <h4>Klinische Relevanz / Vorgehen</h4>
             <p>{rhythm.clinicalNote}</p>
           </div>

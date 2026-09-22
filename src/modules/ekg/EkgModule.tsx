@@ -20,7 +20,7 @@ export function EkgModule() {
 
   return (
     <div className="module ekg-module">
-      <header className="module-header">
+      <header className="page-header">
         <h1>EKG-Trainer</h1>
         <nav className="tab-bar">
           <button className={tab === 'study' ? 'active' : ''} onClick={() => setTab('study')}>

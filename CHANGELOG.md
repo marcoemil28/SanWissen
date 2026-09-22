@@ -13,9 +13,8 @@ Versionierung angelehnt an [Semantic Versioning](https://semver.org/lang/de/).
 
 Der Schwerpunkt seit 1.0.0 liegt auf der neuen iOS-App unter `ios/`. Sie
 ist kein Tauri-Wrapper, sondern in SwiftUI geschrieben, teilt sich aber
-die Inhalte mit der Desktop-App: `scripts/export-ios-content.mjs` liest
-die TypeScript-Module unter `src/modules/` und schreibt sie als JSON ins
-App-Bundle. Texte leben weiterhin genau an einer Stelle.
+die Inhalte mit der Desktop-App: beide lesen dieselben JSON-Dateien aus
+`content/`. Texte leben damit genau an einer Stelle.
 
 Einträge ohne Plattform-Vermerk betreffen beide Apps, weil sie die
 gemeinsame Inhaltsquelle ändern.
@@ -32,10 +31,9 @@ gemeinsame Inhaltsquelle ändern.
     echten Gesten und nativem Scrolling deutlich profitieren.
   - Team-ID und Bundle-ID stehen bewusst nicht im Repository, sondern in
     einer lokalen `ios/Signing.local.xcconfig` (siehe `ios/README.md`).
-- **Inhaltsexport nach JSON** (`scripts/export-ios-content.mjs`): erzeugt
-  `ios/SanWissen/Resources/Content/`. Der Export bricht ab, wenn ein
-  Verweis ins Leere zeigt, etwa wenn eine Cheat-Sheet-Karte auf einen
-  umbenannten Eintrag zeigt.
+- **Gemeinsame Inhaltsquelle unter `content/`** samt
+  `scripts/check-content.mjs`, das alle Verweise prüft und bei
+  `npm run build` läuft. Siehe „Geändert" für den Weg dorthin.
 - **Interaktiver 3D-Anatomieatlas (iOS)**, erreichbar über das Modul
   „Anatomie & Physiologie". Drehen, Zoomen, Antippen zum Untersuchen,
   Freistellen einzelner Systeme und stufenloses Auseinanderziehen bis zum
@@ -84,6 +82,267 @@ gemeinsame Inhaltsquelle ändern.
 
 ### Geändert
 
+- **Inhalte liegen jetzt in `content/` und sind die Quelle, nicht mehr das
+  Ergebnis eines Exports.** Bisher waren die TypeScript-Dateien unter
+  `src/modules/` die Quelle, und `scripts/export-ios-content.mjs` erzeugte
+  daraus die JSON-Dateien für iOS. Wer den Export vergaß, hatte Desktop und
+  iOS auf unterschiedlichem Stand, ohne dass es auffiel.
+
+  Jetzt lesen beide Apps dieselben Dateien: die Desktop-App über
+  `src/app/content.ts`, die iOS-App aus dem App-Bundle, in das eine
+  Build-Phase sie kopiert. Inhalte lassen sich damit ändern, ohne
+  TypeScript anzufassen. Am Inhalt selbst hat sich nichts geändert; die
+  Dateien sind byte-identisch zu den zuvor erzeugten, bis auf zwei bewusste
+  Ergänzungen (Emoji-Icon je Modul für die Desktop-Sidebar, `contentStand`
+  der Werkzeuge, das vorher nur in der TS-Datei stand).
+  - `scripts/export-ios-content.mjs` ist zu `scripts/check-content.mjs`
+    geworden. Es erzeugt nichts mehr, prüft aber weiter alle Verweise und
+    läuft bei `npm run build`.
+  - Die Dateien unter `src/modules/<name>/data.ts` halten nur noch
+    Typisierung und Zugriff, statt mehrere hundert Zeilen Inhalt.
+  - Die generierte `meta.json` entfällt. Sie enthielt nur Abgeleitetes; die
+    iOS-App liest ihre Version jetzt aus dem Bundle, was auch das Problem
+    löst, dass ein Versionssprung bisher einen Inhaltsexport brauchte.
+  - `medications.json` und `wirkung.ts` sind zu `content/medikamente.json`
+    zusammengeführt. Sie wurden ohnehin nur an einer Stelle kombiniert.
+  - Der Plan dahinter steht in [docs/inhaltspipeline.md](docs/inhaltspipeline.md).
+- **Die Suche ist ebenfalls zusammengefasst.** `searchIndex.ts` hatte für
+  jedes Modul einen eigenen Block, fünfzehn an der Zahl, von denen sich zehn
+  nur in Modul-ID und Feldnamen unterschieden. Die zehn Themenmodule laufen
+  jetzt über eine Schleife; übrig bleiben die Quellen mit eigener Form. Die
+  Datei schrumpft von 211 auf 82 Zeilen.
+  - **Das Cheat-Sheet ist jetzt durchsuchbar.** Die iOS-Suche führt es seit
+    jeher, die Desktop-Suche hatte es nie aufgenommen.
+  - **Algorithmen erscheinen in der Suche jetzt unter ihrem vollen Namen**
+    („Algorithmen (ABCDE, BLS/ALS)" statt „Algorithmen"). Modultitel und
+    Icon kommen jetzt aus `content/modules.json`, wie es die iOS-Suche
+    schon macht; damit laufen Suche und Seitenleiste nicht mehr
+    auseinander.
+  - Damit sind die zehn `data.ts` und `types.ts` der Themenmodule
+    unbenutzt und entfallen, zusammen mit der Zwischenschicht in
+    `content.ts`, die `items` nach `facts`/`steps` umbenannte. Der
+    Desktop-Quellcode schrumpft dadurch um rund 570 Zeilen.
+- **Die zehn Themenmodule teilen sich auf dem Desktop eine Ansicht.** Jedes
+  hatte bisher einen eigenen Renderer von rund 120 Zeilen, von denen gut die
+  Hälfte identisch war; die iOS-App kam für dieselben Module schon immer mit
+  einer einzigen Ansicht aus. Neu ist `src/components/TopicModule.tsx` mit
+  180 Zeilen, die zehn Modul-Dateien schrumpfen von zusammen 1.121 auf 213
+  Zeilen.
+  - Die Kategorie-Reihenfolge stand als Konstante in jedem Renderer und
+    kommt jetzt aus `categoryOrder` der Inhaltsdatei. Beide stimmten
+    überein, die Anzeige ändert sich also nicht.
+  - Ob die Seitenzahl erscheint, richtet sich jetzt danach, ob der Eintrag
+    eine hat, statt nach dem Modul. Betroffen sind dieselben zwei Module
+    wie bisher.
+  - Für den Nutzer ändert sich nichts.
+- **Die Desktop-App hat jetzt ein mobiles Layout.** Bisher gab es keine
+  einzige `@media`-Regel und die Seitenleiste stand fest auf 260 Pixel; auf
+  einem Telefon blieb für Inhalte fast nichts. Unter 900 Pixel wird die
+  Seitenleiste zu einer Schublade mit Menütaste, die zweispaltigen
+  Modulansichten stapeln sich, Kopf- und Reiterzeilen brechen um, und die
+  Abbildung des Elektroden-Trainers skaliert mit.
+  - Geprüft bei 375 Pixeln: alle 17 Module ohne waagerechten Überlauf. Die
+    Ursachen waren meist `min-width: auto` bei Raster- und Flex-Kindern,
+    an dem sich lange Modulnamen aufzogen.
+  - Das Platzieren der Elektroden bleibt korrekt, obwohl die Abbildung
+    jetzt skaliert: die Umrechnung läuft über `getScreenCTM()` und
+    berücksichtigt die tatsächliche Darstellungsgröße. Nachgemessen, die
+    Abweichung an allen vier Zielen ist null.
+  - Am Desktop ändert sich nichts.
+  - Erster Schritt Richtung Android, siehe [docs/android.md](docs/android.md).
+- **Android: das Gradle-Projekt steht, die Debug-APK baut durch.**
+  `tauri android init` legt es unter `src-tauri/gen/android` an. Die
+  Inhalte brauchten dafür keine Anpassung, weil Tauri das Frontend samt
+  der 49 Abbildungen in die native Bibliothek einbettet statt als Dateien
+  in die APK zu legen. Im Emulator gelaufen und durchgeklickt. Der
+  3D-Atlas fehlt weiterhin, siehe [docs/android.md](docs/android.md).
+  - **Der Inhalt lag unter den Systemleisten.** Ab Android 15 zeichnet
+    eine App randlos. Ohne `viewport-fit=cover` und
+    `env(safe-area-inset-*)` saß die Menütaste auf der Uhr und die
+    Gestenleiste auf der letzten Zeile.
+  - **Die Menütaste verdeckte beim Scrollen Text.** Sie steht fest am
+    Bildschirm, der Inhalt lief darunter durch; aus „Erregungszustände"
+    wurde „rregungszustände". Jetzt liegt ein undurchsichtiger Streifen
+    dahinter.
+  - **Über dem Körperbild des Elektroden-Trainers ließ sich nicht
+    scrollen.** `touch-action: none` lag auf der ganzen Fläche, obwohl
+    ausschließlich die Chips in der Ablage gezogen werden und die es
+    selbst setzen. Am Telefon füllt das Bild fast den Bildschirm, ein
+    Wisch darüber wurde verschluckt statt zu scrollen. Mit der Maus fällt
+    das nie auf.
+  - Das Platzieren der Elektroden wurde auf dem Gerät mit echten
+    Berührungen nachgeprüft, Treffer und Fehlversuch werden erkannt.
+  - `index.html` sagt jetzt `lang="de"` statt `lang="en"`.
+- **Der 3D-Atlas läuft jetzt auch auf Windows, macOS und Android.** Bisher
+  gab es ihn nur als SceneKit-Fassung auf iOS, und er war die größte
+  Lücke zwischen den Plattformen. Die Neufassung nutzt WebGL über
+  three.js und bietet dasselbe: Drehen, Zoomen, Antippen zum Untersuchen,
+  Freistellen einzelner Systeme und stufenloses Auseinanderziehen bis zum
+  vollständigen anatomischen Inventar.
+  - **An den Daten war nichts umzurechnen.** Positionen als float32,
+    Normalen als int16 und Indizes als uint32 gehen direkt als
+    Buffer-Attribute durch. In `atlas.json` stehen sogar noch die
+    ursprünglichen Web-URLs; das Format stammt aus einer Web-Vorlage,
+    SceneKit war die Zweitverwertung.
+  - **Ein Zeichenaufruf je Organsystem statt 2.234.** Auf iOS bekommt
+    jedes Netz einen eigenen Knoten, was SceneKit wegsteckt. In WebGL
+    wären das 2.234 Aufrufe pro Bild. Ein `BatchedMesh` je System fasst
+    sie zusammen und bietet trotzdem Sichtbarkeit, Farbe und Matrix je
+    Teil. Nachgemessen: 14 Aufrufe pro Bild.
+  - **Suche nach Strukturen, Freistellen und Struktur-Quiz** sind
+    ebenfalls übernommen. Das Quiz fragt nur nach dem, was von der
+    aktuellen Ansicht aus wirklich zu treffen ist: ein Raster von
+    Strahlen tastet das Bild ab, Drehen ändert damit die Auswahl der
+    Fragen. Links und rechts werden unterschieden.
+  - **Die Geometrie ist nach `content/atlas/` gezogen**, wie alle anderen
+    Inhalte, und wird über ein Vite-Plugin ans Frontend ausgeliefert. Sie
+    liegt damit in der App und braucht kein Netz.
+  - **Beim Antippen erscheint jetzt eine Infokarte** mit Erklärung zur
+    Struktur, Organsystem, Atlas-Referenz und Zahl der ausgewählten
+    Netze, wie auf iOS. Die erste Fassung zeigte nur den Namen. Gibt es
+    zur Struktur keinen eigenen Text, steht dort der Überblick zum
+    System, und eine Fußzeile sagt, dass es eine Ersatzangabe ist.
+  - **Die Erklärungen stehen in `content/atlas-explanations.json`** statt
+    fest im Swift-Code, und sind ins Deutsche übersetzt. Die Suchbegriffe
+    bleiben englisch, weil sie gegen die Strukturnamen der Quelldaten
+    laufen. `check-content.mjs` prüft, dass jede Erklärung auf mindestens
+    eine Struktur im Modell passt; ein Tippfehler fiele sonst nie auf,
+    weil stillschweigend die Systembeschreibung erschiene.
+  - **Die Organsysteme stehen jetzt in `content/atlas-systems.json`** statt
+    fest im Swift-Code, und zwar auf Deutsch. Vorher hießen sie
+    „Skeleton", „Sensory organs" und „Body surface", auch in der
+    deutschen App. Die Teilenamen der Geometrie bleiben englisch, das
+    sind 2.234 anatomische Bezeichnungen aus BodyParts3D.
+  - Auf dem Android-Emulator gemessen: 59,5 MB Geometrie in 1,9 Sekunden
+    geladen, der Atlas nach 2,3 Sekunden bedienbar, 60 Bilder pro Sekunde
+    mit allen Systemen. **Auf einem echten Telefon ist das noch nicht
+    geprüft**, der Emulator nutzt die Grafikkarte des Macs.
+- **Die Oberfläche von PC und Android sieht jetzt aus wie die iOS-App.**
+  Bisher war es eine eigene, blaugraue Gestaltung mit umrandeten Kästen,
+  kleiner Schrift und einer Seitenleiste; die iOS-Fassung wirkte daneben
+  aufgeräumter. Übernommen sind Farben, Schrift, Abstände, Aufbau und
+  Navigation.
+  - **Farben und Schrift.** Die semantischen Farben von iOS: schwarzer
+    Grund statt Blaugrau, randlose Karten mit größerem Radius, Systemblau
+    als Akzent. Grundschrift 17 Pixel wie die 17 Punkt auf iOS, und die
+    Schriftfamilie ist die des jeweiligen Systems.
+  - **Vier Darstellungen statt einer.** Automatisch, Hell, Dunkel und
+    Hoher Kontrast, dieselben wie auf iOS. Die App war bisher fest dunkel
+    mit einem Kontrast-Schalter; wer den an hatte, landet beim hohen
+    Kontrast.
+  - **Startseite nach `HomeView`**: großer Titel, fachlicher Hinweis als
+    Karte, Favoriten, Fortschritt, Schnellzugriff, Module nach Thema und
+    der Fahrplan zum Aufklappen.
+  - **Einträge öffnen sich als eigene Seite.** Vorher standen Liste und
+    Inhalt nebeneinander in einem Kasten. Jetzt zeigt das Modul erst die
+    Liste, der Eintrag kommt mit Zurück-Schaltfläche, und jeder Abschnitt
+    ist eine eigene Karte. Betrifft die zehn Themenmodule ebenso wie
+    Werkzeuge, Medikamente, Checklisten und die Rhythmus-Bibliothek des
+    EKG-Trainers.
+  - Der rote Hinweiskasten ist dem gemeinsamen Baustein nach dem Vorbild
+    von `DisclaimerBox` gewichen, in allen Modulen derselbe.
+  - **Unten eine Reiterleiste statt der Schublade** auf schmalen
+    Fenstern, mit Start, Module, Quiz und Suche wie in der TabView auf
+    iOS. Dafür kamen zwei Seiten dazu, die es nur schmal braucht.
+  - **Jede Ansicht beginnt oben.** Vorher behielt die Inhaltsfläche beim
+    Wechsel die Scrollposition der vorherigen Seite, sodass eine gerade
+    geöffnete Detailseite irgendwo in der Mitte anfing.
+  - **Ein Klick auf das schon offene Modul führt zurück zu seiner Liste**,
+    so wie der aktive Reiter auf iOS zur Wurzel zurückgeht. Vorher blieb
+    die Detailseite stehen.
+  - Geprüft bei 375 und 390 Pixeln: alle vier Reiter, alle 17 Module und
+    116 Detailseiten ohne waagerechten Überlauf. Tiefe Verweise aus
+    Favoriten und Fahrplan öffnen weiterhin direkt die Detailseite.
+  - **Die Gestenleiste auf Android braucht einen eigenen Mindestabstand.**
+    Die WebView meldet oben 52 Pixel sicheren Bereich, unten aber null,
+    obwohl die Gestenleiste dort liegt. Wer sich auf `env()` verlässt,
+    legt die Reiterleiste darunter.
+- **Atlas auf dem iPad: Systemliste lag über dem Körper.** Ob die Liste
+  neben der Szene steht oder über eine Taste als Blatt aufgeht, hing an der
+  Größenklasse. Im iPad-Split-View ist die Detailspalte zwar „regular", aber
+  oft nur gut 500 Punkt breit; die 232 Punkt breite Liste nahm davon fast
+  die Hälfte und lag über dem Rumpf. Die Entscheidung richtet sich jetzt
+  nach der gemessenen Breite. Auf breiten iPads steht die Liste weiter
+  daneben, und das Modell rückt in den freien Streifen rechts davon.
+  - Die Einpassung vermisst die Bedienfelder jetzt auf zwei Arten, als
+    Kante und als Höhe, und nimmt den größeren Wert. Je nach Gerät fällt
+    die eine oder andere Messung zu klein aus: auf dem iPhone läuft die
+    Szene unter der Tab-Leiste hindurch, im iPad-Split-View liegt ihr
+    Rechteck gegenüber den Bedienfeldern versetzt. Zu viel Rand kostet
+    etwas Modellgröße, zu wenig schneidet die Füße ab.
+- **Tests für die Rechner** (`ios/SanWissenTests/`). Die Rechenlogik steckte
+  in den SwiftUI-Ansichten und war damit nicht prüfbar. Sie steht jetzt als
+  reine Funktionen in `ScoreLogic.swift`, gegen die 17 Tests rechnen, die
+  über parametrisierte Fälle rund 40 Eingaben abdecken. Geprüft werden vor
+  allem die Grenzen: wo GCS von mittelschwer auf leicht springt, ab wann die
+  Schmerzskala welches Medikament nennt, dass die Neuner-Regel in beiden
+  Altersgruppen 100 Prozent ergibt, und die beiden Verdünnungsbeispiele der
+  App.
+  - Die Schwellen sind mit der Desktop-App abgeglichen; sie stimmen
+    überein. Die Tests halten beide Seiten auf demselben Stand, denn diese
+    Logik lässt sich nicht nach `content/` verschieben.
+  - Ein Test hält ausdrücklich fest, dass APGAR erst ab 8 als „guter
+    Zustand" gilt, während verbreitet 7 bis 10 genannt wird. So geschieht
+    eine spätere Korrektur bewusst und nicht unbemerkt.
+  - Der CI-Job baut die iOS-App nicht mehr nur, sondern führt die Tests aus.
+- **CI-Workflow für Pull Requests** (`.github/workflows/ci.yml`). Bisher gab
+  es nur den Release-Workflow, der ausschließlich auf Tags reagiert: ein
+  Fehler fiel damit erst beim Bauen der Installer auf, also lange nach dem
+  Merge. Drei Jobs laufen jetzt bei jedem PR und auf `main`:
+  - **Inhalte & Frontend**: `check-content` (Schemas und Verweise) sowie
+    `npm run build` mit Typprüfung
+  - **iOS-App bauen**: für den Simulator, ohne Signierung, wie es ohne
+    `Signing.local.xcconfig` ohnehin läuft
+  - **Tauri-Backend prüfen**: `cargo check`, damit Rust-Fehler vor dem Tag
+    auffallen statt beim Release
+- **JSON Schemas für alle Inhaltsdateien** unter `content/schema/`, je Datei
+  über `$schema` verknüpft. VS Code und die meisten Editoren werten das ohne
+  Zutun aus und bieten Feldvervollständigung, eine Markierung bei fehlendem
+  Pflichtfeld wie `sourceNote`, Auswahllisten für feste Werte und eine
+  Warnung bei vertippten Feldnamen. Das war der eigentliche Zweck des
+  Umbaus: Inhalte sollen sich ohne Entwicklerhintergrund pflegen lassen.
+  - `npm run check-content` prüft dieselben Schemas, damit ein Fehler auch
+    im Build auffällt und nicht nur im Editor sichtbar ist.
+  - Dazu zwei Prüfungen, die ein Schema nicht ausdrücken kann: dass jede
+    Kategorie in der `categoryOrder` ihrer Datei steht und dass zu jeder
+    verknüpften Abbildung Datei und Bildunterschrift vorliegen.
+- **Abbildungen vereinheitlicht: der Desktop zeigt jetzt alle 47.** Bisher
+  waren im Inhalt 47 Abbildungen verknüpft, die der Desktop an keiner
+  Stelle rendern konnte; er kannte nur drei fest eingebaute SVG-Zeichnungen.
+  Beim Herz-Kreislauf-System fehlten ihm damit Herzaufbau,
+  Erregungsleitungssystem und Kreislaufschema, die auf dem iPhone zu sehen
+  waren. Umgekehrt erschien der Kopfverband nur auf dem Desktop, weil es
+  dazu eine Zeichnung, aber kein Bild gab.
+  - Die Bilder liegen jetzt unter `content/images/` und werden von beiden
+    Apps genutzt. Die Kopie unter `public/electrodes/` entfällt.
+  - Die Bildunterschriften standen in einem `switch` in
+    `IllustrationView.swift` und damit nur auf iOS. Sie stehen jetzt in
+    `content/illustrations.json` und gelten für beide Apps.
+  - Die drei SVG-Komponenten sind entfernt. Der Kopfverband verliert damit
+    seine Abbildung, weil es dazu kein Bild gibt.
+  - `npm run check-content` meldet ab sofort, wenn zu einer verknüpften
+    Abbildung die Bilddatei oder die Bildunterschrift fehlt. Genau dieser
+    Fall war unbemerkt im Bestand.
+- **`minLevel` und `QualificationLevel` entfernt.** Das Feld stammte aus
+  der früheren Navigation nach Qualifikationsstufe (SanH/RS/NotSan), die in
+  0.17.0 durch die Gruppierung nach Thema ersetzt wurde. Seither hing es an
+  806 Stellen, ohne Anzeige, Gruppierung oder Suche zu beeinflussen. Kein
+  einziger Zugriff darauf war im Code übrig, nur Deklarationen.
+  - 806 Vorkommen in 13 Inhaltsdateien, die Felder in 13 `types.ts`, die
+    vier Swift-Modelle und `src/app/levels.ts` sind weg.
+  - Die Inhaltsdateien werden dadurch rund 16 KB kleiner, vor allem aber
+    um 806 Zeilen Rauschen leichter, was beim Bearbeiten von Hand zählt.
+- **Das Schema heißt jetzt durchgängig xABCDE statt cABCDE.** So wird es in
+  der Ausbildung benannt, und das Glossar erklärte ohnehin schon das x,
+  während es als cABCDE geführt war. Betroffen sind Titel, Überschriften,
+  Cheat-Sheet, Glossar, Checkliste, Fahrplan und die Querverweise aus
+  Anatomie und Traumatologie.
+  - Die Quellenhinweise zitieren weiterhin die Abschnittstitel des
+    SAA/BPR-Dokuments, das an dieser Stelle `<c>` schreibt. Sie sagen die
+    Abweichung jetzt ausdrücklich an, wie es die Konvention für
+    `sourceNote` verlangt. Nebenbei korrigiert: die Zitate lauteten bisher
+    „cABCDE, Herangehensweise", das Dokument schreibt aber
+    „<c>ABCDE – Herangehensweise".
 - **Elektrodenlage am Rettungsdienst statt an Mason-Likar ausgerichtet**:
   Geklebt wird an Schultern und Leisten, damit die Flächen für die
   Defibrillations-Pads frei bleiben. Die in Klinik und Intensivmedizin
@@ -130,6 +389,23 @@ gemeinsame Inhaltsquelle ändern.
   Körperknoten hängen. Und das Seitenverhältnis erreichte die Szene nie,
   weil die eingebettete Ansicht beim ersten Aufbau noch keine Größe hat;
   das Raster wurde dadurch quer statt hochkant.
+- **Atlas: Beschriftung lag auf dem Modell (iOS).** Die Kameraeinpassung
+  rechnete mit fest verdrahteten Anteilen (0,62 der Höhe, 0,11 Versatz),
+  die die Höhe der Bedienfelder nur schätzten. Seit der Umschalter für das
+  Geschlecht in der Kopfzeile sitzt, bricht die Quellenzeile dort auf drei
+  Zeilen um, und die Schätzung stimmte nicht mehr: „Erwachsener Mensch ·
+  männlich" lag auf den Unterschenkeln, die Füße waren abgeschnitten.
+  Kopfzeile und Bedienfelder melden ihre Kanten jetzt über
+  `PreferenceKey` in einem gemeinsamen Koordinatenraum, aus dem die freie
+  Fläche berechnet wird. Der gemeinsame Raum ist nötig, weil die Szene die
+  untere Safe Area ignoriert und unter der Tab-Leiste weiterläuft, die
+  Bedienfelder aber darüber liegen; reine Höhen wären nicht vergleichbar.
+  Damit stimmt die Einpassung auch im Quiz, auf dem iPad und bei großer
+  Schrift, wo die Felder jeweils anders hoch sind.
+- **Datum des Inhaltsstands wurde auf iOS roh angezeigt.** Dort stand
+  „2026-09-20" statt „20.09.2026", weil das Gegenstück zu
+  `src/app/formatDate.ts` fehlte. Betrifft die Themenmodule, die
+  Medikamente und die Suche.
 - **package-lock.json** an Name und Version aus `package.json`
   angeglichen.
 

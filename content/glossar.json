@@ -1,0 +1,377 @@
+{
+  "$schema": "./schema/glossar.schema.json",
+  "entries": [
+    {
+      "id": "aed",
+      "abbr": "AED",
+      "meaning": "Automatisierter Externer Defibrillator",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "aelrd",
+      "abbr": "ÄLRD",
+      "meaning": "Ärztliche/r Leiter/in Rettungsdienst",
+      "description": "Verantwortlich für die medizinisch-organisatorischen Belange des Rettungsdienstes, u. a. Erlass der SAA/BPR.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "als",
+      "abbr": "ALS",
+      "meaning": "Advanced Life Support",
+      "description": "Erweiterte Reanimationsmaßnahmen (z. B. Medikamentengabe, erweiterte Atemwegssicherung).",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "apgar",
+      "abbr": "APGAR",
+      "meaning": "Atmung, Puls, Grundtonus, Aussehen, Reflexe",
+      "description": "Standardisierte Beurteilung des Neugeborenen nach 1, 5 und 10 Minuten, siehe Pädiatrie-Modul.",
+      "moduleId": "paediatrie",
+      "itemId": "neugeborenen-erstversorgung-apgar",
+      "itemTitle": "Erstversorgung Neugeborenes & APGAR-Score"
+    },
+    {
+      "id": "bls",
+      "abbr": "BLS",
+      "meaning": "Basic Life Support",
+      "description": "Basismaßnahmen der Reanimation ohne Hilfsmittel (Herzdruckmassage, Beatmung, AED).",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "bos",
+      "abbr": "BOS",
+      "meaning": "Behörden und Organisationen mit Sicherheitsaufgaben",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "bpr",
+      "abbr": "BPR",
+      "meaning": "Behandlungspfad(e)",
+      "description": "Standardisierte, strukturierte Vorgehensweisen bei bestimmten Krankheitsbildern.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "divi",
+      "abbr": "DIVI",
+      "meaning": "Deutsche Interdisziplinäre Vereinigung für Intensiv- und Notfallmedizin",
+      "description": "U. a. Herausgeber des bundesweit standardisierten Notarzteinsatzprotokolls (DIVI-Protokoll).",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "ega",
+      "abbr": "EGA",
+      "meaning": "Extraglottische Atemwegshilfe",
+      "description": "Z. B. Larynxmaske oder Larynxtubus.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "ffp2",
+      "abbr": "FFP2",
+      "meaning": "Filtering Face Piece (Schutzklasse 2)",
+      "description": "Partikelfiltrierende Atemschutzmaske.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "gcs",
+      "abbr": "GCS",
+      "meaning": "Glasgow Coma Scale",
+      "description": "Standardisierte Skala zur Beurteilung der Bewusstseinslage, siehe Werkzeuge-Modul.",
+      "moduleId": "werkzeuge",
+      "itemId": "gcs",
+      "itemTitle": "Glasgow Coma Scale (GCS)"
+    },
+    {
+      "id": "hdm",
+      "abbr": "HDM",
+      "meaning": "Herzdruckmassage",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "im",
+      "abbr": "i.m.",
+      "meaning": "intramuskulär",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "io",
+      "abbr": "i.o.",
+      "meaning": "intraossär",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "iv",
+      "abbr": "i.v.",
+      "meaning": "intravenös",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "itw",
+      "abbr": "ITW",
+      "meaning": "Intensivtransportwagen",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "kit",
+      "abbr": "KIT",
+      "meaning": "Kriseninterventionsteam",
+      "description": "Team zur psychosozialen Erstbetreuung nach belastenden Ereignissen.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "ktw",
+      "abbr": "KTW",
+      "meaning": "Krankentransportwagen",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "manv",
+      "abbr": "MANV",
+      "meaning": "Massenanfall von Verletzten",
+      "description": "Anzahl/Schwere der Verletzten übersteigt die sofort verfügbaren Rettungsmittel, siehe Sanitätsdienst-Modul.",
+      "moduleId": "sanitaetsdienst",
+      "itemId": "manv-sichtung",
+      "itemTitle": "MANV & Sichtung (Triage)"
+    },
+    {
+      "id": "naca",
+      "abbr": "NACA",
+      "meaning": "National Advisory Committee for Aeronautics (Score)",
+      "description": "Einteilung der Einsatzschwere von 0–7, siehe Werkzeuge-Modul.",
+      "moduleId": "werkzeuge",
+      "itemId": "naca",
+      "itemTitle": "NACA-Score"
+    },
+    {
+      "id": "nacl",
+      "abbr": "NaCl",
+      "meaning": "Natriumchlorid (Kochsalzlösung)",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "nef",
+      "abbr": "NEF",
+      "meaning": "Notarzteinsatzfahrzeug",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "notsan",
+      "abbr": "NotSan",
+      "meaning": "Notfallsanitäter:in",
+      "description": "Höchste nichtärztliche Qualifikationsstufe im deutschen Rettungsdienst.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "nrs-vas",
+      "abbr": "NRS / VAS",
+      "meaning": "Numerische Ratingskala / Visuelle Analogskala",
+      "description": "Schmerzskalen von 0–10, siehe Werkzeuge-Modul.",
+      "moduleId": "werkzeuge",
+      "itemId": "schmerzskala",
+      "itemTitle": "Schmerzskala (NRS/VAS)"
+    },
+    {
+      "id": "opqrst",
+      "abbr": "OPQRST",
+      "meaning": "Onset, Provocation, Quality, Radiation, Severity, Time",
+      "description": "Schema zur strukturierten Schmerzanamnese, siehe Algorithmen-Modul.",
+      "moduleId": "algorithmen",
+      "itemId": "opqrst",
+      "itemTitle": "OPQRST-Schema"
+    },
+    {
+      "id": "pea",
+      "abbr": "PEA",
+      "meaning": "Pulslose elektrische Aktivität",
+      "description": "Nicht-schockbarer Rhythmus bei der Reanimation.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "pls",
+      "abbr": "PLS",
+      "meaning": "Paediatric Life Support",
+      "description": "Reanimation bei Kindern.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "psa",
+      "abbr": "PSA",
+      "meaning": "Persönliche Schutzausrüstung",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "psnv",
+      "abbr": "PSNV",
+      "meaning": "Psychosoziale Notfallversorgung",
+      "description": "Betreuung von Betroffenen und Einsatzkräften nach belastenden Ereignissen.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "psychkg",
+      "abbr": "PsychKG",
+      "meaning": "Gesetz über Hilfen und Schutzmaßnahmen bei psychischen Krankheiten",
+      "description": "Regelt u. a. die Unterbringung gegen den eigenen Willen. Bezeichnung ist bundeslandspezifisch unterschiedlich.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "rh",
+      "abbr": "RH",
+      "meaning": "Rettungshelfer:in",
+      "description": "Ähnlicher Kompetenzumfang wie Rettungssanitäter. In dieser App unter „RS\" zusammengefasst.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "rosc",
+      "abbr": "ROSC",
+      "meaning": "Return of Spontaneous Circulation",
+      "description": "Wiedereinsetzen des Spontankreislaufs nach Reanimation.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "rs",
+      "abbr": "RS",
+      "meaning": "Rettungssanitäter:in",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "rth",
+      "abbr": "RTH",
+      "meaning": "Rettungshubschrauber",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "rtw",
+      "abbr": "RTW",
+      "meaning": "Rettungswagen",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "saa",
+      "abbr": "SAA",
+      "meaning": "Standard-Arbeitsanweisung(en)",
+      "description": "Standardisierte Handlungsanweisungen für den Rettungsdienst. Grundlage vieler Inhalte in dieser App.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "sampler",
+      "abbr": "SAMPLER(S)",
+      "meaning": "Symptome, Allergien, Medikamente, Patientenvorgeschichte, Letzte Mahlzeit, Ereignis, Risikofaktoren, (Schwangerschaft)",
+      "description": "Anamnese-Schema, siehe Algorithmen-Modul.",
+      "moduleId": "algorithmen",
+      "itemId": "sampler",
+      "itemTitle": "SAMPLER(S)-Schema"
+    },
+    {
+      "id": "sanh",
+      "abbr": "SanH",
+      "meaning": "Sanitätshelfer:in",
+      "description": "Grundlegende Qualifikationsstufe im Sanitätsdienst.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "sinnhaft",
+      "abbr": "SINNHAFT",
+      "meaning": "Start, Identifikation, Notfallereignis, Notfallpriorität, Handlungen, Auffälligkeiten, Fazit, Transportziel",
+      "description": "Schema für die strukturierte mündliche Übergabe, siehe Algorithmen-Modul.",
+      "moduleId": "algorithmen",
+      "itemId": "sinnhaft",
+      "itemTitle": "Übergabe – SINNHAFT"
+    },
+    {
+      "id": "stgb",
+      "abbr": "StGB",
+      "meaning": "Strafgesetzbuch",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "vf-pvt",
+      "abbr": "VF / pVT",
+      "meaning": "Kammerflimmern / pulslose ventrikuläre Tachykardie",
+      "description": "Schockbare Rhythmen bei der Reanimation.",
+      "moduleId": null,
+      "itemId": null,
+      "itemTitle": null
+    },
+    {
+      "id": "abcde",
+      "abbr": "xABCDE",
+      "meaning": "kritische Blutung (eXsanguinating haemorrhage), Airway, Breathing, Circulation, Disability, Exposure",
+      "description": "Strukturiertes Schema zur Patientenbeurteilung. Das vorangestellte x steht für eine kritische äußere Blutung, die noch vor dem Atemweg gestoppt wird, siehe Algorithmen-Modul. Das SAA/BPR-Dokument schreibt an derselben Stelle <c> für „critical bleeding\", gemeint ist dasselbe.",
+      "moduleId": "algorithmen",
+      "itemId": "abcde-herangehensweise",
+      "itemTitle": "xABCDE – Herangehensweise"
+    },
+    {
+      "id": "zoabcde",
+      "abbr": "ZOABCDE",
+      "meaning": "Zeiten, Opening, Airway, Breathing, Circulation, Disability, Exposure",
+      "description": "Schema zur strukturierten telefonischen Patientenanmeldung in der Zielklinik, siehe Algorithmen-Modul.",
+      "moduleId": "algorithmen",
+      "itemId": "patientenanmeldung",
+      "itemTitle": "Patientenanmeldung (ZOABCDE)"
+    }
+  ]
+}

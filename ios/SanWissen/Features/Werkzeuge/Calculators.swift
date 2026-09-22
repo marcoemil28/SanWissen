@@ -22,13 +22,8 @@ struct GcsCalculator: View {
     ]
 
     private var complete: Bool { eye != nil && verbal != nil && motor != nil }
-    private var total: Int { (eye ?? 0) + (verbal ?? 0) + (motor ?? 0) }
-
-    private var severity: (label: String, tone: ResultTone) {
-        if total >= 13 { return ("Leichtes Schädel-Hirn-Trauma (SHT)", .good) }
-        if total >= 9 { return ("Mittelschweres SHT", .warn) }
-        return ("Schweres SHT", .bad)
-    }
+    private var total: Int { Gcs.total(eye: eye ?? 0, verbal: verbal ?? 0, motor: motor ?? 0) }
+    private var severity: (label: String, tone: ResultTone) { Gcs.severity(total: total) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -60,25 +55,8 @@ struct SchmerzSkala: View {
 
     private var score: Int { Int(value.rounded()) }
 
-    private var band: String {
-        switch score {
-        case 0: "Kein Schmerz"
-        case 1...3: "Leichter Schmerz"
-        case 4...6: "Mittlerer Schmerz"
-        case 7...9: "Starker Schmerz"
-        default: "Stärkster vorstellbarer Schmerz"
-        }
-    }
-
-    private var medHint: String? {
-        if score >= 6 {
-            return "Ab NRS ≥ 6 ist laut SAA/BPR z. B. Morphin/Fentanyl/Nalbuphin indiziert (NotSan-Kompetenz, siehe Medikamente)."
-        }
-        if score >= 3 {
-            return "Ab NRS ≥ 3 ist laut SAA/BPR z. B. Ibuprofen/Paracetamol indiziert (NotSan-Kompetenz, siehe Medikamente)."
-        }
-        return nil
-    }
+    private var band: String { PainScale.band(score) }
+    private var medHint: String? { PainScale.medHint(score) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -145,13 +123,8 @@ struct ApgarCalculator: View {
     @State private var scores: [String: Int] = [:]
 
     private var complete: Bool { Self.criteria.allSatisfy { scores[$0.key] != nil } }
-    private var total: Int { Self.criteria.reduce(0) { $0 + (scores[$1.key] ?? 0) } }
-
-    private var interpretation: (label: String, tone: ResultTone) {
-        if total >= 8 { return ("Guter Zustand", .good) }
-        if total >= 4 { return ("Mäßig deprimiert — engmaschig beobachten", .warn) }
-        return ("Kritisch — sofortige Erstversorgung/Reanimationsbereitschaft", .bad)
-    }
+    private var total: Int { Apgar.total(scores, criteria: Self.criteria.map(\.key)) }
+    private var interpretation: (label: String, tone: ResultTone) { Apgar.interpretation(total: total) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -181,56 +154,20 @@ struct ApgarCalculator: View {
 // MARK: - Neuner-Regel
 
 struct NeunerRegel: View {
-    private enum AgeMode: String, CaseIterable, Identifiable {
-        case erwachsen, kind
-        var id: String { rawValue }
-        var label: String { self == .erwachsen ? "Erwachsene" : "Kind (vereinfacht)" }
-    }
-
-    private struct Region: Identifiable {
-        let id: String
-        let label: String
-        let percent: Int
-    }
-
-    private static let regions: [AgeMode: [Region]] = [
-        .erwachsen: [
-            Region(id: "kopf", label: "Kopf/Hals", percent: 9),
-            Region(id: "armLinks", label: "Arm links (ganz)", percent: 9),
-            Region(id: "armRechts", label: "Arm rechts (ganz)", percent: 9),
-            Region(id: "rumpfVorne", label: "Rumpf vorne", percent: 18),
-            Region(id: "rumpfHinten", label: "Rumpf hinten", percent: 18),
-            Region(id: "beinLinks", label: "Bein links (ganz)", percent: 18),
-            Region(id: "beinRechts", label: "Bein rechts (ganz)", percent: 18),
-            Region(id: "genital", label: "Genitalregion", percent: 1),
-        ],
-        .kind: [
-            Region(id: "kopf", label: "Kopf/Hals (bei Kindern anteilig größer)", percent: 18),
-            Region(id: "armLinks", label: "Arm links (ganz)", percent: 9),
-            Region(id: "armRechts", label: "Arm rechts (ganz)", percent: 9),
-            Region(id: "rumpfVorne", label: "Rumpf vorne", percent: 18),
-            Region(id: "rumpfHinten", label: "Rumpf hinten", percent: 18),
-            Region(id: "beinLinks", label: "Bein links (ganz, bei Kindern anteilig kleiner)", percent: 14),
-            Region(id: "beinRechts", label: "Bein rechts (ganz, bei Kindern anteilig kleiner)", percent: 14),
-        ],
-    ]
-
     @Environment(\.theme) private var theme
-    @State private var mode: AgeMode = .erwachsen
+    @State private var mode: BurnAgeMode = .erwachsen
     @State private var checked: Set<String> = []
     @State private var handflaechen = 0
 
-    private var regions: [Region] { Self.regions[mode] ?? [] }
-    private var total: Int {
-        regions.filter { checked.contains($0.id) }.reduce(0) { $0 + $1.percent } + handflaechen
-    }
+    private var regions: [BurnRegion] { BurnArea.regions(mode) }
+    private var total: Int { BurnArea.total(checked: checked, handflaechen: handflaechen, mode: mode) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             ToolIntro(text: "Neuner-Regel (Wallace) zur groben Schätzung der verbrannten Körperoberfläche (VKOF). Bei Kindern sind die Anteile anders verteilt (größerer Kopf, kleinere Beine) — hier vereinfacht dargestellt. Für die genaue pädiatrische Einschätzung gelten altersadaptierte Schemata (z. B. Lund-Browder).")
 
             Picker("Altersgruppe", selection: $mode) {
-                ForEach(AgeMode.allCases) { Text($0.label).tag($0) }
+                ForEach(BurnAgeMode.allCases) { Text($0.label).tag($0) }
             }
             .pickerStyle(.segmented)
             .onChange(of: mode) { _, _ in checked = [] }
@@ -368,16 +305,7 @@ struct VerduennungsRechner: View {
     @State private var c2 = ""
     @State private var v2 = ""
 
-    /// Akzeptiert Komma und Punkt als Dezimaltrennzeichen.
-    private func parse(_ text: String) -> Double? {
-        Double(text.replacingOccurrences(of: ",", with: "."))
-    }
-
-    private var values: (c1: Double, c2: Double, v2: Double)? {
-        guard let a = parse(c1), let b = parse(c2), let c = parse(v2),
-              a > 0, b > 0, c > 0 else { return nil }
-        return (a, b, c)
-    }
+    private var result_: Dilution.Result { Dilution.compute(c1: c1, c2: c2, v2: v2) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -414,23 +342,21 @@ struct VerduennungsRechner: View {
 
     @ViewBuilder
     private var result: some View {
-        if let v = values {
-            if v.c2 > v.c1 {
-                ToolResult(tone: .bad, onReset: reset) {
-                    ResultScore(text: "Nicht durch Verdünnung erreichbar", tone: .bad)
-                    Text("Die Zielkonzentration ist höher als die Ausgangskonzentration.")
-                        .font(.callout)
-                }
-            } else {
-                let v1 = (v.c2 * v.v2) / v.c1
-                ToolResult(tone: .good, onReset: reset) {
-                    ResultScore(text: String(format: "%.2f ml Ausgangslösung", v1), tone: .good)
-                    Text(String(format: "+ %.2f ml Verdünnungsmittel (z. B. NaCl 0,9 %%) = %g ml gesamt",
-                                v.v2 - v1, v.v2))
-                        .font(.callout)
-                }
+        switch result_ {
+        case let .ok(ausgangsloesung, verduennungsmittel):
+            ToolResult(tone: .good, onReset: reset) {
+                ResultScore(text: String(format: "%.2f ml Ausgangslösung", ausgangsloesung), tone: .good)
+                Text(String(format: "+ %.2f ml Verdünnungsmittel (z. B. NaCl 0,9 %%) = %g ml gesamt",
+                            verduennungsmittel, ausgangsloesung + verduennungsmittel))
+                    .font(.callout)
             }
-        } else {
+        case .nichtErreichbar:
+            ToolResult(tone: .bad, onReset: reset) {
+                ResultScore(text: "Nicht durch Verdünnung erreichbar", tone: .bad)
+                Text("Die Zielkonzentration ist höher als die Ausgangskonzentration.")
+                    .font(.callout)
+            }
+        case .unvollstaendig:
             ToolResult(onReset: reset) {
                 Text("Bitte alle drei Werte als Zahl größer 0 eingeben.")
                     .font(.callout).foregroundStyle(.secondary)

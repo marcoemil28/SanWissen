@@ -21,11 +21,9 @@ struct ModuleRegistry: Codable {
 
 // MARK: - Generisches Themenmodul
 
-/// Ein einzelner Merkpunkt bzw. Handlungsschritt. `minLevel` ist ein reines
-/// Metadatum aus dem Desktop-Datenmodell und steuert die Anzeige nicht.
+/// Ein einzelner Merkpunkt bzw. Handlungsschritt.
 struct TopicItem: Codable, Hashable {
     let text: String
-    let minLevel: String?
 }
 
 struct TopicSection: Codable, Hashable {
@@ -40,7 +38,6 @@ struct Topic: Codable, Identifiable, Hashable {
     let title: String
     let category: String?
     let summary: String
-    let minLevel: String
     let page: Int?
     let sourceNote: String?
     let notes: [String]
@@ -73,7 +70,6 @@ struct Medikament: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let category: String
-    let minLevel: String
     let wirkstoff: String?
     let konzentration: String?
     let arzneimittelgruppe: String?
@@ -176,8 +172,21 @@ struct ToolInfo: Codable, Identifiable, Hashable {
 
 // MARK: - Meta
 
-struct ContentMeta: Codable {
-    let appVersion: String
-    let exportedAt: String
-    let contentStands: [String: String]
+/// Eine Abbildung mit ihrer Bildunterschrift. Die Datei liegt als
+/// `illu-<id>.jpg` im Bundle, die Unterschrift kommt aus
+/// `content/illustrations.json` und wird von beiden Apps gelesen.
+struct Illustration: Codable, Hashable {
+    let id: String
+    let caption: String
+}
+
+/// Formatiert ein ISO-Datum (JJJJ-MM-TT) als deutsches Datum (TT.MM.JJJJ).
+///
+/// Entsprechung zu `src/app/formatDate.ts` der Desktop-App. Ohne das stand
+/// hier das rohe Datum aus dem Export, während der Desktop es umgeschrieben
+/// hat: derselbe Inhalt sah je nach App anders aus.
+func formatStand(_ isoDate: String) -> String {
+    let parts = isoDate.split(separator: "-")
+    guard parts.count == 3 else { return isoDate }
+    return "\(parts[2]).\(parts[1]).\(parts[0])"
 }

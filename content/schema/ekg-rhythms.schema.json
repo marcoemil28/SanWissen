@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ekg-rhythms.schema.json",
+  "title": "EKG-Rhythmen",
+  "description": "Die Kurven werden aus \"gen\" parametrisch erzeugt, es gibt kein Bildmaterial.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Verweis auf dieses Schema. Nur für den Editor, die Apps ignorieren das Feld."
+    },
+    "categoryLabels": {
+      "type": "object",
+      "description": "Anzeigename je Kategorie.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "propertyNames": {
+        "enum": [
+          "Sinusrhythmen",
+          "Vorhofarrhythmien",
+          "Kammerarrhythmien",
+          "Erregungsleitungsstoerungen",
+          "Kreislaufstillstand",
+          "Ischaemiezeichen"
+        ]
+      }
+    },
+    "rhythms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "nameDe": {
+            "type": "string"
+          },
+          "nameEn": {
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "Sinusrhythmen",
+              "Vorhofarrhythmien",
+              "Kammerarrhythmien",
+              "Erregungsleitungsstoerungen",
+              "Kreislaufstillstand",
+              "Ischaemiezeichen"
+            ]
+          },
+          "difficulty": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          },
+          "keyFeatures": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            },
+            "description": "Merkmale, an denen der Rhythmus zu erkennen ist."
+          },
+          "clinicalNote": {
+            "type": "string",
+            "description": "Klinische Relevanz und Vorgehen."
+          },
+          "quizEligible": {
+            "type": "boolean",
+            "description": "false, wenn der Rhythmus sich für das Quiz nicht eignet."
+          },
+          "gen": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind"
+            ],
+            "description": "Parameter für den Kurvengenerator. Welche Felder gelten, hängt von \"kind\" ab.",
+            "properties": {
+              "kind": {
+                "enum": [
+                  "av-block-1",
+                  "av-block-2-mobitz2",
+                  "av-block-2-wenckebach",
+                  "av-block-3",
+                  "ectopic-beat",
+                  "fibrillation",
+                  "flatline",
+                  "flutter",
+                  "irregular-narrow-no-p",
+                  "regular-narrow",
+                  "regular-wide",
+                  "sinus-arrhythmia",
+                  "st-depression",
+                  "st-elevation",
+                  "ventricular-flutter"
+                ]
+              },
+              "hr": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "integer"
+                },
+                "description": "Herzfrequenzbereich [min, max]."
+              },
+              "rate": {
+                "type": "integer"
+              },
+              "atrialRate": {
+                "type": "integer"
+              },
+              "ventricularRate": {
+                "type": "integer"
+              },
+              "conduction": {
+                "type": "integer"
+              },
+              "prMs": {
+                "type": "integer"
+              },
+              "prStartMs": {
+                "type": "integer"
+              },
+              "prIncrementMs": {
+                "type": "integer"
+              },
+              "groupSize": {
+                "type": "integer"
+              },
+              "every": {
+                "type": "integer"
+              },
+              "coarse": {
+                "type": "boolean"
+              },
+              "wideEscape": {
+                "type": "boolean"
+              },
+              "elevationMv": {
+                "type": "number"
+              },
+              "depressionMv": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "nameDe",
+          "nameEn",
+          "category",
+          "difficulty",
+          "keyFeatures",
+          "clinicalNote",
+          "quizEligible",
+          "gen"
+        ]
+      }
+    }
+  },
+  "required": [
+    "categoryLabels",
+    "rhythms"
+  ]
+}

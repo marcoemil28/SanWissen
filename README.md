@@ -125,10 +125,9 @@ Hot-Reload sofort übernommen.
 - Ursprünglich gab es hier drei Qualifikationsstufen (SanH/RS/NotSan) als
   Navigationsachse — nach Rückmeldung war das unnötig komplex, da Inhalte
   ohnehin für alle einsehbar sind. Umgestellt in 0.17.0, siehe CHANGELOG.
-- `QualificationLevel` (`src/app/levels.ts`) existiert weiterhin als
-  internes `minLevel`-Feld auf einzelnen Inhalten (Datenmodell-Altlast aus
-  der früheren Stufen-Idee), hat aber aktuell **keine** Auswirkung auf
-  Anzeige, Gruppierung oder Suche.
+- Das zugehörige `minLevel`-Feld und der Typ `QualificationLevel` sind in
+  1.1.0 entfernt worden. Sie hingen als Altlast an 806 Stellen, ohne
+  Anzeige, Gruppierung oder Suche zu beeinflussen.
 
 ### ✅ Globale Suche
 
@@ -265,10 +264,6 @@ Hot-Reload sofort übernommen.
   „Kreislaufstillstand": ABCDE-Herangehensweise/-Instabilitäten, WASB & GCS,
   SAMPLER, OPQRST, Atemwegsmanagement, Patientenanmeldung (ZOABCDE),
   Übergabe (SINNHAFT), Reanimation Erwachsene (BLS→ALS) und Kinder (PLS).
-- Jeder einzelne Handlungsschritt trägt intern sein eigenes `minLevel`-
-  Datenfeld (z. B. Basismaßnahmen der Reanimation vs. EGA/i.v.-Zugang/
-  Medikamentengabe erst ab Notfallsanitäter) — dient nur der Datenmodell-
-  Struktur, wird aber nicht mehr separat angezeigt.
 - Laien-Basismaßnahmen (Reanimation) sind allgemeines BLS-Wissen und per
   Quellenhinweis von den PDF-Inhalten (NotSan-fokussiert) abgegrenzt.
 
@@ -292,21 +287,22 @@ Eigenständiges Modul, eigener Sidebar-Tab in der „Rettungssanitäter"-Gruppe
   Nachschlagetabelle.
   Allgemeines anatomisch-physiologisches Grundlagenwissen, keine SAA/BPR-Quelle.
 
-### ✅ 3D-Anatomieatlas (nur iOS)
+### ✅ 3D-Anatomieatlas
 
-Einstieg oben im Modul „Anatomie & Physiologie". Auf dem Desktop gibt es
-ihn nicht: das Modell ist auf Touch und native 3D-Darstellung (SceneKit)
-ausgelegt.
+Einstieg oben im Modul „Anatomie & Physiologie", auf allen Plattformen.
+Auf iOS in SceneKit, auf Windows, macOS und Android in WebGL über
+three.js. Beide lesen dieselbe Geometrie aus `content/atlas/`.
 
 - **Zwei Modelle**, umschaltbar in der Kopfzeile: männlich aus
   [BodyParts3D](https://lifesciencedb.jp/bp3d/) (2.234 Teile, 2,29 Mio.
-  Dreiecke, vollständige Abdeckung) und weiblich (902 Teile, 1,89 Mio.
-  Dreiecke). Ein vollständiger, frei lizenzierter weiblicher
-  Ganzkörperdatensatz existiert nicht, deshalb ist das weibliche Modell
-  zusammengesetzt: Organe, Gefäße, Nerven, Fortpflanzungsorgane und
-  Becken aus dem [Human Reference Atlas](https://humanatlas.io/)
-  (united-female v1.5), die übrigen Knochen und die Muskulatur aus
-  BodyParts3D. Dass diese Teile männlich sind, steht in der
+  Dreiecke, vollständige Abdeckung) und weiblich. Ein vollständiger, frei
+  lizenzierter weiblicher Ganzkörperdatensatz existiert nicht, deshalb ist
+  das weibliche Modell zusammengesetzt und zeigt am Ende 1.518 Teile mit
+  2,53 Mio. Dreiecken; der weibliche Datensatz allein bringt davon 902
+  Teile und 1,89 Mio. Dreiecke mit. Zusammengesetzt wird so: Organe,
+  Gefäße, Nerven, Fortpflanzungsorgane und Becken aus dem
+  [Human Reference Atlas](https://humanatlas.io/) (united-female v1.5),
+  die übrigen Knochen und die Muskulatur aus BodyParts3D. Dass diese Teile männlich sind, steht in der
   Quellenangabe der App.
 - **Bedienung:** Ziehen zum Drehen, zwei Finger zum Zoomen, Tippen zum
   Untersuchen. Einzelne Systeme lassen sich ein- und ausblenden oder
@@ -317,9 +313,19 @@ ausgelegt.
   aus wirklich zu erreichen ist; Drehen ändert die Auswahl.
 - Beide Datensätze stehen unter CC Attribution 4.0 International; die
   Quellenangabe steht in der App unter dem Info-Symbol. Die Geometrie
-  liegt als Rohpuffer in `ios/SanWissen/Resources/Atlas/` und wird nur
+  liegt als Rohpuffer in `content/atlas/` und wird nur
   eingeblendet (memory mapped) statt geladen. Sie macht den Großteil der
   rund 109 MB aus, die die App belegt.
+- **Zur WebGL-Fassung:** auf iOS bekommt jedes der 2.234 Netze einen
+  eigenen Knoten, was SceneKit wegsteckt. In WebGL wären das 2.234
+  Zeichenaufrufe pro Bild. Dort fasst deshalb ein `BatchedMesh` je
+  Organsystem alle Netze zusammen und bietet trotzdem Sichtbarkeit,
+  Farbe und Matrix je Teil. Gemessen: 14 Aufrufe pro Bild. Die Geometrie
+  wird dabei nicht eingeblendet, sondern geladen; auf dem
+  Android-Emulator dauert das 1,9 Sekunden.
+- Die Namen der Teile und Strukturen sind englisch, so wie sie in den
+  Quelldaten stehen. Die Organsysteme sind übersetzt und stehen in
+  `content/atlas-systems.json`.
 
 ### ✅ Werkzeuge & Scores
 
@@ -356,10 +362,9 @@ Ebenfalls fest oben in der Sidebar angepinnt.
   Thorax-/Abdominaltrauma, Verbrennungen, Polytrauma & kritische
   Blutungen (Tourniquet). Allgemeines rettungsdienstliches
   Grundlagenwissen, keine SAA/BPR-Quelle.
-- Die Verbandslehre enthält stilisierte SVG-Beispiel-Illustrationen
-  (Druckverband, Armtragetuch, Kopfverband) statt Fotos — schnell
-  umsetzbar, keine Lizenzfragen. Bei Bedarf später ersetzbar durch eigene
-  Fotos (z. B. aus Kursunterlagen).
+- Abbildungen kommen als Bilddatei aus `content/images/`, in beiden Apps
+  dieselben. Bis 1.1.0 zeichnete der Desktop hier drei Abschnitte als SVG
+  und zeigte die übrigen verknüpften Abbildungen gar nicht.
 
 ### ✅ Sanitätsdienst (Veranstaltungsdienst)
 
@@ -450,120 +455,57 @@ der Umsetzungsweg steht unter [Mobile (Android)](#mobile-android).
 
 ```
 src/
+  main.tsx                # Einstiegspunkt; setzt die Darstellung, bevor React zeichnet
+  App.tsx                 # App-Hülle: Seitenleiste am PC, Reiterleiste am Telefon
   app/
-    registry.tsx         # zentrale Liste aller Lernmodule + ModuleCategory (Sidebar-Gruppierung)
-    levels.ts             # QualificationLevel-Typ (nur noch inertes minLevel-Datenfeld je Inhalt)
-    NavigationContext.tsx    # modulübergreifende "spring zu Modul X, Eintrag Y"-Anfrage
+    registry.tsx         # Modul-Registry: Zuordnung ID → Komponente, Rest aus content/modules.json
+    content.ts            # liest die Themenmodule aus content/
+    appearance.ts          # Automatisch/Hell/Dunkel/Hoher Kontrast, wie auf iOS
+    AppearancePicker.tsx    # Umschalter dafür
+    NavigationContext.tsx    # modulübergreifende „spring zu Modul X, Eintrag Y"-Anfrage
     searchIndex.ts            # durchsuchbarer Index über alle Module
-    GlobalSearch.tsx           # Suchfeld + Ergebnisliste in der Sidebar
-    roadmap.ts                # kuratierter "Fahrplan" je Themenkategorie (nur Links, keine Inhalte)
-    favorites.ts               # Favoriten-Store (localStorage + Pub/Sub, kein React-Context)
-    formatDate.ts               # Formatiert CONTENT_STAND (ISO-Datum) als TT.MM.JJJJ
-    HomePage.tsx               # Startseite: Modul-Karten + Favoriten + Fahrplan + EKG-Fortschritt
-    quiz/
-      types.ts                  # QuizQuestion-Datenmodell
-      questions.ts                # Fragenpool über fast alle Module hinweg
-      progress.ts                  # Fortschritt + gewichtete Auswahl (analog modules/ekg/progress.ts)
-      QuizModule.tsx                # Generalisierter Quiz-Modus (Modul-Filter, Sofort-Feedback)
-    checklisten/
-      types.ts                  # Datenmodell (Checklist/ChecklistItem)
-      data.ts                     # 5 abhakbare Checklisten, aus Themenmodulen abgeleitet
-      state.ts                     # Checked-Status je Checkliste (localStorage)
-      ChecklistenModule.tsx          # Liste + abhakbare Checkliste mit Fortschrittsanzeige
-    cheatsheet/
-      types.ts                  # Datenmodell (CheatSheetCard)
-      data.ts                     # 8 großformatige Merkzettel-Karten, aus Themenmodulen verdichtet
-      CheatSheetModule.tsx          # Karten-Grid, druckbar (@media print in App.css)
+    GlobalSearch.tsx           # Suchfeld mit Auswahlliste in der Seitenleiste (PC)
+    SearchPage.tsx              # dasselbe als eigene Seite für den Reiter „Suche" (Telefon)
+    ModuleListPage.tsx           # alle Module als gruppierte Liste für den Reiter „Module"
+    TabIcons.tsx                  # einfarbige SVG-Symbole der Reiterleiste
+    HomePage.tsx                   # Startseite nach dem Vorbild von HomeView.swift
+    roadmap.ts                      # kuratierter „Fahrplan" je Kategorie (nur Links)
+    favorites.ts                     # Favoriten (localStorage + Pub/Sub)
+    formatDate.ts                     # ISO-Datum als TT.MM.JJJJ, Gegenstück zu formatStand(_:)
+    quiz/                              # Prüfungsquiz über alle Module (Fragen, Fortschritt, Ansicht)
+    checklisten/, cheatsheet/           # siehe modules/ unten, liegen historisch hier
   components/
-    ConfirmButton.tsx      # In-App-Bestätigung statt window.confirm (Tauri-WebView-sicher)
-    FavoriteButton.tsx      # ☆/★-Stern-Button, verwendet in den meisten Modul-Detailansichten
+    TopicModule.tsx        # gemeinsame Ansicht der zehn Themenmodule: Liste, dann Detailseite
+    SectionBox.tsx          # SectionBox, RowLink, RowGroup, DisclaimerBox, BackLink
+    SectionIllustration.tsx  # Abbildung aus content/images/ samt Bildunterschrift
+    FavoriteButton.tsx        # ☆/★-Stern neben Titeln
+    ConfirmButton.tsx          # In-App-Bestätigung statt window.confirm
   modules/
-    ekg/
-      types.ts           # Datenmodell für Rhythmen
-      rhythms.ts         # Rhythmus-Bibliothek (Inhalte!)
-      waveform.ts         # EKG-Kurvengenerator (parametrisch, keine Bilder)
-      EkgTrace.tsx         # Canvas-Rendering der Kurve im Monitor-Look
-      StudyMode.tsx        # Lern-/Karteikartenansicht
-      QuizMode.tsx         # Multiple-Choice-Quiz
-      ProgressView.tsx     # Fortschrittsstatistik
-      progress.ts          # localStorage-Persistenz + gewichtete Zufallsauswahl
-      EkgModule.tsx         # Tab-Container (Lernen/Elektroden/Quiz/Fortschritt)
-      electrodes/
-        types.ts             # Datenmodell für Elektrodenpunkte/-sets (inkl. ElectrodeHitZone)
-        data.ts               # Monitoring- + 12-Kanal-Set (Positionen, Landmarken, Hit-Zonen)
-        layout.ts              # Label-Platzierung (links/rechts) im SVG
-        BodyOutline.tsx        # SVG-Ganzkörperumriss (fürs Monitoring-Set)
-        ThoraxOutline.tsx       # gezoomter Brustkorb mit ICR-Bändern + Leitlinien (fürs 12-Kanal-Set)
-        ElectrodeStudy.tsx      # Lernen: alle Positionen beschriftet
-        ElectrodePlacement.tsx  # Üben: Drag-and-drop-Platzierung + Zeile/Spalte-Prüfung
-        ElectrodesTab.tsx        # Set-/Modus-Umschalter
-    medikamente/
-      types.ts           # Datenmodell für Medikamente
-      medications.json   # aus docs/saa_bpr_2025.pdf extrahierte Rohdaten
-      wirkung.ts          # ergänzte Kurz-Wirkbeschreibungen (nicht aus dem PDF)
-      data.ts             # lädt/typisiert medications.json + wirkung.ts
-      MedikamenteModule.tsx  # Kategorie-Liste + Detailansicht
-    algorithmen/
-      types.ts           # Datenmodell (AlgorithmEntry/-Section/-Step, je mit minLevel)
-      data.ts             # 9 Einträge aus BPR "Herangehensweise" + "Kreislaufstillstand"
-      AlgorithmenModule.tsx  # Detailansicht mit Schritten je Sektion
-    medikamentenvorbereitung/
-      types.ts           # Datenmodell (MedVorbereitungEntry/-Section/-Step, je mit minLevel)
-      data.ts             # 6-R-Regel, Sicherheitsprinzipien, Standardvorgehen, Verdünnungsformel
-      MedikamentenvorbereitungModule.tsx  # Detailansicht (Einzelthema, keine Liste)
+    <zehn Themenmodule>/   # je eine Hülle um TopicModule, Inhalte in content/topics-*.json
     anatomie/
-      types.ts           # Datenmodell (AnatomieTopic/-Section/-Fact, je mit minLevel)
-      data.ts             # 5 Themen: Herz-Kreislauf, Atmung, Skelett/Muskulatur, Nervensystem, Vitalparameter
-      AnatomieModule.tsx  # Detailansicht mit Fakten je Sektion
-    werkzeuge/
-      data.ts             # Tool-Registry (GCS/Schmerzskala/APGAR/Neuner-Regel/NACA)
-      GcsCalculator.tsx, SchmerzSkala.tsx, ApgarCalculator.tsx,
-      NeunerRegel.tsx, NacaScore.tsx  # je ein interaktiver Rechner
-      WerkzeugeModule.tsx # Liste + aktiver Rechner
-    traumatologie/
-      types.ts           # Datenmodell (TraumaTopic/-Section/-Fact, je mit minLevel)
-      data.ts             # 7 Themen: Frakturen, Wundversorgung, Verbandslehre, schwere
-                          #   Verletzungen, Verbrennungen, Polytrauma/Blutstillung
-      TraumatologieModule.tsx  # Detailansicht mit Fakten je Sektion
-    sanitaetsdienst/
-      types.ts           # Datenmodell (SanitaetsdienstTopic/-Section/-Fact, je mit minLevel)
-      data.ts             # 5 Themen: Wachdienst-Organisation, MANV/Sichtung, Funkalphabet,
-                          #   Veranstaltungs-Verletzungsmuster, Hygiene & Infektionsschutz
-      SanitaetsdienstModule.tsx  # Detailansicht mit Fakten je Sektion
-    internistischenotfaelle/
-      types.ts           # Datenmodell (InternistischeNotfaelleTopic/-Section/-Fact, je mit minLevel)
-      data.ts             # 10 Themen: Herz & Kreislauf, Neurologisch, Stoffwechsel & Allergie,
-                          #   Abdomen & Vergiftungen, Umweltbedingte Notfälle
-      InternistischeNotfaelleModule.tsx  # Detailansicht mit Fakten je Sektion
-    paediatrie/
-      types.ts           # Datenmodell (PaediatrieTopic/-Section/-Fact, je mit minLevel)
-      data.ts             # 4 Themen: Pädiatrie (Besonderheiten), Geburtshilfe (Geburt,
-                          #   Notgeburt, Neugeborenen-Erstversorgung & APGAR)
-      PaediatrieModule.tsx  # Detailansicht mit Fakten je Sektion
-    psychiatrienotfaelle/
-      types.ts           # Datenmodell (PsychiatrieNotfaelleTopic/-Section/-Fact, je mit minLevel)
-      data.ts             # 5 Themen: Psychiatrische Notfälle, Kommunikation,
-                          #   Sterben & Todesfeststellung, Großschadenslagen
-      PsychiatrieNotfaelleModule.tsx  # Detailansicht mit Fakten je Sektion
-    rettungstechnik/
-      types.ts           # Datenmodell (RettungstechnikTopic/-Section/-Fact, je mit minLevel)
-      data.ts             # 6 Themen: Trageformen, Lagerungsarten, Atemwege & Beatmung,
-                          #   Gerätekunde (Notfallrucksack)
-      RettungstechnikModule.tsx  # Detailansicht mit Fakten je Sektion
-    rechtlichegrundlagen/
-      types.ts           # Datenmodell (RechtlicheGrundlagenTopic/-Section/-Fact, je mit minLevel)
-      data.ts             # 5 Themen: Grundrechte & Pflichten, Delegation & Kompetenz,
-                          #   Dokumentation
-      RechtlicheGrundlagenModule.tsx  # Detailansicht mit Fakten je Sektion
-    glossar/
-      types.ts           # Datenmodell (GlossaryEntry: abbr/meaning/description)
-      data.ts             # ca. 40 RS-typische Abkürzungen, alphabetisch sortiert
-      GlossarModule.tsx    # Durchsuchbare Liste ohne Kategorie-Sidebar
-  App.tsx                 # App-Shell: nach Thema gruppierte Sidebar, globale Suche, aktives Modul
+      atlas/               # 3D-Atlas in WebGL (three.js)
+        atlasData.ts        # Verzeichnis laden, weibliches Modell zusammensetzen
+        AtlasScene.ts        # Szene: BatchedMesh je System, Kamera, Auswahl, Explosionsansicht
+        AtlasView.tsx         # Bedienung: Suche, Systeme, Freistellen, Regler, Struktur-Quiz
+    ekg/                   # Rhythmen, Kurvengenerator, Quiz, Fortschritt
+      electrodes/          # Elektroden-Trainer (SVG, Ziehen per Pointer-Events)
+    werkzeuge/             # sechs Rechner; Titel und Texte in content/werkzeuge.json
+    medikamente/, glossar/, checklisten/, cheatsheet/
+                           # eigene Ansichten; data.ts hält nur Typisierung und Zugriff
+content/                 # ALLE Fachinhalte als JSON — die einzige Pflegestelle
+  modules.json           # Modul-Registry: Titel, Kategorie, Icon/Symbol, angepinnt
+  topics-<modul>.json    # die zehn Themenmodule mit gemeinsamem Schema
+  medikamente.json, ekg-*.json, glossar.json, quiz.json, …
+  illustrations.json     # Bildunterschrift je Abbildung
+  images/                # 49 Bilddateien, von beiden Apps genutzt (ca. 5 MB)
+  atlas/                 # Geometrie des 3D-Atlas (Rohpuffer, ca. 97 MB) + atlas*.json
+  atlas-systems.json     # Namen, Farben und Beschreibungen der Organsysteme
+  schema/                # JSON Schemas: Feldhilfe im Editor + Prüfung im Build
 src-tauri/                # Rust-Backend (Tauri), native Fenster/Bundling
 docs/                    # Quell-PDFs/Unterlagen, aus denen Inhalte extrahiert werden
 scripts/
-  export-ios-content.mjs # liest src/modules/ und schreibt die Inhalte als JSON für iOS
+  check-content.mjs      # prüft alle Verweise in content/ (läuft bei npm run build)
+  vite-plugin-atlas.ts   # liefert content/atlas/ unter /atlas/ ans Frontend aus
 ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
   SanWissen/
     App/                 # Einstiegspunkt, Wurzelansicht (TabView bzw. Split-View), Routing
@@ -571,19 +513,37 @@ ios/                     # native SwiftUI-App (iPhone/iPad), siehe ios/README.md
     Content/             # Laden der JSON-Dateien + Datenmodelle
     Features/            # eine Ansicht je Modul, zehn teilen sich eine gemeinsame
       Atlas/             # 3D-Anatomieatlas (SceneKit): Szene, Systeme, Quiz
-    Resources/
-      Content/           # generiert vom Exportskript — nicht von Hand bearbeiten
-      Images/            # Abbildungen, per illustrationId aus den Modulen referenziert
-      Atlas/             # Geometrie des 3D-Atlas (Rohpuffer, ca. 97 MB) + atlas*.json
   Signing.xcconfig       # Platzhalter, bindet die lokale, nicht versionierte Datei ein
 ```
 
-Die Inhalte liegen **nur** in `src/modules/`. Die Desktop-App liest sie
-direkt als TypeScript, die iOS-App über den JSON-Export. Wer Texte ändert,
-ändert sie an einer Stelle und lässt danach `node
-scripts/export-ios-content.mjs` laufen.
+Die Inhalte liegen **nur** in `content/`, als JSON. Beide Apps lesen von
+dort: die Desktop-App über `src/app/content.ts`, die iOS-App aus dem
+App-Bundle, in das eine Build-Phase die Dateien kopiert. Es gibt keinen
+Exportschritt mehr, den man vergessen könnte.
+
+Die Dateien unter `src/modules/<name>/data.ts` halten nur noch Typisierung
+und Zugriff. Wer Texte ändert, ändert sie in `content/` und braucht dafür
+weder TypeScript noch einen Build.
 
 ### Eigene Inhalte einpflegen / korrigieren
+
+Alle Inhalte liegen als JSON unter `content/` und lassen sich direkt
+bearbeiten, ohne TypeScript oder einen Build. Jede Datei verweist über
+`$schema` auf ihr Schema unter `content/schema/`. VS Code und die meisten
+Editoren werten das ohne Zutun aus und bieten dann:
+
+- Vervollständigung der Feldnamen beim Tippen
+- eine Markierung, wenn ein Pflichtfeld wie `sourceNote` fehlt
+- eine Auswahlliste für feste Werte, etwa die Modul-Kategorien
+- eine Warnung bei vertippten Feldnamen, statt dass das Feld still
+  ignoriert wird
+
+Dieselben Schemas prüft `npm run check-content`, das auch bei
+`npm run build` läuft. Dazu kommen dort Prüfungen, die ein Schema nicht
+ausdrücken kann: dass Verweise aus Fahrplan, Cheat-Sheet, Quiz und Glossar
+auf existierende Einträge zeigen, dass zu jeder verknüpften Abbildung Datei
+und Bildunterschrift vorliegen und dass jede Kategorie in der
+`categoryOrder` ihrer Datei steht.
 
 - EKG-Rhythmen: `src/modules/ekg/rhythms.ts` — jeder Eintrag hat Merkmale,
   klinische Hinweise und die Parameter für die Kurvengenerierung
@@ -592,12 +552,11 @@ scripts/export-ios-content.mjs` laufen.
   Koordinaten beziehen sich auf die `viewBox` des jeweiligen Sets
   (Monitoring 669 × 1200, 12-Kanal 746 × 1000) und damit auf die
   Abbildungen `koerper-vorderansicht` bzw. `thorax-vorderansicht`.
-- Abbildungen: eine Datei `ios/SanWissen/Resources/Images/illu-<id>.jpg`
-  ablegen und im Abschnitt `illustrationId: '<id>'` setzen. Die
-  Bildunterschrift steht in
-  `ios/SanWissen/Features/Topics/IllustrationView.swift`. Fehlt zu einer
-  ID ein Bild, zeigt die App an der Stelle einfach nichts an.
-- Medikamente: `src/modules/medikamente/medications.json` direkt anpassen,
+- Abbildungen: eine Datei `content/images/illu-<id>.jpg` ablegen, im
+  Abschnitt `"illustration": "<id>"` setzen und die Bildunterschrift in
+  `content/illustrations.json` eintragen. `npm run check-content` meldet,
+  wenn Datei oder Unterschrift fehlt. Beide Apps zeigen dieselbe Abbildung.
+- Medikamente: `content/medikamente.json` direkt anpassen,
   oder eigene Quell-PDFs unter `docs/` ablegen und wie unten beschrieben neu
   extrahieren.
 - Wenn du eigene Skripten/Fragenkataloge hast: am besten als eigene
@@ -714,11 +673,9 @@ eigenständige native App, weil Module wie der EKG-Trainer und der
 Elektroden-Trainer von echten Gesten und nativem Scrolling deutlich
 profitieren.
 
-Doppelt gepflegte Inhalte gibt es deshalb trotzdem nicht:
-`scripts/export-ios-content.mjs` liest die TypeScript-Module unter
-`src/modules/` und schreibt sie als JSON nach
-`ios/SanWissen/Resources/Content/`. Die Texte leben also weiter genau an
-einer Stelle, Desktop und iOS greifen beide darauf zu.
+Doppelt gepflegte Inhalte gibt es deshalb trotzdem nicht: beide Apps lesen
+dieselben JSON-Dateien aus `content/`. Eine Build-Phase des Xcode-Projekts
+kopiert sie ins App-Bundle, es gibt also nichts von Hand anzustoßen.
 
 **Einrichten:** Team-ID und Bundle-ID stehen nicht im Repository. Einmalig
 anlegen:
@@ -733,15 +690,16 @@ Apple Developer Portal → *Membership*). Die Datei steht in der
 Simulator; zum Signieren für Gerät, TestFlight oder App Store werden die
 eigenen Werte gebraucht.
 
-**Inhalte aktualisieren** — nach jeder Änderung an `src/modules/`:
+**Inhalte aktualisieren:** Dateien unter `content/` bearbeiten, fertig. Die
+Build-Phase kopiert sie beim nächsten Build ins Bundle. Prüfen lässt sich
+der Bestand jederzeit:
 
 ```bash
-node scripts/export-ios-content.mjs
+npm run check-content
 ```
 
-Ohne diesen Schritt zeigt die iOS-App weiter den alten Stand. Der Export
-bricht ab, wenn ein Verweis ins Leere zeigt, etwa wenn eine
-Cheat-Sheet-Karte auf einen umbenannten Eintrag zeigt.
+Das meldet Verweise, die ins Leere zeigen, etwa wenn eine Cheat-Sheet-Karte
+auf einen umbenannten Eintrag zeigt. Es läuft auch bei `npm run build`.
 
 **Bauen:**
 
@@ -843,6 +801,16 @@ Ob sich die SwiftUI-App künftig auch auf dem Mac nutzen ließe, ist in
 [docs/macos-portierung.md](docs/macos-portierung.md) eingeschätzt (kurz:
 das iPad ist bereits abgedeckt, der Mac wäre machbar, die offene Frage
 ist das Verhältnis zur bestehenden Tauri-App).
+
+Der geplante Umbau der Inhalts-Pipeline steht in
+[docs/inhaltspipeline.md](docs/inhaltspipeline.md) (kurz: JSON wird die
+Quelle statt ein Export-Ergebnis, und die 47 verknüpften Abbildungen
+sollen endlich auch auf dem Desktop erscheinen).
+
+Was für eine Android-Fassung nötig wäre, steht in
+[docs/android.md](docs/android.md) (kurz: die Inhalte sind bereits
+plattformneutral, die Arbeit steckt im fehlenden mobilen Layout der
+Desktop-App).
 
 ## Recommended IDE Setup
 

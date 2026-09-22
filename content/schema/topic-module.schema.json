@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "topic-module.schema.json",
+  "title": "Themenmodul",
+  "description": "Eines der zehn Module mit gemeinsamem Schema (Themen → Abschnitte → Punkte).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Verweis auf dieses Schema. Nur für den Editor, die Apps ignorieren das Feld."
+    },
+    "moduleId": {
+      "type": "string",
+      "description": "ID des Moduls, muss zu einem Eintrag in modules.json passen."
+    },
+    "title": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "SF Symbol für iOS."
+    },
+    "listStyle": {
+      "enum": [
+        "facts",
+        "steps"
+      ],
+      "description": "facts = Merkpunkte, steps = nummerierte Handlungsschritte."
+    },
+    "categoryOrder": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Reihenfolge der Kategorien in der Anzeige. Muss alle vorkommenden Kategorien enthalten."
+    },
+    "contentStand": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Datum der letzten inhaltlichen Prüfung, ISO (JJJJ-MM-TT). Beim Ändern eines Moduls mitziehen."
+    },
+    "topics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stabil halten: Fahrplan, Quiz und Cheat-Sheet verweisen darauf."
+          },
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Muss in categoryOrder stehen."
+          },
+          "summary": {
+            "type": "string"
+          },
+          "page": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Seitenzahl in SAA und BPR 2025, falls von dort übernommen."
+          },
+          "sourceNote": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Worauf der Eintrag beruht, mit Seitenzahl wo es eine gibt. Ein Eintrag ohne Quellenhinweis ist unvollständig."
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "heading": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "illustration": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "ID einer Abbildung. Braucht content/images/illu-<id>.jpg und einen Eintrag in illustrations.json."
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "heading",
+                "illustration",
+                "items"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "category",
+          "summary",
+          "page",
+          "sourceNote",
+          "notes",
+          "sections"
+        ]
+      }
+    }
+  },
+  "required": [
+    "moduleId",
+    "title",
+    "symbol",
+    "listStyle",
+    "categoryOrder",
+    "contentStand",
+    "topics"
+  ]
+}

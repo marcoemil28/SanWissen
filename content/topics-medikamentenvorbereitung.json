@@ -1,0 +1,127 @@
+{
+  "$schema": "./schema/topic-module.schema.json",
+  "moduleId": "medikamentenvorbereitung",
+  "title": "Medikamente vorbereiten & verabreichen",
+  "symbol": "syringe.fill",
+  "listStyle": "steps",
+  "categoryOrder": [],
+  "contentStand": "2026-09-17",
+  "topics": [
+    {
+      "id": "medikamentenvorbereitung",
+      "title": "Medikamente vorbereiten & sicher verabreichen",
+      "category": null,
+      "summary": "Die 6-R-Regel, das Standardvorgehen bei Medikamentengabe und die Grundrechnung zum Verdünnen — unabhängig vom einzelnen Medikament.",
+      "page": 40,
+      "sourceNote": "6-R-Regel, Sicherheitsprinzipien und Standardvorgehen aus SAA/BPR „Allgemeine Erläuterungen Medikamentengabe\" und „Standardvorgehen bei Medikamentengabe\", S. 40–41. Die allgemeine Verdünnungsformel (C1×V1 = C2×V2) ist Pharmazie-Grundwissen und steht nicht im PDF; die zwei Praxisbeispiele stammen aus den jeweiligen Medikamenten-Seiten bzw. der Notfallkarte Opioid-Überdosierung (S. 42, 49).",
+      "notes": [
+        "Off-label-use: Die Anwendung mancher Medikamente außerhalb der Zulassung ist für NotSan nur im Rahmen spezifischer, eindeutiger Verfahrensanweisungen der Ärztlichen Leitung Rettungsdienst zulässig.",
+        "Die SAA zu Medikamenten ersetzen weder Fachbuch noch Pharmakologie-Unterricht und erheben keinen Anspruch auf Vollständigkeit."
+      ],
+      "sections": [
+        {
+          "heading": "6-R-Regel",
+          "illustration": "medikamentenschachtel",
+          "items": [
+            {
+              "text": "Richtiger Patient?"
+            },
+            {
+              "text": "Richtiges Medikament?"
+            },
+            {
+              "text": "Richtige Dosierung?"
+            },
+            {
+              "text": "Richtige Konzentration?"
+            },
+            {
+              "text": "Richtiger Zeitpunkt?"
+            },
+            {
+              "text": "Richtige Applikationsart?"
+            }
+          ]
+        },
+        {
+          "heading": "Sicherheitsprinzipien bei Vorbereitung und Gabe",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Aufgezogene Spritzen eindeutig kennzeichnen (z. B. DIVI-ISO-Aufkleber)"
+            },
+            {
+              "text": "4-Augen-Prinzip anwenden, wo möglich"
+            },
+            {
+              "text": "Doppelkontrolle. Sowohl bei der Vorbereitung als auch bei der Verabreichung"
+            },
+            {
+              "text": "Gesicherte Kommunikation: Anordnungen (Präparat, Dosierung) von der ausführenden Person laut wiederholen"
+            }
+          ]
+        },
+        {
+          "heading": "Standardvorgehen bei Medikamentengabe (Ablauf)",
+          "illustration": "infusionssystem",
+          "items": [
+            {
+              "text": "Indikation anhand des passenden BPR bestätigt?"
+            },
+            {
+              "text": "Kontraindikationen ausgeschlossen?"
+            },
+            {
+              "text": "Einwilligung des Patienten erteilt?"
+            },
+            {
+              "text": "6-R-Regel. Alle sechs Punkte mit „ja\" beantwortet?"
+            },
+            {
+              "text": "Durchführung: Applikation gemäß SAA"
+            },
+            {
+              "text": "Verlaufskontrolle: gewünschte Wirkung erreicht?"
+            },
+            {
+              "text": "Dokumentation im Einsatzprotokoll"
+            },
+            {
+              "text": "Bei „nein\" an irgendeinem Punkt: Alternative laut BPR nutzen bzw. Gründe für ausbleibenden Erfolg bedenken und dokumentieren"
+            }
+          ]
+        },
+        {
+          "heading": "Verdünnen – die Grundrechnung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Grundformel: Ausgangskonzentration × Ausgangsvolumen = Zielkonzentration × Zielvolumen (C1×V1 = C2×V2)"
+            },
+            {
+              "text": "Praktisch: benötigte Menge der Ausgangslösung aufziehen, mit Trägerlösung (meist NaCl 0,9 %) auf das gewünschte Zielvolumen auffüllen"
+            },
+            {
+              "text": "Fertige Spritze/Infusion sofort beschriften: Wirkstoff, Konzentration, Uhrzeit"
+            },
+            {
+              "text": "Zum Nachrechnen: siehe Werkzeuge & Scores → Verdünnungsrechner"
+            }
+          ]
+        },
+        {
+          "heading": "Beispiele aus der Praxis (SAA/BPR)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Epinephrin bei instabiler Bradykardie: 1 mg (1 ml) auf 100 ml NaCl 0,9 % verdünnt → 0,01 mg/ml"
+            },
+            {
+              "text": "Naloxon (Notfallkarte Opioid-Überdosierung): 1 Amp. (1 ml = 0,4 mg) mit 3 ml NaCl 0,9 % verdünnt → 4 ml Lösung à 0,1 mg/ml"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

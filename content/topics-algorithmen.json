@@ -1,0 +1,822 @@
+{
+  "$schema": "./schema/topic-module.schema.json",
+  "moduleId": "algorithmen",
+  "title": "Algorithmen (ABCDE, BLS/ALS)",
+  "symbol": "list.bullet.rectangle.portrait",
+  "listStyle": "steps",
+  "categoryOrder": [
+    "Herangehensweise & Einschätzung",
+    "Atemweg",
+    "Kommunikation & Übergabe",
+    "Kreislaufstillstand"
+  ],
+  "contentStand": "2026-09-20",
+  "topics": [
+    {
+      "id": "abcde-herangehensweise",
+      "title": "xABCDE – Herangehensweise",
+      "category": "Herangehensweise & Einschätzung",
+      "summary": "Strukturierte Erstuntersuchung und Prioritätensetzung bei jedem Notfallpatienten. Immer dieselbe Reihenfolge, lebensbedrohliche Probleme werden sofort bei Entdeckung behandelt statt nur dokumentiert.",
+      "page": 75,
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „<c>ABCDE – Herangehensweise\", Seite 75, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt. Die Quelle schreibt das vorangestellte Zeichen als <c>, hier steht durchgängig x.",
+      "notes": [
+        "Die Versorgungsstrategie wird nach Leitsymptomen priorisiert, dann wird der passende Behandlungspfad gewählt.",
+        "Der Patient wird regelmäßig neu beurteilt.",
+        "Invasive Maßnahmen erfolgen nach SAA durch Notfallsanitäter mit ärztlicher Delegation.",
+        "Das Behandlungspfad-Original schreibt an dieser Stelle <c> für „critical bleeding\". In vielen Lehrbüchern und Kursen, und auch hier, steht stattdessen ein x für „exsanguinating haemorrhage\". Gemeint ist dasselbe: die kritische Blutung wird vor dem Atemweg versorgt."
+      ],
+      "sections": [
+        {
+          "heading": "x – kritische Blutung (exsanguinating haemorrhage)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Noch vor A wird geprüft, ob eine primär erkennbare kritische Blutung vorliegt. Daran kann jemand in wenigen Minuten versterben, bevor ein Atemwegsproblem überhaupt zum Tragen kommt"
+            },
+            {
+              "text": "Erste Maßnahme ist die Kompression, also kräftiger direkter Druck auf die Wunde und anschließend ein Druckverband"
+            },
+            {
+              "text": "An den Extremitäten wird bei nicht beherrschbarer Blutung bis zum Tourniquet eskaliert. Es sitzt körpernah oberhalb der Wunde, wird so fest angelegt bis die Blutung steht, die Anlagezeit wird notiert und es wird nicht wieder gelockert"
+            },
+            {
+              "text": "An Übergangszonen wie Leiste, Achsel oder Hals greift kein Tourniquet. Dort wird die Wunde ausgestopft und anschließend komprimiert"
+            },
+            {
+              "text": "Erst wenn die kritische Blutung versorgt ist, geht es mit A weiter. Der Behandlungspfad „kritische Blutung\" führt die Maßnahmen im Einzelnen aus"
+            }
+          ]
+        },
+        {
+          "heading": "A – Airway (Atemweg)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Ist der Atemweg frei? Bei Verlegung wird er freigemacht"
+            },
+            {
+              "text": "Bei Verdacht auf eine Wirbelsäulenverletzung wird zugleich die Halswirbelsäule immobilisiert"
+            },
+            {
+              "text": "Bei Kreislaufstillstand wird nach dem passenden Behandlungspfad reanimiert"
+            }
+          ]
+        },
+        {
+          "heading": "B – Breathing (Atmung)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Ist die Atmung suffizient? Beurteilt werden Frequenz, Hautkolorit, Tidalvolumen und Thoraxexkursionen, Auskultation im Seitenvergleich sowie die Sauerstoffsättigung"
+            },
+            {
+              "text": "Sauerstoffgabe"
+            },
+            {
+              "text": "Bei Bedarf wird der Atemweg gesichert und beatmet, siehe Behandlungspfad Atemwegsmanagement"
+            },
+            {
+              "text": "Bei Bedarf wird ein Spannungspneumothorax entlastet (Thoraxentlastungspunktion)"
+            }
+          ]
+        },
+        {
+          "heading": "C – Circulation (Kreislauf)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Beurteilt werden Puls nach Frequenz, Qualität und Rhythmus, dazu Hauttemperatur, Hautkolorit und die Rekapillarisierungszeit über oder unter 2 Sekunden"
+            },
+            {
+              "text": "Blutungszeichen prüfen an vier Stellen: äußere Blutung, Brust und Bauch, Becken (Stichwort Open-Book-Fraktur) sowie Arme und Beine"
+            },
+            {
+              "text": "Die kritische äußere Blutung ist bereits unter x versorgt. Hier geht es zusätzlich um innere Blutungsquellen in Thorax, Abdomen, Becken und langen Röhrenknochen"
+            },
+            {
+              "text": "Bei Kreislaufinstabilität wird ein intravenöser Zugang gelegt"
+            },
+            {
+              "text": "Gegebenenfalls besteht eine „Load-Go-Treat\"-Indikation, der Transport hat dann Vorrang vor weiterer Versorgung am Einsatzort"
+            }
+          ]
+        },
+        {
+          "heading": "D – Disability (neurologische Defizite)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Bewusstseinslage nach WASB oder GCS beurteilen"
+            },
+            {
+              "text": "Sensorik und Motorik prüfen"
+            },
+            {
+              "text": "Pupillenreaktion prüfen und den Blutzucker kontrollieren"
+            }
+          ]
+        },
+        {
+          "heading": "E – Exposure und Environment (weitere Untersuchung)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Patient entkleiden und eine Ganzkörperuntersuchung durchführen"
+            },
+            {
+              "text": "Bei Bedarf Logroll-Manöver, also eine achsengerechte 90-Grad-Drehung en bloc, um die verdeckte Körperseite anzusehen"
+            },
+            {
+              "text": "Temperatur erfassen und den Patienten vor Auskühlung schützen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "abcde-instabilitaeten",
+      "title": "xABCDE – Instabilitäten",
+      "category": "Herangehensweise & Einschätzung",
+      "summary": "Warnzeichen, die auf ein instabiles Problem in einem der Schritte hinweisen. Wer eines davon findet, behandelt sofort statt nur zu dokumentieren.",
+      "page": 76,
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „<c>ABCDE – Instabilitäten\", Seite 76, Stand 22.05.2024, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt. Die Quelle schreibt das vorangestellte Zeichen als <c>, hier steht durchgängig x.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "x – kritische Blutung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Anhaltend spritzende Blutung aus offenen Wunden oder Extremitätenstümpfen"
+            },
+            {
+              "text": "Ausgeprägte Blässe der Haut"
+            }
+          ]
+        },
+        {
+          "heading": "A – Atemweg",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Gefährdeter Atemweg"
+            },
+            {
+              "text": "Pathologisches Atemgeräusch wie Schnarchen, Gurgeln oder Stridor"
+            },
+            {
+              "text": "Obstruktion durch Erbrochenes, Blut, Flüssigkeit oder einen Fremdkörper"
+            }
+          ]
+        },
+        {
+          "heading": "B – Atmung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Atemfrequenz unter 8 oder über 30 pro Minute oder Atemstillstand"
+            },
+            {
+              "text": "Sauerstoffsättigung unter 90 Prozent"
+            },
+            {
+              "text": "Hypoxiezeichen"
+            },
+            {
+              "text": "Pathologisches Atemmuster oder thorakale Einziehungen"
+            },
+            {
+              "text": "Pathologische Auskultationsbefunde"
+            }
+          ]
+        },
+        {
+          "heading": "C – Kreislauf",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Schwache oder fehlende periphere Pulse"
+            },
+            {
+              "text": "Systolischer Blutdruck unter 80 oder über 200 mmHg"
+            },
+            {
+              "text": "Herzfrequenz unter 40 oder über 130 pro Minute"
+            },
+            {
+              "text": "Arrhythmischer Puls"
+            },
+            {
+              "text": "Zyanose oder Blässe"
+            },
+            {
+              "text": "Feuchte oder kühle Haut"
+            },
+            {
+              "text": "Rekapillarisierungszeit über 2 Sekunden"
+            },
+            {
+              "text": "Starkes Durstgefühl"
+            }
+          ]
+        },
+        {
+          "heading": "D – Disability",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Bewusstlosigkeit"
+            },
+            {
+              "text": "Eingeschränkte Bewusstseinslage"
+            },
+            {
+              "text": "Lähmungen"
+            },
+            {
+              "text": "Sensibilitätsstörungen"
+            },
+            {
+              "text": "Blutzuckerentgleisung"
+            }
+          ]
+        },
+        {
+          "heading": "E – Exposure und Environment",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Hypothermie oder Hyperthermie"
+            },
+            {
+              "text": "Sonstige Eindrücke, die auf einen kritischen Zustand hinweisen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wasb-gcs",
+      "title": "Beurteilung der Bewusstseinslage (WASB & GCS)",
+      "category": "Herangehensweise & Einschätzung",
+      "summary": "Schnelleinschätzung der Bewusstseinslage (WASB) sowie die differenziertere Glasgow Coma Scale (GCS), z. B. zur Beurteilung eines Schädel-Hirn-Traumas.",
+      "page": 77,
+      "sourceNote": "WASB-Schema und Schweregrad-Einteilung geprüft gegen SAA und BPR 2025, „Beurteilung der Bewusstseinslage\", Seite 77, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.",
+      "notes": [
+        "Die detaillierte Punktetabelle (Augenöffnung, verbale und motorische Reaktion) ist die allgemein gebräuchliche Originalskala nach Teasdale und Jennett (1974). Im SAA/BPR-PDF steht nur die grobe Schweregrad-Einteilung 15 bis 13, 12 bis 9 und 8 bis 3 Punkte."
+      ],
+      "sections": [
+        {
+          "heading": "WASB (Schnelltest)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "W – wach? Ist der Patient wach, endet die Beurteilung hier"
+            },
+            {
+              "text": "A – Reaktion auf Ansprache? Reagiert er nur darauf, liegt eine Somnolenz vor, er kann dabei verwirrt sein"
+            },
+            {
+              "text": "S – Reaktion auf Schmerzreiz? Reagiert er nur darauf, liegt ein Sopor vor"
+            },
+            {
+              "text": "B – Bewusstlosigkeit? Bleibt jede Reaktion aus, liegt ein Koma vor. Dann fehlen die Schutzreflexe und der Atemweg ist gefährdet"
+            }
+          ]
+        },
+        {
+          "heading": "GCS – Augenöffnung (E, max. 4 Punkte)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "4 – spontan"
+            },
+            {
+              "text": "3 – auf Ansprache"
+            },
+            {
+              "text": "2 – auf Schmerzreiz"
+            },
+            {
+              "text": "1 – keine Reaktion"
+            }
+          ]
+        },
+        {
+          "heading": "GCS – Verbale Reaktion (V, max. 5 Punkte)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "5 – orientiert"
+            },
+            {
+              "text": "4 – verwirrt"
+            },
+            {
+              "text": "3 – unzusammenhängende Worte"
+            },
+            {
+              "text": "2 – unverständliche Laute"
+            },
+            {
+              "text": "1 – keine Reaktion"
+            }
+          ]
+        },
+        {
+          "heading": "GCS – Motorische Reaktion (M, max. 6 Punkte)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "6 – befolgt Aufforderungen"
+            },
+            {
+              "text": "5 – gezielte Schmerzabwehr"
+            },
+            {
+              "text": "4 – ungezielte Schmerzabwehr (normale Beugung)"
+            },
+            {
+              "text": "3 – abnorme Beugung (Beugesynergismen, Dekortikationshaltung)"
+            },
+            {
+              "text": "2 – Streckung (Strecksynergismen, Dezerebrationshaltung)"
+            },
+            {
+              "text": "1 – keine Reaktion"
+            }
+          ]
+        },
+        {
+          "heading": "GCS – Schweregrad (Summe aus E + V + M, 3–15 Punkte)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "15–13 Punkte: leichtes Schädel-Hirn-Trauma (SHT)"
+            },
+            {
+              "text": "12–9 Punkte: mittelschweres SHT"
+            },
+            {
+              "text": "8–3 Punkte: schweres SHT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sampler",
+      "title": "SAMPLER(S)-Schema",
+      "category": "Herangehensweise & Einschätzung",
+      "summary": "Strukturiertes Abfrageschema zur Erfassung der akuten Situation und Vorgeschichte.",
+      "page": 78,
+      "sourceNote": "Die Buchstaben S bis R stammen aus SAA und BPR 2025, „SAMPLER-Schema, Erfassung der akuten Situation\", Seite 78, Stand 30.04.2025. Das abschließende „(S)\" für Schwangerschaft ist eine in der Ausbildung verbreitete Erweiterung und steht dort nicht. Die Quelle führt die Schwangerschaft unter „Risikofaktoren\" und unter „Patientengeschichte\".",
+      "notes": [],
+      "sections": [
+        {
+          "heading": null,
+          "illustration": null,
+          "items": [
+            {
+              "text": "S – Symptome/Schmerzen: aktuelle Beschwerden (zur Vertiefung: OPQRST-Schema)"
+            },
+            {
+              "text": "A – Allergien: bekannte Allergien"
+            },
+            {
+              "text": "M – Medikamente: Dauer-/Bedarfsmedikation, planmäßig eingenommen?, gerinnungsaktive Medikamente (Pradaxa®, Xarelto®, Eliquis®, Heparin, ASS, Marcumar® etc.)"
+            },
+            {
+              "text": "P – Patientengeschichte: aktuelle/frühere Erkrankungen, Operationen, Schwangerschaft, chronische Erkrankungen"
+            },
+            {
+              "text": "L – Letzte …: letzte Mahlzeit (Zeitpunkt/Art), Stuhlgang/Miktion, Krankenhausaufenthalt, bei Frauen: letzte Regelblutung"
+            },
+            {
+              "text": "E – Ereignis: Was hat zum Notruf geführt? Wie hat sich die Situation entwickelt?"
+            },
+            {
+              "text": "R – Risikofaktoren: z. B. Rauchen, Alkohol, Drogen, Schwangerschaft. Leitfrage: Welche Risikofaktoren bestehen für die aktuelle Situation?"
+            },
+            {
+              "text": "S – Schwangerschaft: bei Frauen im gebärfähigen Alter gezielt erfragen (mögliche Schwangerschaft?, Schwangerschaftswoche, Komplikationen). Verändert Lagerung, Medikamentenwahl und Zielklinik"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "opqrst",
+      "title": "OPQRST-Schema",
+      "category": "Herangehensweise & Einschätzung",
+      "summary": "Strukturiertes Schema zur genaueren Erfassung von Schmerzen/Symptomen.",
+      "page": 79,
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „OPQRST-Schema, Erfassung der akuten Symptomatik\", Seite 79, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": null,
+          "illustration": null,
+          "items": [
+            {
+              "text": "O – Onset (Beginn): Wann begann das Symptom? Akut oder schleichend? Was wurde gerade gemacht?"
+            },
+            {
+              "text": "P – Provocation/Palliation: Was verstärkt oder lindert das Symptom?"
+            },
+            {
+              "text": "Q – Quality (Qualität), Charakteristik: z. B. Dreh- oder Schwankschwindel, Tinnitus, Taubheitsgefühle, Kribbelparästhesien"
+            },
+            {
+              "text": "Q – Quality (Qualität), Schmerzqualität: hell (z. B. stechend, brennend), dumpf (z. B. drückend, klopfend), wechselnd (z. B. an- und abschwellend, kolikartig)"
+            },
+            {
+              "text": "R – Radiation (Lokalisation/Ausstrahlung): Wo genau? Strahlt der Schmerz aus?"
+            },
+            {
+              "text": "S – Severity (Schwere): Stärke auf NRS 0–10, wie belastend?"
+            },
+            {
+              "text": "T – Time (Zeit): Wie war der zeitliche Verlauf?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "atemwegsmanagement",
+      "title": "Atemwegsmanagement",
+      "category": "Atemweg",
+      "summary": "Eskalierendes Vorgehen bei insuffizienter Atmung oder Bewusstlosigkeit. Erst einfache Maßnahmen, dann Stufe für Stufe eskalieren, nach jedem Schritt neu bewerten.",
+      "page": 80,
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „Atemwegsmanagement\", Seite 80, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.",
+      "notes": [
+        "Weiterführende invasive Maßnahmen wie die endotracheale Intubation oder die Koniotomie liegen laut S1-Leitlinie „Prähospitales Atemwegsmanagement\" grundsätzlich nicht im Kompetenzbereich des nichtärztlichen Rettungsdienstpersonals. Die Koniotomie steht dort als letzte Möglichkeit am Ende des Algorithmus, wenn weder Intubation noch Oxygenierung noch Ventilation gelingen."
+      ],
+      "sections": [
+        {
+          "heading": "Wann ist die Spontanatmung insuffizient?",
+          "illustration": null,
+          "items": [
+            {
+              "text": "SpO2 unter 90 Prozent"
+            },
+            {
+              "text": "Zyanose"
+            },
+            {
+              "text": "Atemfrequenz unter 8 oder über 30 pro Minute"
+            },
+            {
+              "text": "Pathologische Thoraxexkursion, etwa einseitig oder paradox"
+            },
+            {
+              "text": "Trifft eines davon zu oder ist der Patient bewusstlos, beginnt der Algorithmus. Zuerst wird geprüft, ob eine Atemwegsverlegung durch einen Fremdkörper vorliegt"
+            }
+          ]
+        },
+        {
+          "heading": "Einfache Maßnahmen (zuerst)",
+          "illustration": "atemweg-freimachen",
+          "items": [
+            {
+              "text": "Sauerstoffgabe nach SAA Sauerstoff"
+            },
+            {
+              "text": "Bei Stridor Epinephrin vernebeln nach SAA Epinephrin"
+            },
+            {
+              "text": "Atemweg freimachen durch Reklination des Kopfes. Vorsicht bei Verdacht auf ein Trauma der Halswirbelsäule"
+            },
+            {
+              "text": "Esmarch-Handgriff"
+            },
+            {
+              "text": "Bei Bedarf oral absaugen und Fremdkörper ausräumen"
+            },
+            {
+              "text": "Bei Bedarf nasopharyngealer Tubus"
+            },
+            {
+              "text": "Greifen die einfachen Maßnahmen, folgt die weitere Versorgung, bei Bedarf mit Notarzt. Sonst wird eskaliert"
+            }
+          ]
+        },
+        {
+          "heading": "Wenn Ventilation oder Oxygenierung weiter unzureichend sind",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Hochdosierte Sauerstoffgabe"
+            },
+            {
+              "text": "Bei Bedarf naso- oder oropharyngeale Hilfsmittel einlegen"
+            },
+            {
+              "text": "Kapnografie anschließen"
+            },
+            {
+              "text": "Beutel-Masken-Beatmung beginnen"
+            },
+            {
+              "text": "Gelingt die Maskenbeatmung nicht: Kopflagerung optimieren, auf die Zwei-Hand-Technik mit doppeltem C-Griff wechseln, bei Bedarf Hilfsmittel einlegen und technische Fehler ausschließen"
+            },
+            {
+              "text": "Bei Verdacht auf eine Atemwegsverlegung durch einen Fremdkörper gilt stattdessen der BPR „A-Problem bei Fremdkörperaspiration\""
+            }
+          ]
+        },
+        {
+          "heading": "Bei weiterhin insuffizienter Atmung und fehlenden Schutzreflexen",
+          "illustration": "larynxtubus",
+          "items": [
+            {
+              "text": "Anlage eines extraglottischen Atemwegs nach SAA Extraglottischer Atemweg"
+            },
+            {
+              "text": "Sind die Schutzreflexe noch vorhanden, wird kein extraglottischer Atemweg angelegt. Dann wird die Maskenbeatmung bis zum Eintreffen des Notarztes fortgesetzt"
+            }
+          ]
+        },
+        {
+          "heading": "Erfolgskontrolle nach jedem Eskalationsschritt",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Der Thorax hebt und senkt sich seitengleich"
+            },
+            {
+              "text": "Typisches Kapnografie-Signal"
+            },
+            {
+              "text": "Niedriger Beatmungsdruck"
+            },
+            {
+              "text": "Die SpO2 steigt adäquat an"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "patientenanmeldung",
+      "title": "Patientenanmeldung (ZOABCDE)",
+      "category": "Kommunikation & Übergabe",
+      "summary": "Strukturierte telefonische Voranmeldung in der Zielklinik.",
+      "page": 82,
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „Handreichung Patientenanmeldung\", Seite 82, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": null,
+          "illustration": null,
+          "items": [
+            {
+              "text": "Z – Zeiten: Anmeldezeit und voraussichtliche Ankunftszeit"
+            },
+            {
+              "text": "O – Opening: Name, Alter und Geschlecht, seit wann die Symptome bestehen, in einem Satz „Was ist passiert?\", Trauma oder Erkrankung, Verdachtsdiagnose, Dringlichkeit"
+            },
+            {
+              "text": "A – Airway (Atemweg): spontan frei, gefährdet, Tracheostoma oder gesichert (intubiert oder supraglottisch)"
+            },
+            {
+              "text": "B – Breathing (Belüftung): sauerstoffpflichtig, nicht invasiv beatmet oder CPAP, invasiv beatmet, Verdacht auf Pneumothorax mit der Frage nach erfolgter Entlastung"
+            },
+            {
+              "text": "C – Circulation (Kreislauf): stabil oder instabil, Schock, Herzrhythmusstörung, katecholaminpflichtig, Blutung, Reanimation mit ROSC oder laufend"
+            },
+            {
+              "text": "D – Disability (Defizite): wach und orientiert, neurologisches Defizit nach BE-FAST, erweckbar auf Ansprache oder auf Schmerzreiz, Koma"
+            },
+            {
+              "text": "E – Extras: Verletzungsmuster, Infektion oder Isolationsbedarf, Antikoagulation, Schwangerschaft, Demenz, Eigen- und Fremdgefährdung, Erbrechen oder Durchfall, sonstige Besonderheiten"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sinnhaft",
+      "title": "Übergabe – SINNHAFT",
+      "category": "Kommunikation & Übergabe",
+      "summary": "Strukturierte mündliche Übergabe am Zielort, Schritt für Schritt.",
+      "page": 83,
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „Handreichung Übergabe, SINNHAFT\", Seite 83, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt. Die Erläuterungen stammen aus derselben Handreichung, erarbeitet mit dem Universitätsklinikum Bonn und dem DGINA-Notfallcampus.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "Die acht Schritte",
+          "illustration": null,
+          "items": [
+            {
+              "text": "S – Start: Ruhe. Sind alle bereit für die Übergabe? Face-to-Face-Kommunikation, Manipulationen und Tätigkeiten am Patienten möglichst vermeiden"
+            },
+            {
+              "text": "I – Identifikation: Geschlecht, Nachname und Alter. Bei Kindern zusätzlich die Gewichtsangabe"
+            },
+            {
+              "text": "N – Notfallereignis: 1. Was? (Leitsymptom oder Verdachtsdiagnose), 2. Wie? (Ursache), 3. Wann? (Zeitpunkt des Ereignisses). Optional Wo oder Woher (Ort und Auffindesituation)"
+            },
+            {
+              "text": "N – Notfallpriorität: anhand des xABCDE-Schemas mit den pathologischen Untersuchungsbefunden und den pathologischen Vitalparametern"
+            },
+            {
+              "text": "H – Handlung: durchgeführte Maßnahmen mit Dosis, Umfang, Zeitpunkt und Wirkung. Bewusst unterlassene Handlungen werden ebenfalls genannt, falls zutreffend"
+            },
+            {
+              "text": "A – Anamnese: Allergien, Medikation, Vorerkrankungen, Infektionen, Soziales und Organisatorisches, Besonderheiten"
+            },
+            {
+              "text": "F – Fazit: Wiederholung durch das aufnehmende Personal mit Identifikation, Notfallereignis und Notfallpriorität ohne Vitalparameter, gekoppelt an die Handlung ohne Wirkung"
+            },
+            {
+              "text": "T – Teamfragen: Möglichkeit für zusätzliche wesentliche Fragen des aufnehmenden Personals"
+            }
+          ]
+        },
+        {
+          "heading": "Erläuterungen aus der Handreichung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Allgemein: stakkatoartiger Übergabestil mit ausdrücklicher Nennung der einzelnen Teilaspekte, die jeweils den nächsten Übergabeschritt einleiten"
+            },
+            {
+              "text": "Liegen Informationen nicht vor, wird auch dieser Sachverhalt bei der Übergabe mitgeteilt"
+            },
+            {
+              "text": "Notfallpriorität: ein Problem im xABCDE-Schema, etwa ein C-Problem, wird übergeben, wenn Maßnahmen zur Behebung erforderlich waren oder noch sind"
+            },
+            {
+              "text": "Besteht kein A- bis E-Problem und liegen alle Vitalparameter im Normbereich, wird genau das gesagt: „kein A-E-Problem\" und „unauffällige Vitalparameter\""
+            },
+            {
+              "text": "Pathologische Vitalparameter ohne Bezug zum Krankheitsbild werden trotzdem erwähnt, etwa ein Blutzucker von 300 mg/dl bei einem Supinationstrauma"
+            },
+            {
+              "text": "Begleitverletzungen aus dem Bodycheck und zusätzliche Maßnahmen wie Analgesie oder Wärmemanagement gehören unter „Extras\""
+            },
+            {
+              "text": "Handlung: durchgeführte Handlungen werden direkt an die zugehörige Notfallpriorität gekoppelt. Liegt ein A-Problem vor, folgt die zugehörige Handlung, bevor zu B übergegangen wird"
+            },
+            {
+              "text": "Anamnese: Allergien, Medikation und Vorerkrankungen werden mündlich übermittelt, wenn sie mit der Behandlungspriorität zusammenhängen oder für die unmittelbare Versorgung bedeutsam sind"
+            },
+            {
+              "text": "Liegt in einem Punkt nichts vor, wird auch die leere Anamnese in allen Bestandteilen erwähnt, bei Bedarf zusammengefasst"
+            },
+            {
+              "text": "Ein Infektionsverdacht oder eine bestätigte Infektion wird genannt, wenn sie die Infrastruktur des Krankenhauses betrifft, etwa eine Isolierung, oder das Personal gefährdet"
+            },
+            {
+              "text": "Soziale Aspekte wie Patientenverfügungen oder häusliche Gewalt gehören ebenfalls in die Anamnese"
+            },
+            {
+              "text": "Besonderheiten sind etwa die Ablehnung einer Transfusion oder eine DNR- oder DNI-Verfügung"
+            },
+            {
+              "text": "Fazit: ist die Wiederholung durch die Notaufnahme fehlerhaft, korrigiert der Rettungsdienst sofort"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reanimation-erwachsene",
+      "title": "Reanimation Erwachsene (BLS und ALS)",
+      "category": "Kreislaufstillstand",
+      "summary": "Vom Erkennen des Kreislaufstillstands über Basismaßnahmen (die jede Qualifikationsstufe beherrschen sollte) bis zur erweiterten Reanimation (ALS) durch NotSan.",
+      "page": 85,
+      "sourceNote": "Der Teil zu den Basismaßnahmen (Erkennen, Notruf, Herzdruckmassage 30:2, AED) folgt den Leitlinien des European Resuscitation Council in der Fassung von 2025 und steht nicht im SAA/BPR-PDF. Frequenz 100 bis 120 pro Minute, Tiefe 5 bis 6 cm und das Verhältnis 30:2 sind gegenüber der Vorfassung unverändert. Die erweiterte Versorgung stammt aus SAA/BPR „Reanimation Erwachsene, ALS\", Seite 85 bis 86.",
+      "notes": [
+        "Die Hands-off-Zeit vor und während der Defibrillation bleibt unter 10 Sekunden. Danach wird die Thoraxkompression sofort fortgesetzt.",
+        "Eine Pulskontrolle erfolgt nur bei auswurffähigem EKG-Rhythmus und dauert höchstens 10 Sekunden.",
+        "Oberste Priorität haben qualitativ hochwertige Thoraxkompressionen mit minimalen Unterbrechungen, eine schnellstmögliche Defibrillation und die Therapie reversibler Ursachen."
+      ],
+      "sections": [
+        {
+          "heading": "Erkennen & Basismaßnahmen (alle Stufen)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Eigenschutz beachten, dann das Bewusstsein prüfen durch Ansprechen und Rütteln"
+            },
+            {
+              "text": "Atemkontrolle: Atemweg freimachen (Kopf überstrecken), max. 10 Sek. auf normale Atmung prüfen"
+            },
+            {
+              "text": "Keine Reaktion und keine normale Atmung bedeutet Kreislaufstillstand. Notruf 112 veranlassen und sofort mit der Herzdruckmassage beginnen"
+            },
+            {
+              "text": "Thoraxkompression mit einer Frequenz von 100 bis 120 pro Minute und einer Tiefe von 5 bis 6 cm, zwischen den Kompressionen den Brustkorb vollständig zurückfedern lassen"
+            },
+            {
+              "text": "Herzdruckmassage zu Beatmung im Verhältnis 30:2, sofern Beatmung durchführbar und geschult ist"
+            },
+            {
+              "text": "AED sobald verfügbar anlegen und den Sprachanweisungen folgen"
+            }
+          ]
+        },
+        {
+          "heading": "Erweiterte Versorgung (RS/NotSan)",
+          "illustration": "aed-elektroden",
+          "items": [
+            {
+              "text": "Defibrillator vorbereiten, einschalten, Defi-Elektroden kleben, laden"
+            },
+            {
+              "text": "Erste EKG-Rhythmusbeurteilung. Bei VF oder pVT wird defibrilliert. Bei Asystolie, PEA oder auswurffähigem Rhythmus wird nicht defibrilliert, der Defibrillator wird entladen"
+            },
+            {
+              "text": "Zwei Minuten CPR, danach erneute Rhythmusbeurteilung. Der Zyklus wiederholt sich, dabei möglichst die Helfer für die Kompression wechseln"
+            },
+            {
+              "text": "EGA einlegen, Kapnografie anschließen"
+            },
+            {
+              "text": "i.v.- oder i.o.-Zugang legen, Infusion vorbereiten"
+            },
+            {
+              "text": "Bei Asystolie oder PEA wird Epinephrin so früh wie möglich gegeben, siehe SAA Epinephrin"
+            },
+            {
+              "text": "Nach der dritten erfolglosen Defibrillation wird Amiodaron gegeben, alternativ Lidocain. Danach folgt Epinephrin alle 4 Minuten"
+            },
+            {
+              "text": "Ebenfalls nach drei erfolglosen Schocks empfiehlt der ERC 2025, die Position der Defibrillationselektroden zu wechseln, etwa von anterolateral auf anterior-posterior"
+            },
+            {
+              "text": "Reversible Ursachen bedenken. Die vier „Hs\" stehen für Hypoxie, Hypovolämie, Hypokaliämie oder Hyperkaliämie und Hypothermie. „HITS\" steht für Herzbeuteltamponade, Intoxikation, Thromboembolie und Spannungspneumothorax"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reanimation-kinder",
+      "title": "Reanimation Kinder (PLS)",
+      "category": "Kreislaufstillstand",
+      "summary": "Reanimation bei Kindern von 0 bis 18 Jahren, ausgenommen Neugeborene bei der Geburt. Der Unterschied zu Erwachsenen liegt in den 5 initialen Beatmungen, dem Verhältnis 15:2 und der gewichtsadaptierten Defibrillationsenergie.",
+      "page": 87,
+      "sourceNote": "Inhalte geprüft gegen SAA und BPR 2025, „Reanimation Kinder, PLS\", Seite 87 bis 88, Stand 30.04.2025, herausgegeben von den Ärztlichen Leitungen Rettungsdienst in Baden-Württemberg, Brandenburg, Mecklenburg-Vorpommern, Nordrhein-Westfalen, Sachsen und Sachsen-Anhalt.",
+      "notes": [
+        "Bei Jugendlichen mit entsprechender Größe und entsprechendem Gewicht kann auch der Erwachsenen-Behandlungspfad angewendet werden.",
+        "Die Hands-off-Zeit vor und während der Defibrillation einschließlich Rhythmusanalyse bleibt unter 10 Sekunden. Nach der Defibrillation wird die Thoraxkompression sofort fortgesetzt.",
+        "Eine Pulskontrolle erfolgt nur bei auswurffähigem EKG-Rhythmus und dauert höchstens 10 Sekunden.",
+        "Atemfrequenz nach endotrachealer Intubation altersabhängig: 25 pro Minute beim Säugling, 20 von 1 bis 8 Jahren, 15 von 8 bis 12 Jahren und 10 ab 12 Jahren."
+      ],
+      "sections": [
+        {
+          "heading": "Basismaßnahmen",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Bewusstsein und Atmung prüfen. Bei Säuglingen und Kleinkindern mit hypoxie- oder ischämiebedingter Bradykardie unter 60 Schlägen pro Minute wird ebenfalls reanimiert, auch wenn noch ein Puls tastbar ist"
+            },
+            {
+              "text": "5 initiale Beatmungen mit Sauerstoff (FiO2 1,0). Erst danach wird bei fehlenden Lebenszeichen mit der Thoraxkompression begonnen"
+            },
+            {
+              "text": "Das Kind liegt auf einer harten Unterlage, der Druckpunkt ist die untere Sternumhälfte"
+            },
+            {
+              "text": "Thoraxkompression mit einer Frequenz von 100 bis 120 pro Minute, zwischen den Kompressionen vollständig entlasten"
+            },
+            {
+              "text": "Kompressionstiefe mindestens ein Drittel des Thoraxdurchmessers. Beim Säugling unter einem Jahr bevorzugt die thoraxumfassende 2-Daumen-Technik, beim Kind ab einem Jahr die 1-Handballen-Technik, bei Jugendlichen die 2-Hand-Technik mit etwa 5 cm und höchstens 6 cm"
+            },
+            {
+              "text": "Thoraxkompression zu Beatmung im Verhältnis 15:2, solange kein extraglottischer Atemweg liegt oder es unter Kompression stark undicht wird"
+            }
+          ]
+        },
+        {
+          "heading": "Erweiterte Versorgung (RS/NotSan)",
+          "illustration": "intraossaerer-zugang",
+          "items": [
+            {
+              "text": "Manuelle Defibrillation mit 4 Joule pro Kilogramm Körpergewicht biphasisch. Bei refraktärem VF oder pVT nach mehr als 6 Schocks kann schrittweise auf höchstens 8 Joule pro Kilogramm erhöht werden"
+            },
+            {
+              "text": "Die Rhythmusanalyse macht die anwendende Person selbst. Nur bei Unsicherheit wird der AED-Modus genutzt"
+            },
+            {
+              "text": "Einen extraglottischen Atemweg erwägen, insbesondere wenn die Beutel-Masken-Beatmung trotz optimierter Kopfposition und Atemwegshilfen schwierig bleibt. Rückfallebene ist die Beutel-Masken-Beatmung"
+            },
+            {
+              "text": "Ein intraossärer Zugang folgt, wenn der intravenöse Zugang nach zwei Versuchen in höchstens 5 Minuten nicht gelingt oder von vornherein aussichtslos ist"
+            },
+            {
+              "text": "Bei Asystolie oder PEA wird Epinephrin so früh wie möglich nach dem Zugang gegeben, siehe SAA Epinephrin. Weitere Gaben richten sich nach SAA Amiodaron und SAA Lidocain"
+            },
+            {
+              "text": "Reversible Ursachen bedenken. Die vier „Hs\" sind Hypoxie, Hypovolämie, Störungen von Kalium oder Blutzucker sowie Hypothermie und Hyperthermie. Die vier „HITS\" sind Herzbeuteltamponade, Intoxikation, Thromboembolie und Spannungspneumothorax"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

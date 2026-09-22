@@ -1,0 +1,366 @@
+{
+  "$schema": "./schema/topic-module.schema.json",
+  "moduleId": "rettungstechnik",
+  "title": "Rettungstechnik & Gerätekunde",
+  "symbol": "backpack.fill",
+  "listStyle": "facts",
+  "categoryOrder": [
+    "Transport & Trageformen",
+    "Lagerungsarten",
+    "Atemwege & Beatmung",
+    "Gerätekunde"
+  ],
+  "contentStand": "2026-09-17",
+  "topics": [
+    {
+      "id": "trageformen",
+      "title": "Trageformen",
+      "category": "Transport & Trageformen",
+      "summary": "Rautekgriff, Tragestuhl, Schaufeltrage und Vakuummatratze. Wann welche Trageform sinnvoll ist.",
+      "page": null,
+      "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu Trageformen, Lagerung, Atemwegshilfen und Gerätekunde — keine SAA/BPR-Quelle. Konkrete Geräte, Ausstattung und Checklisten können je nach Organisation/Fahrzeugtyp abweichen.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "Rautekgriff (Rautek-Rettungsgriff)",
+          "illustration": "rautekgriff",
+          "items": [
+            {
+              "text": "Zweck: schnelle Rettung aus akuter Gefahr (z. B. brennendes Fahrzeug, einsturzgefährdeter Raum)"
+            },
+            {
+              "text": "Durchführung: von hinten unter den Achseln durchgreifen, einen Unterarm des Patienten fassen, rückwärts ziehen"
+            },
+            {
+              "text": "Einschränkung: keine Rücksicht auf Wirbelsäule möglich. Daher nur bei unmittelbarer Lebensgefahr anwenden"
+            }
+          ]
+        },
+        {
+          "heading": "Tragestuhl",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Einsatzbereich: enge Räume und Treppenhäuser"
+            },
+            {
+              "text": "Vorteil: sitzender Transport bei ansprechbaren, kreislaufstabilen Patienten"
+            }
+          ]
+        },
+        {
+          "heading": "Schaufeltrage",
+          "illustration": "schaufeltrage",
+          "items": [
+            {
+              "text": "Einsatzbereich: schonende Umlagerung, z. B. bei Verdacht auf Wirbelsäulenverletzung"
+            },
+            {
+              "text": "Anwendung: seitlich in zwei Hälften unter dem liegenden Patienten zusammenführen, ohne ihn zu drehen"
+            }
+          ]
+        },
+        {
+          "heading": "Vakuummatratze",
+          "illustration": "vakuummatratze",
+          "items": [
+            {
+              "text": "Zweck: Ganzkörper-Immobilisation durch Anmodellieren an den Körper und Evakuierung der Luft"
+            },
+            {
+              "text": "Einsatzbereich: Polytrauma, Wirbelsäulenverletzung, instabile Frakturen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lagerungsarten",
+      "title": "Lagerungsarten mit Indikation",
+      "category": "Lagerungsarten",
+      "summary": "Die wichtigsten Lagerungsarten und wann sie jeweils angewendet werden.",
+      "page": null,
+      "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu Trageformen, Lagerung, Atemwegshilfen und Gerätekunde — keine SAA/BPR-Quelle. Konkrete Geräte, Ausstattung und Checklisten können je nach Organisation/Fahrzeugtyp abweichen.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "Stabile Seitenlage",
+          "illustration": "stabile-seitenlage",
+          "items": [
+            {
+              "text": "Indikation: Bewusstlosigkeit mit erhaltener, ausreichender Spontanatmung"
+            },
+            {
+              "text": "Zweck: Atemwege freihalten, Schutz vor Aspiration von Erbrochenem"
+            }
+          ]
+        },
+        {
+          "heading": "Schocklage (Beine hoch)",
+          "illustration": "schocklage",
+          "items": [
+            {
+              "text": "Indikation: Kreislaufschwäche/Schock ohne Atemnot und ohne Kopf- oder Wirbelsäulenverletzung"
+            },
+            {
+              "text": "Zweck: venösen Rückstrom zum Herzen fördern"
+            }
+          ]
+        },
+        {
+          "heading": "Oberkörperhochlagerung",
+          "illustration": "oberkoerperhochlagerung",
+          "items": [
+            {
+              "text": "Indikation: Atemnot, Herzinsuffizienz, Schlaganfall bei erhaltenem Bewusstsein"
+            },
+            {
+              "text": "Zweck: Atemarbeit erleichtern"
+            }
+          ]
+        },
+        {
+          "heading": "Knierolle / Flachlagerung mit angewinkelten Beinen",
+          "illustration": "knierolle",
+          "items": [
+            {
+              "text": "Indikation: akutes Abdomen, starke Bauchschmerzen"
+            },
+            {
+              "text": "Zweck: Entspannung der Bauchdecke"
+            }
+          ]
+        },
+        {
+          "heading": "Weitere Besonderheiten",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Schwangere: leichte Linksseitenlage, um das Vena-cava-Kompressionssyndrom zu vermeiden"
+            },
+            {
+              "text": "Verdacht auf Wirbelsäulenverletzung: Patient möglichst in der vorgefundenen Position belassen, bis eine fachgerechte Immobilisation erfolgt"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sauerstoffgabe",
+      "title": "Sauerstoffgabe",
+      "category": "Atemwege & Beatmung",
+      "summary": "Systeme, Flussraten-Richtwerte und Indikationen zur Sauerstoffgabe.",
+      "page": null,
+      "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu Trageformen, Lagerung, Atemwegshilfen und Gerätekunde — keine SAA/BPR-Quelle. Konkrete Geräte, Ausstattung und Checklisten können je nach Organisation/Fahrzeugtyp abweichen.",
+      "notes": [
+        "Sauerstoff ist ein Medikament. Gabe orientiert sich an SpO2-Messung/Klinik, nicht an einer routinemäßigen Gabe bei jedem Patienten."
+      ],
+      "sections": [
+        {
+          "heading": "Systeme",
+          "illustration": "sauerstoffmaske",
+          "items": [
+            {
+              "text": "Nasenbrille: niedrige Flussraten, wird von Patienten meist gut toleriert"
+            },
+            {
+              "text": "Einfache Sauerstoffmaske: mittlere bis hohe Flussraten"
+            },
+            {
+              "text": "Maske mit Reservoirbeutel: hohe Flussraten für eine hohe Sauerstoffkonzentration"
+            }
+          ]
+        },
+        {
+          "heading": "Richtwerte Flussraten (grobe Orientierung)",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Nasenbrille: ca. 1–6 l/min"
+            },
+            {
+              "text": "Einfache Maske: ca. 6–10 l/min"
+            },
+            {
+              "text": "Maske mit Reservoir: ca. 10–15 l/min"
+            }
+          ]
+        },
+        {
+          "heading": "Indikationen",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Hypoxie/Sauerstoffmangel"
+            },
+            {
+              "text": "Schwere Traumata, Schock"
+            },
+            {
+              "text": "Reanimation"
+            },
+            {
+              "text": "Verdacht auf Kohlenmonoxidvergiftung"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "absaugung-atemwegshilfen",
+      "title": "Absaugung & Atemwegshilfen (Guedel-/Wendl-Tubus)",
+      "category": "Atemwege & Beatmung",
+      "summary": "Absaugen der Atemwege sowie oro- und nasopharyngeale Atemwegshilfen richtig einsetzen.",
+      "page": null,
+      "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu Trageformen, Lagerung, Atemwegshilfen und Gerätekunde — keine SAA/BPR-Quelle. Konkrete Geräte, Ausstattung und Checklisten können je nach Organisation/Fahrzeugtyp abweichen.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "Absaugung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Indikation: sichtbare Flüssigkeit, Erbrochenes oder Blut in den Atemwegen"
+            },
+            {
+              "text": "Vorgehen: unter Sicht und zeitlich begrenzt absaugen, um eine Hypoxie durch zu langes Absaugen zu vermeiden"
+            }
+          ]
+        },
+        {
+          "heading": "Guedel-Tubus (oropharyngealer Tubus)",
+          "illustration": "guedel-wendl",
+          "items": [
+            {
+              "text": "Zweck: hält den Atemweg bei Bewusstlosigkeit offen, hält die Zunge von der Rachenhinterwand fern"
+            },
+            {
+              "text": "Größenbestimmung: Abstand vom Mundwinkel bis zum Ohrläppchen"
+            },
+            {
+              "text": "Nur bei tief bewusstlosen Patienten ohne Würgereflex anwenden"
+            }
+          ]
+        },
+        {
+          "heading": "Wendl-Tubus (nasopharyngealer Tubus)",
+          "illustration": "wendl-tubus",
+          "items": [
+            {
+              "text": "Zweck: Alternative bei erhaltenem Würgereflex oder Kieferklemme"
+            },
+            {
+              "text": "Größenbestimmung: Abstand von der Nasenspitze bis zum Ohrläppchen"
+            },
+            {
+              "text": "Vorsicht bei Verdacht auf Schädelbasisfraktur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beatmungsbeutel",
+      "title": "Beatmungsbeutel",
+      "category": "Atemwege & Beatmung",
+      "summary": "Aufbau, korrekte Anwendung und häufige Fehler bei der Beutel-Masken-Beatmung.",
+      "page": null,
+      "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu Trageformen, Lagerung, Atemwegshilfen und Gerätekunde — keine SAA/BPR-Quelle. Konkrete Geräte, Ausstattung und Checklisten können je nach Organisation/Fahrzeugtyp abweichen.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "Aufbau",
+          "illustration": "beatmungsbeutel-aufbau",
+          "items": [
+            {
+              "text": "Beutel, Ventil und Maske (alternativ Anschluss an Tubus oder Larynxmaske)"
+            },
+            {
+              "text": "Optionales Reservoir für eine höhere Sauerstoffkonzentration"
+            }
+          ]
+        },
+        {
+          "heading": "Anwendung",
+          "illustration": "beutel-masken-beatmung",
+          "items": [
+            {
+              "text": "Korrekter Maskensitz (z. B. C-Griff/Esmarch-Handgriff)"
+            },
+            {
+              "text": "Ausreichende Kopfüberstreckung. Außer bei Verdacht auf Trauma"
+            },
+            {
+              "text": "Beatmungsfrequenz und -volumen sind altersabhängig"
+            }
+          ]
+        },
+        {
+          "heading": "Häufige Fehler",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Zu forsches oder zu schnelles Beatmen. Gefahr von Magenüberblähung und Aspiration"
+            },
+            {
+              "text": "Undichter Maskensitz mit Luftverlust"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notfallrucksack-checkliste",
+      "title": "Notfallrucksack & Checkliste",
+      "category": "Gerätekunde",
+      "summary": "Typischer Inhalt eines Notfallrucksacks und wie eine Vollständigkeitsprüfung abläuft.",
+      "page": null,
+      "sourceNote": "Allgemeines rettungsdienstliches Grundlagenwissen zu Trageformen, Lagerung, Atemwegshilfen und Gerätekunde — keine SAA/BPR-Quelle. Konkrete Geräte, Ausstattung und Checklisten können je nach Organisation/Fahrzeugtyp abweichen.",
+      "notes": [],
+      "sections": [
+        {
+          "heading": "Typischer Inhalt",
+          "illustration": "notfallrucksack",
+          "items": [
+            {
+              "text": "Basisausstattung: Handschuhe, Verbandsmaterial, Beatmungsbeutel/-maske"
+            },
+            {
+              "text": "Absauggerät, Blutdruckmessgerät, Stethoskop"
+            },
+            {
+              "text": "Sauerstoff sowie Guedel-/Wendl-Tuben in verschiedenen Größen"
+            }
+          ]
+        },
+        {
+          "heading": "Vollständigkeitsprüfung",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Inhalt zu Dienstbeginn gegen eine Checkliste prüfen"
+            },
+            {
+              "text": "Verfallsdaten von Medikamenten und sterilem Material kontrollieren"
+            },
+            {
+              "text": "Verbrauchtes Material nach jedem Einsatz umgehend auffüllen"
+            }
+          ]
+        },
+        {
+          "heading": "Organisation",
+          "illustration": null,
+          "items": [
+            {
+              "text": "Einheitliche, immer gleiche Anordnung im Rucksack. Für schnellen Zugriff auch im Dunkeln oder unter Stress"
+            },
+            {
+              "text": "Regelmäßige technische Prüfung von Geräten (z. B. Absauggerät, Sauerstoffflasche)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

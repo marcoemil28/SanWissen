@@ -240,6 +240,20 @@ enum WeightedPicker {
     }
 }
 
+// MARK: - App-Infos
+
+/// Version der App, gelesen aus dem Bundle (`MARKETING_VERSION`).
+///
+/// Stand frueher als `appVersion` in der generierten meta.json und musste
+/// deshalb bei jedem Versionssprung neu exportiert werden. Das Bundle ist
+/// die richtige Quelle: Xcode fuellt es aus derselben Einstellung, die auch
+/// im App Store steht.
+enum AppInfo {
+    static var version: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—"
+    }
+}
+
 // MARK: - Speicher-Helfer
 
 enum Persistence {

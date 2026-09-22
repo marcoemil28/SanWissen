@@ -1,0 +1,124 @@
+{
+  "$schema": "./schema/atlas-systems.schema.json",
+  "filters": [
+    { "id": "all", "label": "Alle" },
+    { "id": "locomotor", "label": "Bewegungsapparat", "systems": ["skeletal", "muscular", "connective"] },
+    {
+      "id": "organs",
+      "label": "Organe",
+      "systems": [
+        "cardiac",
+        "respiratory",
+        "digestive",
+        "urinary",
+        "reproductive",
+        "endocrine",
+        "sensory",
+        "nervous",
+        "lymphatic",
+        "pregnancy"
+      ]
+    }
+  ],
+  "systems": [
+    {
+      "id": "skeletal",
+      "name": "Skelett",
+      "hex": "#e2d9ba",
+      "description": "Die Knochen bilden das tragende Gerüst des Körpers, schützen Organe und bieten den Muskeln ihre Ansatzpunkte. Ihr Inneres speichert außerdem Mineralstoffe und bildet Blutzellen."
+    },
+    {
+      "id": "muscular",
+      "name": "Muskulatur",
+      "hex": "#a85b50",
+      "description": "Die Skelettmuskulatur erzeugt Bewegung, indem sie an ihren Ansätzen zieht. Zusammen mit den Sehnen bewegt sie Gelenke, hält die Körperhaltung stabil und erzeugt Wärme."
+    },
+    {
+      "id": "cardiac",
+      "name": "Herz",
+      "hex": "#b96760",
+      "description": "Das Herz ist eine Muskelpumpe mit vier Höhlen. Seine Klappen leiten das Blut gerichtet durch Lungen- und Körperkreislauf."
+    },
+    {
+      "id": "sensory",
+      "name": "Sinnesorgane",
+      "hex": "#b0c8ce",
+      "description": "Diese Strukturen gehören zu den Sinnesorganen, unter anderem für Sehen, Hören und Gleichgewicht. Ihr besonderes Gewebe nimmt Reize auf und leitet sie zusammen mit dem Nervensystem weiter."
+    },
+    {
+      "id": "arterial",
+      "name": "Arterien",
+      "hex": "#c05245",
+      "description": "Das Herz treibt das Blut durch den Kreislauf. Arterien führen es vom Herzen weg zu den Geweben, im Lungenkreislauf zur Lunge."
+    },
+    {
+      "id": "venous",
+      "name": "Venen",
+      "hex": "#527c9f",
+      "description": "Venen führen das Blut zum Herzen zurück. Oberflächliche und tiefe Netze sammeln es aus den Geweben, die Lungenvenen bringen das sauerstoffreiche Blut zurück."
+    },
+    {
+      "id": "nervous",
+      "name": "Nervensystem",
+      "hex": "#d8b565",
+      "description": "Gehirn, Rückenmark und periphere Nerven leiten und verarbeiten Signale. Sie tragen Empfindung, Bewegung, Koordination und die unwillkürliche Steuerung der Körperfunktionen."
+    },
+    {
+      "id": "respiratory",
+      "name": "Atmungssystem",
+      "hex": "#b98991",
+      "description": "Die Atemwege führen die Luft zur Lunge, wo Sauerstoff und Kohlendioxid zwischen Luft und Blut wechseln. Die Atmung beruht auf Druckunterschieden, die die Atemmuskulatur erzeugt."
+    },
+    {
+      "id": "digestive",
+      "name": "Verdauungssystem",
+      "hex": "#b8916b",
+      "description": "Der Verdauungstrakt zerlegt die Nahrung, nimmt Nährstoffe und Wasser auf und befördert den Rest weiter. Die angeschlossenen Organe steuern Galle und Verdauungsenzyme bei."
+    },
+    {
+      "id": "urinary",
+      "name": "Harnsystem",
+      "hex": "#b47961",
+      "description": "Die Nieren filtern das Blut und regeln den Flüssigkeits-, Elektrolyt- und Säure-Basen-Haushalt. Der Harn läuft über die Harnleiter in die Blase und von dort durch die Harnröhre ab."
+    },
+    {
+      "id": "lymphatic",
+      "name": "Lymphsystem",
+      "hex": "#879f7c",
+      "description": "Lymphgefäße führen überschüssige Gewebeflüssigkeit in den Kreislauf zurück. Lymphknoten und weitere lymphatische Organe tragen die Immunabwehr."
+    },
+    {
+      "id": "endocrine",
+      "name": "Hormonsystem",
+      "hex": "#c5a09a",
+      "description": "Hormondrüsen geben Botenstoffe ins Blut ab und stimmen damit Vorgänge wie Stoffwechsel, Wachstum, Stressreaktion und Fortpflanzung aufeinander ab."
+    },
+    {
+      "id": "reproductive",
+      "name": "Geschlechtsorgane",
+      "hex": "#bda098",
+      "description": "Die hier gezeigten männlichen Geschlechtsorgane dienen der Bildung, Reifung und Weiterleitung der Samenzellen sowie der Bildung von Geschlechtshormonen.",
+      "femaleDescription": "Die hier gezeigten weiblichen Geschlechtsorgane umfassen Eierstöcke, Eileiter, Gebärmutter und Scheide. Sie bilden Eizellen und Geschlechtshormone und tragen Befruchtung, Einnistung und Schwangerschaft."
+    },
+    {
+      "id": "integumentary",
+      "name": "Körperoberfläche",
+      "hex": "#ba9b7d",
+      "description": "Die Körperoberfläche dient als äußere anatomische Orientierung. Die Haut bildet eine schützende Grenze und trägt zu Empfindung und Wärmeregulation bei.",
+      "hiddenByDefault": true
+    },
+    {
+      "id": "pregnancy",
+      "name": "Schwangerschaft",
+      "hex": "#b88380",
+      "description": "Mutterkuchen und Nabelschnur vermitteln während der Schwangerschaft den Austausch zwischen mütterlichem und kindlichem Kreislauf. Diese Strukturen werden getrennt von der Standardanatomie gezeigt.",
+      "hiddenByDefault": true
+    },
+    {
+      "id": "connective",
+      "name": "Bindegewebe",
+      "hex": "#aec3bb",
+      "description": "Knorpel, Bänder und anderes Bindegewebe stützen, verbinden und trennen Strukturen. Sie stabilisieren unter anderem Gelenke und verteilen mechanische Last."
+    }
+  ]
+}

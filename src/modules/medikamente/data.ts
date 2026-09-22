@@ -1,6 +1,5 @@
-import medicationsJson from './medications.json';
+import raw from '../../../content/medikamente.json';
 import type { Medikament } from './types';
-import { WIRKUNG } from './wirkung';
 
 /**
  * Quelle: "Standard-Arbeitsanweisungen und Behandlungspfade im Rettungsdienst
@@ -21,14 +20,15 @@ import { WIRKUNG } from './wirkung';
  */
 
 /** Zuletzt inhaltlich geprüft/aktualisiert (App-Stand, nicht das Datum der Quelle oben). */
-export const CONTENT_STAND = '2026-09-17';
+export const CONTENT_STAND = raw.contentStand ?? '';
 
-export const MEDIKAMENTE: Medikament[] = (medicationsJson as Omit<Medikament, 'wirkung' | 'minLevel'>[]).map((m) => ({
-  ...m,
-  wirkung: WIRKUNG[m.id] ?? null,
-  // Die gesamte SAA/BPR-Quelle richtet sich an NotSan mit ärztlicher Delegation (siehe Hinweis oben).
-  minLevel: 'NotSan',
-}));
+/**
+ * Inhalte aus `content/medikamente.json`. Wirkstoffdaten und die ergänzten
+ * Kurz-Wirkbeschreibungen lagen früher getrennt in `medications.json` und
+ * `wirkung.ts` und wurden hier zusammengesetzt; beides steht jetzt fertig
+ * zusammengeführt in der Inhaltsdatei.
+ */
+export const MEDIKAMENTE = raw.medikamente as Medikament[];
 
 export function getMedikamentById(id: string): Medikament | undefined {
   return MEDIKAMENTE.find((m) => m.id === id);

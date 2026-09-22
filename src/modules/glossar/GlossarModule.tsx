@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { GLOSSAR, getGlossarEntryById } from './data';
 import { useNavigation } from '../../app/NavigationContext';
+import { DisclaimerBox } from '../../components/SectionBox';
 
 export function GlossarModule() {
   const [query, setQuery] = useState('');
@@ -24,14 +25,14 @@ export function GlossarModule() {
 
   return (
     <div className="module glossar-module">
-      <header className="module-header">
+      <header className="page-header">
         <h1>Glossar & Abkürzungsverzeichnis</h1>
       </header>
 
-      <div className="med-disclaimer">
-        ℹ️ RS-typische Abkürzungen und Fachbegriffe zum Nachschlagen — allgemeines Grundlagenwissen, keine
+      <DisclaimerBox>
+        RS-typische Abkürzungen und Fachbegriffe zum Nachschlagen, allgemeines Grundlagenwissen ohne
         SAA/BPR-Quelle. Viele Einträge verweisen auf das jeweilige Fachmodul für weitere Details.
-      </div>
+      </DisclaimerBox>
 
       <input
         type="text"
