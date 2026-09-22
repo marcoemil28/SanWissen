@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ekg-electrodes.schema.json",
+  "title": "Elektrodensets",
+  "description": "Koordinaten beziehen sich auf die viewBox und damit auf das Bild unter content/images/.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Verweis auf dieses Schema. Nur für den Editor, die Apps ignorieren das Feld."
+    },
+    "sets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "intro": {
+            "type": "string"
+          },
+          "bodyType": {
+            "enum": [
+              "full",
+              "thorax"
+            ]
+          },
+          "imageName": {
+            "type": "string",
+            "description": "Dateiname ohne Endung unter content/images/."
+          },
+          "viewBox": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "w": {
+                "type": "integer"
+              },
+              "h": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "w",
+              "h"
+            ]
+          },
+          "points": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string",
+                  "pattern": "^#[0-9a-fA-F]{6}$"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "integer"
+                },
+                "y": {
+                  "type": "integer"
+                },
+                "hitZone": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "colX": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "integer"
+                      },
+                      "description": "Erlaubter Spaltenbereich, für die zweidimensionale Prüfung bei V1–V6."
+                    },
+                    "rowY": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "integer"
+                      },
+                      "description": "Erlaubter Zeilenbereich (Interkostalraum)."
+                    }
+                  },
+                  "required": [
+                    "colX",
+                    "rowY"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "label",
+                "color",
+                "description",
+                "x",
+                "y"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "intro",
+          "bodyType",
+          "imageName",
+          "viewBox",
+          "points"
+        ]
+      }
+    }
+  },
+  "required": [
+    "sets"
+  ]
+}

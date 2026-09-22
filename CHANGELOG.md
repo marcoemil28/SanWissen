@@ -7,6 +7,142 @@ Versionierung angelehnt an [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [1.2.0] – 2026-09-22
+
+### Dritte Plattform und der 3D-Atlas überall
+
+SanWissen läuft jetzt auf Windows, macOS, Android und iOS. Die Oberfläche
+der Desktop-Fassung folgt der iOS-App, und der 3D-Anatomieatlas, den es
+bisher nur auf dem iPhone gab, ist auf allen Plattformen verfügbar.
+
+Version 1.1.0 wurde nie veröffentlicht; wer von 1.0.0 kommt, bekommt
+beide Abschnitte auf einmal.
+
+### Geändert
+
+- **Die Desktop-App hat jetzt ein mobiles Layout.** Bisher gab es keine
+  einzige `@media`-Regel und die Seitenleiste stand fest auf 260 Pixel; auf
+  einem Telefon blieb für Inhalte fast nichts. Unter 900 Pixel wird die
+  Seitenleiste zu einer Schublade mit Menütaste, die zweispaltigen
+  Modulansichten stapeln sich, Kopf- und Reiterzeilen brechen um, und die
+  Abbildung des Elektroden-Trainers skaliert mit.
+  - Geprüft bei 375 Pixeln: alle 17 Module ohne waagerechten Überlauf. Die
+    Ursachen waren meist `min-width: auto` bei Raster- und Flex-Kindern,
+    an dem sich lange Modulnamen aufzogen.
+  - Das Platzieren der Elektroden bleibt korrekt, obwohl die Abbildung
+    jetzt skaliert: die Umrechnung läuft über `getScreenCTM()` und
+    berücksichtigt die tatsächliche Darstellungsgröße. Nachgemessen, die
+    Abweichung an allen vier Zielen ist null.
+  - Am Desktop ändert sich nichts.
+  - Erster Schritt Richtung Android, siehe [docs/android.md](docs/android.md).
+- **Android: das Gradle-Projekt steht, die Debug-APK baut durch.**
+  `tauri android init` legt es unter `src-tauri/gen/android` an. Die
+  Inhalte brauchten dafür keine Anpassung, weil Tauri das Frontend samt
+  der 49 Abbildungen in die native Bibliothek einbettet statt als Dateien
+  in die APK zu legen. Im Emulator gelaufen und durchgeklickt. Der
+  3D-Atlas fehlt weiterhin, siehe [docs/android.md](docs/android.md).
+  - **Der Inhalt lag unter den Systemleisten.** Ab Android 15 zeichnet
+    eine App randlos. Ohne `viewport-fit=cover` und
+    `env(safe-area-inset-*)` saß die Menütaste auf der Uhr und die
+    Gestenleiste auf der letzten Zeile.
+  - **Die Menütaste verdeckte beim Scrollen Text.** Sie steht fest am
+    Bildschirm, der Inhalt lief darunter durch; aus „Erregungszustände"
+    wurde „rregungszustände". Jetzt liegt ein undurchsichtiger Streifen
+    dahinter.
+  - **Über dem Körperbild des Elektroden-Trainers ließ sich nicht
+    scrollen.** `touch-action: none` lag auf der ganzen Fläche, obwohl
+    ausschließlich die Chips in der Ablage gezogen werden und die es
+    selbst setzen. Am Telefon füllt das Bild fast den Bildschirm, ein
+    Wisch darüber wurde verschluckt statt zu scrollen. Mit der Maus fällt
+    das nie auf.
+  - Das Platzieren der Elektroden wurde auf dem Gerät mit echten
+    Berührungen nachgeprüft, Treffer und Fehlversuch werden erkannt.
+  - `index.html` sagt jetzt `lang="de"` statt `lang="en"`.
+- **Der 3D-Atlas läuft jetzt auch auf Windows, macOS und Android.** Bisher
+  gab es ihn nur als SceneKit-Fassung auf iOS, und er war die größte
+  Lücke zwischen den Plattformen. Die Neufassung nutzt WebGL über
+  three.js und bietet dasselbe: Drehen, Zoomen, Antippen zum Untersuchen,
+  Freistellen einzelner Systeme und stufenloses Auseinanderziehen bis zum
+  vollständigen anatomischen Inventar.
+  - **An den Daten war nichts umzurechnen.** Positionen als float32,
+    Normalen als int16 und Indizes als uint32 gehen direkt als
+    Buffer-Attribute durch. In `atlas.json` stehen sogar noch die
+    ursprünglichen Web-URLs; das Format stammt aus einer Web-Vorlage,
+    SceneKit war die Zweitverwertung.
+  - **Ein Zeichenaufruf je Organsystem statt 2.234.** Auf iOS bekommt
+    jedes Netz einen eigenen Knoten, was SceneKit wegsteckt. In WebGL
+    wären das 2.234 Aufrufe pro Bild. Ein `BatchedMesh` je System fasst
+    sie zusammen und bietet trotzdem Sichtbarkeit, Farbe und Matrix je
+    Teil. Nachgemessen: 14 Aufrufe pro Bild.
+  - **Suche nach Strukturen, Freistellen und Struktur-Quiz** sind
+    ebenfalls übernommen. Das Quiz fragt nur nach dem, was von der
+    aktuellen Ansicht aus wirklich zu treffen ist: ein Raster von
+    Strahlen tastet das Bild ab, Drehen ändert damit die Auswahl der
+    Fragen. Links und rechts werden unterschieden.
+  - **Die Geometrie ist nach `content/atlas/` gezogen**, wie alle anderen
+    Inhalte, und wird über ein Vite-Plugin ans Frontend ausgeliefert. Sie
+    liegt damit in der App und braucht kein Netz.
+  - **Beim Antippen erscheint jetzt eine Infokarte** mit Erklärung zur
+    Struktur, Organsystem, Atlas-Referenz und Zahl der ausgewählten
+    Netze, wie auf iOS. Die erste Fassung zeigte nur den Namen. Gibt es
+    zur Struktur keinen eigenen Text, steht dort der Überblick zum
+    System, und eine Fußzeile sagt, dass es eine Ersatzangabe ist.
+  - **Die Erklärungen stehen in `content/atlas-explanations.json`** statt
+    fest im Swift-Code, und sind ins Deutsche übersetzt. Die Suchbegriffe
+    bleiben englisch, weil sie gegen die Strukturnamen der Quelldaten
+    laufen. `check-content.mjs` prüft, dass jede Erklärung auf mindestens
+    eine Struktur im Modell passt; ein Tippfehler fiele sonst nie auf,
+    weil stillschweigend die Systembeschreibung erschiene.
+  - **Die Organsysteme stehen jetzt in `content/atlas-systems.json`** statt
+    fest im Swift-Code, und zwar auf Deutsch. Vorher hießen sie
+    „Skeleton", „Sensory organs" und „Body surface", auch in der
+    deutschen App. Die Teilenamen der Geometrie bleiben englisch, das
+    sind 2.234 anatomische Bezeichnungen aus BodyParts3D.
+  - Auf dem Android-Emulator gemessen: 59,5 MB Geometrie in 1,9 Sekunden
+    geladen, der Atlas nach 2,3 Sekunden bedienbar, 60 Bilder pro Sekunde
+    mit allen Systemen. **Auf einem echten Telefon ist das noch nicht
+    geprüft**, der Emulator nutzt die Grafikkarte des Macs.
+- **Die Oberfläche von PC und Android sieht jetzt aus wie die iOS-App.**
+  Bisher war es eine eigene, blaugraue Gestaltung mit umrandeten Kästen,
+  kleiner Schrift und einer Seitenleiste; die iOS-Fassung wirkte daneben
+  aufgeräumter. Übernommen sind Farben, Schrift, Abstände, Aufbau und
+  Navigation.
+  - **Farben und Schrift.** Die semantischen Farben von iOS: schwarzer
+    Grund statt Blaugrau, randlose Karten mit größerem Radius, Systemblau
+    als Akzent. Grundschrift 17 Pixel wie die 17 Punkt auf iOS, und die
+    Schriftfamilie ist die des jeweiligen Systems.
+  - **Vier Darstellungen statt einer.** Automatisch, Hell, Dunkel und
+    Hoher Kontrast, dieselben wie auf iOS. Die App war bisher fest dunkel
+    mit einem Kontrast-Schalter; wer den an hatte, landet beim hohen
+    Kontrast.
+  - **Startseite nach `HomeView`**: großer Titel, fachlicher Hinweis als
+    Karte, Favoriten, Fortschritt, Schnellzugriff, Module nach Thema und
+    der Fahrplan zum Aufklappen.
+  - **Einträge öffnen sich als eigene Seite.** Vorher standen Liste und
+    Inhalt nebeneinander in einem Kasten. Jetzt zeigt das Modul erst die
+    Liste, der Eintrag kommt mit Zurück-Schaltfläche, und jeder Abschnitt
+    ist eine eigene Karte. Betrifft die zehn Themenmodule ebenso wie
+    Werkzeuge, Medikamente, Checklisten und die Rhythmus-Bibliothek des
+    EKG-Trainers.
+  - Der rote Hinweiskasten ist dem gemeinsamen Baustein nach dem Vorbild
+    von `DisclaimerBox` gewichen, in allen Modulen derselbe.
+  - **Unten eine Reiterleiste statt der Schublade** auf schmalen
+    Fenstern, mit Start, Module, Quiz und Suche wie in der TabView auf
+    iOS. Dafür kamen zwei Seiten dazu, die es nur schmal braucht.
+  - **Jede Ansicht beginnt oben.** Vorher behielt die Inhaltsfläche beim
+    Wechsel die Scrollposition der vorherigen Seite, sodass eine gerade
+    geöffnete Detailseite irgendwo in der Mitte anfing.
+  - **Ein Klick auf das schon offene Modul führt zurück zu seiner Liste**,
+    so wie der aktive Reiter auf iOS zur Wurzel zurückgeht. Vorher blieb
+    die Detailseite stehen.
+  - Geprüft bei 375 und 390 Pixeln: alle vier Reiter, alle 17 Module und
+    116 Detailseiten ohne waagerechten Überlauf. Tiefe Verweise aus
+    Favoriten und Fahrplan öffnen weiterhin direkt die Detailseite.
+  - **Die Gestenleiste auf Android braucht einen eigenen Mindestabstand.**
+    Die WebView meldet oben 52 Pixel sicheren Bereich, unten aber null,
+    obwohl die Gestenleiste dort liegt. Wer sich auf `env()` verlässt,
+    legt die Reiterleiste darunter.
+
 ## [1.1.0] – 2026-09-20
 
 ### Zweite Plattform: native App für iPhone und iPad
@@ -135,128 +271,6 @@ gemeinsame Inhaltsquelle ändern.
     eine hat, statt nach dem Modul. Betroffen sind dieselben zwei Module
     wie bisher.
   - Für den Nutzer ändert sich nichts.
-- **Die Desktop-App hat jetzt ein mobiles Layout.** Bisher gab es keine
-  einzige `@media`-Regel und die Seitenleiste stand fest auf 260 Pixel; auf
-  einem Telefon blieb für Inhalte fast nichts. Unter 900 Pixel wird die
-  Seitenleiste zu einer Schublade mit Menütaste, die zweispaltigen
-  Modulansichten stapeln sich, Kopf- und Reiterzeilen brechen um, und die
-  Abbildung des Elektroden-Trainers skaliert mit.
-  - Geprüft bei 375 Pixeln: alle 17 Module ohne waagerechten Überlauf. Die
-    Ursachen waren meist `min-width: auto` bei Raster- und Flex-Kindern,
-    an dem sich lange Modulnamen aufzogen.
-  - Das Platzieren der Elektroden bleibt korrekt, obwohl die Abbildung
-    jetzt skaliert: die Umrechnung läuft über `getScreenCTM()` und
-    berücksichtigt die tatsächliche Darstellungsgröße. Nachgemessen, die
-    Abweichung an allen vier Zielen ist null.
-  - Am Desktop ändert sich nichts.
-  - Erster Schritt Richtung Android, siehe [docs/android.md](docs/android.md).
-- **Android: das Gradle-Projekt steht, die Debug-APK baut durch.**
-  `tauri android init` legt es unter `src-tauri/gen/android` an. Die
-  Inhalte brauchten dafür keine Anpassung, weil Tauri das Frontend samt
-  der 49 Abbildungen in die native Bibliothek einbettet statt als Dateien
-  in die APK zu legen. Im Emulator gelaufen und durchgeklickt. Der
-  3D-Atlas fehlt weiterhin, siehe [docs/android.md](docs/android.md).
-  - **Der Inhalt lag unter den Systemleisten.** Ab Android 15 zeichnet
-    eine App randlos. Ohne `viewport-fit=cover` und
-    `env(safe-area-inset-*)` saß die Menütaste auf der Uhr und die
-    Gestenleiste auf der letzten Zeile.
-  - **Die Menütaste verdeckte beim Scrollen Text.** Sie steht fest am
-    Bildschirm, der Inhalt lief darunter durch; aus „Erregungszustände"
-    wurde „rregungszustände". Jetzt liegt ein undurchsichtiger Streifen
-    dahinter.
-  - **Über dem Körperbild des Elektroden-Trainers ließ sich nicht
-    scrollen.** `touch-action: none` lag auf der ganzen Fläche, obwohl
-    ausschließlich die Chips in der Ablage gezogen werden und die es
-    selbst setzen. Am Telefon füllt das Bild fast den Bildschirm, ein
-    Wisch darüber wurde verschluckt statt zu scrollen. Mit der Maus fällt
-    das nie auf.
-  - Das Platzieren der Elektroden wurde auf dem Gerät mit echten
-    Berührungen nachgeprüft, Treffer und Fehlversuch werden erkannt.
-  - `index.html` sagt jetzt `lang="de"` statt `lang="en"`.
-- **Der 3D-Atlas läuft jetzt auch auf Windows, macOS und Android.** Bisher
-  gab es ihn nur als SceneKit-Fassung auf iOS, und er war die größte
-  Lücke zwischen den Plattformen. Die Neufassung nutzt WebGL über
-  three.js und bietet dasselbe: Drehen, Zoomen, Antippen zum Untersuchen,
-  Freistellen einzelner Systeme und stufenloses Auseinanderziehen bis zum
-  vollständigen anatomischen Inventar.
-  - **An den Daten war nichts umzurechnen.** Positionen als float32,
-    Normalen als int16 und Indizes als uint32 gehen direkt als
-    Buffer-Attribute durch. In `atlas.json` stehen sogar noch die
-    ursprünglichen Web-URLs; das Format stammt aus einer Web-Vorlage,
-    SceneKit war die Zweitverwertung.
-  - **Ein Zeichenaufruf je Organsystem statt 2.234.** Auf iOS bekommt
-    jedes Netz einen eigenen Knoten, was SceneKit wegsteckt. In WebGL
-    wären das 2.234 Aufrufe pro Bild. Ein `BatchedMesh` je System fasst
-    sie zusammen und bietet trotzdem Sichtbarkeit, Farbe und Matrix je
-    Teil. Nachgemessen: 14 Aufrufe pro Bild.
-  - **Suche nach Strukturen, Freistellen und Struktur-Quiz** sind
-    ebenfalls übernommen. Das Quiz fragt nur nach dem, was von der
-    aktuellen Ansicht aus wirklich zu treffen ist: ein Raster von
-    Strahlen tastet das Bild ab, Drehen ändert damit die Auswahl der
-    Fragen. Links und rechts werden unterschieden.
-  - **Die Geometrie ist nach `content/atlas/` gezogen**, wie alle anderen
-    Inhalte, und wird über ein Vite-Plugin ans Frontend ausgeliefert. Sie
-    liegt damit in der App und braucht kein Netz.
-  - **Beim Antippen erscheint jetzt eine Infokarte** mit Erklärung zur
-    Struktur, Organsystem, Atlas-Referenz und Zahl der ausgewählten
-    Netze, wie auf iOS. Die erste Fassung zeigte nur den Namen. Gibt es
-    zur Struktur keinen eigenen Text, steht dort der Überblick zum
-    System, und eine Fußzeile sagt, dass es eine Ersatzangabe ist.
-  - **Die Erklärungen stehen in `content/atlas-explanations.json`** statt
-    fest im Swift-Code, und sind ins Deutsche übersetzt. Die Suchbegriffe
-    bleiben englisch, weil sie gegen die Strukturnamen der Quelldaten
-    laufen. `check-content.mjs` prüft, dass jede Erklärung auf mindestens
-    eine Struktur im Modell passt; ein Tippfehler fiele sonst nie auf,
-    weil stillschweigend die Systembeschreibung erschiene.
-  - **Die Organsysteme stehen jetzt in `content/atlas-systems.json`** statt
-    fest im Swift-Code, und zwar auf Deutsch. Vorher hießen sie
-    „Skeleton", „Sensory organs" und „Body surface", auch in der
-    deutschen App. Die Teilenamen der Geometrie bleiben englisch, das
-    sind 2.234 anatomische Bezeichnungen aus BodyParts3D.
-  - Auf dem Android-Emulator gemessen: 59,5 MB Geometrie in 1,9 Sekunden
-    geladen, der Atlas nach 2,3 Sekunden bedienbar, 60 Bilder pro Sekunde
-    mit allen Systemen. **Auf einem echten Telefon ist das noch nicht
-    geprüft**, der Emulator nutzt die Grafikkarte des Macs.
-- **Die Oberfläche von PC und Android sieht jetzt aus wie die iOS-App.**
-  Bisher war es eine eigene, blaugraue Gestaltung mit umrandeten Kästen,
-  kleiner Schrift und einer Seitenleiste; die iOS-Fassung wirkte daneben
-  aufgeräumter. Übernommen sind Farben, Schrift, Abstände, Aufbau und
-  Navigation.
-  - **Farben und Schrift.** Die semantischen Farben von iOS: schwarzer
-    Grund statt Blaugrau, randlose Karten mit größerem Radius, Systemblau
-    als Akzent. Grundschrift 17 Pixel wie die 17 Punkt auf iOS, und die
-    Schriftfamilie ist die des jeweiligen Systems.
-  - **Vier Darstellungen statt einer.** Automatisch, Hell, Dunkel und
-    Hoher Kontrast, dieselben wie auf iOS. Die App war bisher fest dunkel
-    mit einem Kontrast-Schalter; wer den an hatte, landet beim hohen
-    Kontrast.
-  - **Startseite nach `HomeView`**: großer Titel, fachlicher Hinweis als
-    Karte, Favoriten, Fortschritt, Schnellzugriff, Module nach Thema und
-    der Fahrplan zum Aufklappen.
-  - **Einträge öffnen sich als eigene Seite.** Vorher standen Liste und
-    Inhalt nebeneinander in einem Kasten. Jetzt zeigt das Modul erst die
-    Liste, der Eintrag kommt mit Zurück-Schaltfläche, und jeder Abschnitt
-    ist eine eigene Karte. Betrifft die zehn Themenmodule ebenso wie
-    Werkzeuge, Medikamente, Checklisten und die Rhythmus-Bibliothek des
-    EKG-Trainers.
-  - Der rote Hinweiskasten ist dem gemeinsamen Baustein nach dem Vorbild
-    von `DisclaimerBox` gewichen, in allen Modulen derselbe.
-  - **Unten eine Reiterleiste statt der Schublade** auf schmalen
-    Fenstern, mit Start, Module, Quiz und Suche wie in der TabView auf
-    iOS. Dafür kamen zwei Seiten dazu, die es nur schmal braucht.
-  - **Jede Ansicht beginnt oben.** Vorher behielt die Inhaltsfläche beim
-    Wechsel die Scrollposition der vorherigen Seite, sodass eine gerade
-    geöffnete Detailseite irgendwo in der Mitte anfing.
-  - **Ein Klick auf das schon offene Modul führt zurück zu seiner Liste**,
-    so wie der aktive Reiter auf iOS zur Wurzel zurückgeht. Vorher blieb
-    die Detailseite stehen.
-  - Geprüft bei 375 und 390 Pixeln: alle vier Reiter, alle 17 Module und
-    116 Detailseiten ohne waagerechten Überlauf. Tiefe Verweise aus
-    Favoriten und Fahrplan öffnen weiterhin direkt die Detailseite.
-  - **Die Gestenleiste auf Android braucht einen eigenen Mindestabstand.**
-    Die WebView meldet oben 52 Pixel sicheren Bereich, unten aber null,
-    obwohl die Gestenleiste dort liegt. Wer sich auf `env()` verlässt,
-    legt die Reiterleiste darunter.
 - **Atlas auf dem iPad: Systemliste lag über dem Körper.** Ob die Liste
   neben der Szene steht oder über eine Taste als Blatt aufgeht, hing an der
   Größenklasse. Im iPad-Split-View ist die Detailspalte zwar „regular", aber
