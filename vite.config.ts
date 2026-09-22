@@ -4,13 +4,18 @@ import react from "@vitejs/plugin-react";
 import process from "node:process";
 // @ts-expect-error type error without @types/node package
 import { readFileSync } from "node:fs";
+// @ts-expect-error type error without @types/node package
+import { fileURLToPath } from "node:url";
 import { atlasAssets } from "./scripts/vite-plugin-atlas";
 const host = process.env.TAURI_DEV_HOST;
 const pkg = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf-8"));
 
 // https://vite.dev/config/
 export default defineConfig(() => ({
-  plugins: [react(), atlasAssets(new URL("./content", import.meta.url).pathname)],
+  // `fileURLToPath` statt `.pathname`: unter Windows liefert `pathname`
+  // einen fuehrenden Schraegstrich vor dem Laufwerksbuchstaben
+  // ("/C:/..."), und damit findet Node das Verzeichnis nicht.
+  plugins: [react(), atlasAssets(fileURLToPath(new URL("./content", import.meta.url)))],
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
   },
