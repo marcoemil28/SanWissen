@@ -24,6 +24,41 @@ android {
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()
         versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0")
     }
+    /*
+     * Signierung.
+     *
+     * Liegt eine `keystore.properties` neben dieser Datei, wird der dort
+     * genannte Schluessel benutzt. Die Datei ist bewusst nicht im
+     * Repository (siehe .gitignore), sie gehoert zum Rechner, nicht zum
+     * Projekt. Vorlage:
+     *
+     *     storeFile=/Pfad/zu/sanwissen.jks
+     *     storePassword=...
+     *     keyAlias=sanwissen
+     *     keyPassword=...
+     *
+     * Fehlt sie, faellt der Release-Bau auf den Debug-Schluessel von
+     * Android zurueck. Das reicht zum Aufspielen per Kabel und zum
+     * Weitergeben an Kollegen, aber NICHT fuer den Play Store: der
+     * Debug-Schluessel ist auf jedem Rechner derselbe und darf keine
+     * Veroeffentlichung tragen.
+     */
+    val keystoreProperties = Properties().apply {
+        val file = rootProject.file("app/keystore.properties")
+        if (file.exists()) file.inputStream().use { load(it) }
+    }
+
+    signingConfigs {
+        if (keystoreProperties.getProperty("storeFile") != null) {
+            create("upload") {
+                storeFile = file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         getByName("debug") {
             manifestPlaceholders["usesCleartextTraffic"] = "true"
@@ -37,6 +72,7 @@ android {
             }
         }
         getByName("release") {
+            signingConfig = signingConfigs.findByName("upload") ?: signingConfigs.getByName("debug")
             isMinifyEnabled = true
             proguardFiles(
                 *fileTree(".") { include("**/*.pro") }
