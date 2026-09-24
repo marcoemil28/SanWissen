@@ -34,16 +34,6 @@ export function GeprueftModule() {
     return (id: string) => map.get(id) ?? id;
   }, []);
 
-  /**
-   * Titel echter Module für die Beispielkarte. Aus der Registry statt fest
-   * verdrahtet, damit das Beispiel nicht veraltet, wenn Module umbenannt
-   * werden.
-   */
-  const beispielModule = useMemo(
-    () => MODULES.filter((m) => m.id !== 'geprueft').slice(0, 2).map((m) => m.title),
-    [],
-  );
-
   /** Module, zu denen niemand eine Prüfung eingetragen hat. */
   const ungeprueft = useMemo(() => {
     if (REVIEWERS.some((r) => r.modules.includes('alle'))) return [];
@@ -66,38 +56,16 @@ export function GeprueftModule() {
       </DisclaimerBox>
 
       {REVIEWERS.length === 0 ? (
-        <>
-          <div className="geprueft-leer">
-            <p>
-              <strong>Bisher hat niemand gegengelesen.</strong>
-            </p>
-            <p>
-              Die Inhalte stammen aus den bei jedem Eintrag genannten Quellen, vor allem aus den
-              Standard-Arbeitsanweisungen und Behandlungspfaden 2025, sind aber noch von keiner weiteren Person
-              fachlich geprüft worden. Sobald das geschieht, steht es hier.
-            </p>
-          </div>
-
-          <p className="geprueft-beispiel-hinweis">So sieht ein Eintrag aus, sobald jemand eingetragen ist:</p>
-          <div className="geprueft-grid">
-            <article className="geprueft-karte geprueft-beispiel">
-              <p className="geprueft-beispiel-marke">Beispiel, keine echte Prüfung</p>
-              <h2>Vorname Nachname</h2>
-              <p className="geprueft-rolle">Beruf oder Qualifikation</p>
-              <p className="geprueft-organisation">Wache, Hilfsorganisation oder Klinik</p>
-
-              <p className="geprueft-label">Geprüft</p>
-              <ul className="geprueft-bereiche-liste">
-                {beispielModule.map((titel) => (
-                  <li key={titel}>{titel}</li>
-                ))}
-              </ul>
-
-              <p className="geprueft-notiz">Wahlweise eine Zeile zum Umfang der Prüfung.</p>
-              <p className="geprueft-datum">Stand 24.09.2026</p>
-            </article>
-          </div>
-        </>
+        <div className="geprueft-leer">
+          <p>
+            <strong>Bisher hat niemand gegengelesen.</strong>
+          </p>
+          <p>
+            Die Inhalte stammen aus den bei jedem Eintrag genannten Quellen, vor allem aus den
+            Standard-Arbeitsanweisungen und Behandlungspfaden 2025, sind aber noch von keiner weiteren Person
+            fachlich geprüft worden. Sobald das geschieht, steht es hier.
+          </p>
+        </div>
       ) : (
         <div className="geprueft-grid">
           {REVIEWERS.map((person) => (

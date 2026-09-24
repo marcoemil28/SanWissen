@@ -76,7 +76,6 @@ struct GeprueftView: View {
 
                 if reviewers.isEmpty {
                     leererStand
-                    beispielKarte
                 } else {
                     ForEach(reviewers) { karte(for: $0) }
                 }
@@ -115,74 +114,6 @@ struct GeprueftView: View {
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
         .cardBackground()
-    }
-
-    /// Zeigt im leeren Zustand, wie ein Eintrag aussehen wird.
-    ///
-    /// Bewusst gestrichelt und mit Marke: eine Karte, die aussieht wie eine
-    /// echte Prüfung, wäre bei einer Herkunftsangabe irreführend.
-    private var beispielKarte: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("So sieht ein Eintrag aus, sobald jemand eingetragen ist:")
-                .font(.footnote)
-                .foregroundStyle(theme.secondaryText)
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text("BEISPIEL, KEINE ECHTE PRÜFUNG")
-                    .font(.caption2)
-                    .foregroundStyle(theme.secondaryText)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(theme.cardBackground, in: Capsule())
-                    .padding(.bottom, 6)
-
-                Text("Vorname Nachname")
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(theme.secondaryText)
-                Text("Beruf oder Qualifikation")
-                    .font(.subheadline)
-                    .foregroundStyle(theme.secondaryText)
-                Text("Wache, Hilfsorganisation oder Klinik")
-                    .font(.caption)
-                    .foregroundStyle(theme.secondaryText)
-
-                Divider().opacity(0.3).padding(.vertical, 6)
-
-                Text("Geprüft")
-                    .font(.caption2)
-                    .foregroundStyle(theme.secondaryText)
-                ForEach(beispielModule, id: \.self) { titel in
-                    Text(titel)
-                        .font(.callout)
-                        .foregroundStyle(theme.secondaryText)
-                }
-
-                Text("Wahlweise eine Zeile zum Umfang der Prüfung.")
-                    .font(.footnote)
-                    .foregroundStyle(theme.secondaryText)
-                    .padding(.top, 6)
-                Text("Stand 24.09.2026")
-                    .font(.caption2)
-                    .foregroundStyle(theme.secondaryText)
-                    .padding(.top, 6)
-            }
-            .padding(14)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .overlay {
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .strokeBorder(theme.separator,
-                                  style: StrokeStyle(lineWidth: 1, dash: [5, 4]))
-            }
-        }
-    }
-
-    /// Titel echter Module für die Beispielkarte, damit es nicht veraltet,
-    /// wenn Module umbenannt werden.
-    private var beispielModule: [String] {
-        store.registry.modules
-            .filter { $0.available && $0.id != "geprueft" }
-            .prefix(2)
-            .map(\.title)
     }
 
     private func karte(for person: Reviewer) -> some View {

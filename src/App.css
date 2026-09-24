@@ -1903,40 +1903,6 @@ ul {
   font-size: 0.9rem;
 }
 
-/* Die Beispielkarte im leeren Zustand. Gestrichelter Rand und die Marke
-   oben sollen klarmachen, dass hier niemand Echtes steht: eine Karte, die
-   aussieht wie eine echte Prüfung, wäre bei einer Herkunftsangabe irreführend. */
-.geprueft-beispiel-hinweis {
-  margin: 0 0 0.6em 0;
-  font-size: 0.9rem;
-  color: var(--text-dim);
-}
-
-.geprueft-karte.geprueft-beispiel {
-  /* Karten-Hintergrund wie bei einem echten Eintrag, sonst verschwinden
-     Marke und Modul-Pillen im hellen Modus: --bg-panel-alt liegt dort dicht
-     an der Seitenfarbe. Den Unterschied trägt der gestrichelte Rand. */
-  border-style: dashed;
-}
-
-.geprueft-beispiel-marke {
-  display: inline-block;
-  margin: 0 0 0.7em 0;
-  padding: 0.15em 0.6em;
-  border-radius: var(--radius-pill);
-  background-color: var(--bg-panel-alt);
-  color: var(--text-dim);
-  font-size: 0.72rem;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.geprueft-beispiel h2,
-.geprueft-beispiel .geprueft-rolle,
-.geprueft-beispiel .geprueft-bereiche-liste li {
-  color: var(--text-dim);
-}
-
 .geprueft-offen {
   list-style: none;
   margin: 0;
