@@ -563,9 +563,11 @@ und Bildunterschrift vorliegen und dass jede Kategorie in der
 - Wer gegengelesen hat: `content/reviewers.json`, je Person ein Eintrag mit
   Name, Beruf, den geprüften Modul-Ids (oder `"alle"`) und dem Datum.
   `npm run check-content` meldet, wenn eine genannte Modul-Id nicht existiert.
-  Die Liste darf leer bleiben; dann sagt das Modul „Geprüft von" offen, dass
-  noch niemand gegengelesen hat. Solange einzelne Module genannt sind, listet
-  es zusätzlich auf, welche Module noch ungeprüft sind.
+  Aktuell stehen dort zwei Beispieleinträge auf „Max Mustermann" und „Erika
+  Mustermann". **Die sind zum Ersetzen gedacht, nicht zum Ausliefern.**
+  Die Liste darf auch leer bleiben; dann sagt das Modul „Geprüft von" offen,
+  dass noch niemand gegengelesen hat. Solange einzelne Module genannt sind,
+  listet es zusätzlich auf, welche Module noch ungeprüft sind.
 - Wenn du eigene Skripten/Fragenkataloge hast: am besten als eigene
   Modul-Datenquelle im gleichen Stil wie `rhythms.ts`/`medications.json`
   anlegen.

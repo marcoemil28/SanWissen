@@ -15,6 +15,8 @@ Versionierung angelehnt an [Semantic Versioning](https://semver.org/lang/de/).
   Die Seite nennt auch, welche Module noch niemand geprüft hat, damit eine
   Teilprüfung nicht wie eine vollständige aussieht. Solange niemand
   eingetragen ist, sagt sie das offen.
+  `reviewers.json` enthält vorerst zwei Beispieleinträge auf „Mustermann",
+  die vor einer Veröffentlichung durch die echten Namen ersetzt werden.
 
 ## [1.2.0] – 2026-09-22
 

@@ -1,4 +1,23 @@
 {
   "$schema": "./schema/reviewers.schema.json",
-  "reviewers": []
+  "reviewers": [
+    {
+      "id": "max-mustermann",
+      "name": "Max Mustermann",
+      "role": "Notfallsanitäter",
+      "organisation": "Musterwache Musterstadt",
+      "modules": ["medikamente", "medikamentenvorbereitung", "algorithmen"],
+      "date": "2026-09-24",
+      "note": "Beispieleintrag zum Ersetzen. Ohne die Rechenwege der Scores."
+    },
+    {
+      "id": "erika-mustermann",
+      "name": "Erika Mustermann",
+      "role": "Ärztliche Leitung Rettungsdienst",
+      "organisation": "Musterklinik",
+      "modules": ["anatomie", "internistischenotfaelle"],
+      "date": "2026-09-24",
+      "note": "Beispieleintrag zum Ersetzen."
+    }
+  ]
 }
