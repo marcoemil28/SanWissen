@@ -16,6 +16,7 @@ import { GlossarModule } from '../modules/glossar/GlossarModule';
 import { QuizModule } from './quiz/QuizModule';
 import { ChecklistenModule } from '../modules/checklisten/ChecklistenModule';
 import { CheatSheetModule } from '../modules/cheatsheet/CheatSheetModule';
+import { GeprueftModule } from '../modules/geprueft/GeprueftModule';
 
 import modulesContent from '../../content/modules.json';
 
@@ -96,6 +97,7 @@ const COMPONENTS: Record<string, ComponentType<ModuleProps>> = {
   quiz: QuizModule,
   checklisten: ChecklistenModule,
   cheatsheet: CheatSheetModule,
+  geprueft: GeprueftModule,
 };
 
 /**

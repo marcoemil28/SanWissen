@@ -1802,6 +1802,122 @@ ul {
 }
 
 /* ==========================================================================
+   Geprüft von
+   --------------------------------------------------------------------------
+   Kärtchen je Person: Name, Beruf, geprüfte Bereiche, Datum. Darunter,
+   ebenso wichtig, die Module, zu denen keine Prüfung vorliegt.
+   ========================================================================== */
+
+.geprueft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 1.75rem;
+}
+
+.geprueft-karte {
+  min-width: 0;
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1em 1.05em;
+}
+
+.geprueft-karte h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.geprueft-rolle {
+  margin: 0.2em 0 0 0;
+  color: var(--accent);
+  font-size: 0.92rem;
+}
+
+.geprueft-organisation {
+  margin: 0.1em 0 0 0;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+.geprueft-label {
+  margin: 0.9em 0 0.3em 0;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  padding-top: 0.8em;
+  border-top: 1px solid var(--border);
+}
+
+.geprueft-bereiche {
+  margin: 0;
+  font-weight: 500;
+}
+
+.geprueft-bereiche-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+}
+
+.geprueft-bereiche-liste li {
+  background-color: var(--bg-panel-alt);
+  border-radius: var(--radius-pill);
+  padding: 0.2em 0.7em;
+  font-size: 0.82rem;
+  overflow-wrap: break-word;
+}
+
+.geprueft-notiz {
+  margin: 0.7em 0 0 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.geprueft-datum {
+  margin: 0.7em 0 0 0;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.geprueft-leer {
+  background-color: var(--bg-panel);
+  border: var(--card-border-width) solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1em 1.05em;
+  margin-bottom: 1.75rem;
+}
+
+.geprueft-leer p {
+  margin: 0 0 0.6em 0;
+  line-height: 1.5;
+}
+
+.geprueft-leer p:last-child {
+  margin-bottom: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.geprueft-offen {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+}
+
+.geprueft-offen li {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
    3D-Atlas
    --------------------------------------------------------------------------
    Die Leinwand nimmt den größten Teil der Höhe ein; darunter liegen

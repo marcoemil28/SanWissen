@@ -44,6 +44,7 @@ struct ModuleRootView: View {
         case "checklisten": ChecklistenView()
         case "cheatsheet": CheatSheetView()
         case "quiz": QuizView()
+        case "geprueft": GeprueftView()
         default: TopicModuleView(moduleId: moduleId)
         }
     }

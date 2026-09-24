@@ -7,6 +7,15 @@ Versionierung angelehnt an [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Hinzugefügt
+
+- Modul „Geprüft von": zeigt als Kärtchen, wer welche Inhalte fachlich
+  gegengelesen hat, mit Name, Beruf, geprüften Modulen und Datum. Auf allen
+  vier Plattformen aus derselben Datei `content/reviewers.json`.
+  Die Seite nennt auch, welche Module noch niemand geprüft hat, damit eine
+  Teilprüfung nicht wie eine vollständige aussieht. Solange niemand
+  eingetragen ist, sagt sie das offen.
+
 ## [1.2.0] – 2026-09-22
 
 ### Dritte Plattform und der 3D-Atlas überall

@@ -144,6 +144,21 @@ async function main() {
     // Swift-Ansicht nicht vorhanden — dann ist hier nichts zu prüfen.
   }
 
+  // Die geprüften Bereiche müssen echte Module sein. Sonst behauptet die App
+  // eine Prüfung für etwas, das es nicht gibt, und das ist bei einer
+  // Herkunftsangabe schlimmer als ein toter Verweis.
+  const moduleIdSet = new Set(moduleIds);
+  for (const person of (await read('reviewers.json')).reviewers) {
+    for (const id of person.modules) {
+      if (id !== 'alle' && !moduleIdSet.has(id)) {
+        problems.push(`Geprüft von: "${person.name}" nennt Modul "${id}", das es nicht gibt`);
+      }
+    }
+    if (person.modules.includes('alle') && person.modules.length > 1) {
+      problems.push(`Geprüft von: "${person.name}" hat "alle" und zusätzlich einzelne Module`);
+    }
+  }
+
   // Jedes Organsystem, das in der Geometrie vorkommt, braucht Namen und Farbe,
   // und umgekehrt darf atlas-systems.json nichts führen, was es nicht gibt.
   // Ohne diese Prüfung fällt eine Umbenennung erst im laufenden Atlas auf,

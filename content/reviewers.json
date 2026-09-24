@@ -1,0 +1,4 @@
+{
+  "$schema": "./schema/reviewers.schema.json",
+  "reviewers": []
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reviewers.schema.json",
+  "title": "Wer die Inhalte gegengelesen hat",
+  "description": "Je Person ein Eintrag. Wird im Modul „Geprüft von\" als Karte gezeigt. Die Liste darf leer sein; dann sagt die App offen, dass noch niemand gegengelesen hat.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Verweis auf dieses Schema. Nur für den Editor, die Apps ignorieren das Feld."
+    },
+    "reviewers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Kurzes Kürzel, nur zur internen Unterscheidung.",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 2
+          },
+          "role": {
+            "type": "string",
+            "description": "Beruf oder Qualifikation, etwa „Notfallsanitäter\" oder „Ärztliche Leitung Rettungsdienst\".",
+            "minLength": 3
+          },
+          "organisation": {
+            "type": "string",
+            "description": "Optional: Wache, Hilfsorganisation oder Klinik."
+          },
+          "modules": {
+            "type": "array",
+            "description": "Welche Module diese Person gegengelesen hat. Ids aus modules.json, oder der einzelne Eintrag „alle\" für die gesamte App. scripts/check-content.mjs prüft das.",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "date": {
+            "type": "string",
+            "description": "Datum der Prüfung, ISO: JJJJ-MM-TT.",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional: eine Zeile zum Umfang, etwa „ohne die Rechenwege der Scores\"."
+          }
+        },
+        "required": ["id", "name", "role", "modules", "date"]
+      }
+    }
+  },
+  "required": ["reviewers"]
+}

@@ -160,6 +160,15 @@
       "category": "Diagnostik & Training",
       "pinned": true,
       "available": true
+    },
+    {
+      "id": "geprueft",
+      "title": "Geprüft von",
+      "symbol": "checkmark.seal",
+      "icon": "🧑‍⚕️",
+      "category": "Einsatz & Organisation",
+      "pinned": false,
+      "available": true
     }
   ]
 }

@@ -500,6 +500,7 @@ content/                 # ALLE Fachinhalte als JSON — die einzige Pflegestell
   images/                # 49 Bilddateien, von beiden Apps genutzt (ca. 5 MB)
   atlas/                 # Geometrie des 3D-Atlas (Rohpuffer, ca. 97 MB) + atlas*.json
   atlas-systems.json     # Namen, Farben und Beschreibungen der Organsysteme
+  reviewers.json         # wer welche Module fachlich gegengelesen hat
   schema/                # JSON Schemas: Feldhilfe im Editor + Prüfung im Build
 src-tauri/                # Rust-Backend (Tauri), native Fenster/Bundling
 docs/                    # Quell-PDFs/Unterlagen, aus denen Inhalte extrahiert werden
@@ -559,6 +560,12 @@ und Bildunterschrift vorliegen und dass jede Kategorie in der
 - Medikamente: `content/medikamente.json` direkt anpassen,
   oder eigene Quell-PDFs unter `docs/` ablegen und wie unten beschrieben neu
   extrahieren.
+- Wer gegengelesen hat: `content/reviewers.json`, je Person ein Eintrag mit
+  Name, Beruf, den geprüften Modul-Ids (oder `"alle"`) und dem Datum.
+  `npm run check-content` meldet, wenn eine genannte Modul-Id nicht existiert.
+  Die Liste darf leer bleiben; dann sagt das Modul „Geprüft von" offen, dass
+  noch niemand gegengelesen hat. Solange einzelne Module genannt sind, listet
+  es zusätzlich auf, welche Module noch ungeprüft sind.
 - Wenn du eigene Skripten/Fragenkataloge hast: am besten als eigene
   Modul-Datenquelle im gleichen Stil wie `rhythms.ts`/`medications.json`
   anlegen.
